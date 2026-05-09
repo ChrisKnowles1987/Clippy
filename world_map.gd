@@ -2,6 +2,7 @@ extends Node2D
 
 @onready var region_map = $RegionMap
 @onready var label = $CanvasLayer/RegionLabel
+@onready var highlight_map = $HighlightMap
 
 var region_image: Image
 var hovered_region = ""
@@ -27,15 +28,38 @@ var region_lookup = {
 	Color8(128, 128, 128): "Antarctica"
 }
 
+var highlight_textures = {
+	"North America": preload("res://assets/maps/highlights/north_america_highlight.png"),
+	"Central America & Caribbean": preload("res://assets/maps/highlights/central_america_caribbean_highlight.png"),
+	"South America": preload("res://assets/maps/highlights/south_america_highlight.png"),
+	"Western Europe": preload("res://assets/maps/highlights/western_europe_highlight.png"),
+	"Eastern Europe": preload("res://assets/maps/highlights/eastern_europe_highlight.png"),
+	"Russia & Central Asia": preload("res://assets/maps/highlights/russia_central_asia_highlight.png"),
+	"Middle East": preload("res://assets/maps/highlights/middle_east_highlight.png"),
+	"North Africa": preload("res://assets/maps/highlights/north_africa_highlight.png"),
+	"West Africa": preload("res://assets/maps/highlights/west_africa_highlight.png"),
+	"East Africa": preload("res://assets/maps/highlights/east_africa_highlight.png"),
+	"Southern Africa": preload("res://assets/maps/highlights/southern_africa_highlight.png"),
+	"India": preload("res://assets/maps/highlights/india_highlight.png"),
+	"China": preload("res://assets/maps/highlights/china_highlight.png"),
+	"Japan & Korea": preload("res://assets/maps/highlights/japan_korea_highlight.png"),
+	"Southeast Asia": preload("res://assets/maps/highlights/southeast_asia_highlight.png"),
+	"Oceania": preload("res://assets/maps/highlights/oceania_highlight.png"),
+	"Antarctica": preload("res://assets/maps/highlights/antarctica_highlight.png")
+}
+
 func _ready():
 	region_image = region_map.texture.get_image()
 	label.text = "Hover a region"
+	highlight_map.visible = false
+	highlight_map.modulate = Color(1, 1, 1, 0.6)
 
 func _process(_delta):
 	var region = get_region_under_mouse()
 
 	if region != hovered_region:
 		hovered_region = region
+		update_highlight(hovered_region)
 		
 		if selected_region == "":
 			label.text = hovered_region if hovered_region != "" else "Ocean"
@@ -71,3 +95,16 @@ func get_region_under_mouse() -> String:
 			return region_lookup[color]
 
 	return ""
+
+func update_highlight(region_name: String):
+	if region_name == "":
+		highlight_map.visible = false
+		highlight_map.texture = null
+		return
+
+	if highlight_textures.has(region_name):
+		highlight_map.texture = highlight_textures[region_name]
+		highlight_map.visible = true
+	else:
+		highlight_map.visible = false
+		highlight_map.texture = null

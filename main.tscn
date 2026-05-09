@@ -10,12 +10,15 @@ script = ExtResource("1_h2yge")
 [node name="WorldMap" type="Sprite2D" parent="."]
 texture = ExtResource("2_h2yge")
 
+[node name="HighlightMap" type="Sprite2D" parent="."]
+
 [node name="RegionMap" type="Sprite2D" parent="."]
 visible = false
 position = Vector2(1, 1)
 texture = ExtResource("3_lquwl")
 
 [node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(0.313, 0.313)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
