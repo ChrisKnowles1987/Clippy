@@ -18,3 +18,8 @@ texture = ExtResource("3_lquwl")
 [node name="Camera2D" type="Camera2D" parent="."]
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="RegionLabel" type="Label" parent="CanvasLayer"]
+offset_right = 40.0
+offset_bottom = 23.0
+text = "test"

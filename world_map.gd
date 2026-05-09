@@ -1,7 +1,11 @@
 extends Node2D
 
 @onready var region_map = $RegionMap
+@onready var label = $CanvasLayer/RegionLabel
+
 var region_image: Image
+var hovered_region = ""
+var selected_region = ""
 
 var region_lookup = {
 	Color8(230, 25, 75): "North America",
@@ -25,28 +29,45 @@ var region_lookup = {
 
 func _ready():
 	region_image = region_map.texture.get_image()
+	label.text = "Hover a region"
+
+func _process(_delta):
+	var region = get_region_under_mouse()
+
+	if region != hovered_region:
+		hovered_region = region
+		
+		if selected_region == "":
+			label.text = hovered_region if hovered_region != "" else "Ocean"
+		else:
+			label.text = "Selected: " + selected_region + "\nHover: " + (hovered_region if hovered_region != "" else "Ocean")
 
 func _input(event):
 	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
-		var local_pos = region_map.to_local(get_global_mouse_position())
-		var texture_size = region_map.texture.get_size()
+		selected_region = get_region_under_mouse()
+		
+		if selected_region == "":
+			label.text = "Selected: Ocean"
+		else:
+			label.text = "Selected: " + selected_region
 
-		var x = int(local_pos.x + texture_size.x / 2.0)
-		var y = int(local_pos.y + texture_size.y / 2.0)
+func get_region_under_mouse() -> String:
+	var local_pos = region_map.to_local(get_global_mouse_position())
+	var texture_size = region_map.texture.get_size()
 
-		if x < 0 or y < 0 or x >= region_image.get_width() or y >= region_image.get_height():
-			print("Outside map")
-			return
+	var x = int(local_pos.x + texture_size.x / 2.0)
+	var y = int(local_pos.y + texture_size.y / 2.0)
 
-		var clicked_color = region_image.get_pixel(x, y)
+	if x < 0 or y < 0 or x >= region_image.get_width() or y >= region_image.get_height():
+		return ""
 
-		if clicked_color == Color.BLACK:
-			print("Ocean")
-			return
+	var clicked_color = region_image.get_pixel(x, y)
 
-		for color in region_lookup:
-			if clicked_color.is_equal_approx(color):
-				print(region_lookup[color])
-				return
+	if clicked_color == Color.BLACK:
+		return ""
 
-		print("Unknown colour: ", clicked_color)
+	for color in region_lookup:
+		if clicked_color.is_equal_approx(color):
+			return region_lookup[color]
+
+	return ""
