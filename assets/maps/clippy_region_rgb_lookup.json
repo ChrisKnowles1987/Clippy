@@ -1,0 +1,104 @@
+{
+  "North America": {
+    "r": 230,
+    "g": 25,
+    "b": 75,
+    "hex": "#E6194B"
+  },
+  "Central America & Caribbean": {
+    "r": 245,
+    "g": 130,
+    "b": 48,
+    "hex": "#F58230"
+  },
+  "South America": {
+    "r": 255,
+    "g": 225,
+    "b": 25,
+    "hex": "#FFE119"
+  },
+  "Western Europe": {
+    "r": 60,
+    "g": 180,
+    "b": 75,
+    "hex": "#3CB44B"
+  },
+  "Eastern Europe": {
+    "r": 70,
+    "g": 240,
+    "b": 240,
+    "hex": "#46F0F0"
+  },
+  "Russia & Central Asia": {
+    "r": 0,
+    "g": 130,
+    "b": 200,
+    "hex": "#0082C8"
+  },
+  "Middle East": {
+    "r": 145,
+    "g": 30,
+    "b": 180,
+    "hex": "#911EB4"
+  },
+  "North Africa": {
+    "r": 240,
+    "g": 50,
+    "b": 230,
+    "hex": "#F032E6"
+  },
+  "West Africa": {
+    "r": 210,
+    "g": 245,
+    "b": 60,
+    "hex": "#D2F53C"
+  },
+  "East Africa": {
+    "r": 250,
+    "g": 190,
+    "b": 190,
+    "hex": "#FABEBE"
+  },
+  "Southern Africa": {
+    "r": 0,
+    "g": 128,
+    "b": 128,
+    "hex": "#008080"
+  },
+  "India": {
+    "r": 230,
+    "g": 190,
+    "b": 255,
+    "hex": "#E6BEFF"
+  },
+  "China": {
+    "r": 170,
+    "g": 110,
+    "b": 40,
+    "hex": "#AA6E28"
+  },
+  "Japan & Korea": {
+    "r": 255,
+    "g": 250,
+    "b": 200,
+    "hex": "#FFFAC8"
+  },
+  "Southeast Asia": {
+    "r": 128,
+    "g": 0,
+    "b": 0,
+    "hex": "#800000"
+  },
+  "Oceania": {
+    "r": 170,
+    "g": 255,
+    "b": 195,
+    "hex": "#AAFFC3"
+  },
+  "Antarctica": {
+    "r": 128,
+    "g": 128,
+    "b": 128,
+    "hex": "#808080"
+  }
+}
