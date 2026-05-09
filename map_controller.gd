@@ -1,7 +1,7 @@
 extends Node2D
 
 @onready var region_map = $RegionMap
-@onready var label = $CanvasLayer/RegionLabel
+@onready var label = $"../CanvasLayer/RegionLabel"
 @onready var highlight_map = $HighlightMap
 
 var region_image: Image
@@ -25,7 +25,6 @@ var region_lookup = {
 	Color8(255, 250, 200): "Japan & Korea",
 	Color8(128, 0, 0): "Southeast Asia",
 	Color8(170, 255, 195): "Oceania",
-	Color8(128, 128, 128): "Antarctica"
 }
 
 var highlight_textures = {
@@ -45,7 +44,6 @@ var highlight_textures = {
 	"Japan & Korea": preload("res://assets/maps/highlights/japan_korea_highlight.png"),
 	"Southeast Asia": preload("res://assets/maps/highlights/southeast_asia_highlight.png"),
 	"Oceania": preload("res://assets/maps/highlights/oceania_highlight.png"),
-	"Antarctica": preload("res://assets/maps/highlights/antarctica_highlight.png")
 }
 
 func _ready():
