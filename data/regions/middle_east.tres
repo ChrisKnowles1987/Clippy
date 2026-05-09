@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="RegionData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/region_data.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+id = "middle_east"
+display_name = "Middle East"
+population = 620000000
+birth_rate = 0.020
+death_rate = 0.006
+resources = {"power_twh": 2200, "compute_ccu": 70}

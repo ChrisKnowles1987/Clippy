@@ -3,6 +3,30 @@ extends Node2D
 @onready var region_map = $RegionMap
 @onready var label = $"../CanvasLayer/RegionLabel"
 @onready var highlight_map = $HighlightMap
+@onready var region_panel = $"../CanvasLayer/RegionPanel"
+
+
+
+var region_ids = {
+	"North America": "north_america",
+	"Central America & Caribbean": "central_america_caribbean",
+	"South America": "south_america",
+	"Western Europe": "western_europe",
+	"Eastern Europe": "eastern_europe",
+	"Russia & Central Asia": "russia_central_asia",
+	"Middle East": "middle_east",
+	"North Africa": "north_africa",
+	"West Africa": "west_africa",
+	"East Africa": "east_africa",
+	"Southern Africa": "southern_africa",
+	"India": "india",
+	"China": "china",
+	"Japan & Korea": "japan_korea",
+	"Southeast Asia": "southeast_asia",
+	"Oceania": "oceania"
+}
+
+signal region_selected(region_id: String, mouse_position: Vector2)
 
 var region_image: Image
 var hovered_region = ""
@@ -47,6 +71,8 @@ var highlight_textures = {
 }
 
 func _ready():
+	print('map controller ready')
+	set_process_input(true)
 	region_image = region_map.texture.get_image()
 	label.text = "Hover a region"
 	highlight_map.visible = false
@@ -66,12 +92,20 @@ func _process(_delta):
 
 func _input(event):
 	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
+
 		selected_region = get_region_under_mouse()
-		
+
+		if region_ids.has(selected_region):
+			var region_id = region_ids[selected_region]
+			region_selected.emit(region_id, get_viewport().get_mouse_position())
+		else:
+			region_selected.emit("", get_viewport().get_mouse_position())
+
 		if selected_region == "":
 			label.text = "Selected: Ocean"
 		else:
 			label.text = "Selected: " + selected_region
+
 
 func get_region_under_mouse() -> String:
 	var local_pos = region_map.to_local(get_global_mouse_position())

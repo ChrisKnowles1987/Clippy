@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="RegionData" load_steps=2 format=3 uid="uid://dmg77727huddy"]
+
+[ext_resource type="Script" uid="uid://c8sglxg2g7rtg" path="res://scripts/region_data.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+id = "north_america"
+display_name = "North America"
+population = 380000000
+birth_rate = 0.01
+death_rate = 0.009
+resources = {
+"compute_ccu": 420,
+"power_twh": 5500
+}

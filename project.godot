@@ -14,3 +14,7 @@ config/name="Clippy"
 run/main_scene="uid://2ybm07j7qqkl"
 config/features=PackedStringArray("4.5", "Forward Plus")
 config/icon="res://icon.svg"
+
+[input_devices]
+
+pointing/emulate_mouse_from_touch=false

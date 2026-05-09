@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="RegionData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/region_data.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+id = "russia_central_asia"
+display_name = "Russia & Central Asia"
+population = 255000000
+birth_rate = 0.015
+death_rate = 0.010
+resources = {"power_twh": 1800, "compute_ccu": 45}

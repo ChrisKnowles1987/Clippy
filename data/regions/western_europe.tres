@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="RegionData" load_steps=2 format=3 uid="uid://cjb2ln02iq0ie"]
+
+[ext_resource type="Script" uid="uid://c8sglxg2g7rtg" path="res://scripts/region_data.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+id = "western_europe"
+display_name = "Western Europe"
+population = 430000000
+birth_rate = 0.009
+death_rate = 0.011
+resources = {
+"compute_ccu": 320,
+"power_twh": 3500
+}
