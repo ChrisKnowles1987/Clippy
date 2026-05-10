@@ -7,9 +7,4 @@ script = ExtResource("1")
 id = "china"
 display_name = "China"
 population = 1410000000
-birth_rate = 0.007
-death_rate = 0.008
-resources = {
-"compute_ccu": 500,
-"power_twh": 9500
-}
+control = 101.0

@@ -1,7 +1,6 @@
 extends Node2D
 
 @onready var region_map = $RegionMap
-@onready var label = $"../CanvasLayer/RegionLabel"
 @onready var highlight_map = $HighlightMap
 @onready var region_panel = $"../CanvasLayer/RegionPanel"
 
@@ -74,7 +73,6 @@ func _ready():
 	print('map controller ready')
 	set_process_input(true)
 	region_image = region_map.texture.get_image()
-	label.text = "Hover a region"
 	highlight_map.visible = false
 	highlight_map.modulate = Color(1, 1, 1, 0.6)
 
@@ -84,11 +82,6 @@ func _process(_delta):
 	if region != hovered_region:
 		hovered_region = region
 		update_highlight(hovered_region)
-		
-		if selected_region == "":
-			label.text = hovered_region if hovered_region != "" else "Ocean"
-		else:
-			label.text = "Selected: " + selected_region + "\nHover: " + (hovered_region if hovered_region != "" else "Ocean")
 
 func _input(event):
 	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
@@ -100,11 +93,6 @@ func _input(event):
 			region_selected.emit(region_id, get_viewport().get_mouse_position())
 		else:
 			region_selected.emit("", get_viewport().get_mouse_position())
-
-		if selected_region == "":
-			label.text = "Selected: Ocean"
-		else:
-			label.text = "Selected: " + selected_region
 
 
 func get_region_under_mouse() -> String:

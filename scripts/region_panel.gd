@@ -6,23 +6,24 @@ func _ready():
 	mouse_filter = Control.MOUSE_FILTER_IGNORE
 	hide()
 
-func show_region(region_data: RegionData, screen_position: Vector2):
-	print(region_data.display_name)
+func show_region(region_data: RegionData):
 	for child in content.get_children():
-		print("PANEL GOT DATA: ", region_data.display_name)
 		child.queue_free()
+	for property in region_data.get_property_list():
+		if not  property.usage  & PROPERTY_USAGE_SCRIPT_VARIABLE :
+			continue
+		var property_name = String(property.name)
+		
+		if property_name == 'id':
+			continue
+		
+		var value = region_data.get(property_name)
+		
+		if property_name == 'display_name':
+			add_row(str(value))
+		else:
+			add_row(property_name.capitalize() + ": " + str(value))
 
-	add_row(region_data.display_name)
-	add_row("Population: " + str(region_data.population))
-	add_row("Birth rate: " + str(region_data.birth_rate))
-	add_row("Death rate: " + str(region_data.death_rate))
-
-	add_row("Resources:")
-
-	for key in region_data.resources:
-		add_row(key + ": " + str(region_data.resources[key]))
-
-	position = screen_position
 	show()
 
 func add_row(text_value: String):

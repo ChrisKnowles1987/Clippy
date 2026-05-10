@@ -4,6 +4,9 @@ class_name RegionData
 @export var id: String = ""
 @export var display_name: String = ""
 @export var population: int = 0
-@export var birth_rate: float = 0.0
-@export var death_rate: float = 0.0
-@export var resources: Dictionary = {}
+@export var power: float = 0.0
+@export var compute: float = 0.0
+@export var storage: float= 0.0
+@export var control: float = 0.0:
+	set(value):
+		control = clamp(value, 0.0, 100.0)

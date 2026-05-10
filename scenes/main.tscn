@@ -13,28 +13,30 @@ script = ExtResource("1_tbgi4")
 script = ExtResource("1_sugp2")
 
 [node name="WorldMap" type="Sprite2D" parent="MapController"]
+position = Vector2(1203, 530)
+scale = Vector2(0.35, 0.35)
 texture = ExtResource("2_jyhfs")
 
 [node name="HighlightMap" type="Sprite2D" parent="MapController"]
 visible = false
+position = Vector2(1203, 530)
+scale = Vector2(0.35, 0.35)
 texture = ExtResource("3_tbgi4")
 
 [node name="RegionMap" type="Sprite2D" parent="MapController"]
 visible = false
-position = Vector2(1, 1)
+position = Vector2(1203, 530)
+scale = Vector2(0.35, 0.35)
 texture = ExtResource("3_tbgi4")
-
-[node name="Camera2D" type="Camera2D" parent="."]
-zoom = Vector2(0.28, 0.321)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="RegionPanel" type="Panel" parent="CanvasLayer"]
 custom_minimum_size = Vector2(300, 300)
-offset_left = 141.0
-offset_top = 25.0
-offset_right = 329.0
-offset_bottom = 159.0
+offset_left = 2.0
+offset_top = 234.0
+offset_right = 485.0
+offset_bottom = 534.0
 mouse_filter = 2
 script = ExtResource("4_jyhfs")
 
@@ -45,8 +47,3 @@ offset_top = 15.0
 offset_right = 380.0
 offset_bottom = 195.0
 mouse_filter = 2
-
-[node name="RegionLabel" type="Label" parent="CanvasLayer"]
-offset_right = 40.0
-offset_bottom = 23.0
-text = "test"
