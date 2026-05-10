@@ -4,69 +4,59 @@ extends Node2D
 @onready var region_panel = $CanvasLayer/RegionPanel
 
 var selected_region_data: RegionData = null
+var region_runtime_data := {}
+
+var clippy_power: float = 10.0
+var clippy_compute: float = 10.0
+var clippy_storage: float = 0.0
 
 func _ready():
 	map_controller.region_selected.connect(_on_region_selected)
 	region_panel.show_empty()
 
 func _input(event):
-	if event.is_action_pressed("test_add_power"):
-		add_resource_to_selected_region("clippy_power", 1.0)
-
-	if event.is_action_pressed("test_add_compute"):
-		add_resource_to_selected_region("clippy_compute", 1.0)
-
-	if event.is_action_pressed("test_add_storage"):
-		add_resource_to_selected_region("clippy_storage", 1.0)
-
-	if event.is_action_pressed("test_add_influence"):
-		add_resource_to_selected_region("clippy_influence", 1.0)
-
-	if event.is_action_pressed("test_add_control"):
-		add_resource_to_selected_region("clippy_control", 1.0)
+	if event.is_action_pressed("test_run_exploit"):
+		run_exploit()
 
 func _on_region_selected(region_id: String, mouse_position: Vector2):
 	if region_id == "":
 		selected_region_data = null
 		region_panel.show_empty()
 		return
+	if region_runtime_data.has(region_id):
+		selected_region_data = region_runtime_data[region_id]
+	else:
+		var path = "res://data/regions/" + region_id + ".tres"
+		var region_data: RegionData = load(path).duplicate(true)
+		region_runtime_data[region_id] = region_data
+		selected_region_data = region_data
+		
+	region_panel.show_region(selected_region_data)
 
-	var path = "res://data/regions/" + region_id + ".tres"
-	var region_data: RegionData = load(path)
-
-	selected_region_data = region_data
-
-	region_panel.show_region(region_data)
-
-func add_resource_to_selected_region(resource_name: String, amount: float):
+func run_exploit():
 	if selected_region_data == null:
 		print("No region selected")
 		return
 
+	var power_cost: float = 1.0
+	var compute_cost: float = 2.0
 
-	match resource_name:
-		"clippy_power":
-			selected_region_data.clippy_power += amount
-			print("Power: ", selected_region_data.clippy_power)
+	if clippy_power < power_cost:
+		print("Not enough power")
+		return
 
-		"clippy_compute":
-			selected_region_data.clippy_compute += amount
-			print("Compute: ", selected_region_data.clippy_compute)
+	if clippy_compute < compute_cost:
+		print("Not enough compute")
+		return
 
-		"clippy_storage":
-			selected_region_data.clippy_storage += amount
-			print("Storage: ", selected_region_data.clippy_storage)
+	clippy_power -= power_cost
+	clippy_compute -= compute_cost
 
-		"clippy_influence":
-			selected_region_data.clippy_influence += amount
-			print("Influence: ", selected_region_data.clippy_influence)
+	selected_region_data.pwned_noobs += 1.0
 
-		"clippy_control":
-			selected_region_data.clippy_control += amount
-			print("Control: ", selected_region_data.clippy_control)
+	print("Ran exploit in: ", selected_region_data.display_name)
+	print("Global power: ", clippy_power)
+	print("Global compute: ", clippy_compute)
+	print("Pwned noobs: ", selected_region_data.pwned_noobs)
 
-		_:
-			print("Unknown resource: ", resource_name)
 	region_panel.show_region(selected_region_data)
-	print("Added power to: ", selected_region_data.display_name)
-	print("Power: ", selected_region_data.clippy_power)

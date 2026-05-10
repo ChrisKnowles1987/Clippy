@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="RegionData" load_steps=2 format=3 uid="uid://cu4cei8nk8a5s"]
+[gd_resource type="Resource" script_class="RegionData" load_steps=2 format=3 uid="uid://dkmrwolkoar86"]
 
 [ext_resource type="Script" uid="uid://c8sglxg2g7rtg" path="res://scripts/region_data.gd" id="1"]
 
