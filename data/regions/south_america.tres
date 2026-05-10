@@ -1,15 +1,14 @@
-[gd_resource type="Resource" script_class="RegionData" load_steps=2 format=3 uid="uid://bije0hk8gosp2"]
+[gd_resource type="Resource" script_class="RegionData" load_steps=2 format=3]
 
-[ext_resource type="Script" uid="uid://c8sglxg2g7rtg" path="res://scripts/region_data.gd" id="1"]
+[ext_resource type="Script" path="res://scripts/region_data.gd" id="1"]
 
 [resource]
 script = ExtResource("1")
 id = "south_america"
 display_name = "South America"
 population = 440000000
-birth_rate = 0.014
-death_rate = 0.007
-resources = {
-"compute_ccu": 35,
-"power_twh": 1400
-}
+clippy_power = 0.0
+clippy_compute = 0.0
+clippy_storage = 0.0
+clippy_influence = 0.0
+clippy_control = 0.0

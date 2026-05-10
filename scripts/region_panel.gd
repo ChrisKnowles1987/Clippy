@@ -16,7 +16,7 @@ func show_region(region_data: RegionData):
 	for child in content.get_children():
 		child.queue_free()
 	for property in region_data.get_property_list():
-		if not  property.usage  & PROPERTY_USAGE_SCRIPT_VARIABLE :
+		if not  (property.usage  & PROPERTY_USAGE_SCRIPT_VARIABLE) :
 			continue
 		var property_name = String(property.name)
 		

@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="RegionData" load_steps=2 format=3 uid="uid://b1phiy44e7j5m"]
+[gd_resource type="Resource" script_class="RegionData" load_steps=2 format=3 uid="uid://byh7c5y7u6xq8"]
 
 [ext_resource type="Script" uid="uid://c8sglxg2g7rtg" path="res://scripts/region_data.gd" id="1"]
 
@@ -7,9 +7,3 @@ script = ExtResource("1")
 id = "india"
 display_name = "India"
 population = 1650000000
-birth_rate = 0.017
-death_rate = 0.007
-resources = {
-"compute_ccu": 140,
-"power_twh": 2400
-}
