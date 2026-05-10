@@ -1,12 +1,18 @@
 extends Panel
 
-@onready var content = $Content
+@onready var content = $MarginContainer/Content
 
 func _ready():
 	mouse_filter = Control.MOUSE_FILTER_IGNORE
-	hide()
+	show_empty()
+
+func show_empty():
+	clear_content()
+	add_row("No region selected")
+	show()
 
 func show_region(region_data: RegionData):
+	clear_content()
 	for child in content.get_children():
 		child.queue_free()
 	for property in region_data.get_property_list():
@@ -25,7 +31,11 @@ func show_region(region_data: RegionData):
 			add_row(property_name.capitalize() + ": " + str(value))
 
 	show()
-
+	
+func clear_content():
+	for child in content.get_children():
+		child.queue_free()
+		
 func add_row(text_value: String):
 	var label = Label.new()
 	label.text = text_value
