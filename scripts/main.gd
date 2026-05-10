@@ -2,6 +2,7 @@ extends Node2D
 
 @onready var map_controller = $MapController
 @onready var region_panel = $CanvasLayer/RegionPanel
+@onready var global_resource_panel = $CanvasLayer/GlobalResourcePanel
 
 var selected_region_data: RegionData = null
 var region_runtime_data := {}
@@ -13,6 +14,15 @@ var clippy_storage: float = 0.0
 func _ready():
 	map_controller.region_selected.connect(_on_region_selected)
 	region_panel.show_empty()
+	update_global_resource_ui()
+
+func update_global_resource_ui():
+	global_resource_panel.update_values(
+		clippy_power,
+		clippy_compute,
+		clippy_storage
+	)
+
 
 func _input(event):
 	if event.is_action_pressed("test_run_exploit"):
@@ -53,6 +63,7 @@ func run_exploit():
 	clippy_compute -= compute_cost
 
 	selected_region_data.pwned_noobs += 1.0
+	update_global_resource_ui()
 
 	print("Ran exploit in: ", selected_region_data.display_name)
 	print("Global power: ", clippy_power)

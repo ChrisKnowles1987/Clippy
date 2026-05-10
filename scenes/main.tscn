@@ -1,10 +1,14 @@
-[gd_scene load_steps=6 format=3 uid="uid://2ybm07j7qqkl"]
+[gd_scene load_steps=8 format=3 uid="uid://2ybm07j7qqkl"]
 
 [ext_resource type="Script" uid="uid://b3gffeo3avbp6" path="res://scripts/map_controller.gd" id="1_sugp2"]
 [ext_resource type="Script" uid="uid://c0vrfof7ikxbt" path="res://scripts/main.gd" id="1_tbgi4"]
 [ext_resource type="Texture2D" uid="uid://cx5kw60po51el" path="res://assets/maps/clippy_world_region_borders_only.png" id="2_jyhfs"]
 [ext_resource type="Texture2D" uid="uid://svijuua5rs6w" path="res://assets/maps/clippy_world_region_id_map.png" id="3_tbgi4"]
 [ext_resource type="Script" uid="uid://d2urhygerw064" path="res://scripts/region_panel.gd" id="4_jyhfs"]
+[ext_resource type="Script" uid="uid://3x2p5s26n4tg" path="res://scenes/global_resource_panel.gd" id="6_tefeu"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_o6xl0"]
+font_size = 20
 
 [node name="Node2D" type="Node2D"]
 script = ExtResource("1_tbgi4")
@@ -56,3 +60,64 @@ layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 8
 mouse_filter = 2
+
+[node name="GlobalResourcePanel" type="Panel" parent="CanvasLayer"]
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 229.0
+grow_horizontal = 2
+size_flags_horizontal = 3
+script = ExtResource("6_tefeu")
+
+[node name="PowerNameLabel" type="Label" parent="CanvasLayer/GlobalResourcePanel"]
+layout_mode = 0
+offset_left = 3.0
+offset_top = 2.0
+offset_right = 129.0
+offset_bottom = 30.0
+text = "Power"
+label_settings = SubResource("LabelSettings_o6xl0")
+
+[node name="PowerValueLabel" type="Label" parent="CanvasLayer/GlobalResourcePanel"]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 37.0
+offset_right = 119.0
+offset_bottom = 65.0
+text = "0"
+label_settings = SubResource("LabelSettings_o6xl0")
+
+[node name="ComputeNameLabel" type="Label" parent="CanvasLayer/GlobalResourcePanel"]
+layout_mode = 0
+offset_left = 140.0
+offset_top = 1.0
+offset_right = 239.0
+offset_bottom = 29.0
+text = "Compute"
+label_settings = SubResource("LabelSettings_o6xl0")
+
+[node name="ComputeValueLabel" type="Label" parent="CanvasLayer/GlobalResourcePanel"]
+layout_mode = 0
+offset_left = 179.0
+offset_top = 36.0
+offset_right = 278.0
+offset_bottom = 64.0
+text = "0"
+label_settings = SubResource("LabelSettings_o6xl0")
+
+[node name="StorageNameLabel" type="Label" parent="CanvasLayer/GlobalResourcePanel"]
+layout_mode = 0
+offset_left = 283.0
+offset_right = 382.0
+offset_bottom = 28.0
+text = "Storage"
+label_settings = SubResource("LabelSettings_o6xl0")
+
+[node name="StorageValueLabel" type="Label" parent="CanvasLayer/GlobalResourcePanel"]
+layout_mode = 0
+offset_left = 304.0
+offset_top = 36.0
+offset_right = 403.0
+offset_bottom = 64.0
+text = "0"
+label_settings = SubResource("LabelSettings_o6xl0")
