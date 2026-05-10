@@ -93,6 +93,7 @@ func _input(event):
 			region_selected.emit(region_id, get_viewport().get_mouse_position())
 		else:
 			region_selected.emit("", get_viewport().get_mouse_position())
+			
 
 
 func get_region_under_mouse() -> String:

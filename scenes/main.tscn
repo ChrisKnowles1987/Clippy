@@ -33,10 +33,10 @@ texture = ExtResource("3_tbgi4")
 
 [node name="RegionPanel" type="Panel" parent="CanvasLayer"]
 custom_minimum_size = Vector2(300, 300)
-offset_left = 2.0
-offset_top = 234.0
-offset_right = 485.0
-offset_bottom = 534.0
+offset_left = 489.0
+offset_top = 523.0
+offset_right = 789.0
+offset_bottom = 823.0
 mouse_filter = 2
 script = ExtResource("4_jyhfs")
 
