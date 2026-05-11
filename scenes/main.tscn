@@ -1,11 +1,14 @@
-[gd_scene load_steps=10 format=3 uid="uid://2ybm07j7qqkl"]
+[gd_scene load_steps=13 format=3 uid="uid://2ybm07j7qqkl"]
 
 [ext_resource type="Script" uid="uid://b3gffeo3avbp6" path="res://scripts/map_controller.gd" id="1_sugp2"]
 [ext_resource type="Script" uid="uid://c0vrfof7ikxbt" path="res://scripts/main.gd" id="1_tbgi4"]
 [ext_resource type="Texture2D" uid="uid://cx5kw60po51el" path="res://assets/maps/clippy_world_region_borders_only.png" id="2_jyhfs"]
 [ext_resource type="Texture2D" uid="uid://svijuua5rs6w" path="res://assets/maps/clippy_world_region_id_map.png" id="3_tbgi4"]
 [ext_resource type="Script" uid="uid://d2urhygerw064" path="res://scripts/region_panel.gd" id="4_jyhfs"]
+[ext_resource type="Script" uid="uid://cs4yuxbiyfqgd" path="res://scenes/game_clock.gd" id="5_85g3d"]
+[ext_resource type="Script" uid="uid://bwwjkuldb6ob3" path="res://scenes/global_resource_manager.gd" id="6_choun"]
 [ext_resource type="Script" uid="uid://3x2p5s26n4tg" path="res://global_resource_panel.gd" id="6_tefeu"]
+[ext_resource type="Script" uid="uid://wt4h05hlh6px" path="res://scenes/region_manager.gd" id="6_ya4ey"]
 [ext_resource type="Script" uid="uid://dnvulp6dsql5s" path="res://scripts/intrusion_skill_pannel_container.gd" id="7_o6xl0"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_o6xl0"]
@@ -35,6 +38,19 @@ visible = false
 position = Vector2(1203, 530)
 scale = Vector2(0.35, 0.35)
 texture = ExtResource("3_tbgi4")
+
+[node name="GameClock" type="Node" parent="."]
+script = ExtResource("5_85g3d")
+
+[node name="GameDayTimer" type="Timer" parent="GameClock"]
+wait_time = 5.0
+autostart = true
+
+[node name="RegionManager" type="Node" parent="."]
+script = ExtResource("6_ya4ey")
+
+[node name="GlobalResourceManager" type="Node" parent="."]
+script = ExtResource("6_choun")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -567,7 +583,3 @@ text = "tbd"
 [node name="Spacer2" type="Control" parent="CanvasLayer/BottomSkillPannel/Control/MarginContainer/IntrusionSkillPannelContainer/SkillTableContainer/Spacer row2/RunExploitOutputContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-
-[node name="GameDayTimer" type="Timer" parent="."]
-wait_time = 5.0
-autostart = true
