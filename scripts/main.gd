@@ -51,13 +51,17 @@ func _on_region_selected(region_id: String, mouse_position: Vector2) -> void:
 	region_panel.show_region(selected_region_data)
 	intrusion_panel.show_region(selected_region_data)
 	
+
 func process_intrusion_skills() -> void:
-	var selected_region_data: RegionData = region_manager.selected_region_data
+	for region_data in region_manager.region_runtime_data.values():
+		process_run_exploit(region_data)
 
-	if selected_region_data == null:
-		return
+	if region_manager.selected_region_data != null:
+		region_panel.show_region(region_manager.selected_region_data)
+		intrusion_panel.show_region(region_manager.selected_region_data)
 
-	var run_exploit = selected_region_data.intrusion_allocations["run_exploit"]
+func process_run_exploit(region_data: RegionData) -> void:
+	var run_exploit = region_data.intrusion_allocations["run_exploit"]
 
 	if run_exploit["enabled"] == false:
 		return
@@ -69,10 +73,6 @@ func process_intrusion_skills() -> void:
 
 	if paid == false:
 		run_exploit["enabled"] = false
-		intrusion_panel.refresh_ui()
 		return
 
-	selected_region_data.pwned_noobs += compute_cost
-
-	region_panel.show_region(selected_region_data)
-	intrusion_panel.show_region(selected_region_data)
+	region_data.pwned_noobs += compute_cost
