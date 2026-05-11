@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://2ybm07j7qqkl"]
+[gd_scene load_steps=10 format=3 uid="uid://2ybm07j7qqkl"]
 
 [ext_resource type="Script" uid="uid://b3gffeo3avbp6" path="res://scripts/map_controller.gd" id="1_sugp2"]
 [ext_resource type="Script" uid="uid://c0vrfof7ikxbt" path="res://scripts/main.gd" id="1_tbgi4"]
@@ -9,6 +9,12 @@
 
 [sub_resource type="LabelSettings" id="LabelSettings_o6xl0"]
 font_size = 20
+
+[sub_resource type="LabelSettings" id="LabelSettings_tefeu"]
+font_size = 20
+
+[sub_resource type="LabelSettings" id="LabelSettings_tipki"]
+font_size = 12
 
 [node name="Node2D" type="Node2D"]
 script = ExtResource("1_tbgi4")
@@ -121,3 +127,213 @@ offset_right = 403.0
 offset_bottom = 64.0
 text = "0"
 label_settings = SubResource("LabelSettings_o6xl0")
+
+[node name="BottomSkillPannel" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -249.0
+offset_right = 1920.0
+offset_bottom = -2.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_vertical = 8
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer/BottomSkillPannel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Control" type="Control" parent="CanvasLayer/BottomSkillPannel"]
+custom_minimum_size = Vector2(480, 247)
+anchors_preset = 0
+offset_left = 16.0
+offset_right = 496.0
+offset_bottom = 247.0
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer/BottomSkillPannel/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = -8.0
+offset_bottom = -8.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1.5175393e-06, 0.44884092, 0.12206262, 1)
+
+[node name="Label" type="Label" parent="CanvasLayer/BottomSkillPannel/Control"]
+layout_mode = 0
+offset_left = 15.0
+offset_top = 12.0
+offset_right = 104.0
+offset_bottom = 40.0
+text = "Intrusion"
+label_settings = SubResource("LabelSettings_tefeu")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer/BottomSkillPannel/Control"]
+layout_mode = 0
+offset_left = 15.0
+offset_top = 44.0
+offset_right = 169.0
+offset_bottom = 147.0
+text = "Allocated
+Power: 10 / day
+Compute: 5 / day
+Storage: 0 /day"
+
+[node name="RichTextLabel2" type="RichTextLabel" parent="CanvasLayer/BottomSkillPannel/Control"]
+layout_mode = 0
+offset_left = 15.0
+offset_top = 141.0
+offset_right = 169.0
+offset_bottom = 244.0
+text = "Next Upgrade:
+Power: 10 / day
+Compute: 5 / day
+Storage: 0 /day"
+
+[node name="Button" type="Button" parent="CanvasLayer/BottomSkillPannel/Control"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.323
+anchor_top = 0.126
+anchor_right = 0.323
+anchor_bottom = 0.126
+offset_left = -44.04001
+offset_top = -18.122
+offset_right = 30.959991
+offset_bottom = 13.878
+text = "Upgrade"
+
+[node name="Button2" type="Button" parent="CanvasLayer/BottomSkillPannel/Control"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.323
+anchor_top = 0.126
+anchor_right = 0.323
+anchor_bottom = 0.126
+offset_left = 55.95999
+offset_top = -10.122
+offset_right = 205.95999
+offset_bottom = 39.878
+text = "Run Exploit"
+
+[node name="Button3" type="Button" parent="CanvasLayer/BottomSkillPannel/Control"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.323
+anchor_top = 0.126
+anchor_right = 0.323
+anchor_bottom = 0.126
+offset_left = 55.95999
+offset_top = 44.878
+offset_right = 205.95999
+offset_bottom = 94.878
+text = "Upgrade"
+
+[node name="Button4" type="Button" parent="CanvasLayer/BottomSkillPannel/Control"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.323
+anchor_top = 0.126
+anchor_right = 0.323
+anchor_bottom = 0.126
+offset_left = 54.95999
+offset_top = 98.878
+offset_right = 204.95999
+offset_bottom = 148.878
+text = "Upgrade"
+
+[node name="Button5" type="Button" parent="CanvasLayer/BottomSkillPannel/Control"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.323
+anchor_top = 0.126
+anchor_right = 0.323
+anchor_bottom = 0.126
+offset_left = 53.95999
+offset_top = 152.878
+offset_right = 203.95999
+offset_bottom = 202.878
+text = "Upgrade"
+
+[node name="Label2" type="Label" parent="CanvasLayer/BottomSkillPannel/Control"]
+layout_mode = 0
+offset_left = 366.0
+offset_top = 20.0
+offset_right = 438.0
+offset_bottom = 43.0
+text = "10 power"
+label_settings = SubResource("LabelSettings_tipki")
+
+[node name="Control2" type="Control" parent="CanvasLayer/BottomSkillPannel"]
+custom_minimum_size = Vector2(480, 247)
+anchors_preset = 0
+offset_left = 488.0
+offset_right = 968.0
+offset_bottom = 247.0
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer/BottomSkillPannel/Control2"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 7.0
+offset_top = 8.0
+offset_right = -9.0
+offset_bottom = -8.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1.5175393e-06, 0.44884092, 0.12206262, 1)
+
+[node name="Control3" type="Control" parent="CanvasLayer/BottomSkillPannel"]
+custom_minimum_size = Vector2(480, 247)
+anchors_preset = 0
+offset_left = 957.0
+offset_right = 1437.0
+offset_bottom = 247.0
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer/BottomSkillPannel/Control3"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = -8.0
+offset_bottom = -8.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1.5175393e-06, 0.44884092, 0.12206262, 1)
+
+[node name="Control4" type="Control" parent="CanvasLayer/BottomSkillPannel"]
+custom_minimum_size = Vector2(480, 247)
+anchors_preset = 0
+offset_left = 1424.0
+offset_right = 1904.0
+offset_bottom = 247.0
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer/BottomSkillPannel/Control4"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = -8.0
+offset_bottom = -8.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1.5175393e-06, 0.44884092, 0.12206262, 1)
