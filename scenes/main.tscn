@@ -403,7 +403,7 @@ size_flags_horizontal = 3
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Label2" type="Label" parent="CanvasLayer/BottomSkillPannel/Control/MarginContainer/IntrusionSkillPannelContainer/SkillTableContainer/ScanNetworksRow/ScanNetworksOutputContainer"]
+[node name="ScanNetworksOutputContainerlabel" type="Label" parent="CanvasLayer/BottomSkillPannel/Control/MarginContainer/IntrusionSkillPannelContainer/SkillTableContainer/ScanNetworksRow/ScanNetworksOutputContainer"]
 layout_mode = 2
 size_flags_horizontal = 9
 text = "Offline"

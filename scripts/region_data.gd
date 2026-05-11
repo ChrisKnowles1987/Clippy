@@ -6,6 +6,7 @@ class_name RegionData
 @export var population: int = 0
 
 @export var pwned_noobs: float = 0.0
+@export var network_visibility: float = 0.0
 
 @export var intrusion_allocations: Dictionary = {
 	"run_exploit": {

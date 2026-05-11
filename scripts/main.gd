@@ -24,7 +24,6 @@ func _ready() -> void:
 func _process(_delta: float) -> void: 
 	var day_progress = game_clock.get_day_progress_percent()
 	intrusion_panel.update_day_progress(day_progress)
-	intrusion_panel.refresh_ui()
 	
 func _on_day_passed(current_date: Dictionary) -> void:
 	update_date_ui(current_date)
@@ -60,6 +59,7 @@ func _on_region_selected(region_id: String, mouse_position: Vector2) -> void:
 func process_intrusion_skills() -> void:
 	for region_data in region_manager.region_runtime_data.values():
 		process_run_exploit(region_data)
+		process_scan_networks(region_data)
 
 	if region_manager.selected_region_data != null:
 		region_panel.show_region(region_manager.selected_region_data)
@@ -81,3 +81,20 @@ func process_run_exploit(region_data: RegionData) -> void:
 		return
 
 	region_data.pwned_noobs += compute_cost
+
+func process_scan_networks(region_data: RegionData) -> void:
+	var scan_networks = region_data.intrusion_allocations["scan_networks"]
+
+	if scan_networks["enabled"] == false:
+		return
+		
+	var power_cost: float = scan_networks["power_per_day"]
+	var compute_cost: float = scan_networks["compute_per_day"]
+
+
+	var paid = global_resource_manager.spend(power_cost, compute_cost)
+	region_data.network_visibility += compute_cost
+	
+	if paid == false:
+		scan_networks["enabled"] = false
+		return
