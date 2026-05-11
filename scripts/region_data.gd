@@ -9,12 +9,12 @@ class_name RegionData
 
 @export var intrusion_allocations: Dictionary = {
 	"run_exploit": {
-		"enabled": true,
+		"enabled": false,
 		"power_per_day": 0,
 		"compute_per_day": 0
 	},
 	"scan_networks": {
-		"enabled": true,
+		"enabled": false,
 		"power_per_day": 0,
 		"compute_per_day": 0
 	}

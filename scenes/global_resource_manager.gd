@@ -6,6 +6,14 @@ var clippy_power: float = 10.0
 var clippy_compute: float = 10.0
 var clippy_storage: float = 0.0
 
+# scenes/global_resource_manager.gd
+func can_afford(power_cost: float, compute_cost: float, storage_cost: float = 0.0) -> bool:
+	return (
+		clippy_power >= power_cost
+		and clippy_compute >= compute_cost
+		and clippy_storage >= storage_cost
+	)
+
 func spend(power_cost: float, compute_cost: float, storage_cost: float = 0.0) -> bool:
 	if clippy_power < power_cost:
 		print("Not enough power")

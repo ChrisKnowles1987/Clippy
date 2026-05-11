@@ -1,5 +1,7 @@
 extends Control
 @onready var run_exploit_region_label = $TitleRowContainer/IntrusionSkillPannelRegionNameLabel
+
+@onready var run_exploit_check_button = $SkillTableContainer/RunExploitRow/RunExploitButtonContainer/CheckButton
 @onready var run_exploit_plus_button = $SkillTableContainer/RunExploitRow/RunExploitButtonContainer/PlusButton
 @onready var run_exploit_minus_button = $SkillTableContainer/RunExploitRow/RunExploitButtonContainer/MinusButton
 
@@ -7,12 +9,16 @@ extends Control
 @onready var run_exploit_compute_cost_label = $SkillTableContainer/RunExploitRow/RunExploitCostContainer/ComputeCostLabel
 @onready var run_exploit_pwn_output_value = $SkillTableContainer/RunExploitRow/RunExploitOutputContainer/RunExploitPwnOutputValue
 
+# scripts/intrusion_skill_pannel_container.gd
+@onready var global_resource_manager = get_node("/root/Node2D/GlobalResourceManager")
+
 
 var selected_region_data: RegionData = null
 
 func _ready() -> void:
 	run_exploit_plus_button.pressed.connect(_on_run_exploit_plus_pressed)
 	run_exploit_minus_button.pressed.connect(_on_run_exploit_minus_pressed)
+	run_exploit_check_button.toggled.connect(_on_run_exploit_toggled)
 
 func show_empty() -> void:
 	selected_region_data = null
@@ -30,6 +36,8 @@ func refresh_ui() -> void:
 		return
 	
 	var run_exploit = selected_region_data.intrusion_allocations["run_exploit"]
+	run_exploit_check_button.button_pressed = run_exploit["enabled"]
+	
 	var region_label = selected_region_data.display_name
 
 	var power = run_exploit["power_per_day"]
@@ -46,6 +54,28 @@ func refresh_ui() -> void:
 
 	print("Intrusion panel showing: ", selected_region_data.display_name)
 	print(selected_region_data.intrusion_allocations)
+
+
+# scripts/intrusion_skill_pannel_container.gd
+func _on_run_exploit_toggled(enabled: bool) -> void:
+	if selected_region_data == null:
+		return
+
+	var skill = selected_region_data.intrusion_allocations["run_exploit"]
+
+	if enabled == true:
+		var can_run = global_resource_manager.can_afford(
+			skill["power_per_day"],
+			skill["compute_per_day"]
+		)
+
+		if can_run == false:
+			skill["enabled"] = false
+			refresh_ui()
+			return
+
+	skill["enabled"] = enabled
+	refresh_ui()
 
 func _on_run_exploit_plus_pressed():
 	if selected_region_data == null:

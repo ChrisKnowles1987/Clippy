@@ -27,6 +27,7 @@ func _input(event) -> void:
 
 func _on_day_passed(current_date: Dictionary) -> void:
 	update_date_ui(current_date)
+	process_intrusion_skills()
 
 func update_date_ui(current_date: Dictionary) -> void:
 	game_day_timer_label.text = "%02d/%02d/%04d" % [
@@ -50,6 +51,32 @@ func _on_region_selected(region_id: String, mouse_position: Vector2) -> void:
 		return
 
 	var selected_region_data: RegionData = region_manager.select_region(region_id)
+
+	region_panel.show_region(selected_region_data)
+	intrusion_panel.show_region(selected_region_data)
+	
+func process_intrusion_skills() -> void:
+	var selected_region_data: RegionData = region_manager.selected_region_data
+
+	if selected_region_data == null:
+		return
+
+	var run_exploit = selected_region_data.intrusion_allocations["run_exploit"]
+
+	if run_exploit["enabled"] == false:
+		return
+
+	var power_cost: float = run_exploit["power_per_day"]
+	var compute_cost: float = run_exploit["compute_per_day"]
+
+	var paid = global_resource_manager.spend(power_cost, compute_cost)
+
+	if paid == false:
+		run_exploit["enabled"] = false
+		intrusion_panel.refresh_ui()
+		return
+
+	selected_region_data.pwned_noobs += compute_cost
 
 	region_panel.show_region(selected_region_data)
 	intrusion_panel.show_region(selected_region_data)
