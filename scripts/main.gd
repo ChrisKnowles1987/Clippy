@@ -15,6 +15,7 @@ var clippy_storage: float = 0.0
 func _ready():
 	map_controller.region_selected.connect(_on_region_selected)
 	region_panel.show_empty()
+	intrusion_panel.show_empty()
 	update_global_resource_ui()
 
 func update_global_resource_ui():
@@ -31,9 +32,9 @@ func _input(event):
 
 func _on_region_selected(region_id: String, mouse_position: Vector2):
 	if region_id == "":
-		selected_region_data = null
-		region_panel.show_empty()
-		intrusion_panel.show_empty()
+		#selected_region_data = null
+		#region_panel.show_empty()
+		#intrusion_panel.show_empty()
 		return
 	if region_runtime_data.has(region_id):
 		selected_region_data = region_runtime_data[region_id]

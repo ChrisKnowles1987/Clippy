@@ -22,7 +22,9 @@ func show_region(region_data: RegionData):
 		
 		if property_name == 'id':
 			continue
-		
+			
+		if property_name == "intrusion_allocations":
+			continue
 		var value = region_data.get(property_name)
 		
 		if property_name == 'display_name':
