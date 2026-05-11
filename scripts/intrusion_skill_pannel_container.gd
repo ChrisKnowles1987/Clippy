@@ -1,6 +1,8 @@
 extends Control
 @onready var run_exploit_region_label = $TitleRowContainer/IntrusionSkillPannelRegionNameLabel
 
+@onready var day_progress_bar: ProgressBar = $TitleRowContainer/IntrusionSkillPannelDayProgressBar
+
 @onready var run_exploit_check_button = $SkillTableContainer/RunExploitRow/RunExploitButtonContainer/CheckButton
 @onready var run_exploit_plus_button = $SkillTableContainer/RunExploitRow/RunExploitButtonContainer/PlusButton
 @onready var run_exploit_minus_button = $SkillTableContainer/RunExploitRow/RunExploitButtonContainer/MinusButton
@@ -9,7 +11,7 @@ extends Control
 @onready var run_exploit_compute_cost_label = $SkillTableContainer/RunExploitRow/RunExploitCostContainer/ComputeCostLabel
 @onready var run_exploit_pwn_output_value = $SkillTableContainer/RunExploitRow/RunExploitOutputContainer/RunExploitPwnOutputValue
 
-# scripts/intrusion_skill_pannel_container.gd
+
 @onready var global_resource_manager = get_node("/root/Node2D/GlobalResourceManager")
 
 
@@ -29,7 +31,8 @@ func show_region(region_data: RegionData) -> void:
 	visible = true
 	refresh_ui()
 	
-
+func update_day_progress(progress_percent: float) -> void:
+	day_progress_bar.value = progress_percent
 
 func refresh_ui() -> void:
 	if selected_region_data == null:

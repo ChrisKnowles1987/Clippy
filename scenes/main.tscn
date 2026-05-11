@@ -5,10 +5,10 @@
 [ext_resource type="Texture2D" uid="uid://cx5kw60po51el" path="res://assets/maps/clippy_world_region_borders_only.png" id="2_jyhfs"]
 [ext_resource type="Texture2D" uid="uid://svijuua5rs6w" path="res://assets/maps/clippy_world_region_id_map.png" id="3_tbgi4"]
 [ext_resource type="Script" uid="uid://d2urhygerw064" path="res://scripts/region_panel.gd" id="4_jyhfs"]
-[ext_resource type="Script" uid="uid://cs4yuxbiyfqgd" path="res://scenes/game_clock.gd" id="5_85g3d"]
-[ext_resource type="Script" uid="uid://bwwjkuldb6ob3" path="res://scenes/global_resource_manager.gd" id="6_choun"]
-[ext_resource type="Script" uid="uid://3x2p5s26n4tg" path="res://global_resource_panel.gd" id="6_tefeu"]
-[ext_resource type="Script" uid="uid://wt4h05hlh6px" path="res://scenes/region_manager.gd" id="6_ya4ey"]
+[ext_resource type="Script" uid="uid://cs4yuxbiyfqgd" path="res://scripts/game_clock.gd" id="5_85g3d"]
+[ext_resource type="Script" uid="uid://bwwjkuldb6ob3" path="res://scripts/global_resource_manager.gd" id="6_choun"]
+[ext_resource type="Script" uid="uid://3x2p5s26n4tg" path="res://scripts/global_resource_panel.gd" id="6_tefeu"]
+[ext_resource type="Script" uid="uid://wt4h05hlh6px" path="res://scripts/region_manager.gd" id="6_ya4ey"]
 [ext_resource type="Script" uid="uid://dnvulp6dsql5s" path="res://scripts/intrusion_skill_pannel_container.gd" id="7_o6xl0"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_o6xl0"]
@@ -196,14 +196,20 @@ layout_mode = 2
 [node name="Label" type="Label" parent="CanvasLayer/BottomSkillPannel/Control/MarginContainer/IntrusionSkillPannelContainer/TitleRowContainer"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
-size_flags_horizontal = 2
+size_flags_horizontal = 3
 size_flags_vertical = 1
 text = "Intrusion"
+
+[node name="IntrusionSkillPannelDayProgressBar" type="ProgressBar" parent="CanvasLayer/BottomSkillPannel/Control/MarginContainer/IntrusionSkillPannelContainer/TitleRowContainer"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+size_flags_horizontal = 3
+show_percentage = false
 
 [node name="IntrusionSkillPannelRegionNameLabel" type="Label" parent="CanvasLayer/BottomSkillPannel/Control/MarginContainer/IntrusionSkillPannelContainer/TitleRowContainer"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
-size_flags_horizontal = 10
+size_flags_horizontal = 3
 size_flags_vertical = 1
 text = "Region selected"
 

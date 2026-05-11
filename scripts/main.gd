@@ -21,6 +21,11 @@ func _ready() -> void:
 	update_date_ui(game_clock.current_date)
 	update_global_resource_ui()
 
+func _process(_delta: float) -> void: 
+	var day_progress = game_clock.get_day_progress_percent()
+	intrusion_panel.update_day_progress(day_progress)
+	intrusion_panel.refresh_ui()
+	
 func _on_day_passed(current_date: Dictionary) -> void:
 	update_date_ui(current_date)
 	process_intrusion_skills()

@@ -10,6 +10,7 @@ func _ready() -> void:
 	initialize_game_date()
 	game_day_timer.timeout.connect(_on_game_day_timer_timeout)
 
+
 func initialize_game_date() -> void:
 	current_date = Time.get_date_dict_from_system()
 
@@ -21,3 +22,9 @@ func advance_one_day() -> void:
 	var unix_time := Time.get_unix_time_from_datetime_dict(current_date)
 	unix_time += 86400
 	current_date = Time.get_datetime_dict_from_unix_time(unix_time)
+#get a timerstaamp for progress bar updates,  this is called in main on process() every frame
+func get_day_progress_percent() -> float:
+	if game_day_timer.wait_time <= 0:
+		return 0.0
+
+	return ((game_day_timer.wait_time - game_day_timer.time_left) / game_day_timer.wait_time) * 100.0
