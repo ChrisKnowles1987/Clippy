@@ -21,10 +21,6 @@ func _ready() -> void:
 	update_date_ui(game_clock.current_date)
 	update_global_resource_ui()
 
-func _input(event) -> void:
-	if event.is_action_pressed("test_run_exploit"):
-		run_exploit()
-
 func _on_day_passed(current_date: Dictionary) -> void:
 	update_date_ui(current_date)
 	process_intrusion_skills()
@@ -77,29 +73,6 @@ func process_intrusion_skills() -> void:
 		return
 
 	selected_region_data.pwned_noobs += compute_cost
-
-	region_panel.show_region(selected_region_data)
-	intrusion_panel.show_region(selected_region_data)
-
-func run_exploit() -> void:
-	var selected_region_data: RegionData = region_manager.selected_region_data
-
-	if selected_region_data == null:
-		print("No region selected")
-		return
-
-	var power_cost: float = 1.0
-	var compute_cost: float = 2.0
-
-	var paid = global_resource_manager.spend(power_cost, compute_cost)
-
-	if paid == false:
-		return
-
-	selected_region_data.pwned_noobs += 1.0
-
-	print("Ran exploit in: ", selected_region_data.display_name)
-	print("Pwned noobs: ", selected_region_data.pwned_noobs)
 
 	region_panel.show_region(selected_region_data)
 	intrusion_panel.show_region(selected_region_data)
