@@ -3,6 +3,7 @@ extends Node2D
 @onready var map_controller = $MapController
 @onready var region_panel = $CanvasLayer/RegionPanel
 @onready var global_resource_panel = $CanvasLayer/GlobalResourcePanel
+@onready var intrusion_panel = $CanvasLayer/BottomSkillPannel/Control/MarginContainer/IntrusionSkillPannelContainer
 
 var selected_region_data: RegionData = null
 var region_runtime_data := {}
@@ -32,6 +33,7 @@ func _on_region_selected(region_id: String, mouse_position: Vector2):
 	if region_id == "":
 		selected_region_data = null
 		region_panel.show_empty()
+		intrusion_panel.show_empty()
 		return
 	if region_runtime_data.has(region_id):
 		selected_region_data = region_runtime_data[region_id]
@@ -42,6 +44,7 @@ func _on_region_selected(region_id: String, mouse_position: Vector2):
 		selected_region_data = region_data
 		
 	region_panel.show_region(selected_region_data)
+	intrusion_panel.show_region(selected_region_data)
 
 func run_exploit():
 	if selected_region_data == null:

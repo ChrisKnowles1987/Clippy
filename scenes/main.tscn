@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://2ybm07j7qqkl"]
+[gd_scene load_steps=10 format=3 uid="uid://2ybm07j7qqkl"]
 
 [ext_resource type="Script" uid="uid://b3gffeo3avbp6" path="res://scripts/map_controller.gd" id="1_sugp2"]
 [ext_resource type="Script" uid="uid://c0vrfof7ikxbt" path="res://scripts/main.gd" id="1_tbgi4"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://svijuua5rs6w" path="res://assets/maps/clippy_world_region_id_map.png" id="3_tbgi4"]
 [ext_resource type="Script" uid="uid://d2urhygerw064" path="res://scripts/region_panel.gd" id="4_jyhfs"]
 [ext_resource type="Script" uid="uid://3x2p5s26n4tg" path="res://scenes/global_resource_panel.gd" id="6_tefeu"]
+[ext_resource type="Script" uid="uid://dnvulp6dsql5s" path="res://scenes/intrusion_skill_pannel_container.gd" id="7_o6xl0"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_o6xl0"]
 font_size = 20
@@ -162,6 +163,7 @@ theme_override_constants/margin_bottom = 12
 
 [node name="IntrusionSkillPannelContainer" type="VBoxContainer" parent="CanvasLayer/BottomSkillPannel/Control/MarginContainer"]
 layout_mode = 2
+script = ExtResource("7_o6xl0")
 
 [node name="TitleRowContainer" type="HBoxContainer" parent="CanvasLayer/BottomSkillPannel/Control/MarginContainer/IntrusionSkillPannelContainer"]
 layout_mode = 2
@@ -204,7 +206,7 @@ text = "Cost per day"
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-text = "Output per day"
+text = "Result"
 
 [node name="RunExploitRow" type="HBoxContainer" parent="CanvasLayer/BottomSkillPannel/Control/MarginContainer/IntrusionSkillPannelContainer/SkillTableContainer"]
 layout_mode = 2
@@ -281,15 +283,15 @@ size_flags_horizontal = 3
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Label" type="Label" parent="CanvasLayer/BottomSkillPannel/Control/MarginContainer/IntrusionSkillPannelContainer/SkillTableContainer/RunExploitRow/RunExploitOutputContainer"]
+[node name="RunExploitOutputValue" type="Label" parent="CanvasLayer/BottomSkillPannel/Control/MarginContainer/IntrusionSkillPannelContainer/SkillTableContainer/RunExploitRow/RunExploitOutputContainer"]
 layout_mode = 2
 size_flags_horizontal = 9
 text = "1"
 
-[node name="Label2" type="Label" parent="CanvasLayer/BottomSkillPannel/Control/MarginContainer/IntrusionSkillPannelContainer/SkillTableContainer/RunExploitRow/RunExploitOutputContainer"]
+[node name="RunExploitOutputText" type="Label" parent="CanvasLayer/BottomSkillPannel/Control/MarginContainer/IntrusionSkillPannelContainer/SkillTableContainer/RunExploitRow/RunExploitOutputContainer"]
 layout_mode = 2
 size_flags_horizontal = 9
-text = "pwn"
+text = "Pwnd Noob /d"
 
 [node name="Spacer2" type="Control" parent="CanvasLayer/BottomSkillPannel/Control/MarginContainer/IntrusionSkillPannelContainer/SkillTableContainer/RunExploitRow/RunExploitOutputContainer"]
 layout_mode = 2
@@ -370,15 +372,10 @@ size_flags_horizontal = 3
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Label" type="Label" parent="CanvasLayer/BottomSkillPannel/Control/MarginContainer/IntrusionSkillPannelContainer/SkillTableContainer/RunExploitRow2/RunExploitOutputContainer"]
-layout_mode = 2
-size_flags_horizontal = 9
-text = "1"
-
 [node name="Label2" type="Label" parent="CanvasLayer/BottomSkillPannel/Control/MarginContainer/IntrusionSkillPannelContainer/SkillTableContainer/RunExploitRow2/RunExploitOutputContainer"]
 layout_mode = 2
 size_flags_horizontal = 9
-text = "pwn"
+text = "Offline"
 
 [node name="Spacer2" type="Control" parent="CanvasLayer/BottomSkillPannel/Control/MarginContainer/IntrusionSkillPannelContainer/SkillTableContainer/RunExploitRow2/RunExploitOutputContainer"]
 layout_mode = 2
@@ -396,7 +393,7 @@ size_flags_stretch_ratio = 1.5
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 4
-text = "Run Exploits"
+text = "Placeholder"
 
 [node name="Button" type="Button" parent="CanvasLayer/BottomSkillPannel/Control/MarginContainer/IntrusionSkillPannelContainer/SkillTableContainer/RunExploitRow3/RunExploitButtonContainer"]
 custom_minimum_size = Vector2(20, 0)
@@ -429,7 +426,7 @@ text = "P"
 [node name="PowerCostLabel" type="Label" parent="CanvasLayer/BottomSkillPannel/Control/MarginContainer/IntrusionSkillPannelContainer/SkillTableContainer/RunExploitRow3/RunExploitCostContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
-text = "10"
+text = "0"
 
 [node name="Spacer" type="Control" parent="CanvasLayer/BottomSkillPannel/Control/MarginContainer/IntrusionSkillPannelContainer/SkillTableContainer/RunExploitRow3/RunExploitCostContainer"]
 custom_minimum_size = Vector2(10, 0)
@@ -444,7 +441,7 @@ text = "C"
 [node name="ComputeCostLabel" type="Label" parent="CanvasLayer/BottomSkillPannel/Control/MarginContainer/IntrusionSkillPannelContainer/SkillTableContainer/RunExploitRow3/RunExploitCostContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
-text = "5"
+text = "0"
 
 [node name="Spacer3" type="Control" parent="CanvasLayer/BottomSkillPannel/Control/MarginContainer/IntrusionSkillPannelContainer/SkillTableContainer/RunExploitRow3/RunExploitCostContainer"]
 custom_minimum_size = Vector2(10, 0)
@@ -462,12 +459,12 @@ size_flags_horizontal = 3
 [node name="Label" type="Label" parent="CanvasLayer/BottomSkillPannel/Control/MarginContainer/IntrusionSkillPannelContainer/SkillTableContainer/RunExploitRow3/RunExploitOutputContainer"]
 layout_mode = 2
 size_flags_horizontal = 9
-text = "1"
+text = "0"
 
 [node name="Label2" type="Label" parent="CanvasLayer/BottomSkillPannel/Control/MarginContainer/IntrusionSkillPannelContainer/SkillTableContainer/RunExploitRow3/RunExploitOutputContainer"]
 layout_mode = 2
 size_flags_horizontal = 9
-text = "pwn"
+text = "tbd"
 
 [node name="Spacer2" type="Control" parent="CanvasLayer/BottomSkillPannel/Control/MarginContainer/IntrusionSkillPannelContainer/SkillTableContainer/RunExploitRow3/RunExploitOutputContainer"]
 layout_mode = 2
@@ -485,7 +482,7 @@ size_flags_stretch_ratio = 1.5
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 4
-text = "Run Exploits"
+text = "Placeholder"
 
 [node name="Button" type="Button" parent="CanvasLayer/BottomSkillPannel/Control/MarginContainer/IntrusionSkillPannelContainer/SkillTableContainer/RunExploitRow4/RunExploitButtonContainer"]
 custom_minimum_size = Vector2(20, 0)
@@ -518,7 +515,7 @@ text = "P"
 [node name="PowerCostLabel" type="Label" parent="CanvasLayer/BottomSkillPannel/Control/MarginContainer/IntrusionSkillPannelContainer/SkillTableContainer/RunExploitRow4/RunExploitCostContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
-text = "10"
+text = "0"
 
 [node name="Spacer" type="Control" parent="CanvasLayer/BottomSkillPannel/Control/MarginContainer/IntrusionSkillPannelContainer/SkillTableContainer/RunExploitRow4/RunExploitCostContainer"]
 custom_minimum_size = Vector2(10, 0)
@@ -533,7 +530,7 @@ text = "C"
 [node name="ComputeCostLabel" type="Label" parent="CanvasLayer/BottomSkillPannel/Control/MarginContainer/IntrusionSkillPannelContainer/SkillTableContainer/RunExploitRow4/RunExploitCostContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
-text = "5"
+text = "0"
 
 [node name="Spacer3" type="Control" parent="CanvasLayer/BottomSkillPannel/Control/MarginContainer/IntrusionSkillPannelContainer/SkillTableContainer/RunExploitRow4/RunExploitCostContainer"]
 custom_minimum_size = Vector2(10, 0)
@@ -551,12 +548,12 @@ size_flags_horizontal = 3
 [node name="Label" type="Label" parent="CanvasLayer/BottomSkillPannel/Control/MarginContainer/IntrusionSkillPannelContainer/SkillTableContainer/RunExploitRow4/RunExploitOutputContainer"]
 layout_mode = 2
 size_flags_horizontal = 9
-text = "1"
+text = "0"
 
 [node name="Label2" type="Label" parent="CanvasLayer/BottomSkillPannel/Control/MarginContainer/IntrusionSkillPannelContainer/SkillTableContainer/RunExploitRow4/RunExploitOutputContainer"]
 layout_mode = 2
 size_flags_horizontal = 9
-text = "pwn"
+text = "tbd"
 
 [node name="Spacer2" type="Control" parent="CanvasLayer/BottomSkillPannel/Control/MarginContainer/IntrusionSkillPannelContainer/SkillTableContainer/RunExploitRow4/RunExploitOutputContainer"]
 layout_mode = 2
