@@ -125,6 +125,15 @@ offset_bottom = 64.0
 text = "0"
 label_settings = SubResource("LabelSettings_o6xl0")
 
+[node name="DateValueLabel" type="Label" parent="CanvasLayer/GlobalResourcePanel"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -40.0
+offset_bottom = 23.0
+grow_horizontal = 0
+
 [node name="BottomSkillPannel" type="Control" parent="CanvasLayer"]
 material = SubResource("CanvasItemMaterial_tefeu")
 layout_mode = 3
@@ -558,3 +567,7 @@ text = "tbd"
 [node name="Spacer2" type="Control" parent="CanvasLayer/BottomSkillPannel/Control/MarginContainer/IntrusionSkillPannelContainer/SkillTableContainer/Spacer row2/RunExploitOutputContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
+
+[node name="GameDayTimer" type="Timer" parent="."]
+wait_time = 5.0
+autostart = true
