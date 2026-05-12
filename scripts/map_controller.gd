@@ -4,14 +4,10 @@ extends Node2D
 @onready var highlight_map = $HighlightMap
 @onready var region_panel = $"../CanvasLayer/RegionPanel"
 
-
-
 var region_ids = {
 	"North America": "north_america",
-	"Central America & Caribbean": "central_america_caribbean",
 	"South America": "south_america",
-	"Western Europe": "western_europe",
-	"Eastern Europe": "eastern_europe",
+	"Europe": "europe",
 	"Russia & Central Asia": "russia_central_asia",
 	"Middle East": "middle_east",
 	"North Africa": "north_africa",
@@ -28,15 +24,13 @@ var region_ids = {
 signal region_selected(region_id: String, mouse_position: Vector2)
 
 var region_image: Image
-var hovered_region = ""
-var selected_region = ""
+var hovered_region := ""
+var selected_region := ""
 
 var region_lookup = {
 	Color8(230, 25, 75): "North America",
-	Color8(245, 130, 48): "Central America & Caribbean",
 	Color8(255, 225, 25): "South America",
-	Color8(60, 180, 75): "Western Europe",
-	Color8(70, 240, 240): "Eastern Europe",
+	Color8(60, 180, 75): "Europe",
 	Color8(0, 130, 200): "Russia & Central Asia",
 	Color8(145, 30, 180): "Middle East",
 	Color8(240, 50, 230): "North Africa",
@@ -50,42 +44,32 @@ var region_lookup = {
 	Color8(170, 255, 195): "Oceania",
 }
 
-var highlight_textures = {
-	"North America": preload("res://assets/maps/highlights/north_america_highlight.png"),
-	"Central America & Caribbean": preload("res://assets/maps/highlights/central_america_caribbean_highlight.png"),
-	"South America": preload("res://assets/maps/highlights/south_america_highlight.png"),
-	"Western Europe": preload("res://assets/maps/highlights/western_europe_highlight.png"),
-	"Eastern Europe": preload("res://assets/maps/highlights/eastern_europe_highlight.png"),
-	"Russia & Central Asia": preload("res://assets/maps/highlights/russia_central_asia_highlight.png"),
-	"Middle East": preload("res://assets/maps/highlights/middle_east_highlight.png"),
-	"North Africa": preload("res://assets/maps/highlights/north_africa_highlight.png"),
-	"West Africa": preload("res://assets/maps/highlights/west_africa_highlight.png"),
-	"East Africa": preload("res://assets/maps/highlights/east_africa_highlight.png"),
-	"Southern Africa": preload("res://assets/maps/highlights/southern_africa_highlight.png"),
-	"India": preload("res://assets/maps/highlights/india_highlight.png"),
-	"China": preload("res://assets/maps/highlights/china_highlight.png"),
-	"Japan & Korea": preload("res://assets/maps/highlights/japan_korea_highlight.png"),
-	"Southeast Asia": preload("res://assets/maps/highlights/southeast_asia_highlight.png"),
-	"Oceania": preload("res://assets/maps/highlights/oceania_highlight.png"),
-}
+var highlight_textures := {}
+var highlight_color := Color(0.2, 0.85, 1.0, 0.65)
 
-func _ready():
-	print('map controller ready')
+func _ready() -> void:
+	print("map controller ready")
 	set_process_input(true)
-	region_image = region_map.texture.get_image()
-	highlight_map.visible = false
-	highlight_map.modulate = Color(1, 1, 1, 0.6)
 
-func _process(_delta):
-	var region = get_region_under_mouse()
+	region_image = region_map.texture.get_image()
+
+	highlight_map.visible = false
+	highlight_map.texture = null
+	highlight_map.modulate = Color.WHITE
+
+	build_highlight_textures()
+
+
+func _process(_delta: float) -> void:
+	var region := get_region_under_mouse()
 
 	if region != hovered_region:
 		hovered_region = region
 		update_highlight(hovered_region)
 
-func _input(event):
-	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
 
+func _input(event: InputEvent) -> void:
+	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
 		selected_region = get_region_under_mouse()
 
 		if region_ids.has(selected_region):
@@ -93,20 +77,19 @@ func _input(event):
 			region_selected.emit(region_id, get_viewport().get_mouse_position())
 		else:
 			region_selected.emit("", get_viewport().get_mouse_position())
-			
 
 
 func get_region_under_mouse() -> String:
 	var local_pos = region_map.to_local(get_global_mouse_position())
 	var texture_size = region_map.texture.get_size()
 
-	var x = int(local_pos.x + texture_size.x / 2.0)
-	var y = int(local_pos.y + texture_size.y / 2.0)
+	var x := int(local_pos.x + texture_size.x / 2.0)
+	var y := int(local_pos.y + texture_size.y / 2.0)
 
 	if x < 0 or y < 0 or x >= region_image.get_width() or y >= region_image.get_height():
 		return ""
 
-	var clicked_color = region_image.get_pixel(x, y)
+	var clicked_color := region_image.get_pixel(x, y)
 
 	if clicked_color == Color.BLACK:
 		return ""
@@ -117,7 +100,31 @@ func get_region_under_mouse() -> String:
 
 	return ""
 
-func update_highlight(region_name: String):
+
+func build_highlight_textures() -> void:
+	for region_color in region_lookup:
+		var region_name: String = region_lookup[region_color]
+
+		var highlight_image := Image.create(
+			region_image.get_width(),
+			region_image.get_height(),
+			false,
+			Image.FORMAT_RGBA8
+		)
+
+		for y in region_image.get_height():
+			for x in region_image.get_width():
+				var pixel_color := region_image.get_pixel(x, y)
+
+				if pixel_color.is_equal_approx(region_color):
+					highlight_image.set_pixel(x, y, highlight_color)
+				else:
+					highlight_image.set_pixel(x, y, Color.TRANSPARENT)
+
+		highlight_textures[region_name] = ImageTexture.create_from_image(highlight_image)
+
+
+func update_highlight(region_name: String) -> void:
 	if region_name == "":
 		highlight_map.visible = false
 		highlight_map.texture = null

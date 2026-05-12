@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="RegionData" format=3 uid="uid://b0t7d2ddewc3h"]
+
+[ext_resource type="Script" uid="uid://c8sglxg2g7rtg" path="res://scripts/region_data.gd" id="1_po4lw"]
+
+[resource]
+script = ExtResource("1_po4lw")
+id = "europe"
+display_name = "Europe"
+population = 430000000
