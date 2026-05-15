@@ -1,9 +1,0 @@
-[gd_resource type="Resource" script_class="RegionData" load_steps=2 format=3 uid="uid://d3xrxrogcgh2m"]
-
-[ext_resource type="Script" uid="uid://c8sglxg2g7rtg" path="res://scripts/region_data.gd" id="1"]
-
-[resource]
-script = ExtResource("1")
-id = "russia_central_asia"
-display_name = "Russia & Central Asia"
-population = 255000000
