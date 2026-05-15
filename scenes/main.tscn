@@ -3,17 +3,19 @@
 [ext_resource type="Script" uid="uid://b3gffeo3avbp6" path="res://scripts/map_controller.gd" id="1_sugp2"]
 [ext_resource type="Script" uid="uid://c0vrfof7ikxbt" path="res://scripts/main.gd" id="1_tbgi4"]
 [ext_resource type="Script" uid="uid://dyakcdtqkh3oj" path="res://scripts/camera_controller.gd" id="2_a8y0u"]
-[ext_resource type="Texture2D" uid="uid://d174hxgwn5ac2" path="res://assets/opengs_map_data/TerrainMap.png" id="3_choun"]
 [ext_resource type="Texture2D" uid="uid://svijuua5rs6w" path="res://assets/maps/clippy_world_region_id_map.png" id="3_tbgi4"]
+[ext_resource type="Texture2D" uid="uid://degr2qpantfai" path="res://assets/Nasa/world_map_5000x2000.png" id="4_jbj1t"]
 [ext_resource type="Script" uid="uid://d2urhygerw064" path="res://scripts/region_panel.gd" id="4_jyhfs"]
 [ext_resource type="Script" uid="uid://cs4yuxbiyfqgd" path="res://scripts/game_clock.gd" id="5_85g3d"]
 [ext_resource type="Texture2D" uid="uid://cyh2q6jkvokjn" path="res://assets/opengs_map_data/ProvinceMap.bmp" id="5_ya4ey"]
 [ext_resource type="Script" uid="uid://bwwjkuldb6ob3" path="res://scripts/global_resource_manager.gd" id="6_choun"]
 [ext_resource type="Script" uid="uid://dlpxvt6nxilg5" path="res://scripts/province_spawn_manager.gd" id="6_eb6dy"]
+[ext_resource type="Texture2D" uid="uid://csqmkoco7y2jy" path="res://assets/Nasa/population_spawn_mask_5000x2000.png" id="6_muem4"]
 [ext_resource type="Script" uid="uid://3x2p5s26n4tg" path="res://scripts/global_resource_panel.gd" id="6_tefeu"]
 [ext_resource type="Script" uid="uid://wt4h05hlh6px" path="res://scripts/region_manager.gd" id="6_ya4ey"]
 [ext_resource type="Script" uid="uid://dnvulp6dsql5s" path="res://scripts/intrusion_skill_pannel_container.gd" id="7_o6xl0"]
 [ext_resource type="Script" uid="uid://dasgwmtg0jhd" path="res://scripts/province_spawn_layer.gd" id="7_trceg"]
+[ext_resource type="Texture2D" uid="uid://c4pntqiacfpxn" path="res://assets/opengs_map_data/PopMap2.png" id="8_dp3eg"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_o6xl0"]
 font_size = 20
@@ -32,7 +34,7 @@ script = ExtResource("1_sugp2")
 
 [node name="WorldMap" type="Sprite2D" parent="MapController" unique_id=12186650]
 position = Vector2(960, 540)
-texture = ExtResource("3_choun")
+texture = ExtResource("4_jbj1t")
 
 [node name="HighlightMap" type="Sprite2D" parent="MapController" unique_id=1188221661]
 visible = false
@@ -40,14 +42,18 @@ position = Vector2(960, 540)
 texture = ExtResource("3_tbgi4")
 
 [node name="RegionMap" type="Sprite2D" parent="MapController" unique_id=690766212]
-visible = false
 position = Vector2(960, 540)
-texture = ExtResource("3_tbgi4")
+texture = ExtResource("6_muem4")
 
 [node name="ProvinceMap" type="Sprite2D" parent="MapController" unique_id=12174796]
 visible = false
 position = Vector2(960, 540)
 texture = ExtResource("5_ya4ey")
+
+[node name="PopDensityMap" type="Sprite2D" parent="MapController" unique_id=1220066283]
+visible = false
+position = Vector2(960, 540)
+texture = ExtResource("8_dp3eg")
 
 [node name="ProvinceSpawnManager" type="Node" parent="MapController" unique_id=410229282 node_paths=PackedStringArray("map_sprite")]
 script = ExtResource("6_eb6dy")
