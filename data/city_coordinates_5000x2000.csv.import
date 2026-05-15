@@ -1,0 +1,19 @@
+[remap]
+
+importer="csv_translation"
+type="Translation"
+uid="uid://ccjwob4p3klx2"
+
+[deps]
+
+files=["res://data/city_coordinates_5000x2000.country.translation", "res://data/city_coordinates_5000x2000.longitude.translation", "res://data/city_coordinates_5000x2000.latitude.translation", "res://data/city_coordinates_5000x2000.pixel.translation", "res://data/city_coordinates_5000x2000.pixel.translation", "res://data/city_coordinates_5000x2000.pixel.translation", "res://data/city_coordinates_5000x2000.pixel.translation", "res://data/city_coordinates_5000x2000.centered.translation", "res://data/city_coordinates_5000x2000.centered.translation", "res://data/city_coordinates_5000x2000.source.translation", "res://data/city_coordinates_5000x2000.source.translation"]
+
+source_file="res://data/city_coordinates_5000x2000.csv"
+dest_files=["res://data/city_coordinates_5000x2000.country.translation", "res://data/city_coordinates_5000x2000.longitude.translation", "res://data/city_coordinates_5000x2000.latitude.translation", "res://data/city_coordinates_5000x2000.pixel.translation", "res://data/city_coordinates_5000x2000.pixel.translation", "res://data/city_coordinates_5000x2000.pixel.translation", "res://data/city_coordinates_5000x2000.pixel.translation", "res://data/city_coordinates_5000x2000.centered.translation", "res://data/city_coordinates_5000x2000.centered.translation", "res://data/city_coordinates_5000x2000.source.translation", "res://data/city_coordinates_5000x2000.source.translation"]
+
+[params]
+
+compress=1
+delimiter=0
+unescape_keys=false
+unescape_translations=true
