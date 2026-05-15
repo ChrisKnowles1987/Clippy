@@ -6,8 +6,10 @@ extends Node2D
 
 var region_ids = {
 	"North America": "north_america",
+	"Central America & Caribbean": "central_america_caribbean",
 	"South America": "south_america",
-	"Europe": "europe",
+	"Western Europe": "western_europe",
+	"Eastern Europe": "eastern_europe",
 	"Russia & Central Asia": "russia_central_asia",
 	"Middle East": "middle_east",
 	"North Africa": "north_africa",
@@ -28,20 +30,22 @@ var hovered_region := ""
 var selected_region := ""
 
 var region_lookup = {
-	Color8(230, 25, 75): "North America",
-	Color8(255, 225, 25): "South America",
-	Color8(60, 180, 75): "Europe",
-	Color8(0, 130, 200): "Russia & Central Asia",
-	Color8(145, 30, 180): "Middle East",
-	Color8(240, 50, 230): "North Africa",
-	Color8(210, 245, 60): "West Africa",
-	Color8(250, 190, 190): "East Africa",
-	Color8(0, 128, 128): "Southern Africa",
-	Color8(230, 190, 255): "India",
-	Color8(170, 110, 40): "China",
-	Color8(255, 250, 200): "Japan & Korea",
-	Color8(128, 0, 0): "Southeast Asia",
-	Color8(170, 255, 195): "Oceania",
+	Color8(230, 25, 75): "north_america",
+	Color8(245, 130, 48): "central_america_caribbean",
+	Color8(255, 225, 25): "south_america",
+	Color8(60, 180, 75): "western_europe",
+	Color8(0, 200, 80): "eastern_europe",
+	Color8(0, 130, 200): "russia_central_asia",
+	Color8(145, 30, 180): "middle_east",
+	Color8(70, 240, 240): "north_africa",
+	Color8(210, 245, 60): "west_africa",
+	Color8(250, 190, 190): "east_africa",
+	Color8(0, 128, 128): "southern_africa",
+	Color8(230, 190, 255): "india",
+	Color8(170, 110, 40): "china",
+	Color8(255, 215, 180): "japan_korea",
+	Color8(128, 0, 0): "southeast_asia",
+	Color8(170, 255, 195): "oceania",
 }
 
 var highlight_textures := {}

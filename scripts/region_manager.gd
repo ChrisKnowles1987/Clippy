@@ -38,9 +38,9 @@ func load_regions_from_csv() -> void:
 		city.region_id = columns[20]
 
 		city.map_position = Vector2(
-			float(columns[16]),
-			float(columns[17])
-		)
+			960.0 + float(columns[16]),
+			540.0 + float(columns[17])
+			)
 
 		city.population_weight = float(columns[21])
 		city.network_weight = float(columns[22])

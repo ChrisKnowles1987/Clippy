@@ -1,8 +1,5 @@
 extends Node2D
 
-@onready var province_spawn_manager = $MapController/ProvinceSpawnManager
-@onready var province_spawn_layer = $MapController/ProvinceSpawnLayer
-
 @onready var map_controller = $MapController
 @onready var game_clock = $GameClock
 @onready var region_manager = $RegionManager
@@ -26,7 +23,6 @@ func _ready() -> void:
 
 	update_date_ui(game_clock.current_date)
 	update_global_resource_ui()
-	province_spawn_layer.set_spawn_points(province_spawn_manager.land_spawn_points)
 
 func _process(_delta: float) -> void: 
 	var day_progress = game_clock.get_day_progress_percent()
