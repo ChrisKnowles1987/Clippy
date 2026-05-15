@@ -13,6 +13,9 @@ extends Node2D
 @onready var intrusion_panel = $CanvasLayer/BottomSkillPannel/Control/MarginContainer/IntrusionSkillPannelContainer
 @onready var game_day_timer_label: Label = $CanvasLayer/GlobalResourcePanel/DateValueLabel
 
+@onready var hack_node_manager = $HackNodeManager
+@onready var hack_node_layer = $MapController/HackNodeLayer
+
 func _ready() -> void:
 	map_controller.region_selected.connect(_on_region_selected)
 	game_clock.day_passed.connect(_on_day_passed)
@@ -31,7 +34,29 @@ func _process(_delta: float) -> void:
 	
 func _on_day_passed(current_date: Dictionary) -> void:
 	update_date_ui(current_date)
+
+	generate_daily_nodes()
+
 	process_intrusion_skills()
+
+func generate_daily_nodes() -> void:
+	for region_id in region_manager.regions.keys():
+
+		var region_data: RegionData = region_manager.regions[region_id]
+
+		var region_state: RegionState = (
+			region_manager.get_region_state(region_id)
+		)
+
+		hack_node_manager.generate_region_nodes(
+			region_data,
+			region_state
+		)
+
+	hack_node_layer.set_nodes(
+		hack_node_manager.active_nodes
+	)
+
 
 func update_date_ui(current_date: Dictionary) -> void:
 	game_day_timer_label.text = "%02d/%02d/%04d" % [
@@ -56,18 +81,23 @@ func _on_region_selected(region_id: String, mouse_position: Vector2) -> void:
 
 	var selected_region_data: RegionData = region_manager.select_region(region_id)
 
-	region_panel.show_region(selected_region_data)
+	var region_state = region_manager.get_region_state(region_id)
+	region_panel.show_region(selected_region_data, region_state)
 	intrusion_panel.show_region(selected_region_data)
 	
 
 func process_intrusion_skills() -> void:
-	for region_data in region_manager.region_runtime_data.values():
-		process_run_exploit(region_data)
-		process_scan_networks(region_data)
+	if region_manager.selected_region_data == null:
+		return
 
-	if region_manager.selected_region_data != null:
-		region_panel.show_region(region_manager.selected_region_data)
-		intrusion_panel.show_region(region_manager.selected_region_data)
+	var selected_region_id = region_manager.selected_region_data.id
+	var selected_region_state = region_manager.get_region_state(selected_region_id)
+
+	if selected_region_state == null:
+		return
+
+	region_panel.show_region(region_manager.selected_region_data, selected_region_state)
+	intrusion_panel.show_region(region_manager.selected_region_data)
 
 func process_run_exploit(region_data: RegionData) -> void:
 	var run_exploit = region_data.intrusion_allocations["run_exploit"]
