@@ -61,7 +61,7 @@ func _ready() -> void:
 	highlight_map.texture = null
 	highlight_map.modulate = Color.WHITE
 
-	build_highlight_textures()
+	
 
 
 func _process(_delta: float) -> void:
@@ -105,37 +105,16 @@ func get_region_under_mouse() -> String:
 	return ""
 
 
-func build_highlight_textures() -> void:
-	for region_color in region_lookup:
-		var region_name: String = region_lookup[region_color]
-
-		var highlight_image := Image.create(
-			region_image.get_width(),
-			region_image.get_height(),
-			false,
-			Image.FORMAT_RGBA8
-		)
-
-		for y in region_image.get_height():
-			for x in region_image.get_width():
-				var pixel_color := region_image.get_pixel(x, y)
-
-				if pixel_color.is_equal_approx(region_color):
-					highlight_image.set_pixel(x, y, highlight_color)
-				else:
-					highlight_image.set_pixel(x, y, Color.TRANSPARENT)
-
-		highlight_textures[region_name] = ImageTexture.create_from_image(highlight_image)
-
-
-func update_highlight(region_name: String) -> void:
-	if region_name == "":
+func update_highlight(region_id: String) -> void:
+	if region_id == "":
 		highlight_map.visible = false
 		highlight_map.texture = null
 		return
 
-	if highlight_textures.has(region_name):
-		highlight_map.texture = highlight_textures[region_name]
+	var highlight_path := "res://assets/Nasa/highlights/" + region_id + ".png"
+
+	if ResourceLoader.exists(highlight_path):
+		highlight_map.texture = load(highlight_path)
 		highlight_map.visible = true
 	else:
 		highlight_map.visible = false
