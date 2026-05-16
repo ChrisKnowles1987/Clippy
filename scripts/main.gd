@@ -67,13 +67,12 @@ func update_date_ui(current_date: Dictionary) -> void:
 
 func update_global_resource_ui() -> void:
 	global_resource_panel.update_values(
-		global_resource_manager.clippy_power,
-		global_resource_manager.clippy_compute,
-		global_resource_manager.clippy_storage
+		global_resource_manager.power,
+		global_resource_manager.compute,
 	)
 
 func _on_resources_changed(power: float, compute: float, storage: float) -> void:
-	global_resource_panel.update_values(power, compute, storage)
+	global_resource_panel.update_values(power, compute)
 
 func _on_region_selected(region_id: String, mouse_position: Vector2) -> void:
 	if region_id == "":
