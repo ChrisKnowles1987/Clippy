@@ -5,8 +5,6 @@ extends Node2D
 @onready var region_manager = $RegionManager
 @onready var global_resource_manager = $GlobalResourceManager
 
-
-
 @onready var region_panel = $CanvasLayer/RegionPanel
 @onready var global_resource_panel = $CanvasLayer/GlobalResourcePanel
 @onready var intrusion_panel = $CanvasLayer/BottomSkillPannel/Control/MarginContainer/IntrusionSkillPannelContainer
@@ -26,16 +24,13 @@ func _ready() -> void:
 	update_date_ui(game_clock.current_date)
 	update_global_resource_ui()
 
-func _process(_delta: float) -> void: 
-	var day_progress = game_clock.get_day_progress_percent()
-	intrusion_panel.update_day_progress(day_progress)
-	
 func _on_day_passed(current_date: Dictionary) -> void:
 	update_date_ui(current_date)
 	process_intrusion_skills()
 	generate_daily_nodes()
-
-
+	resolve_daily_nodes()
+	refresh_selected_region_ui()
+	update_global_resource_ui()
 
 func generate_daily_nodes() -> void:
 	for region_id in region_manager.regions.keys():
@@ -57,6 +52,44 @@ func generate_daily_nodes() -> void:
 		hack_node_manager.active_nodes
 	)
 
+func resolve_daily_nodes() -> void:
+	for node in hack_node_manager.active_nodes:
+		if node.resolved:
+			continue
+
+		var region_state: RegionState = region_manager.get_region_state(node.region_id)
+
+		if region_state == null:
+			continue
+
+		if region_state.run_exploit_enabled == false:
+			continue
+
+		if randf() > node.success_chance:
+			node.resolved = true
+			intrusion_panel.add_intrusion_log_line(
+				node.region_id,
+				"exploit attempt failed in " + node.city_name + " [" + node.node_type + "]"
+			)
+			continue
+
+		region_state.intelligence_percent = clamp(
+			region_state.intelligence_percent + node.intelligence_reward,
+			0.0,
+			100.0
+		)
+
+		region_state.notoriety += node.notoriety_gain
+		node.resolved = true
+
+		intrusion_panel.add_intrusion_log_line(
+			node.region_id,
+			"node converted in " + node.city_name + " +" + str(snapped(node.intelligence_reward, 0.1)) + " intelligence"
+		)
+
+	hack_node_layer.set_nodes(
+		hack_node_manager.active_nodes
+	)
 
 func update_date_ui(current_date: Dictionary) -> void:
 	game_day_timer_label.text = "%02d/%02d/%04d" % [
@@ -67,23 +100,22 @@ func update_date_ui(current_date: Dictionary) -> void:
 
 func update_global_resource_ui() -> void:
 	global_resource_panel.update_values(
-		global_resource_manager.power,
-		global_resource_manager.compute,
+		global_resource_manager.get_available_power(),
+		global_resource_manager.get_available_compute()
 	)
 
-func _on_resources_changed(power: float, compute: float, storage: float) -> void:
-	global_resource_panel.update_values(power, compute)
+func _on_resources_changed(power: float, compute: float) -> void:
+	update_global_resource_ui()
 
 func _on_region_selected(region_id: String, mouse_position: Vector2) -> void:
 	if region_id == "":
 		return
 
 	var selected_region_data: RegionData = region_manager.select_region(region_id)
+	var region_state: RegionState = region_manager.get_region_state(region_id)
 
-	var region_state = region_manager.get_region_state(region_id)
 	region_panel.show_region(selected_region_data, region_state)
 	intrusion_panel.show_region(selected_region_data, region_state)
-	
 
 func process_intrusion_skills() -> void:
 	for region_id in region_manager.region_states.keys():
@@ -92,37 +124,38 @@ func process_intrusion_skills() -> void:
 		if region_state == null:
 			continue
 
-		process_run_exploit_state(region_state)
 		process_scan_networks_state(region_state)
-
-	if region_manager.selected_region_data == null:
-		return
-
-	var selected_region_id = region_manager.selected_region_data.id
-	var selected_region_state = region_manager.get_region_state(selected_region_id)
-
-	if selected_region_state == null:
-		return
-
-	region_panel.show_region(region_manager.selected_region_data, selected_region_state)
-	intrusion_panel.show_region(region_manager.selected_region_data, selected_region_state)
-
-
-func process_run_exploit_state(region_state: RegionState) -> void:
-	if region_state.run_exploit_enabled == false:
-		return
-
-	var paid:bool  = global_resource_manager.spend(
-		region_state.run_exploit_power_per_day,
-		region_state.run_exploit_compute_per_day
-	)
-
-	if paid == false:
-		region_state.run_exploit_enabled = false
-
+		process_run_exploit_state(region_state)
 
 func process_scan_networks_state(region_state: RegionState) -> void:
 	if region_state.scan_networks_enabled == false:
 		return
 
 	region_state.network_visibility += region_state.scan_networks_level
+
+	intrusion_panel.add_intrusion_log_line(
+		region_state.region_id,
+		"network foothold increased to " + str(snapped(region_state.network_visibility, 0.1))
+	)
+
+func process_run_exploit_state(region_state: RegionState) -> void:
+	if region_state.run_exploit_enabled == false:
+		return
+
+	intrusion_panel.add_intrusion_log_line(
+		region_state.region_id,
+		"exploit routines active"
+	)
+
+func refresh_selected_region_ui() -> void:
+	if region_manager.selected_region_data == null:
+		return
+
+	var selected_region_id: String = region_manager.selected_region_data.id
+	var selected_region_state: RegionState = region_manager.get_region_state(selected_region_id)
+
+	if selected_region_state == null:
+		return
+
+	region_panel.show_region(region_manager.selected_region_data, selected_region_state)
+	intrusion_panel.show_region(region_manager.selected_region_data, selected_region_state)

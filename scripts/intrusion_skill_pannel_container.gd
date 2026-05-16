@@ -1,44 +1,104 @@
-### `intrusion_skill_pannel_container.gd`
-
 extends Control
 
-@onready var run_exploit_region_label = $TitleRowContainer/IntrusionSkillPannelRegionNameLabel
+var region_name_label: Label
+var expand_button: BaseButton
+var infiltration_button: BaseButton
 
-@onready var day_progress_bar: ProgressBar = $TitleRowContainer/IntrusionSkillPannelDayProgressBar
+var power_cost_label: Label
+var compute_cost_label: Label
+var infiltration_status_label: Label
 
-@onready var run_exploit_check_button = $SkillTableContainer/RunExploitRow/RunExploitButtonContainer/CheckButton
-@onready var run_exploit_plus_button = $SkillTableContainer/RunExploitRow/RunExploitButtonContainer/PlusButton
-@onready var run_exploit_minus_button = $SkillTableContainer/RunExploitRow/RunExploitButtonContainer/MinusButton
-
-@onready var run_exploit_power_cost_label = $SkillTableContainer/RunExploitRow/RunExploitCostContainer/PowerCostLabel
-@onready var run_exploit_compute_cost_label = $SkillTableContainer/RunExploitRow/RunExploitCostContainer/ComputeCostLabel
-@onready var run_exploit_pwn_output_value = $SkillTableContainer/RunExploitRow/RunExploitOutputContainer/RunExploitPwnOutputValue
-
-@onready var scan_networks_check_button = $SkillTableContainer/ScanNetworksRow/ScanNetworksContainer/CheckButton
-
-@onready var scan_networks_power_cost_label = $SkillTableContainer/ScanNetworksRow/ScanNetworksCostContainer/PowerCostLabel
-@onready var scan_networks_compute_cost_label = $SkillTableContainer/ScanNetworksRow/ScanNetworksCostContainer/ComputeCostLabel
-@onready var scan_networks_output_value = $SkillTableContainer/ScanNetworksRow/ScanNetworksOutputContainer/ScanNetworksOutputContainerlabel
+var intelligence_progress_bar: ProgressBar
+var details_container: Control
+var terminal_log: RichTextLabel
 
 @onready var global_resource_manager = get_node("/root/Node2D/GlobalResourceManager")
 
 var selected_region_data: RegionData = null
 var selected_region_state: RegionState = null
 
+var expanded: bool = false
+var intrusion_logs_by_region: Dictionary = {}
+
+var flavour_lines_scan := [
+	"probing regional network surface",
+	"classifying packet noise",
+	"indexing exposed infrastructure",
+	"mapping public routing behaviour",
+	"sampling weak authentication signals"
+]
+
+var flavour_lines_exploit := [
+	"deploying low-confidence exploit bundle",
+	"converting foothold into access attempt",
+	"testing unattended service response",
+	"matching exploit path against regional model",
+	"isolating candidate intrusion route"
+]
 
 func _ready() -> void:
-	run_exploit_plus_button.pressed.connect(_on_run_exploit_plus_pressed)
-	run_exploit_minus_button.pressed.connect(_on_run_exploit_minus_pressed)
-	run_exploit_check_button.toggled.connect(_on_run_exploit_toggled)
+	region_name_label = _find_first_label([
+		"IntrusionSkillPannelRegionNameLabel",
+		"RegionNameLabel"
+	])
 
-	scan_networks_check_button.toggled.connect(_on_scan_networks_toggled)
+	expand_button = _find_first_button([
+		"ExpandButton",
+		"MenuButton"
+	])
 
+	infiltration_button = _find_first_button([
+		"InfiltrationButton",
+		"ScanNetworksButton",
+		"CheckButton"
+	])
+
+	power_cost_label = _find_first_label([
+		"PowerCostLabel",
+		"PowerReserveLabel"
+	])
+
+	compute_cost_label = _find_first_label([
+		"ComputeCostLabel",
+		"ComputeReserveLabel"
+	])
+
+	infiltration_status_label = _find_first_label([
+		"ScanNetworksOutputContainerlabel",
+		"InfiltrationStatusLabel",
+		"StatusLabel"
+	])
+
+	intelligence_progress_bar = _find_first_progress_bar([
+		"IntelligenceProgressBar",
+		"IntelligenceBar"
+	])
+
+	details_container = _find_first_control([
+		"IntrusionDetailsContainer",
+		"DetailsContainer",
+		"DetailsPanel"
+	])
+
+	terminal_log = _find_first_rich_text_label([
+		"TerminalLogLabel",
+		"TerminalLog",
+		"IntrusionTerminalLog"
+	])
+
+	if infiltration_button != null:
+		infiltration_button.pressed.connect(_on_infiltration_button_pressed)
+
+	if expand_button != null:
+		expand_button.pressed.connect(_on_expand_button_pressed)
+
+	expanded = false
+	_update_details_visibility()
 
 func show_empty() -> void:
 	selected_region_data = null
 	selected_region_state = null
 	visible = false
-
 
 func show_region(region_data: RegionData, region_state: RegionState) -> void:
 	selected_region_data = region_data
@@ -46,123 +106,242 @@ func show_region(region_data: RegionData, region_state: RegionState) -> void:
 	visible = true
 	refresh_ui()
 
-
-func update_day_progress(progress_percent: float) -> void:
-	day_progress_bar.value = progress_percent
-
-
 func refresh_ui() -> void:
 	if selected_region_data == null:
 		return
 
-	refresh_region_label()
-	refresh_run_exploit_ui()
-	refresh_scan_networks_ui()
+	if selected_region_state == null:
+		return
 
+	refresh_region_label()
+	refresh_infiltration_ui()
+	refresh_intelligence_ui()
+	refresh_terminal_log()
 
 func refresh_region_label() -> void:
-	run_exploit_region_label.text = str(selected_region_data.display_name)
+	if region_name_label == null:
+		return
 
+	region_name_label.text = str(selected_region_data.display_name)
 
-func refresh_run_exploit_ui() -> void:
-	run_exploit_check_button.set_pressed_no_signal(selected_region_state.run_exploit_enabled)
+func refresh_infiltration_ui() -> void:
+	if infiltration_button != null:
+		if selected_region_state.infiltration_enabled:
+			infiltration_button.text = "Online"
+		else:
+			infiltration_button.text = "Offline"
 
-	var power = selected_region_state.run_exploit_power_per_day
-	var compute = selected_region_state.run_exploit_compute_per_day
-	var pwned_noobs_per_day = compute
+	if power_cost_label != null:
+		power_cost_label.text = str(snapped(get_infiltration_power_cost(), 0.1))
 
-	run_exploit_power_cost_label.text = str(power)
-	run_exploit_compute_cost_label.text = str(compute)
-	run_exploit_pwn_output_value.text = str(pwned_noobs_per_day)
+	if compute_cost_label != null:
+		compute_cost_label.text = str(snapped(get_infiltration_compute_cost(), 0.1))
 
+	if infiltration_status_label != null:
+		if selected_region_state.infiltration_enabled:
+			infiltration_status_label.text = "Foothold: " + get_network_foothold_title(selected_region_state.network_visibility)
+		else:
+			infiltration_status_label.text = "Offline"
 
-func refresh_scan_networks_ui() -> void:
-	scan_networks_check_button.set_pressed_no_signal(selected_region_state.scan_networks_enabled)
+func refresh_intelligence_ui() -> void:
+	if intelligence_progress_bar == null:
+		return
 
-	scan_networks_power_cost_label.text = "-"
-	scan_networks_compute_cost_label.text = "-"
+	intelligence_progress_bar.min_value = 0.0
+	intelligence_progress_bar.max_value = 100.0
+	intelligence_progress_bar.value = selected_region_state.intelligence_percent
 
-	if selected_region_state.scan_networks_enabled:
-		scan_networks_output_value.text = "Level " + str(selected_region_state.scan_networks_level)
+func refresh_terminal_log() -> void:
+	if terminal_log == null:
+		return
+
+	if selected_region_state == null:
+		terminal_log.text = ""
+		return
+
+	var region_id := selected_region_state.region_id
+
+	if intrusion_logs_by_region.has(region_id) == false:
+		intrusion_logs_by_region[region_id] = []
+
+	var lines: Array = intrusion_logs_by_region[region_id]
+	var output := ""
+
+	for line in lines:
+		output += "> " + str(line) + "\n"
+
+	terminal_log.text = output
+
+func _on_infiltration_button_pressed() -> void:
+	if selected_region_state == null:
+		return
+
+	if selected_region_state.infiltration_enabled:
+		disable_infiltration()
 	else:
-		scan_networks_output_value.text = "Offline"
+		enable_infiltration()
 
+	refresh_ui()
 
-# run exploit
-func _on_run_exploit_toggled(enabled: bool) -> void:
-	if selected_region_state == null:
-		return
+func enable_infiltration() -> void:
+	var power_cost := get_infiltration_power_cost()
+	var compute_cost := get_infiltration_compute_cost()
 
-	if enabled == true:
-		var can_run = global_resource_manager.can_afford(
-			selected_region_state.run_exploit_power_per_day,
-			selected_region_state.run_exploit_compute_per_day
+	var reserved: bool = global_resource_manager.reserve(power_cost, compute_cost)
+
+	if reserved == false:
+		add_intrusion_log_line(
+			selected_region_state.region_id,
+			"infiltration failed: insufficient available Power or Compute"
 		)
-
-		if can_run == false:
-			selected_region_state.run_exploit_enabled = false
-			refresh_ui()
-			return
-
-	selected_region_state.run_exploit_enabled = enabled
-	refresh_ui()
-
-
-func _on_run_exploit_plus_pressed() -> void:
-	if selected_region_state == null:
 		return
 
-	selected_region_state.run_exploit_power_per_day += 2
-	selected_region_state.run_exploit_compute_per_day += 1
-
-	refresh_ui()
-
-
-func _on_run_exploit_minus_pressed() -> void:
-	if selected_region_state == null:
-		return
-
-	selected_region_state.run_exploit_power_per_day = max(
-		0,
-		selected_region_state.run_exploit_power_per_day - 2
-	)
-
-	selected_region_state.run_exploit_compute_per_day = max(
-		0,
-		selected_region_state.run_exploit_compute_per_day - 1
-	)
-
-	refresh_ui()
-
-
-# scan networks
-func _on_scan_networks_toggled(enabled: bool) -> void:
-	if selected_region_state == null:
-		return
-
-	selected_region_state.scan_networks_enabled = enabled
-	refresh_ui()
+	selected_region_state.infiltration_enabled = true
+	selected_region_state.scan_networks_enabled = true
+	selected_region_state.run_exploit_enabled = true
+	selected_region_state.infiltration_reserved_power = power_cost
+	selected_region_state.infiltration_reserved_compute = compute_cost
 
 	var map_controller = get_node("/root/Node2D/MapController")
+	map_controller.set_persistent_region(selected_region_state.region_id)
 
-	if enabled:
-		map_controller.set_persistent_region(selected_region_state.region_id)
-	else:
-		map_controller.clear_persistent_region(selected_region_state.region_id)
+	add_intrusion_log_line(
+		selected_region_state.region_id,
+		"infiltration package online"
+	)
 
+	add_intrusion_log_line(
+		selected_region_state.region_id,
+		flavour_lines_scan.pick_random()
+	)
 
-func get_network_visibility_title(network_visibility: float) -> String:
+func disable_infiltration() -> void:
+	global_resource_manager.release(
+		selected_region_state.infiltration_reserved_power,
+		selected_region_state.infiltration_reserved_compute
+	)
+
+	selected_region_state.infiltration_enabled = false
+	selected_region_state.scan_networks_enabled = false
+	selected_region_state.run_exploit_enabled = false
+	selected_region_state.infiltration_reserved_power = 0.0
+	selected_region_state.infiltration_reserved_compute = 0.0
+
+	var map_controller = get_node("/root/Node2D/MapController")
+	map_controller.clear_persistent_region(selected_region_state.region_id)
+
+	add_intrusion_log_line(
+		selected_region_state.region_id,
+		"infiltration package offline"
+	)
+
+func _on_expand_button_pressed() -> void:
+	expanded = !expanded
+	_update_details_visibility()
+
+func _update_details_visibility() -> void:
+	if details_container != null:
+		details_container.visible = expanded
+
+	if expand_button != null:
+		if expanded:
+			expand_button.text = "-"
+		else:
+			expand_button.text = "+"
+
+func add_intrusion_log_line(region_id: String, line: String) -> void:
+	if region_id == "":
+		return
+
+	if intrusion_logs_by_region.has(region_id) == false:
+		intrusion_logs_by_region[region_id] = []
+
+	var lines: Array = intrusion_logs_by_region[region_id]
+	lines.append(line)
+
+	while lines.size() > 12:
+		lines.pop_front()
+
+	intrusion_logs_by_region[region_id] = lines
+
+	if selected_region_state != null and selected_region_state.region_id == region_id:
+		refresh_terminal_log()
+
+func get_infiltration_power_cost() -> float:
+	if selected_region_state == null:
+		return 0.0
+
+	var base_power := 2.0
+	var scan_level := float(selected_region_state.scan_networks_level)
+
+	return base_power * scan_level
+
+func get_infiltration_compute_cost() -> float:
+	if selected_region_state == null:
+		return 0.0
+
+	var base_compute := 2.0
+	var scan_level := float(selected_region_state.scan_networks_level)
+
+	return base_compute * scan_level
+
+func get_network_foothold_title(network_visibility: float) -> String:
 	if network_visibility <= 0:
 		return "Offline"
 	elif network_visibility <= 2:
-		return "Packet sniffer"
+		return "External observation"
 	elif network_visibility <= 5:
-		return "Port whisperer"
+		return "Surface mapped"
 	elif network_visibility <= 9:
-		return "Subnet gremlin"
+		return "Access paths identified"
 	elif network_visibility <= 14:
-		return "Exploit cartographer"
+		return "Foothold established"
 	elif network_visibility <= 20:
-		return "Root radar"
+		return "Persistence achieved"
 	else:
-		return "Ghost in the stack"
+		return "Military-grade access"
+
+func _find_first_label(names: Array[String]) -> Label:
+	for node_name in names:
+		var found := find_child(node_name, true, false)
+
+		if found != null and found is Label:
+			return found
+
+	return null
+
+func _find_first_button(names: Array[String]) -> BaseButton:
+	for node_name in names:
+		var found := find_child(node_name, true, false)
+
+		if found != null and found is BaseButton:
+			return found
+
+	return null
+
+func _find_first_progress_bar(names: Array[String]) -> ProgressBar:
+	for node_name in names:
+		var found := find_child(node_name, true, false)
+
+		if found != null and found is ProgressBar:
+			return found
+
+	return null
+
+func _find_first_control(names: Array[String]) -> Control:
+	for node_name in names:
+		var found := find_child(node_name, true, false)
+
+		if found != null and found is Control:
+			return found
+
+	return null
+
+func _find_first_rich_text_label(names: Array[String]) -> RichTextLabel:
+	for node_name in names:
+		var found := find_child(node_name, true, false)
+
+		if found != null and found is RichTextLabel:
+			return found
+
+	return null
