@@ -374,21 +374,7 @@ size_flags_stretch_ratio = 1.5
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 4
-text = "Run Exploits"
-
-[node name="Button" type="Button" parent="CanvasLayer/BottomSkillPannel/Control/MarginContainer/IntrusionSkillPannelContainer/SkillTableContainer/ScanNetworksRow/ScanNetworksContainer" unique_id=898873598]
-custom_minimum_size = Vector2(20, 0)
-layout_mode = 2
-size_flags_horizontal = 0
-size_flags_vertical = 4
-text = "-"
-
-[node name="Button2" type="Button" parent="CanvasLayer/BottomSkillPannel/Control/MarginContainer/IntrusionSkillPannelContainer/SkillTableContainer/ScanNetworksRow/ScanNetworksContainer" unique_id=365823542]
-custom_minimum_size = Vector2(15, 0)
-layout_mode = 2
-size_flags_horizontal = 0
-size_flags_vertical = 4
-text = "+"
+text = "Scan Network"
 
 [node name="ScanNetworksCostContainer" type="HBoxContainer" parent="CanvasLayer/BottomSkillPannel/Control/MarginContainer/IntrusionSkillPannelContainer/SkillTableContainer/ScanNetworksRow" unique_id=88589624]
 layout_mode = 2

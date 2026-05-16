@@ -1,4 +1,7 @@
+### `intrusion_skill_pannel_container.gd`
+
 extends Control
+
 @onready var run_exploit_region_label = $TitleRowContainer/IntrusionSkillPannelRegionNameLabel
 
 @onready var day_progress_bar: ProgressBar = $TitleRowContainer/IntrusionSkillPannelDayProgressBar
@@ -12,8 +15,6 @@ extends Control
 @onready var run_exploit_pwn_output_value = $SkillTableContainer/RunExploitRow/RunExploitOutputContainer/RunExploitPwnOutputValue
 
 @onready var scan_networks_check_button = $SkillTableContainer/ScanNetworksRow/ScanNetworksContainer/CheckButton
-@onready var scan_networks_plus_button = $SkillTableContainer/ScanNetworksRow/ScanNetworksContainer/Button2
-@onready var scan_networks_minus_button = $SkillTableContainer/ScanNetworksRow/ScanNetworksContainer/Button
 
 @onready var scan_networks_power_cost_label = $SkillTableContainer/ScanNetworksRow/ScanNetworksCostContainer/PowerCostLabel
 @onready var scan_networks_compute_cost_label = $SkillTableContainer/ScanNetworksRow/ScanNetworksCostContainer/ComputeCostLabel
@@ -21,31 +22,34 @@ extends Control
 
 @onready var global_resource_manager = get_node("/root/Node2D/GlobalResourceManager")
 
-
 var selected_region_data: RegionData = null
 var selected_region_state: RegionState = null
+
 
 func _ready() -> void:
 	run_exploit_plus_button.pressed.connect(_on_run_exploit_plus_pressed)
 	run_exploit_minus_button.pressed.connect(_on_run_exploit_minus_pressed)
 	run_exploit_check_button.toggled.connect(_on_run_exploit_toggled)
-	
-	scan_networks_plus_button.pressed.connect(_on_scan_networks_plus_pressed)
-	scan_networks_minus_button.pressed.connect(_on_scan_networks_minus_pressed)
+
 	scan_networks_check_button.toggled.connect(_on_scan_networks_toggled)
+
 
 func show_empty() -> void:
 	selected_region_data = null
+	selected_region_state = null
 	visible = false
+
 
 func show_region(region_data: RegionData, region_state: RegionState) -> void:
 	selected_region_data = region_data
 	selected_region_state = region_state
 	visible = true
 	refresh_ui()
-	
+
+
 func update_day_progress(progress_percent: float) -> void:
 	day_progress_bar.value = progress_percent
+
 
 func refresh_ui() -> void:
 	if selected_region_data == null:
@@ -75,109 +79,71 @@ func refresh_run_exploit_ui() -> void:
 func refresh_scan_networks_ui() -> void:
 	scan_networks_check_button.button_pressed = selected_region_state.scan_networks_enabled
 
-	var power = selected_region_state.scan_networks_power_per_day
-	var compute = selected_region_state.scan_networks_compute_per_day
-
-	scan_networks_power_cost_label.text = str(power)
-	scan_networks_compute_cost_label.text = str(compute)
+	scan_networks_power_cost_label.text = "-"
+	scan_networks_compute_cost_label.text = "-"
 
 	if selected_region_state.scan_networks_enabled:
-		scan_networks_output_value.text = get_network_visibility_title(
-			selected_region_state.network_visibility
-		)
+		scan_networks_output_value.text = "Level " + str(selected_region_state.scan_networks_level)
 	else:
 		scan_networks_output_value.text = "Offline"
 
+
 # run exploit
 func _on_run_exploit_toggled(enabled: bool) -> void:
-	if selected_region_data == null:
+	if selected_region_state == null:
 		return
-
-	var skill = selected_region_data.intrusion_allocations["run_exploit"]
 
 	if enabled == true:
 		var can_run = global_resource_manager.can_afford(
-			skill["power_per_day"],
-			skill["compute_per_day"]
+			selected_region_state.run_exploit_power_per_day,
+			selected_region_state.run_exploit_compute_per_day
 		)
 
 		if can_run == false:
-			skill["enabled"] = false
+			selected_region_state.run_exploit_enabled = false
 			refresh_ui()
 			return
 
-	skill["enabled"] = enabled
+	selected_region_state.run_exploit_enabled = enabled
 	refresh_ui()
 
-func _on_run_exploit_plus_pressed():
-	if selected_region_data == null:
+
+func _on_run_exploit_plus_pressed() -> void:
+	if selected_region_state == null:
 		return
-		
-	var skill = selected_region_data.intrusion_allocations["run_exploit"]
-	
-	skill["power_per_day"] += 2
-	skill["compute_per_day"] += 1
-	
+
+	selected_region_state.run_exploit_power_per_day += 2
+	selected_region_state.run_exploit_compute_per_day += 1
+
 	refresh_ui()
 
-func _on_run_exploit_minus_pressed():
-	if selected_region_data == null:
+
+func _on_run_exploit_minus_pressed() -> void:
+	if selected_region_state == null:
 		return
-		
-	var skill = selected_region_data.intrusion_allocations["run_exploit"]
-	
-	skill["power_per_day"] = max(0, skill["power_per_day"]-2)
-	skill["compute_per_day"] = max(0, skill["compute_per_day"]-1)
-	
+
+	selected_region_state.run_exploit_power_per_day = max(
+		0,
+		selected_region_state.run_exploit_power_per_day - 2
+	)
+
+	selected_region_state.run_exploit_compute_per_day = max(
+		0,
+		selected_region_state.run_exploit_compute_per_day - 1
+	)
+
 	refresh_ui()
 
 
-#Scan networks
+# scan networks
 func _on_scan_networks_toggled(enabled: bool) -> void:
-	if selected_region_data == null:
+	if selected_region_state == null:
 		return
 
-	var skill = selected_region_data.intrusion_allocations["scan_networks"]
-
-	if enabled == true:
-		var can_run = global_resource_manager.can_afford(
-			skill["power_per_day"],
-			skill["compute_per_day"]
-		)
-
-		if can_run == false:
-			skill["enabled"] = false
-			refresh_ui()
-			return
-
-	skill["enabled"] = enabled
-	refresh_ui()
-
-func _on_scan_networks_plus_pressed():
-	if selected_region_data == null:
-		return
-
-	var skill = selected_region_data.intrusion_allocations["scan_networks"]
-
-	skill["compute_per_day"] += 1
-	skill["power_per_day"] += 1
-
+	selected_region_state.scan_networks_enabled = enabled
 	refresh_ui()
 
 
-# scripts/intrusion_skill_pannel_container.gd
-func _on_scan_networks_minus_pressed():
-	if selected_region_data == null:
-		return
-
-	var skill = selected_region_data.intrusion_allocations["scan_networks"]
-
-	skill["compute_per_day"] = max(0, skill["compute_per_day"] - 1)
-	skill["power_per_day"] = max(0, skill["power_per_day"] - 1)
-
-	refresh_ui()
-	
-	
 func get_network_visibility_title(network_visibility: float) -> String:
 	if network_visibility <= 0:
 		return "Offline"

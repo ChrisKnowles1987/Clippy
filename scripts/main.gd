@@ -30,19 +30,21 @@ func _process(_delta: float) -> void:
 	
 func _on_day_passed(current_date: Dictionary) -> void:
 	update_date_ui(current_date)
-
+	process_intrusion_skills()
 	generate_daily_nodes()
 
-	process_intrusion_skills()
+
 
 func generate_daily_nodes() -> void:
 	for region_id in region_manager.regions.keys():
-
 		var region_data: RegionData = region_manager.regions[region_id]
+		var region_state: RegionState = region_manager.get_region_state(region_id)
 
-		var region_state: RegionState = (
-			region_manager.get_region_state(region_id)
-		)
+		if region_state == null:
+			continue
+
+		if region_state.scan_networks_enabled == false:
+			continue
 
 		hack_node_manager.generate_region_nodes(
 			region_data,
@@ -83,6 +85,15 @@ func _on_region_selected(region_id: String, mouse_position: Vector2) -> void:
 	
 
 func process_intrusion_skills() -> void:
+	for region_id in region_manager.region_states.keys():
+		var region_state: RegionState = region_manager.get_region_state(region_id)
+
+		if region_state == null:
+			continue
+
+		process_run_exploit_state(region_state)
+		process_scan_networks_state(region_state)
+
 	if region_manager.selected_region_data == null:
 		return
 
@@ -95,36 +106,22 @@ func process_intrusion_skills() -> void:
 	region_panel.show_region(region_manager.selected_region_data, selected_region_state)
 	intrusion_panel.show_region(region_manager.selected_region_data, selected_region_state)
 
-func process_run_exploit(region_data: RegionData) -> void:
-	var run_exploit = region_data.intrusion_allocations["run_exploit"]
 
-	if run_exploit["enabled"] == false:
+func process_run_exploit_state(region_state: RegionState) -> void:
+	if region_state.run_exploit_enabled == false:
 		return
 
-	var power_cost: float = run_exploit["power_per_day"]
-	var compute_cost: float = run_exploit["compute_per_day"]
-
-	var paid = global_resource_manager.spend(power_cost, compute_cost)
+	var paid:bool  = global_resource_manager.spend(
+		region_state.run_exploit_power_per_day,
+		region_state.run_exploit_compute_per_day
+	)
 
 	if paid == false:
-		run_exploit["enabled"] = false
+		region_state.run_exploit_enabled = false
+
+
+func process_scan_networks_state(region_state: RegionState) -> void:
+	if region_state.scan_networks_enabled == false:
 		return
 
-	region_data.pwned_noobs += compute_cost
-
-func process_scan_networks(region_data: RegionData) -> void:
-	var scan_networks = region_data.intrusion_allocations["scan_networks"]
-
-	if scan_networks["enabled"] == false:
-		return
-		
-	var power_cost: float = scan_networks["power_per_day"]
-	var compute_cost: float = scan_networks["compute_per_day"]
-
-
-	var paid = global_resource_manager.spend(power_cost, compute_cost)
-	region_data.network_visibility += compute_cost
-	
-	if paid == false:
-		scan_networks["enabled"] = false
-		return
+	region_state.network_visibility += region_state.scan_networks_level

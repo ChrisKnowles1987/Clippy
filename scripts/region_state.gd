@@ -20,7 +20,5 @@ class_name RegionState
 @export var run_exploit_compute_per_day: int = 0
 
 @export var scan_networks_enabled: bool = false
-@export var scan_networks_power_per_day: int = 0
-@export var scan_networks_compute_per_day: int = 0
-
+@export var scan_networks_level: int = 1
 @export var network_visibility: float = 0.0
