@@ -8,7 +8,7 @@ extends Node2D
 @onready var region_panel = $CanvasLayer/RegionPanel
 @onready var global_resource_panel = $CanvasLayer/GlobalResourcePanel
 @onready var intrusion_panel = $CanvasLayer/BottomSkillPannel/Control/MarginContainer/IntrusionSkillPannelContainer
-@onready var game_day_timer_label: Label = $CanvasLayer/GlobalResourcePanel/DateValueLabel
+@onready var game_day_timer_label: Label = $CanvasLayer/GlobalResourcePanel/VBoxContainer/DateValueLabel
 
 @onready var hack_node_manager = $HackNodeManager
 @onready var hack_node_layer = $MapController/HackNodeLayer
@@ -352,7 +352,8 @@ func update_date_ui(current_date: Dictionary) -> void:
 func update_global_resource_ui() -> void:
 	global_resource_panel.update_values(
 		global_resource_manager.get_available_power(),
-		global_resource_manager.get_available_compute()
+		global_resource_manager.get_available_compute(),
+		global_resource_manager.get_available_coin()
 	)
 
 

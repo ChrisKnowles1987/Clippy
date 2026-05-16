@@ -16,6 +16,9 @@ func get_available_power() -> float:
 
 func get_available_compute() -> float:
 	return max(0.0, compute - reserved_compute)
+	
+func get_available_coin() -> float:
+	return max(0.0, coin )
 
 
 func can_afford(power_cost: float, compute_cost: float) -> bool:

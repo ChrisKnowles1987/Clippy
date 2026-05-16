@@ -98,63 +98,67 @@ size_flags_horizontal = 0
 size_flags_vertical = 8
 mouse_filter = 2
 
-[node name="GlobalResourcePanel" type="Panel" parent="CanvasLayer" unique_id=437890478]
-anchors_preset = -1
-anchor_left = 0.809375
-anchor_right = 1.0
-offset_left = 36.0
-offset_top = 64.0
-offset_right = -40.0
-offset_bottom = 129.0
-grow_horizontal = 2
-size_flags_horizontal = 3
-script = ExtResource("6_tefeu")
-metadata/_edit_use_anchors_ = true
-
-[node name="PowerNameLabel" type="Label" parent="CanvasLayer/GlobalResourcePanel" unique_id=570699932]
-layout_mode = 0
-offset_left = 3.0
-offset_top = 2.0
-offset_right = 129.0
-offset_bottom = 30.0
-text = "Power"
-label_settings = SubResource("LabelSettings_o6xl0")
-
-[node name="PowerValueLabel" type="Label" parent="CanvasLayer/GlobalResourcePanel" unique_id=1239571198]
-layout_mode = 0
-offset_left = 20.0
-offset_top = 37.0
-offset_right = 119.0
-offset_bottom = 65.0
-text = "0"
-label_settings = SubResource("LabelSettings_o6xl0")
-
-[node name="ComputeNameLabel" type="Label" parent="CanvasLayer/GlobalResourcePanel" unique_id=458183645]
-layout_mode = 0
-offset_left = 140.0
-offset_top = 1.0
-offset_right = 239.0
-offset_bottom = 29.0
-text = "Compute"
-label_settings = SubResource("LabelSettings_o6xl0")
-
-[node name="ComputeValueLabel" type="Label" parent="CanvasLayer/GlobalResourcePanel" unique_id=1020548341]
-layout_mode = 0
-offset_left = 179.0
-offset_top = 36.0
-offset_right = 278.0
-offset_bottom = 64.0
-text = "0"
-label_settings = SubResource("LabelSettings_o6xl0")
-
-[node name="DateValueLabel" type="Label" parent="CanvasLayer/GlobalResourcePanel" unique_id=960557602]
-layout_mode = 1
+[node name="GlobalResourcePanel" type="PanelContainer" parent="CanvasLayer" unique_id=983758661]
+custom_minimum_size = Vector2(200, 0)
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -40.0
-offset_bottom = 23.0
+offset_left = -105.0
+offset_bottom = 119.0
 grow_horizontal = 0
+size_flags_horizontal = 3
+script = ExtResource("6_tefeu")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/GlobalResourcePanel" unique_id=1672991502]
+layout_mode = 2
+
+[node name="DateValueLabel" type="Label" parent="CanvasLayer/GlobalResourcePanel/VBoxContainer" unique_id=960557602]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/GlobalResourcePanel/VBoxContainer" unique_id=108606823]
+layout_mode = 2
+
+[node name="PowerNameLabel" type="Label" parent="CanvasLayer/GlobalResourcePanel/VBoxContainer/HBoxContainer" unique_id=570699932]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Power"
+label_settings = SubResource("LabelSettings_o6xl0")
+
+[node name="PowerValueLabel" type="Label" parent="CanvasLayer/GlobalResourcePanel/VBoxContainer/HBoxContainer" unique_id=1239571198]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "0"
+label_settings = SubResource("LabelSettings_o6xl0")
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="CanvasLayer/GlobalResourcePanel/VBoxContainer" unique_id=1959297250]
+layout_mode = 2
+
+[node name="ComputeNameLabel" type="Label" parent="CanvasLayer/GlobalResourcePanel/VBoxContainer/HBoxContainer2" unique_id=458183645]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Compute"
+label_settings = SubResource("LabelSettings_o6xl0")
+
+[node name="ComputeValueLabel" type="Label" parent="CanvasLayer/GlobalResourcePanel/VBoxContainer/HBoxContainer2" unique_id=1020548341]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "0"
+label_settings = SubResource("LabelSettings_o6xl0")
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="CanvasLayer/GlobalResourcePanel/VBoxContainer" unique_id=1400649882]
+layout_mode = 2
+
+[node name="CoinNameLabel" type="Label" parent="CanvasLayer/GlobalResourcePanel/VBoxContainer/HBoxContainer3" unique_id=304856942]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Coin"
+label_settings = SubResource("LabelSettings_o6xl0")
+
+[node name="CoinValueLabel" type="Label" parent="CanvasLayer/GlobalResourcePanel/VBoxContainer/HBoxContainer3" unique_id=869132762]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "0"
+label_settings = SubResource("LabelSettings_o6xl0")
 
 [node name="BottomSkillPannel" type="Control" parent="CanvasLayer" unique_id=590344754]
 material = SubResource("CanvasItemMaterial_tefeu")
