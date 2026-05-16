@@ -65,7 +65,7 @@ func refresh_region_label() -> void:
 
 
 func refresh_run_exploit_ui() -> void:
-	run_exploit_check_button.button_pressed = selected_region_state.run_exploit_enabled
+	run_exploit_check_button.set_pressed_no_signal(selected_region_state.run_exploit_enabled)
 
 	var power = selected_region_state.run_exploit_power_per_day
 	var compute = selected_region_state.run_exploit_compute_per_day
@@ -77,7 +77,7 @@ func refresh_run_exploit_ui() -> void:
 
 
 func refresh_scan_networks_ui() -> void:
-	scan_networks_check_button.button_pressed = selected_region_state.scan_networks_enabled
+	scan_networks_check_button.set_pressed_no_signal(selected_region_state.scan_networks_enabled)
 
 	scan_networks_power_cost_label.text = "-"
 	scan_networks_compute_cost_label.text = "-"

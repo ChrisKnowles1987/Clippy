@@ -1,7 +1,7 @@
 extends Node2D
 
 @onready var region_map: Sprite2D = $RegionMap
-@onready var scan_overlay_map: Sprite2D = $ScanOverlayMap
+@onready var scan_overlay_layer: Node2D = $ScanOverlayMap
 @onready var selected_highlight_map: Sprite2D = $SelectedHighlightMap
 @onready var hover_highlight_map: Sprite2D = $HoverHighlightMap
 @onready var region_panel = $"../CanvasLayer/RegionPanel"
@@ -49,7 +49,7 @@ var region_lookup = {
 var region_image: Image
 var hovered_region_id: String = ""
 var selected_region_id: String = ""
-var scanned_region_id: String = ""
+var scanned_region_ids: Array[String] = []
 
 func _ready() -> void:
 	print("map controller ready")
@@ -57,7 +57,6 @@ func _ready() -> void:
 
 	region_image = region_map.texture.get_image()
 
-	scan_overlay_map.texture = null
 	selected_highlight_map.texture = null
 	hover_highlight_map.texture = null
 
@@ -96,11 +95,7 @@ func _set_overlay_texture(sprite: Sprite2D, folder_path: String, region_id: Stri
 		sprite.texture = null
 
 func update_region_overlays() -> void:
-	_set_overlay_texture(
-		scan_overlay_map,
-		"res://assets/Nasa/scan_overlays",
-		scanned_region_id
-	)
+	update_scan_overlay_layer()
 
 	_set_overlay_texture(
 		selected_highlight_map,
@@ -113,6 +108,26 @@ func update_region_overlays() -> void:
 		"res://assets/Nasa/hover_highlights",
 		hovered_region_id
 	)
+
+func update_scan_overlay_layer() -> void:
+	for child in scan_overlay_layer.get_children():
+		child.queue_free()
+
+	for region_id in scanned_region_ids:
+		var texture_path := "res://assets/Nasa/scan_overlays/%s.png" % region_id
+
+		if ResourceLoader.exists(texture_path) == false:
+			continue
+
+		var sprite := Sprite2D.new()
+		sprite.texture = load(texture_path)
+		sprite.position = Vector2.ZERO
+		sprite.scale = Vector2.ONE
+		sprite.rotation = 0.0
+		sprite.centered = region_map.centered
+		sprite.modulate = Color.WHITE
+
+		scan_overlay_layer.add_child(sprite)
 
 func get_region_under_mouse() -> String:
 	var local_pos := region_map.to_local(get_global_mouse_position())
@@ -136,12 +151,17 @@ func get_region_under_mouse() -> String:
 	return ""
 
 func set_scanned_region(region_id: String) -> void:
-	scanned_region_id = region_id
+	if region_id == "":
+		return
+
+	if scanned_region_ids.has(region_id) == false:
+		scanned_region_ids.append(region_id)
+
 	update_region_overlays()
 
 func clear_scanned_region(region_id: String) -> void:
-	if scanned_region_id == region_id:
-		scanned_region_id = ""
+	if scanned_region_ids.has(region_id):
+		scanned_region_ids.erase(region_id)
 		update_region_overlays()
 
 func set_persistent_region(region_id: String) -> void:
