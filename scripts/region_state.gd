@@ -14,3 +14,13 @@ class_name RegionState
 
 @export var active_campaigns: Array[String] = []
 @export var active_node_ids: Array[String] = []
+
+@export var run_exploit_enabled: bool = false
+@export var run_exploit_power_per_day: int = 0
+@export var run_exploit_compute_per_day: int = 0
+
+@export var scan_networks_enabled: bool = false
+@export var scan_networks_power_per_day: int = 0
+@export var scan_networks_compute_per_day: int = 0
+
+@export var network_visibility: float = 0.0

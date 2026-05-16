@@ -39,12 +39,15 @@ texture = ExtResource("4_jbj1t")
 
 [node name="RegionMap" type="Sprite2D" parent="MapController" unique_id=690766212]
 position = Vector2(960, 540)
+texture = ExtResource("6_dp3eg")
+
+[node name="PopDensityMap" type="Sprite2D" parent="MapController" unique_id=621138162]
+position = Vector2(960, 540)
 texture = ExtResource("6_muem4")
 
 [node name="HighlightMap" type="Sprite2D" parent="MapController" unique_id=667642641]
 visible = false
 position = Vector2(960, 540)
-texture = ExtResource("6_dp3eg")
 
 [node name="HackNodeLayer" type="Node2D" parent="MapController" unique_id=19801756]
 script = ExtResource("9_jbj1t")

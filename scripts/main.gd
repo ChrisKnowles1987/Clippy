@@ -79,7 +79,7 @@ func _on_region_selected(region_id: String, mouse_position: Vector2) -> void:
 
 	var region_state = region_manager.get_region_state(region_id)
 	region_panel.show_region(selected_region_data, region_state)
-	intrusion_panel.show_region(selected_region_data)
+	intrusion_panel.show_region(selected_region_data, region_state)
 	
 
 func process_intrusion_skills() -> void:
@@ -93,7 +93,7 @@ func process_intrusion_skills() -> void:
 		return
 
 	region_panel.show_region(region_manager.selected_region_data, selected_region_state)
-	intrusion_panel.show_region(region_manager.selected_region_data)
+	intrusion_panel.show_region(region_manager.selected_region_data, selected_region_state)
 
 func process_run_exploit(region_data: RegionData) -> void:
 	var run_exploit = region_data.intrusion_allocations["run_exploit"]

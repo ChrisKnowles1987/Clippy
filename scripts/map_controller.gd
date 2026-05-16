@@ -75,10 +75,10 @@ func _process(_delta: float) -> void:
 func _input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
 		selected_region = get_region_under_mouse()
+		
 
-		if region_ids.has(selected_region):
-			var region_id = region_ids[selected_region]
-			region_selected.emit(region_id, get_viewport().get_mouse_position())
+		if selected_region != "":
+			region_selected.emit(selected_region, get_viewport().get_mouse_position())
 		else:
 			region_selected.emit("", get_viewport().get_mouse_position())
 

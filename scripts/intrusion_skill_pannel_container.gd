@@ -23,6 +23,7 @@ extends Control
 
 
 var selected_region_data: RegionData = null
+var selected_region_state: RegionState = null
 
 func _ready() -> void:
 	run_exploit_plus_button.pressed.connect(_on_run_exploit_plus_pressed)
@@ -37,8 +38,9 @@ func show_empty() -> void:
 	selected_region_data = null
 	visible = false
 
-func show_region(region_data: RegionData) -> void:
+func show_region(region_data: RegionData, region_state: RegionState) -> void:
 	selected_region_data = region_data
+	selected_region_state = region_state
 	visible = true
 	refresh_ui()
 	
@@ -59,12 +61,10 @@ func refresh_region_label() -> void:
 
 
 func refresh_run_exploit_ui() -> void:
-	var run_exploit = selected_region_data.intrusion_allocations["run_exploit"]
+	run_exploit_check_button.button_pressed = selected_region_state.run_exploit_enabled
 
-	run_exploit_check_button.button_pressed = run_exploit["enabled"]
-
-	var power = run_exploit["power_per_day"]
-	var compute = run_exploit["compute_per_day"]
+	var power = selected_region_state.run_exploit_power_per_day
+	var compute = selected_region_state.run_exploit_compute_per_day
 	var pwned_noobs_per_day = compute
 
 	run_exploit_power_cost_label.text = str(power)
@@ -73,18 +73,17 @@ func refresh_run_exploit_ui() -> void:
 
 
 func refresh_scan_networks_ui() -> void:
-	var scan_networks = selected_region_data.intrusion_allocations["scan_networks"]
+	scan_networks_check_button.button_pressed = selected_region_state.scan_networks_enabled
 
-	scan_networks_check_button.button_pressed = scan_networks["enabled"]
+	var power = selected_region_state.scan_networks_power_per_day
+	var compute = selected_region_state.scan_networks_compute_per_day
 
-	var compute = scan_networks["compute_per_day"]
-	var power = scan_networks["power_per_day"]
-
-	scan_networks_compute_cost_label.text = str(compute)
 	scan_networks_power_cost_label.text = str(power)
-	if scan_networks["enabled"]:
+	scan_networks_compute_cost_label.text = str(compute)
+
+	if selected_region_state.scan_networks_enabled:
 		scan_networks_output_value.text = get_network_visibility_title(
-		selected_region_data.network_visibility
+			selected_region_state.network_visibility
 		)
 	else:
 		scan_networks_output_value.text = "Offline"
