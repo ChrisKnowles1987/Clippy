@@ -1,10 +1,15 @@
 [gd_scene format=3 uid="uid://cf7i8uwo6unhj"]
 
-[ext_resource type="Script" uid="uid://dn7mhunbdpb5p" path="res://highlight_generator.gd" id="1_d4wng"]
+[ext_resource type="Script" uid="uid://dn7mhunbdpb5p" path="res://scripts/tools/highlight_generator.gd" id="1_d4wng"]
 [ext_resource type="Texture2D" uid="uid://cl8a40wdqqua4" path="res://assets/Nasa/nasa_map_16_region_manual_highlight.png" id="2_mr0bg"]
 [ext_resource type="Texture2D" uid="uid://csqmkoco7y2jy" path="res://assets/Nasa/population_spawn_mask_5000x2000.png" id="3_k01pp"]
+[ext_resource type="Script" uid="uid://cxs6en351rnil" path="res://scripts/tools/outline_highlights.gd" id="4_k01pp"]
 
 [node name="highlight generator" type="Node2D" unique_id=680034268]
 script = ExtResource("1_d4wng")
 region_map_texture = ExtResource("2_mr0bg")
 density_texture = ExtResource("3_k01pp")
+
+[node name="OutlineHighlights" type="Node2D" parent="." unique_id=1257895461]
+script = ExtResource("4_k01pp")
+region_map_texture = ExtResource("2_mr0bg")

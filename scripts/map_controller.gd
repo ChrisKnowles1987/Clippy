@@ -105,7 +105,7 @@ func update_region_overlays() -> void:
 
 	_set_overlay_texture(
 		hover_highlight_map,
-		"res://assets/Nasa/hover_highlights",
+		"res://assets/Nasa/outline_highlights",
 		hovered_region_id
 	)
 

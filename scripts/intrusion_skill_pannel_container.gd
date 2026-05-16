@@ -143,9 +143,12 @@ func _on_scan_networks_toggled(enabled: bool) -> void:
 	selected_region_state.scan_networks_enabled = enabled
 	refresh_ui()
 
-	get_node("/root/Node2D/MapController").set_persistent_region(
-		selected_region_state.region_id if selected_region_state.scan_networks_enabled else ""
-	)
+	var map_controller = get_node("/root/Node2D/MapController")
+
+	if enabled:
+		map_controller.set_persistent_region(selected_region_state.region_id)
+	else:
+		map_controller.clear_persistent_region(selected_region_state.region_id)
 
 
 func get_network_visibility_title(network_visibility: float) -> String:
