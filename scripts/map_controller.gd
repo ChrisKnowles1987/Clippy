@@ -18,7 +18,7 @@ var region_ids = {
 	"Southern Africa": "southern_africa",
 	"India": "india",
 	"China": "china",
-	"Japan & Korea": "japan_korea",
+	"East Asia": "east_asia",
 	"Southeast Asia": "southeast_asia",
 	"Oceania": "oceania"
 }
@@ -43,7 +43,7 @@ var region_lookup = {
 	Color8(0, 128, 128): "southern_africa",
 	Color8(230, 190, 255): "india",
 	Color8(170, 110, 40): "china",
-	Color8(255, 215, 180): "japan_korea",
+	Color8(255, 215, 180): "east_asia",
 	Color8(128, 0, 0): "southeast_asia",
 	Color8(170, 255, 195): "oceania",
 }
