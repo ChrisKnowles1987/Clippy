@@ -1,16 +1,19 @@
 extends Control
 
-var region_name_label: Label
-var expand_button: BaseButton
-var infiltration_button: BaseButton
+@onready var region_name_label: Label = $"SumnmaryContainer/TitleRowContainer/IntrusionSkillPannelRegionNameLabel"
+@onready var power_cost_label: Label = $"SumnmaryContainer/TitleRowContainer/PowerCostLabel"
+@onready var compute_cost_label: Label = $"SumnmaryContainer/TitleRowContainer/ComputeCostLabel"
+@onready var infiltration_button: Button = $"SumnmaryContainer/TitleRowContainer/Infiltration"
+@onready var expand_button: Button = $"SumnmaryContainer/TitleRowContainer/ExpandCollapseButton"
 
-var power_cost_label: Label
-var compute_cost_label: Label
-var infiltration_status_label: Label
+@onready var intelligence_progress_bar: ProgressBar = $SumnmaryContainer/TitleRowContainer2/IntelligenceProgressBar
 
-var intelligence_progress_bar: ProgressBar
-var details_container: Control
-var terminal_log: RichTextLabel
+@onready var details_container: Control = $DetailsContainer
+@onready var foothold_value_label: Label = $DetailsContainer/Foothold/FootHoldValueLabel
+@onready var active_nodes_value_label: Label = $DetailsContainer/ActiveNodes/ActiveNodesValueLabel
+@onready var discovery_chance_value_label: Label = $DetailsContainer/DiscoveryChance/DiscoveryChanceValueLabel
+@onready var exploit_activity_value_label: Label = $DetailsContainer/ExploitActivity/ExploitActivityValueLabel
+@onready var terminal_log: RichTextLabel = $DetailsContainer/TerminalContainer/TerminalLog
 
 @onready var global_resource_manager = get_node("/root/Node2D/GlobalResourceManager")
 
@@ -28,72 +31,13 @@ var flavour_lines_scan := [
 	"sampling weak authentication signals"
 ]
 
-var flavour_lines_exploit := [
-	"deploying low-confidence exploit bundle",
-	"converting foothold into access attempt",
-	"testing unattended service response",
-	"matching exploit path against regional model",
-	"isolating candidate intrusion route"
-]
-
 func _ready() -> void:
-	region_name_label = _find_first_label([
-		"IntrusionSkillPannelRegionNameLabel",
-		"RegionNameLabel"
-	])
-
-	expand_button = _find_first_button([
-		"ExpandButton",
-		"MenuButton"
-	])
-
-	infiltration_button = _find_first_button([
-		"InfiltrationButton",
-		"ScanNetworksButton",
-		"CheckButton"
-	])
-
-	power_cost_label = _find_first_label([
-		"PowerCostLabel",
-		"PowerReserveLabel"
-	])
-
-	compute_cost_label = _find_first_label([
-		"ComputeCostLabel",
-		"ComputeReserveLabel"
-	])
-
-	infiltration_status_label = _find_first_label([
-		"ScanNetworksOutputContainerlabel",
-		"InfiltrationStatusLabel",
-		"StatusLabel"
-	])
-
-	intelligence_progress_bar = _find_first_progress_bar([
-		"IntelligenceProgressBar",
-		"IntelligenceBar"
-	])
-
-	details_container = _find_first_control([
-		"IntrusionDetailsContainer",
-		"DetailsContainer",
-		"DetailsPanel"
-	])
-
-	terminal_log = _find_first_rich_text_label([
-		"TerminalLogLabel",
-		"TerminalLog",
-		"IntrusionTerminalLog"
-	])
-
-	if infiltration_button != null:
-		infiltration_button.pressed.connect(_on_infiltration_button_pressed)
-
-	if expand_button != null:
-		expand_button.pressed.connect(_on_expand_button_pressed)
+	infiltration_button.pressed.connect(_on_infiltration_button_pressed)
+	expand_button.pressed.connect(_on_expand_button_pressed)
 
 	expanded = false
-	_update_details_visibility()
+	update_details_visibility()
+	refresh_ui()
 
 func show_empty() -> void:
 	selected_region_data = null
@@ -116,53 +60,42 @@ func refresh_ui() -> void:
 	refresh_region_label()
 	refresh_infiltration_ui()
 	refresh_intelligence_ui()
+	refresh_details_ui()
 	refresh_terminal_log()
 
 func refresh_region_label() -> void:
-	if region_name_label == null:
-		return
-
 	region_name_label.text = str(selected_region_data.display_name)
 
 func refresh_infiltration_ui() -> void:
-	if infiltration_button != null:
-		if selected_region_state.infiltration_enabled:
-			infiltration_button.text = "Online"
-		else:
-			infiltration_button.text = "Offline"
+	var power_cost := get_infiltration_power_cost()
+	var compute_cost := get_infiltration_compute_cost()
 
-	if power_cost_label != null:
-		power_cost_label.text = str(snapped(get_infiltration_power_cost(), 0.1))
+	power_cost_label.text = str(snapped(power_cost, 0.1))
+	compute_cost_label.text = str(snapped(compute_cost, 0.1))
 
-	if compute_cost_label != null:
-		compute_cost_label.text = str(snapped(get_infiltration_compute_cost(), 0.1))
-
-	if infiltration_status_label != null:
-		if selected_region_state.infiltration_enabled:
-			infiltration_status_label.text = "Foothold: " + get_network_foothold_title(selected_region_state.network_visibility)
-		else:
-			infiltration_status_label.text = "Offline"
+	if selected_region_state.infiltration_enabled:
+		infiltration_button.text = "online"
+	else:
+		infiltration_button.text = "offline"
 
 func refresh_intelligence_ui() -> void:
-	if intelligence_progress_bar == null:
-		return
-
 	intelligence_progress_bar.min_value = 0.0
 	intelligence_progress_bar.max_value = 100.0
 	intelligence_progress_bar.value = selected_region_state.intelligence_percent
 
+func refresh_details_ui() -> void:
+	foothold_value_label.text = get_network_foothold_title(selected_region_state.network_visibility)
+	active_nodes_value_label.text = str(selected_region_state.active_node_ids.size())
+	discovery_chance_value_label.text = get_discovery_chance_title()
+	exploit_activity_value_label.text = get_exploit_activity_title()
+
 func refresh_terminal_log() -> void:
-	if terminal_log == null:
-		return
-
-	if selected_region_state == null:
-		terminal_log.text = ""
-		return
-
 	var region_id := selected_region_state.region_id
 
 	if intrusion_logs_by_region.has(region_id) == false:
-		intrusion_logs_by_region[region_id] = []
+		intrusion_logs_by_region[region_id] = [
+			"network offline"
+		]
 
 	var lines: Array = intrusion_logs_by_region[region_id]
 	var output := ""
@@ -237,17 +170,15 @@ func disable_infiltration() -> void:
 
 func _on_expand_button_pressed() -> void:
 	expanded = !expanded
-	_update_details_visibility()
+	update_details_visibility()
 
-func _update_details_visibility() -> void:
-	if details_container != null:
-		details_container.visible = expanded
+func update_details_visibility() -> void:
+	details_container.visible = expanded
 
-	if expand_button != null:
-		if expanded:
-			expand_button.text = "-"
-		else:
-			expand_button.text = "+"
+	if expanded:
+		expand_button.text = "-"
+	else:
+		expand_button.text = "+"
 
 func add_intrusion_log_line(region_id: String, line: String) -> void:
 	if region_id == "":
@@ -301,47 +232,24 @@ func get_network_foothold_title(network_visibility: float) -> String:
 	else:
 		return "Military-grade access"
 
-func _find_first_label(names: Array[String]) -> Label:
-	for node_name in names:
-		var found := find_child(node_name, true, false)
+func get_discovery_chance_title() -> String:
+	if selected_region_state == null:
+		return "None"
 
-		if found != null and found is Label:
-			return found
+	if selected_region_state.network_visibility <= 0:
+		return "None"
+	elif selected_region_state.network_visibility <= 5:
+		return "Low"
+	elif selected_region_state.network_visibility <= 14:
+		return "Moderate"
+	else:
+		return "High"
 
-	return null
+func get_exploit_activity_title() -> String:
+	if selected_region_state == null:
+		return "Offline"
 
-func _find_first_button(names: Array[String]) -> BaseButton:
-	for node_name in names:
-		var found := find_child(node_name, true, false)
+	if selected_region_state.run_exploit_enabled:
+		return "Active"
 
-		if found != null and found is BaseButton:
-			return found
-
-	return null
-
-func _find_first_progress_bar(names: Array[String]) -> ProgressBar:
-	for node_name in names:
-		var found := find_child(node_name, true, false)
-
-		if found != null and found is ProgressBar:
-			return found
-
-	return null
-
-func _find_first_control(names: Array[String]) -> Control:
-	for node_name in names:
-		var found := find_child(node_name, true, false)
-
-		if found != null and found is Control:
-			return found
-
-	return null
-
-func _find_first_rich_text_label(names: Array[String]) -> RichTextLabel:
-	for node_name in names:
-		var found := find_child(node_name, true, false)
-
-		if found != null and found is RichTextLabel:
-			return found
-
-	return null
+	return "Offline"

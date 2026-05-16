@@ -190,20 +190,20 @@ theme_override_constants/margin_bottom = 12
 layout_mode = 2
 script = ExtResource("7_o6xl0")
 
-[node name="Sumnmary container" type="VBoxContainer" parent="CanvasLayer/BottomSkillPannel/Control/MarginContainer/IntrusionSkillPannelContainer" unique_id=1355764306]
+[node name="SumnmaryContainer" type="VBoxContainer" parent="CanvasLayer/BottomSkillPannel/Control/MarginContainer/IntrusionSkillPannelContainer" unique_id=1355764306]
 layout_mode = 2
 
-[node name="TitleRowContainer" type="HBoxContainer" parent="CanvasLayer/BottomSkillPannel/Control/MarginContainer/IntrusionSkillPannelContainer/Sumnmary container" unique_id=299220103]
+[node name="TitleRowContainer" type="HBoxContainer" parent="CanvasLayer/BottomSkillPannel/Control/MarginContainer/IntrusionSkillPannelContainer/SumnmaryContainer" unique_id=299220103]
 layout_mode = 2
 
-[node name="IntrusionSkillPannelRegionNameLabel" type="Label" parent="CanvasLayer/BottomSkillPannel/Control/MarginContainer/IntrusionSkillPannelContainer/Sumnmary container/TitleRowContainer" unique_id=960940592]
+[node name="IntrusionSkillPannelRegionNameLabel" type="Label" parent="CanvasLayer/BottomSkillPannel/Control/MarginContainer/IntrusionSkillPannelContainer/SumnmaryContainer/TitleRowContainer" unique_id=960940592]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
 text = "Region selected"
 
-[node name="PowerIcon" type="Label" parent="CanvasLayer/BottomSkillPannel/Control/MarginContainer/IntrusionSkillPannelContainer/Sumnmary container/TitleRowContainer" unique_id=597656234]
+[node name="PowerIcon" type="Label" parent="CanvasLayer/BottomSkillPannel/Control/MarginContainer/IntrusionSkillPannelContainer/SumnmaryContainer/TitleRowContainer" unique_id=597656234]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -211,14 +211,14 @@ size_flags_vertical = 1
 text = "P"
 horizontal_alignment = 2
 
-[node name="PowerCostLabel" type="Label" parent="CanvasLayer/BottomSkillPannel/Control/MarginContainer/IntrusionSkillPannelContainer/Sumnmary container/TitleRowContainer" unique_id=1043288692]
+[node name="PowerCostLabel" type="Label" parent="CanvasLayer/BottomSkillPannel/Control/MarginContainer/IntrusionSkillPannelContainer/SumnmaryContainer/TitleRowContainer" unique_id=1043288692]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
 text = "0"
 
-[node name="ComputeIcon" type="Label" parent="CanvasLayer/BottomSkillPannel/Control/MarginContainer/IntrusionSkillPannelContainer/Sumnmary container/TitleRowContainer" unique_id=650767960]
+[node name="ComputeIcon" type="Label" parent="CanvasLayer/BottomSkillPannel/Control/MarginContainer/IntrusionSkillPannelContainer/SumnmaryContainer/TitleRowContainer" unique_id=650767960]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -226,32 +226,32 @@ size_flags_vertical = 1
 text = "C"
 horizontal_alignment = 2
 
-[node name="ComputeCostLabel" type="Label" parent="CanvasLayer/BottomSkillPannel/Control/MarginContainer/IntrusionSkillPannelContainer/Sumnmary container/TitleRowContainer" unique_id=1877467130]
+[node name="ComputeCostLabel" type="Label" parent="CanvasLayer/BottomSkillPannel/Control/MarginContainer/IntrusionSkillPannelContainer/SumnmaryContainer/TitleRowContainer" unique_id=1877467130]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
 text = "0"
 
-[node name="Infiltration" type="Button" parent="CanvasLayer/BottomSkillPannel/Control/MarginContainer/IntrusionSkillPannelContainer/Sumnmary container/TitleRowContainer" unique_id=206254309]
+[node name="Infiltration" type="Button" parent="CanvasLayer/BottomSkillPannel/Control/MarginContainer/IntrusionSkillPannelContainer/SumnmaryContainer/TitleRowContainer" unique_id=206254309]
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 4
 text = "offline"
 
-[node name="ExpandCollapseButton" type="Button" parent="CanvasLayer/BottomSkillPannel/Control/MarginContainer/IntrusionSkillPannelContainer/Sumnmary container/TitleRowContainer" unique_id=665473100]
+[node name="ExpandCollapseButton" type="Button" parent="CanvasLayer/BottomSkillPannel/Control/MarginContainer/IntrusionSkillPannelContainer/SumnmaryContainer/TitleRowContainer" unique_id=665473100]
 custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
 text = "+"
 
-[node name="TitleRowContainer2" type="HBoxContainer" parent="CanvasLayer/BottomSkillPannel/Control/MarginContainer/IntrusionSkillPannelContainer/Sumnmary container" unique_id=1115180080]
+[node name="TitleRowContainer2" type="HBoxContainer" parent="CanvasLayer/BottomSkillPannel/Control/MarginContainer/IntrusionSkillPannelContainer/SumnmaryContainer" unique_id=1115180080]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="CanvasLayer/BottomSkillPannel/Control/MarginContainer/IntrusionSkillPannelContainer/Sumnmary container/TitleRowContainer2" unique_id=1275168802]
+[node name="Label" type="Label" parent="CanvasLayer/BottomSkillPannel/Control/MarginContainer/IntrusionSkillPannelContainer/SumnmaryContainer/TitleRowContainer2" unique_id=1275168802]
 layout_mode = 2
 text = "Intelligence "
 
-[node name="InteligenceProgressBar" type="ProgressBar" parent="CanvasLayer/BottomSkillPannel/Control/MarginContainer/IntrusionSkillPannelContainer/Sumnmary container/TitleRowContainer2" unique_id=1306536540]
+[node name="IntelligenceProgressBar" type="ProgressBar" parent="CanvasLayer/BottomSkillPannel/Control/MarginContainer/IntrusionSkillPannelContainer/SumnmaryContainer/TitleRowContainer2" unique_id=1306536540]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -304,14 +304,14 @@ text = "Exploit Activity"
 layout_mode = 2
 text = "Basic"
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/BottomSkillPannel/Control/MarginContainer/IntrusionSkillPannelContainer/DetailsContainer" unique_id=854193046]
+[node name="TerminalContainer" type="VBoxContainer" parent="CanvasLayer/BottomSkillPannel/Control/MarginContainer/IntrusionSkillPannelContainer/DetailsContainer" unique_id=854193046]
 layout_mode = 2
 
-[node name="Spacer" type="Control" parent="CanvasLayer/BottomSkillPannel/Control/MarginContainer/IntrusionSkillPannelContainer/DetailsContainer/VBoxContainer" unique_id=856167998]
+[node name="Spacer" type="Control" parent="CanvasLayer/BottomSkillPannel/Control/MarginContainer/IntrusionSkillPannelContainer/DetailsContainer/TerminalContainer" unique_id=856167998]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 
-[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer/BottomSkillPannel/Control/MarginContainer/IntrusionSkillPannelContainer/DetailsContainer/VBoxContainer" unique_id=957510523]
+[node name="TerminalLog" type="RichTextLabel" parent="CanvasLayer/BottomSkillPannel/Control/MarginContainer/IntrusionSkillPannelContainer/DetailsContainer/TerminalContainer" unique_id=957510523]
 custom_minimum_size = Vector2(0, 240)
 layout_mode = 2
 text = "> network offline"
