@@ -6,15 +6,12 @@
 [ext_resource type="Texture2D" uid="uid://degr2qpantfai" path="res://assets/Nasa/world_map_5000x2000.png" id="4_jbj1t"]
 [ext_resource type="Script" uid="uid://d2urhygerw064" path="res://scripts/region_panel.gd" id="4_jyhfs"]
 [ext_resource type="Script" uid="uid://cs4yuxbiyfqgd" path="res://scripts/game_clock.gd" id="5_85g3d"]
-[ext_resource type="Texture2D" uid="uid://cyh2q6jkvokjn" path="res://assets/opengs_map_data/ProvinceMap.bmp" id="5_ya4ey"]
 [ext_resource type="Script" uid="uid://bwwjkuldb6ob3" path="res://scripts/global_resource_manager.gd" id="6_choun"]
 [ext_resource type="Texture2D" uid="uid://cl8a40wdqqua4" path="res://assets/Nasa/nasa_map_16_region_manual_highlight.png" id="6_dp3eg"]
-[ext_resource type="Script" uid="uid://dlpxvt6nxilg5" path="res://scripts/province_spawn_manager.gd" id="6_eb6dy"]
 [ext_resource type="Texture2D" uid="uid://csqmkoco7y2jy" path="res://assets/Nasa/population_spawn_mask_5000x2000.png" id="6_muem4"]
 [ext_resource type="Script" uid="uid://3x2p5s26n4tg" path="res://scripts/global_resource_panel.gd" id="6_tefeu"]
 [ext_resource type="Script" uid="uid://wt4h05hlh6px" path="res://scripts/region_manager.gd" id="6_ya4ey"]
 [ext_resource type="Script" uid="uid://dnvulp6dsql5s" path="res://scripts/intrusion_skill_pannel_container.gd" id="7_o6xl0"]
-[ext_resource type="Script" uid="uid://dasgwmtg0jhd" path="res://scripts/province_spawn_layer.gd" id="7_trceg"]
 [ext_resource type="Script" uid="uid://dnsy67fb3qfmp" path="res://scripts/hack_node_layer.gd" id="9_jbj1t"]
 [ext_resource type="Script" uid="uid://crf16lqacxdoc" path="res://scripts/hack_node_manager.gd" id="13_muem4"]
 
@@ -38,27 +35,26 @@ position = Vector2(960, 540)
 texture = ExtResource("4_jbj1t")
 
 [node name="RegionMap" type="Sprite2D" parent="MapController" unique_id=690766212]
+visible = false
 position = Vector2(960, 540)
 texture = ExtResource("6_dp3eg")
 
-[node name="PopDensityMap" type="Sprite2D" parent="MapController" unique_id=621138162]
+[node name="ScanOverlayMap" type="Sprite2D" parent="MapController" unique_id=2623980]
 position = Vector2(960, 540)
-texture = ExtResource("6_muem4")
 
-[node name="HighlightMap" type="Sprite2D" parent="MapController" unique_id=667642641]
-visible = false
+[node name="SelectedHighlightMap" type="Sprite2D" parent="MapController" unique_id=2113868775]
+position = Vector2(960, 540)
+
+[node name="HoverHighlightMap" type="Sprite2D" parent="MapController" unique_id=245032791]
 position = Vector2(960, 540)
 
 [node name="HackNodeLayer" type="Node2D" parent="MapController" unique_id=19801756]
 script = ExtResource("9_jbj1t")
 
-[node name="ProvinceSpawnManager" type="Node" parent="MapController" unique_id=410229282 node_paths=PackedStringArray("map_sprite")]
-script = ExtResource("6_eb6dy")
-province_map_texture = ExtResource("5_ya4ey")
-map_sprite = NodePath("../WorldMap")
-
-[node name="ProvinceSpawnLayer" type="Node2D" parent="MapController" unique_id=1499262379]
-script = ExtResource("7_trceg")
+[node name="PopDensityMap" type="Sprite2D" parent="MapController" unique_id=621138162]
+visible = false
+position = Vector2(960, 540)
+texture = ExtResource("6_muem4")
 
 [node name="GameClock" type="Node" parent="." unique_id=237304964]
 script = ExtResource("5_85g3d")

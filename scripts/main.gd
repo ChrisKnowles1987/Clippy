@@ -5,6 +5,8 @@ extends Node2D
 @onready var region_manager = $RegionManager
 @onready var global_resource_manager = $GlobalResourceManager
 
+
+
 @onready var region_panel = $CanvasLayer/RegionPanel
 @onready var global_resource_panel = $CanvasLayer/GlobalResourcePanel
 @onready var intrusion_panel = $CanvasLayer/BottomSkillPannel/Control/MarginContainer/IntrusionSkillPannelContainer

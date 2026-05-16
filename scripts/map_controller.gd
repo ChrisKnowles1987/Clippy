@@ -1,8 +1,12 @@
 extends Node2D
 
-@onready var region_map = $RegionMap
-@onready var highlight_map = $HighlightMap
+@onready var region_map: Sprite2D = $RegionMap
+@onready var scan_overlay_map: Sprite2D = $ScanOverlayMap
+@onready var selected_highlight_map: Sprite2D = $SelectedHighlightMap
+@onready var hover_highlight_map: Sprite2D = $HoverHighlightMap
 @onready var region_panel = $"../CanvasLayer/RegionPanel"
+
+signal region_selected(region_id: String, mouse_position: Vector2)
 
 var region_ids = {
 	"North America": "north_america",
@@ -23,12 +27,6 @@ var region_ids = {
 	"Oceania": "oceania"
 }
 
-signal region_selected(region_id: String, mouse_position: Vector2)
-
-var region_image: Image
-var hovered_region := ""
-var selected_region := ""
-
 var region_lookup = {
 	Color8(230, 25, 75): "north_america",
 	Color8(245, 130, 48): "central_america_caribbean",
@@ -48,8 +46,10 @@ var region_lookup = {
 	Color8(170, 255, 195): "oceania",
 }
 
-var highlight_textures := {}
-var highlight_color := Color(0.2, 0.85, 1.0, 0.65)
+var region_image: Image
+var hovered_region_id: String = ""
+var selected_region_id: String = ""
+var scanned_region_id: String = ""
 
 func _ready() -> void:
 	print("map controller ready")
@@ -57,35 +57,66 @@ func _ready() -> void:
 
 	region_image = region_map.texture.get_image()
 
-	highlight_map.visible = false
-	highlight_map.texture = null
-	highlight_map.modulate = Color.WHITE
+	scan_overlay_map.texture = null
+	selected_highlight_map.texture = null
+	hover_highlight_map.texture = null
 
-	
-
+	update_region_overlays()
 
 func _process(_delta: float) -> void:
-	var region := get_region_under_mouse()
+	var region_id := get_region_under_mouse()
 
-	if region != hovered_region:
-		hovered_region = region
-		update_highlight(hovered_region)
-
+	if region_id != hovered_region_id:
+		hovered_region_id = region_id
+		update_region_overlays()
 
 func _input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
-		selected_region = get_region_under_mouse()
-		
+		var clicked_region_id := get_region_under_mouse()
 
-		if selected_region != "":
-			region_selected.emit(selected_region, get_viewport().get_mouse_position())
+		if clicked_region_id != "":
+			selected_region_id = clicked_region_id
+			update_region_overlays()
+			region_selected.emit(clicked_region_id, get_viewport().get_mouse_position())
 		else:
+			selected_region_id = ""
+			update_region_overlays()
 			region_selected.emit("", get_viewport().get_mouse_position())
 
+func _set_overlay_texture(sprite: Sprite2D, folder_path: String, region_id: String) -> void:
+	if region_id == "":
+		sprite.texture = null
+		return
+
+	var texture_path := "%s/%s.png" % [folder_path, region_id]
+
+	if ResourceLoader.exists(texture_path):
+		sprite.texture = load(texture_path)
+	else:
+		sprite.texture = null
+
+func update_region_overlays() -> void:
+	_set_overlay_texture(
+		scan_overlay_map,
+		"res://assets/Nasa/scan_overlays",
+		scanned_region_id
+	)
+
+	_set_overlay_texture(
+		selected_highlight_map,
+		"res://assets/Nasa/selected_highlights",
+		selected_region_id
+	)
+
+	_set_overlay_texture(
+		hover_highlight_map,
+		"res://assets/Nasa/hover_highlights",
+		hovered_region_id
+	)
 
 func get_region_under_mouse() -> String:
-	var local_pos = region_map.to_local(get_global_mouse_position())
-	var texture_size = region_map.texture.get_size()
+	var local_pos := region_map.to_local(get_global_mouse_position())
+	var texture_size := region_map.texture.get_size()
 
 	var x := int(local_pos.x + texture_size.x / 2.0)
 	var y := int(local_pos.y + texture_size.y / 2.0)
@@ -104,18 +135,17 @@ func get_region_under_mouse() -> String:
 
 	return ""
 
+func set_scanned_region(region_id: String) -> void:
+	scanned_region_id = region_id
+	update_region_overlays()
 
-func update_highlight(region_id: String) -> void:
-	if region_id == "":
-		highlight_map.visible = false
-		highlight_map.texture = null
-		return
+func clear_scanned_region(region_id: String) -> void:
+	if scanned_region_id == region_id:
+		scanned_region_id = ""
+		update_region_overlays()
 
-	var highlight_path := "res://assets/Nasa/highlights/" + region_id + ".png"
+func set_persistent_region(region_id: String) -> void:
+	set_scanned_region(region_id)
 
-	if ResourceLoader.exists(highlight_path):
-		highlight_map.texture = load(highlight_path)
-		highlight_map.visible = true
-	else:
-		highlight_map.visible = false
-		highlight_map.texture = null
+func clear_persistent_region(region_id: String) -> void:
+	clear_scanned_region(region_id)
