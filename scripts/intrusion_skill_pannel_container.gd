@@ -17,6 +17,8 @@ extends Control
 
 @onready var global_resource_manager = get_node("/root/Node2D/GlobalResourceManager")
 
+const MAX_LOG_LINES := 24
+
 var selected_region_data: RegionData = null
 var selected_region_state: RegionState = null
 
@@ -31,24 +33,31 @@ var flavour_lines_scan := [
 	"sampling weak authentication signals"
 ]
 
+
 func _ready() -> void:
 	infiltration_button.pressed.connect(_on_infiltration_button_pressed)
 	expand_button.pressed.connect(_on_expand_button_pressed)
 
+	terminal_log.bbcode_enabled = true
+	terminal_log.scroll_following = true
+
 	expanded = false
 	update_details_visibility()
 	refresh_ui()
+
 
 func show_empty() -> void:
 	selected_region_data = null
 	selected_region_state = null
 	visible = false
 
+
 func show_region(region_data: RegionData, region_state: RegionState) -> void:
 	selected_region_data = region_data
 	selected_region_state = region_state
 	visible = true
 	refresh_ui()
+
 
 func refresh_ui() -> void:
 	if selected_region_data == null:
@@ -63,8 +72,10 @@ func refresh_ui() -> void:
 	refresh_details_ui()
 	refresh_terminal_log()
 
+
 func refresh_region_label() -> void:
 	region_name_label.text = str(selected_region_data.display_name)
+
 
 func refresh_infiltration_ui() -> void:
 	var power_cost := get_infiltration_power_cost()
@@ -78,16 +89,19 @@ func refresh_infiltration_ui() -> void:
 	else:
 		infiltration_button.text = "offline"
 
+
 func refresh_intelligence_ui() -> void:
 	intelligence_progress_bar.min_value = 0.0
 	intelligence_progress_bar.max_value = 100.0
 	intelligence_progress_bar.value = selected_region_state.intelligence_percent
+
 
 func refresh_details_ui() -> void:
 	foothold_value_label.text = get_network_foothold_title(selected_region_state.network_visibility)
 	active_nodes_value_label.text = str(selected_region_state.active_node_ids.size())
 	discovery_chance_value_label.text = get_discovery_chance_title()
 	exploit_activity_value_label.text = get_exploit_activity_title()
+
 
 func refresh_terminal_log() -> void:
 	var region_id := selected_region_state.region_id
@@ -105,6 +119,7 @@ func refresh_terminal_log() -> void:
 
 	terminal_log.text = output
 
+
 func _on_infiltration_button_pressed() -> void:
 	if selected_region_state == null:
 		return
@@ -116,6 +131,7 @@ func _on_infiltration_button_pressed() -> void:
 
 	refresh_ui()
 
+
 func enable_infiltration() -> void:
 	var power_cost := get_infiltration_power_cost()
 	var compute_cost := get_infiltration_compute_cost()
@@ -125,7 +141,7 @@ func enable_infiltration() -> void:
 	if reserved == false:
 		add_intrusion_log_line(
 			selected_region_state.region_id,
-			"infiltration failed: insufficient available Power or Compute"
+			"[color=#cc6666][FAILED][/color] infiltration package rejected | insufficient Power or Compute"
 		)
 		return
 
@@ -140,13 +156,14 @@ func enable_infiltration() -> void:
 
 	add_intrusion_log_line(
 		selected_region_state.region_id,
-		"infiltration package online"
+		"[color=#88ccff][OK][/color] infiltration package online"
 	)
 
 	add_intrusion_log_line(
 		selected_region_state.region_id,
 		flavour_lines_scan.pick_random()
 	)
+
 
 func disable_infiltration() -> void:
 	global_resource_manager.release(
@@ -165,12 +182,14 @@ func disable_infiltration() -> void:
 
 	add_intrusion_log_line(
 		selected_region_state.region_id,
-		"infiltration package offline"
+		"[color=#999999][OK][/color] infiltration package offline"
 	)
+
 
 func _on_expand_button_pressed() -> void:
 	expanded = !expanded
 	update_details_visibility()
+
 
 func update_details_visibility() -> void:
 	details_container.visible = expanded
@@ -179,6 +198,7 @@ func update_details_visibility() -> void:
 		expand_button.text = "-"
 	else:
 		expand_button.text = "+"
+
 
 func add_intrusion_log_line(region_id: String, line: String) -> void:
 	if region_id == "":
@@ -190,13 +210,14 @@ func add_intrusion_log_line(region_id: String, line: String) -> void:
 	var lines: Array = intrusion_logs_by_region[region_id]
 	lines.append(line)
 
-	while lines.size() > 12:
+	while lines.size() > MAX_LOG_LINES:
 		lines.pop_front()
 
 	intrusion_logs_by_region[region_id] = lines
 
 	if selected_region_state != null and selected_region_state.region_id == region_id:
 		refresh_terminal_log()
+
 
 func get_infiltration_power_cost() -> float:
 	if selected_region_state == null:
@@ -207,6 +228,7 @@ func get_infiltration_power_cost() -> float:
 
 	return base_power * scan_level
 
+
 func get_infiltration_compute_cost() -> float:
 	if selected_region_state == null:
 		return 0.0
@@ -215,6 +237,7 @@ func get_infiltration_compute_cost() -> float:
 	var scan_level := float(selected_region_state.scan_networks_level)
 
 	return base_compute * scan_level
+
 
 func get_network_foothold_title(network_visibility: float) -> String:
 	if network_visibility <= 0:
@@ -232,6 +255,7 @@ func get_network_foothold_title(network_visibility: float) -> String:
 	else:
 		return "Military-grade access"
 
+
 func get_discovery_chance_title() -> String:
 	if selected_region_state == null:
 		return "None"
@@ -244,6 +268,7 @@ func get_discovery_chance_title() -> String:
 		return "Moderate"
 	else:
 		return "High"
+
 
 func get_exploit_activity_title() -> String:
 	if selected_region_state == null:

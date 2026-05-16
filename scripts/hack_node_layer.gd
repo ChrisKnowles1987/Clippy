@@ -12,6 +12,9 @@ func set_nodes(new_nodes: Array[HackNodeData]) -> void:
 
 func _draw() -> void:
 	for hack_node in active_nodes:
+		if hack_node.resolved:
+			continue
+
 		draw_circle(hack_node.map_position, node_radius, get_node_color(hack_node))
 
 

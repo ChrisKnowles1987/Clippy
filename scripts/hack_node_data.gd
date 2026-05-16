@@ -18,5 +18,10 @@ class_name HackNodeData
 @export var intelligence_reward: float = 0.0
 @export var notoriety_gain: float = 0.0
 
+@export var processing_progress: float = 0.0
+@export var processing_required: float = 8.0
+@export var processing_speed: float = 1.0
+@export var status: String = "processing"
+
 @export var expires_on_day: int = 0
 @export var resolved: bool = false
