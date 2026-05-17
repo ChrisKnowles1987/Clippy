@@ -44,14 +44,10 @@ func _unhandled_input(event: InputEvent) -> void:
 			last_mouse_position = get_viewport().get_mouse_position()
 
 		if event.pressed and event.button_index == MOUSE_BUTTON_WHEEL_UP:
-			var new_zoom = clamp(zoom.x + zoom_step, min_zoom, max_zoom)
-			zoom = Vector2(new_zoom, new_zoom)
-			clamp_to_map_edges()
+			zoom_at_mouse(zoom.x + zoom_step)
 
 		if event.pressed and event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
-			var new_zoom = clamp(zoom.x - zoom_step, min_zoom, max_zoom)
-			zoom = Vector2(new_zoom, new_zoom)
-			clamp_to_map_edges()
+			zoom_at_mouse(zoom.x - zoom_step)
 
 	if event is InputEventMouseMotion and right_mouse_dragging:
 		var current_mouse_position = get_viewport().get_mouse_position()
@@ -61,6 +57,24 @@ func _unhandled_input(event: InputEvent) -> void:
 		last_mouse_position = current_mouse_position
 
 		clamp_to_map_edges()
+
+
+func zoom_at_mouse(target_zoom: float) -> void:
+	var old_zoom := zoom
+	var new_zoom_value = clamp(target_zoom, min_zoom, max_zoom)
+
+	if is_equal_approx(new_zoom_value, zoom.x):
+		return
+
+	var mouse_position := get_viewport().get_mouse_position()
+	var before_zoom := get_global_mouse_position()
+
+	zoom = Vector2(new_zoom_value, new_zoom_value)
+
+	var after_zoom := get_global_mouse_position()
+	position += before_zoom - after_zoom
+
+	clamp_to_map_edges()
 
 
 func clamp_to_map_edges() -> void:
