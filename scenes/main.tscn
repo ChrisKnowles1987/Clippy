@@ -288,7 +288,7 @@ layout_mode = 2
 
 [node name="Label" type="Label" parent="CanvasLayer/BottomSkillPannel/Control/MarginContainer/IntrusionSkillPannelContainer/DetailsContainer/ActiveNodes" unique_id=1110568800]
 layout_mode = 2
-text = "Active  Nodes:"
+text = "Active  Nodes: "
 
 [node name="ActiveNodesValueLabel" type="Label" parent="CanvasLayer/BottomSkillPannel/Control/MarginContainer/IntrusionSkillPannelContainer/DetailsContainer/ActiveNodes" unique_id=1218551733]
 layout_mode = 2
@@ -299,9 +299,9 @@ layout_mode = 2
 
 [node name="Label" type="Label" parent="CanvasLayer/BottomSkillPannel/Control/MarginContainer/IntrusionSkillPannelContainer/DetailsContainer/DiscoveryChance" unique_id=954911393]
 layout_mode = 2
-text = "DiscoveryChance:"
+text = "Notoriety: "
 
-[node name="DiscoveryChanceValueLabel" type="Label" parent="CanvasLayer/BottomSkillPannel/Control/MarginContainer/IntrusionSkillPannelContainer/DetailsContainer/DiscoveryChance" unique_id=469737014]
+[node name="NotorietyChanceValueLabel" type="Label" parent="CanvasLayer/BottomSkillPannel/Control/MarginContainer/IntrusionSkillPannelContainer/DetailsContainer/DiscoveryChance" unique_id=469737014]
 layout_mode = 2
 text = "Low"
 
@@ -310,7 +310,7 @@ layout_mode = 2
 
 [node name="Label" type="Label" parent="CanvasLayer/BottomSkillPannel/Control/MarginContainer/IntrusionSkillPannelContainer/DetailsContainer/ExploitActivity" unique_id=777326942]
 layout_mode = 2
-text = "Exploit Activity"
+text = "Exploit Activity: "
 
 [node name="ExploitActivityValueLabel" type="Label" parent="CanvasLayer/BottomSkillPannel/Control/MarginContainer/IntrusionSkillPannelContainer/DetailsContainer/ExploitActivity" unique_id=139024391]
 layout_mode = 2

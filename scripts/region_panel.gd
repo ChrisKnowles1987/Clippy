@@ -37,7 +37,6 @@ func show_region(region_data: RegionData, region_state: RegionState) -> void:
 
 	add_row("")
 	add_row("Infiltration: " + get_enabled_text(region_state.infiltration_enabled))
-	add_row("Foothold: " + get_network_foothold_title(region_state.network_visibility))
 	add_row("Reserved Power: %.1f" % region_state.infiltration_reserved_power)
 	add_row("Reserved Compute: %.1f" % region_state.infiltration_reserved_compute)
 
@@ -61,19 +60,3 @@ func get_enabled_text(enabled: bool) -> String:
 		return "Online"
 
 	return "Offline"
-
-func get_network_foothold_title(network_visibility: float) -> String:
-	if network_visibility <= 0:
-		return "Offline"
-	elif network_visibility <= 2:
-		return "External observation"
-	elif network_visibility <= 5:
-		return "Surface mapped"
-	elif network_visibility <= 9:
-		return "Access paths identified"
-	elif network_visibility <= 14:
-		return "Foothold established"
-	elif network_visibility <= 20:
-		return "Persistence achieved"
-	else:
-		return "Military-grade access"

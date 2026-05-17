@@ -22,4 +22,4 @@ class_name RegionState
 
 @export var scan_networks_enabled: bool = false
 @export var scan_networks_level: int = 1
-@export var network_visibility: float = 0.0
+@export var network_visibility: int = 0

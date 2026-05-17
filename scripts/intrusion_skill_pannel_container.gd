@@ -11,7 +11,7 @@ extends Control
 @onready var details_container: Control = $DetailsContainer
 @onready var foothold_value_label: Label = $DetailsContainer/Foothold/FootHoldValueLabel
 @onready var active_nodes_value_label: Label = $DetailsContainer/ActiveNodes/ActiveNodesValueLabel
-@onready var discovery_chance_value_label: Label = $DetailsContainer/DiscoveryChance/DiscoveryChanceValueLabel
+@onready var notoriety_value_label: Label = $DetailsContainer/DiscoveryChance/NotorietyChanceValueLabel
 @onready var exploit_activity_value_label: Label = $DetailsContainer/ExploitActivity/ExploitActivityValueLabel
 @onready var terminal_log: RichTextLabel = $DetailsContainer/TerminalContainer/TerminalLog
 
@@ -99,7 +99,7 @@ func refresh_intelligence_ui() -> void:
 func refresh_details_ui() -> void:
 	foothold_value_label.text = get_network_foothold_title(selected_region_state.network_visibility)
 	active_nodes_value_label.text = str(selected_region_state.active_node_ids.size())
-	discovery_chance_value_label.text = get_discovery_chance_title()
+	notoriety_value_label.text = get_notoriety_title()
 	exploit_activity_value_label.text = get_exploit_activity_title()
 
 
@@ -223,51 +223,83 @@ func get_infiltration_power_cost() -> float:
 	if selected_region_state == null:
 		return 0.0
 
-	var base_power := 2.0
 	var scan_level := float(selected_region_state.scan_networks_level)
 
-	return base_power * scan_level
+	return get_average_city_network_weight() * scan_level
 
 
 func get_infiltration_compute_cost() -> float:
 	if selected_region_state == null:
 		return 0.0
 
-	var base_compute := 2.0
 	var scan_level := float(selected_region_state.scan_networks_level)
 
-	return base_compute * scan_level
+	return get_average_city_security_weight() * scan_level
 
 
-func get_network_foothold_title(network_visibility: float) -> String:
-	if network_visibility <= 0:
-		return "Offline"
-	elif network_visibility <= 2:
-		return "External observation"
-	elif network_visibility <= 5:
-		return "Surface mapped"
-	elif network_visibility <= 9:
-		return "Access paths identified"
-	elif network_visibility <= 14:
-		return "Foothold established"
-	elif network_visibility <= 20:
-		return "Persistence achieved"
-	else:
-		return "Military-grade access"
+func get_average_city_network_weight() -> float:
+	if selected_region_data == null:
+		return 2.0
+
+	if selected_region_data.cities.is_empty():
+		return 2.0
+
+	var total := 0.0
+
+	for city in selected_region_data.cities:
+		total += city.network_weight
+
+	return total / float(selected_region_data.cities.size())
 
 
-func get_discovery_chance_title() -> String:
+func get_average_city_security_weight() -> float:
+	if selected_region_data == null:
+		return 2.0
+
+	if selected_region_data.cities.is_empty():
+		return 2.0
+
+	var total := 0.0
+
+	for city in selected_region_data.cities:
+		total += city.security_weight
+
+	return total / float(selected_region_data.cities.size())
+
+
+func get_network_foothold_title(network_visibility: int) -> String:
 	if selected_region_state == null:
-		return "None"
+		return "Offline"
+	if selected_region_state.scan_networks_enabled == false:
+		return "Offline"
+		
+	var visibility_level: int 	=	clamp(network_visibility, 0,6)
+	
+	match visibility_level:
+		
+		0:
+			return "Passive"
+		1:
+			return "Observing"
+		2:
+			return "Modelling"
+		3:
+			return "Interfacing"
+		4:
+			return "Embedded"
+		5:
+			return "Persistent"
+		6:
+			return "Omnipresent"
+		_:
+			return "Offline"
 
-	if selected_region_state.network_visibility <= 0:
-		return "None"
-	elif selected_region_state.network_visibility <= 5:
-		return "Low"
-	elif selected_region_state.network_visibility <= 14:
-		return "Moderate"
-	else:
-		return "High"
+
+func get_notoriety_title() -> String:
+	if selected_region_state == null:
+		return "0"
+
+	return str(snapped(selected_region_state.notoriety, 0.1))
 
 
 func get_exploit_activity_title() -> String:

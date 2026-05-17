@@ -386,7 +386,7 @@ func process_scan_networks_state(region_state: RegionState) -> void:
 	if region_state.scan_networks_enabled == false:
 		return
 
-	region_state.network_visibility += float(region_state.scan_networks_level)
+
 
 
 func refresh_selected_region_ui() -> void:
