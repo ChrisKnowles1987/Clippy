@@ -99,7 +99,7 @@ size_flags_vertical = 8
 mouse_filter = 2
 
 [node name="GlobalResourcePanel" type="PanelContainer" parent="CanvasLayer" unique_id=983758661]
-custom_minimum_size = Vector2(200, 0)
+custom_minimum_size = Vector2(200, 140)
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
@@ -160,30 +160,24 @@ size_flags_horizontal = 3
 text = "0"
 label_settings = SubResource("LabelSettings_o6xl0")
 
-[node name="BottomSkillPannel" type="Control" parent="CanvasLayer" unique_id=590344754]
+[node name="BottomSkillPannel" type="PanelContainer" parent="CanvasLayer" unique_id=534119209]
 material = SubResource("CanvasItemMaterial_tefeu")
-layout_mode = 3
-anchors_preset = 4
-anchor_top = 0.5
-anchor_bottom = 0.5
-grow_vertical = 2
+custom_minimum_size = Vector2(500, 0)
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -89.0
+offset_right = 299.0
+grow_vertical = 0
+size_flags_horizontal = 3
 size_flags_vertical = 8
 
-[node name="ColorRect" type="ColorRect" parent="CanvasLayer/BottomSkillPannel" unique_id=1306859780]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
 [node name="Control" type="PanelContainer" parent="CanvasLayer/BottomSkillPannel" unique_id=1955760714]
-custom_minimum_size = Vector2(500, 0)
-layout_mode = 0
-offset_right = 298.0
-offset_bottom = 89.0
+layout_mode = 2
+size_flags_vertical = 8
 
 [node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/BottomSkillPannel/Control" unique_id=521807362]
+custom_minimum_size = Vector2(0, 140)
 layout_mode = 2
 mouse_filter = 0
 theme_override_constants/margin_left = 12
@@ -193,15 +187,18 @@ theme_override_constants/margin_bottom = 12
 
 [node name="IntrusionSkillPannelContainer" type="VBoxContainer" parent="CanvasLayer/BottomSkillPannel/Control/MarginContainer" unique_id=1894295217]
 layout_mode = 2
+size_flags_vertical = 8
 mouse_filter = 0
 script = ExtResource("7_o6xl0")
 
 [node name="SumnmaryContainer" type="VBoxContainer" parent="CanvasLayer/BottomSkillPannel/Control/MarginContainer/IntrusionSkillPannelContainer" unique_id=1355764306]
 layout_mode = 2
+size_flags_vertical = 3
 mouse_filter = 0
 
 [node name="TitleRowContainer" type="HBoxContainer" parent="CanvasLayer/BottomSkillPannel/Control/MarginContainer/IntrusionSkillPannelContainer/SumnmaryContainer" unique_id=299220103]
 layout_mode = 2
+size_flags_vertical = 3
 mouse_filter = 0
 
 [node name="IntrusionSkillPannelRegionNameLabel" type="Label" parent="CanvasLayer/BottomSkillPannel/Control/MarginContainer/IntrusionSkillPannelContainer/SumnmaryContainer/TitleRowContainer" unique_id=960940592]
@@ -254,6 +251,7 @@ text = "+"
 
 [node name="TitleRowContainer2" type="HBoxContainer" parent="CanvasLayer/BottomSkillPannel/Control/MarginContainer/IntrusionSkillPannelContainer/SumnmaryContainer" unique_id=1115180080]
 layout_mode = 2
+size_flags_vertical = 3
 
 [node name="Label" type="Label" parent="CanvasLayer/BottomSkillPannel/Control/MarginContainer/IntrusionSkillPannelContainer/SumnmaryContainer/TitleRowContainer2" unique_id=1275168802]
 layout_mode = 2
@@ -265,8 +263,14 @@ layout_mode = 2
 size_flags_horizontal = 3
 step = 1.0
 
-[node name="DetailsContainer" type="VBoxContainer" parent="CanvasLayer/BottomSkillPannel/Control/MarginContainer/IntrusionSkillPannelContainer" unique_id=1817081927]
+[node name="Control" type="Control" parent="CanvasLayer/BottomSkillPannel/Control/MarginContainer/IntrusionSkillPannelContainer/SumnmaryContainer" unique_id=1002598573]
+custom_minimum_size = Vector2(0, 47)
 layout_mode = 2
+
+[node name="DetailsContainer" type="VBoxContainer" parent="CanvasLayer/BottomSkillPannel/Control/MarginContainer/IntrusionSkillPannelContainer" unique_id=1817081927]
+visible = false
+layout_mode = 2
+size_flags_vertical = 10
 
 [node name="Foothold" type="HBoxContainer" parent="CanvasLayer/BottomSkillPannel/Control/MarginContainer/IntrusionSkillPannelContainer/DetailsContainer" unique_id=1823851236]
 layout_mode = 2
