@@ -13,10 +13,15 @@ extends Node2D
 @onready var hack_node_manager = $HackNodeManager
 @onready var hack_node_layer = $MapController/HackNodeLayer
 
+@onready var decision_popup: DecisionPopup = $CanvasLayer/DecisionPopup
+@onready var pending_decision_pannel: PendingDecisionPannel = $CanvasLayer/PendingDecisionPannel
+
 const BASE_DISCOVERY_REQUIRED := 10.0
 const MAX_ACTIVE_EXPLOITS_PER_REGION := 8
+const DECISION_EXPIRY_DAYS := 5
 
 var discovery_progress_by_region: Dictionary = {}
+var pending_decision_node_ids: Array[String] = []
 
 
 func _ready() -> void:
@@ -24,8 +29,13 @@ func _ready() -> void:
 	game_clock.day_passed.connect(_on_day_passed)
 	global_resource_manager.resources_changed.connect(_on_resources_changed)
 
+	decision_popup.choice_selected.connect(_on_decision_popup_choice_selected)
+	pending_decision_pannel.pending_decision_selected.connect(_on_pending_decision_selected)
+
 	region_panel.show_empty()
 	intrusion_panel.show_empty()
+	decision_popup.hide_decision()
+	refresh_pending_decision_pannel()
 
 	update_date_ui(game_clock.current_date)
 	update_global_resource_ui()
@@ -38,6 +48,8 @@ func _process(delta: float) -> void:
 func _on_day_passed(current_date: Dictionary) -> void:
 	update_date_ui(current_date)
 	process_intrusion_skills()
+	process_expired_pending_decisions()
+	refresh_pending_decision_pannel()
 	refresh_selected_region_ui()
 	update_global_resource_ui()
 
@@ -122,10 +134,289 @@ func process_active_exploits(delta: float, region_state: RegionState) -> bool:
 		hack_node.processing_progress += hack_node.processing_speed * delta
 
 		if hack_node.processing_progress >= hack_node.processing_required:
-			resolve_exploit(hack_node, region_state)
+			if requires_player_decision(hack_node):
+				queue_hack_node_decision(hack_node)
+			else:
+				resolve_exploit(hack_node, region_state)
+
 			changed = true
 
 	return changed
+
+
+func requires_player_decision(hack_node: HackNodeData) -> bool:
+	return hack_node.rarity == "rare" or hack_node.rarity == "elite"
+
+
+func queue_hack_node_decision(hack_node: HackNodeData) -> void:
+	if hack_node == null:
+		return
+
+	hack_node.status = "awaiting_choice"
+
+	if hack_node.expires_on_day <= 0:
+		hack_node.expires_on_day = get_current_day_number() + DECISION_EXPIRY_DAYS
+
+	if pending_decision_node_ids.has(hack_node.id) == false:
+		pending_decision_node_ids.append(hack_node.id)
+
+	intrusion_panel.add_intrusion_log_line(
+		hack_node.region_id,
+		format_review_exploit_line(hack_node)
+	)
+
+	refresh_pending_decision_pannel()
+	open_decision_popup_for_node(hack_node)
+	pause_for_decision()
+
+
+func open_decision_popup_for_node(hack_node: HackNodeData) -> void:
+	if hack_node == null:
+		return
+
+	decision_popup.show_decision(
+		hack_node,
+		format_review_exploit_line(hack_node),
+		get_decision_cost_items(hack_node),
+		get_decision_success_outcomes(hack_node),
+		get_decision_failure_outcomes(hack_node),
+		get_days_left_for_node(hack_node)
+	)
+
+
+func pause_for_decision() -> void:
+	get_tree().paused = true
+
+
+func resume_after_decision() -> void:
+	get_tree().paused = false
+
+
+func _on_decision_popup_choice_selected(hack_node_id: String, choice_id: String) -> void:
+	var hack_node := get_hack_node_by_id(hack_node_id)
+
+	if hack_node == null:
+		decision_popup.hide_decision()
+		resume_after_decision()
+		return
+
+	match choice_id:
+		"execute":
+			execute_pending_decision(hack_node)
+		"defer":
+			defer_pending_decision(hack_node)
+		"ignore":
+			ignore_pending_decision(hack_node)
+		_:
+			defer_pending_decision(hack_node)
+
+
+func execute_pending_decision(hack_node: HackNodeData) -> void:
+	var region_state: RegionState = region_manager.get_region_state(hack_node.region_id)
+
+	if region_state == null:
+		defer_pending_decision(hack_node)
+		return
+
+	remove_pending_decision(hack_node.id)
+
+	hack_node.status = "processing"
+	resolve_exploit(hack_node, region_state)
+
+	decision_popup.hide_decision()
+	resume_after_decision()
+
+	cleanup_resolved_exploits()
+	hack_node_layer.set_nodes(hack_node_manager.active_nodes)
+	refresh_pending_decision_pannel()
+	refresh_selected_region_ui()
+	update_global_resource_ui()
+
+
+func defer_pending_decision(hack_node: HackNodeData) -> void:
+	hack_node.status = "awaiting_choice"
+
+	if pending_decision_node_ids.has(hack_node.id) == false:
+		pending_decision_node_ids.append(hack_node.id)
+
+	decision_popup.hide_decision()
+	resume_after_decision()
+
+	refresh_pending_decision_pannel()
+	refresh_selected_region_ui()
+	update_global_resource_ui()
+
+
+func ignore_pending_decision(hack_node: HackNodeData) -> void:
+	remove_pending_decision(hack_node.id)
+
+	hack_node.status = "ignored"
+	hack_node.resolved = true
+
+	intrusion_panel.add_intrusion_log_line(
+		hack_node.region_id,
+		format_ignored_exploit_line(hack_node)
+	)
+
+	decision_popup.hide_decision()
+	resume_after_decision()
+
+	cleanup_resolved_exploits()
+	hack_node_layer.set_nodes(hack_node_manager.active_nodes)
+	refresh_pending_decision_pannel()
+	refresh_selected_region_ui()
+	update_global_resource_ui()
+
+
+func _on_pending_decision_selected(hack_node_id: String) -> void:
+	var hack_node := get_hack_node_by_id(hack_node_id)
+
+	if hack_node == null:
+		remove_pending_decision(hack_node_id)
+		refresh_pending_decision_pannel()
+		return
+
+	if hack_node.resolved:
+		remove_pending_decision(hack_node_id)
+		refresh_pending_decision_pannel()
+		return
+
+	open_decision_popup_for_node(hack_node)
+	pause_for_decision()
+
+
+func process_expired_pending_decisions() -> void:
+	var current_day_number := get_current_day_number()
+	var expired_ids: Array[String] = []
+
+	for hack_node_id in pending_decision_node_ids:
+		var hack_node := get_hack_node_by_id(hack_node_id)
+
+		if hack_node == null:
+			expired_ids.append(hack_node_id)
+			continue
+
+		if hack_node.expires_on_day > 0 and current_day_number >= hack_node.expires_on_day:
+			hack_node.status = "expired"
+			hack_node.resolved = true
+			expired_ids.append(hack_node.id)
+
+			intrusion_panel.add_intrusion_log_line(
+				hack_node.region_id,
+				format_expired_exploit_line(hack_node)
+			)
+
+	for hack_node_id in expired_ids:
+		remove_pending_decision(hack_node_id)
+
+	if expired_ids.size() > 0:
+		cleanup_resolved_exploits()
+		hack_node_layer.set_nodes(hack_node_manager.active_nodes)
+
+
+func refresh_pending_decision_pannel() -> void:
+	var lines: Array[String] = []
+
+	for hack_node_id in pending_decision_node_ids:
+		var hack_node := get_hack_node_by_id(hack_node_id)
+
+		if hack_node == null:
+			continue
+
+		if hack_node.resolved:
+			continue
+
+		lines.append(format_pending_decision_line(hack_node))
+
+	pending_decision_pannel.update_pending_decisions(lines, lines.size())
+
+
+func format_pending_decision_line(hack_node: HackNodeData) -> String:
+	var line := "[url=" + hack_node.id + "]"
+	line += format_rarity_tag(hack_node.rarity)
+	line += " "
+	line += format_type_tag(hack_node.node_type)
+	line += " "
+	line += hack_node.city_name
+	line += " :: "
+	line += get_review_phrase(hack_node)
+	line += " "
+	line += "[color=#aaaaaa][" + str(get_days_left_for_node(hack_node)) + "d][/color]"
+	line += "[/url]"
+
+	return line
+
+
+func remove_pending_decision(hack_node_id: String) -> void:
+	pending_decision_node_ids.erase(hack_node_id)
+
+
+func get_hack_node_by_id(hack_node_id: String) -> HackNodeData:
+	for hack_node in hack_node_manager.active_nodes:
+		if hack_node.id == hack_node_id:
+			return hack_node
+
+	return null
+
+
+func get_current_day_number() -> int:
+	var current_date: Dictionary = game_clock.current_date
+
+	var year := int(current_date.year)
+	var month := int(current_date.month)
+	var day := int(current_date.day)
+
+	return year * 365 + month * 30 + day
+
+
+func get_days_left_for_node(hack_node: HackNodeData) -> int:
+	if hack_node.expires_on_day <= 0:
+		return DECISION_EXPIRY_DAYS
+
+	return max(0, hack_node.expires_on_day - get_current_day_number())
+
+
+func get_decision_cost_items(hack_node: HackNodeData) -> Array[String]:
+	var items: Array[String] = []
+
+	items.append("[color=#88ccff]Compute:[/color] " + str(snapped(hack_node.processing_required, 0.1)))
+
+	return items
+
+
+func get_decision_success_outcomes(hack_node: HackNodeData) -> Array[String]:
+	var items: Array[String] = []
+
+	items.append("[color=#88ccff]+[/color] " + str(snapped(hack_node.intelligence_reward, 0.1)) + " intelligence")
+
+	if hack_node.coin_reward > 0.0:
+		items.append("[color=#88dd88]+[/color] " + str(snapped(hack_node.coin_reward, 0.1)) + " coin")
+
+	var possible_notoriety := get_possible_notoriety_gain(hack_node)
+
+	if possible_notoriety > 0.0:
+		items.append("[color=#ffaa44]+[/color] possible notoriety")
+
+	return items
+
+
+func get_decision_failure_outcomes(hack_node: HackNodeData) -> Array[String]:
+	var items: Array[String] = []
+
+	items.append("[color=#cc6666]Node fails[/color]")
+	items.append("[color=#999999]No intelligence gained[/color]")
+
+	return items
+
+
+func get_possible_notoriety_gain(hack_node: HackNodeData) -> float:
+	match hack_node.node_type:
+		"security":
+			return 1.0
+		"government":
+			return 0.7
+		_:
+			return 0.0
 
 
 func calculate_processing_speed(hack_node: HackNodeData, region_state: RegionState) -> float:
@@ -265,6 +556,39 @@ func format_failed_exploit_line(hack_node: HackNodeData) -> String:
 	return " ".join(parts)
 
 
+func format_review_exploit_line(hack_node: HackNodeData) -> String:
+	var parts: Array[String] = [
+		"[color=#ffaa44][REVIEW][/color]",
+		format_type_tag(hack_node.node_type),
+		format_rarity_tag(hack_node.rarity),
+		hack_node.city_name + " :: " + get_review_phrase(hack_node)
+	]
+
+	return " ".join(parts)
+
+
+func format_ignored_exploit_line(hack_node: HackNodeData) -> String:
+	var parts: Array[String] = [
+		"[color=#999999][CANCELLED][/color]",
+		format_type_tag(hack_node.node_type),
+		format_rarity_tag(hack_node.rarity),
+		hack_node.city_name + " :: opportunity cancelled"
+	]
+
+	return " ".join(parts)
+
+
+func format_expired_exploit_line(hack_node: HackNodeData) -> String:
+	var parts: Array[String] = [
+		"[color=#999999][EXPIRED][/color]",
+		format_type_tag(hack_node.node_type),
+		format_rarity_tag(hack_node.rarity),
+		hack_node.city_name + " :: opportunity decayed"
+	]
+
+	return " ".join(parts)
+
+
 func format_type_tag(node_type: String) -> String:
 	match node_type:
 		"financial":
@@ -329,6 +653,24 @@ func get_failure_phrase(hack_node: HackNodeData) -> String:
 			return "exploit collapsed | no result"
 
 
+func get_review_phrase(hack_node: HackNodeData) -> String:
+	match hack_node.node_type:
+		"financial":
+			return "payment route exposed | manual authorisation required"
+		"infrastructure":
+			return "routing dependency exposed | manual authorisation required"
+		"security":
+			return "contractor surface exposed | manual authorisation required"
+		"government":
+			return "administrative access route exposed | manual authorisation required"
+		"cultural":
+			return "cultural signal exposed | manual authorisation required"
+		"social":
+			return "social exploit exposed | manual authorisation required"
+		_:
+			return "exploit exposed | manual authorisation required"
+
+
 func _on_day_passed_legacy_unused() -> void:
 	pass
 
@@ -385,6 +727,7 @@ func process_intrusion_skills() -> void:
 func process_scan_networks_state(region_state: RegionState) -> void:
 	if region_state.scan_networks_enabled == false:
 		return
+
 
 
 
