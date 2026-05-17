@@ -327,3 +327,174 @@ layout_mode = 2
 custom_minimum_size = Vector2(0, 240)
 layout_mode = 2
 text = "> network offline"
+
+[node name="DecisionPopup" type="PanelContainer" parent="CanvasLayer" unique_id=805473399]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/DecisionPopup" unique_id=1241814069]
+layout_mode = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 12
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/DecisionPopup/MarginContainer" unique_id=87255898]
+layout_mode = 2
+
+[node name="DecisionHeroImage" type="TextureRect" parent="CanvasLayer/DecisionPopup/MarginContainer/VBoxContainer" unique_id=2061862973]
+custom_minimum_size = Vector2(500, 279)
+layout_mode = 2
+
+[node name="Title row" type="HBoxContainer" parent="CanvasLayer/DecisionPopup/MarginContainer/VBoxContainer" unique_id=1740447359]
+layout_mode = 2
+
+[node name="RegionIDLabel" type="Label" parent="CanvasLayer/DecisionPopup/MarginContainer/VBoxContainer/Title row" unique_id=426234887]
+layout_mode = 2
+text = "Selected Region"
+
+[node name="DecisionIDLabel" type="Label" parent="CanvasLayer/DecisionPopup/MarginContainer/VBoxContainer/Title row" unique_id=287597426]
+layout_mode = 2
+text = "Decision ID"
+
+[node name="DaysLeftVariableLabel" type="Label" parent="CanvasLayer/DecisionPopup/MarginContainer/VBoxContainer/Title row" unique_id=771564999]
+layout_mode = 2
+text = "5 days left"
+
+[node name="HackNodeTerminal" type="RichTextLabel" parent="CanvasLayer/DecisionPopup/MarginContainer/VBoxContainer" unique_id=1634343830]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="Cost container" type="VBoxContainer" parent="CanvasLayer/DecisionPopup/MarginContainer/VBoxContainer" unique_id=573321679]
+layout_mode = 2
+
+[node name="CostLabel" type="Label" parent="CanvasLayer/DecisionPopup/MarginContainer/VBoxContainer/Cost container" unique_id=481484088]
+layout_mode = 2
+text = "Cost:"
+
+[node name="CostItemsContainer" type="HBoxContainer" parent="CanvasLayer/DecisionPopup/MarginContainer/VBoxContainer/Cost container" unique_id=1965962107]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer/DecisionPopup/MarginContainer/VBoxContainer" unique_id=858022012]
+layout_mode = 2
+
+[node name="SuccessChanceContainer" type="HBoxContainer" parent="CanvasLayer/DecisionPopup/MarginContainer/VBoxContainer" unique_id=1412683718]
+layout_mode = 2
+
+[node name="SuccessChanceLabel" type="Label" parent="CanvasLayer/DecisionPopup/MarginContainer/VBoxContainer/SuccessChanceContainer" unique_id=235539945]
+layout_mode = 2
+text = "Chance for success:"
+
+[node name="SuccessChanceVariableLabel" type="Label" parent="CanvasLayer/DecisionPopup/MarginContainer/VBoxContainer/SuccessChanceContainer" unique_id=1137994652]
+layout_mode = 2
+text = "0"
+
+[node name="SuccessChanceLabel3" type="Label" parent="CanvasLayer/DecisionPopup/MarginContainer/VBoxContainer/SuccessChanceContainer" unique_id=632020445]
+layout_mode = 2
+text = "%"
+
+[node name="OutcomeContainer" type="VBoxContainer" parent="CanvasLayer/DecisionPopup/MarginContainer/VBoxContainer" unique_id=1463037782]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/DecisionPopup/MarginContainer/VBoxContainer/OutcomeContainer" unique_id=1792424618]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="SuccessLabel" type="Label" parent="CanvasLayer/DecisionPopup/MarginContainer/VBoxContainer/OutcomeContainer/VBoxContainer" unique_id=1025463577]
+layout_mode = 2
+text = "On success:"
+
+[node name="SuccessItemContainer" type="HBoxContainer" parent="CanvasLayer/DecisionPopup/MarginContainer/VBoxContainer/OutcomeContainer/VBoxContainer" unique_id=1678688675]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="CanvasLayer/DecisionPopup/MarginContainer/VBoxContainer/OutcomeContainer" unique_id=1323477526]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="FailLabel" type="Label" parent="CanvasLayer/DecisionPopup/MarginContainer/VBoxContainer/OutcomeContainer/VBoxContainer2" unique_id=1415244331]
+layout_mode = 2
+text = "On failure:"
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="CanvasLayer/DecisionPopup/MarginContainer/VBoxContainer/OutcomeContainer/VBoxContainer2" unique_id=1308022301]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="WarningLabel" type="Label" parent="CanvasLayer/DecisionPopup/MarginContainer/VBoxContainer" unique_id=172960925]
+layout_mode = 2
+text = "Warning:  "
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/DecisionPopup/MarginContainer/VBoxContainer" unique_id=81749216]
+layout_mode = 2
+
+[node name="Spacer2" type="Control" parent="CanvasLayer/DecisionPopup/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1342704754]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Proceed" type="Button" parent="CanvasLayer/DecisionPopup/MarginContainer/VBoxContainer/HBoxContainer" unique_id=957940171]
+custom_minimum_size = Vector2(100, 30)
+layout_mode = 2
+text = "Proceed"
+
+[node name="Defer" type="Button" parent="CanvasLayer/DecisionPopup/MarginContainer/VBoxContainer/HBoxContainer" unique_id=814308298]
+custom_minimum_size = Vector2(100, 30)
+layout_mode = 2
+text = "Defer"
+
+[node name="Cancel" type="Button" parent="CanvasLayer/DecisionPopup/MarginContainer/VBoxContainer/HBoxContainer" unique_id=122361650]
+custom_minimum_size = Vector2(100, 30)
+layout_mode = 2
+text = "Cancel"
+
+[node name="Spacer" type="Control" parent="CanvasLayer/DecisionPopup/MarginContainer/VBoxContainer/HBoxContainer" unique_id=357709683]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="PendingDecisionPannel" type="PanelContainer" parent="CanvasLayer" unique_id=2142242795]
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -40.0
+offset_top = -20.0
+offset_bottom = 20.0
+grow_horizontal = 0
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/PendingDecisionPannel" unique_id=570536814]
+layout_mode = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 12
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/PendingDecisionPannel/MarginContainer" unique_id=2068262904]
+layout_mode = 2
+
+[node name="TitleRow" type="HBoxContainer" parent="CanvasLayer/PendingDecisionPannel/MarginContainer/VBoxContainer" unique_id=23712327]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="CanvasLayer/PendingDecisionPannel/MarginContainer/VBoxContainer/TitleRow" unique_id=2004184605]
+layout_mode = 2
+text = "Priority Events: "
+
+[node name="Label2" type="Label" parent="CanvasLayer/PendingDecisionPannel/MarginContainer/VBoxContainer/TitleRow" unique_id=379407814]
+layout_mode = 2
+text = "0"
+
+[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer/PendingDecisionPannel/MarginContainer/VBoxContainer" unique_id=507890310]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
