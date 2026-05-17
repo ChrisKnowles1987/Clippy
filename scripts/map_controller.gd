@@ -69,7 +69,7 @@ func _process(_delta: float) -> void:
 		hovered_region_id = region_id
 		update_region_overlays()
 
-func _input(event: InputEvent) -> void:
+func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
 		var clicked_region_id := get_region_under_mouse()
 
