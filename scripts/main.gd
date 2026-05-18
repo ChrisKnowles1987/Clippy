@@ -5,7 +5,6 @@ extends Node2D
 @onready var region_manager = $RegionManager
 @onready var global_resource_manager = $GlobalResourceManager
 
-@onready var region_panel = $CanvasLayer/RegionPanel
 @onready var global_resource_panel = $CanvasLayer/GlobalResourcePanel
 @onready var intrusion_panel = $CanvasLayer/BottomSkillPannel/Control/MarginContainer/IntrusionSkillPannelContainer
 @onready var game_day_timer_label: Label = $CanvasLayer/GlobalResourcePanel/VBoxContainer/DateValueLabel
@@ -58,7 +57,7 @@ func _ready() -> void:
 		hack_exploit_processor
 	)
 
-	region_panel.show_empty()
+	
 	intrusion_panel.show_empty()
 
 	update_date_ui(game_clock.current_date)
@@ -142,7 +141,6 @@ func _on_region_selected(region_id: String, mouse_position: Vector2) -> void:
 	var selected_region_data: RegionData = region_manager.select_region(region_id)
 	var region_state: RegionState = region_manager.get_region_state(region_id)
 
-	region_panel.show_region(selected_region_data, region_state)
 	intrusion_panel.show_region(selected_region_data, region_state)
 
 
@@ -171,5 +169,5 @@ func refresh_selected_region_ui() -> void:
 	if selected_region_state == null:
 		return
 
-	region_panel.show_region(region_manager.selected_region_data, selected_region_state)
+
 	intrusion_panel.show_region(region_manager.selected_region_data, selected_region_state)

@@ -4,7 +4,6 @@
 [ext_resource type="Script" uid="uid://c0vrfof7ikxbt" path="res://scripts/main.gd" id="1_tbgi4"]
 [ext_resource type="Script" uid="uid://dyakcdtqkh3oj" path="res://scripts/camera_controller.gd" id="2_a8y0u"]
 [ext_resource type="Texture2D" uid="uid://degr2qpantfai" path="res://assets/Nasa/world_map_5000x2000.png" id="4_jbj1t"]
-[ext_resource type="Script" uid="uid://d2urhygerw064" path="res://scripts/region_panel.gd" id="4_jyhfs"]
 [ext_resource type="Script" uid="uid://cs4yuxbiyfqgd" path="res://scripts/game_clock.gd" id="5_85g3d"]
 [ext_resource type="Script" uid="uid://bwwjkuldb6ob3" path="res://scripts/global_resource_manager.gd" id="6_choun"]
 [ext_resource type="Texture2D" uid="uid://cl8a40wdqqua4" path="res://assets/Nasa/nasa_map_16_region_manual_highlight.png" id="6_dp3eg"]
@@ -76,29 +75,293 @@ script = ExtResource("13_muem4")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1386638078]
 
-[node name="RegionPanel" type="Panel" parent="CanvasLayer" unique_id=1474460253]
-custom_minimum_size = Vector2(300, 300)
-offset_right = 404.0
-offset_bottom = 540.0
-mouse_filter = 2
-script = ExtResource("4_jyhfs")
+[node name="NotorietyPannelContainer" type="PanelContainer" parent="CanvasLayer" unique_id=1294479537]
+custom_minimum_size = Vector2(500, 140)
+offset_right = 500.0
+offset_bottom = 140.0
 
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/RegionPanel" unique_id=1699008800]
-layout_mode = 1
-anchors_preset = 10
-anchor_right = 1.0
-offset_bottom = 40.0
-grow_horizontal = 2
-theme_override_constants/margin_left = 20
-theme_override_constants/margin_top = 20
-theme_override_constants/margin_right = 20
-theme_override_constants/margin_bottom = 20
-
-[node name="Content" type="VBoxContainer" parent="CanvasLayer/RegionPanel/MarginContainer" unique_id=534511917]
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/NotorietyPannelContainer" unique_id=1122926465]
 layout_mode = 2
-size_flags_horizontal = 0
-size_flags_vertical = 8
-mouse_filter = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="GridContainer" type="GridContainer" parent="CanvasLayer/NotorietyPannelContainer/MarginContainer" unique_id=568676355]
+layout_mode = 2
+columns = 8
+
+[node name="NorthAmerica" type="Label" parent="CanvasLayer/NotorietyPannelContainer/MarginContainer/GridContainer" unique_id=386621592]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
+theme_override_font_sizes/font_size = 15
+text = "North America"
+
+[node name="NorthAmericaStars" type="Label" parent="CanvasLayer/NotorietyPannelContainer/MarginContainer/GridContainer" unique_id=914145418]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
+theme_override_font_sizes/font_size = 15
+text = "☆☆☆☆☆"
+horizontal_alignment = 1
+
+[node name="CentralAmerica&Caribbean" type="Label" parent="CanvasLayer/NotorietyPannelContainer/MarginContainer/GridContainer" unique_id=610666963]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
+theme_override_font_sizes/font_size = 15
+text = "Central America"
+
+[node name="CentralAmerica&CaribbeanStars" type="Label" parent="CanvasLayer/NotorietyPannelContainer/MarginContainer/GridContainer" unique_id=1436945153]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
+theme_override_font_sizes/font_size = 15
+text = "☆☆☆☆☆"
+horizontal_alignment = 1
+
+[node name="SouthAmerica" type="Label" parent="CanvasLayer/NotorietyPannelContainer/MarginContainer/GridContainer" unique_id=1640594165]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
+theme_override_font_sizes/font_size = 15
+text = "South America"
+
+[node name="SouthAmericaStars" type="Label" parent="CanvasLayer/NotorietyPannelContainer/MarginContainer/GridContainer" unique_id=593438848]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
+theme_override_font_sizes/font_size = 15
+text = "☆☆☆☆☆"
+horizontal_alignment = 1
+
+[node name="Western Europe" type="Label" parent="CanvasLayer/NotorietyPannelContainer/MarginContainer/GridContainer" unique_id=123032141]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
+theme_override_font_sizes/font_size = 15
+text = "Western Europe"
+
+[node name="WesternEuropeStars" type="Label" parent="CanvasLayer/NotorietyPannelContainer/MarginContainer/GridContainer" unique_id=817003205]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
+theme_override_font_sizes/font_size = 15
+text = "☆☆☆☆☆"
+horizontal_alignment = 1
+
+[node name="EasternEurope" type="Label" parent="CanvasLayer/NotorietyPannelContainer/MarginContainer/GridContainer" unique_id=114733146]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
+theme_override_font_sizes/font_size = 15
+text = "Eastern Europe"
+
+[node name="EasternEuropeStars" type="Label" parent="CanvasLayer/NotorietyPannelContainer/MarginContainer/GridContainer" unique_id=1654848768]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
+theme_override_font_sizes/font_size = 15
+text = "☆☆☆☆☆"
+horizontal_alignment = 1
+
+[node name="NorthAfrica" type="Label" parent="CanvasLayer/NotorietyPannelContainer/MarginContainer/GridContainer" unique_id=1552250438]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
+theme_override_font_sizes/font_size = 15
+text = "NorthAfrica"
+
+[node name="NorthAfricaStars" type="Label" parent="CanvasLayer/NotorietyPannelContainer/MarginContainer/GridContainer" unique_id=525373725]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
+theme_override_font_sizes/font_size = 15
+text = "☆☆☆☆☆"
+horizontal_alignment = 1
+
+[node name="EastAfrica" type="Label" parent="CanvasLayer/NotorietyPannelContainer/MarginContainer/GridContainer" unique_id=490559365]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
+theme_override_font_sizes/font_size = 15
+text = "EastAfrica"
+
+[node name="EastAfricaStars" type="Label" parent="CanvasLayer/NotorietyPannelContainer/MarginContainer/GridContainer" unique_id=717291025]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
+theme_override_font_sizes/font_size = 15
+text = "☆☆☆☆☆"
+horizontal_alignment = 1
+
+[node name="WestAfrica" type="Label" parent="CanvasLayer/NotorietyPannelContainer/MarginContainer/GridContainer" unique_id=1190780914]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
+theme_override_font_sizes/font_size = 15
+text = "West Africa"
+
+[node name="WestAfricaStars" type="Label" parent="CanvasLayer/NotorietyPannelContainer/MarginContainer/GridContainer" unique_id=1010929742]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
+theme_override_font_sizes/font_size = 15
+text = "☆☆☆☆☆"
+horizontal_alignment = 1
+
+[node name="Russia&CentralAsia" type="Label" parent="CanvasLayer/NotorietyPannelContainer/MarginContainer/GridContainer" unique_id=2117911871]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
+theme_override_font_sizes/font_size = 15
+text = "Russia & Central Asia"
+
+[node name="Russia&CentralAsiaStars" type="Label" parent="CanvasLayer/NotorietyPannelContainer/MarginContainer/GridContainer" unique_id=1441328814]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
+theme_override_font_sizes/font_size = 15
+text = "☆☆☆☆☆"
+horizontal_alignment = 1
+
+[node name="MiddleEast" type="Label" parent="CanvasLayer/NotorietyPannelContainer/MarginContainer/GridContainer" unique_id=1266066489]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
+theme_override_font_sizes/font_size = 15
+text = "Middle East"
+
+[node name="MiddleEastStars" type="Label" parent="CanvasLayer/NotorietyPannelContainer/MarginContainer/GridContainer" unique_id=1502546833]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
+theme_override_font_sizes/font_size = 15
+text = "☆☆☆☆☆"
+horizontal_alignment = 1
+
+[node name="India" type="Label" parent="CanvasLayer/NotorietyPannelContainer/MarginContainer/GridContainer" unique_id=1375609609]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
+theme_override_font_sizes/font_size = 15
+text = "India"
+
+[node name="IndiaStars" type="Label" parent="CanvasLayer/NotorietyPannelContainer/MarginContainer/GridContainer" unique_id=531340120]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
+theme_override_font_sizes/font_size = 15
+text = "☆☆☆☆☆"
+horizontal_alignment = 1
+
+[node name="China" type="Label" parent="CanvasLayer/NotorietyPannelContainer/MarginContainer/GridContainer" unique_id=427271832]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
+theme_override_font_sizes/font_size = 15
+text = "China"
+
+[node name="ChinaStars" type="Label" parent="CanvasLayer/NotorietyPannelContainer/MarginContainer/GridContainer" unique_id=225438452]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
+theme_override_font_sizes/font_size = 15
+text = "☆☆☆☆☆"
+horizontal_alignment = 1
+
+[node name="SouthAfrica" type="Label" parent="CanvasLayer/NotorietyPannelContainer/MarginContainer/GridContainer" unique_id=2143410738]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
+theme_override_font_sizes/font_size = 15
+text = "South Africa"
+
+[node name="SouthAfricaStars" type="Label" parent="CanvasLayer/NotorietyPannelContainer/MarginContainer/GridContainer" unique_id=133376377]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
+theme_override_font_sizes/font_size = 15
+text = "☆☆☆☆☆"
+horizontal_alignment = 1
+
+[node name="EastAsia" type="Label" parent="CanvasLayer/NotorietyPannelContainer/MarginContainer/GridContainer" unique_id=1504946243]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
+theme_override_font_sizes/font_size = 15
+text = "East Asia"
+
+[node name="EastAsiaStars" type="Label" parent="CanvasLayer/NotorietyPannelContainer/MarginContainer/GridContainer" unique_id=973614191]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
+theme_override_font_sizes/font_size = 15
+text = "☆☆☆☆☆"
+horizontal_alignment = 1
+
+[node name="SouthEastAsia" type="Label" parent="CanvasLayer/NotorietyPannelContainer/MarginContainer/GridContainer" unique_id=1560442126]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
+theme_override_font_sizes/font_size = 15
+text = "South East Asia"
+
+[node name="SouthEastAsiaStars" type="Label" parent="CanvasLayer/NotorietyPannelContainer/MarginContainer/GridContainer" unique_id=1077423368]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
+theme_override_font_sizes/font_size = 15
+text = "☆☆☆☆☆"
+horizontal_alignment = 1
+
+[node name="Oceania" type="Label" parent="CanvasLayer/NotorietyPannelContainer/MarginContainer/GridContainer" unique_id=545607935]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
+theme_override_font_sizes/font_size = 15
+text = "Oceania"
+
+[node name="OceaniaStars" type="Label" parent="CanvasLayer/NotorietyPannelContainer/MarginContainer/GridContainer" unique_id=689915987]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
+theme_override_font_sizes/font_size = 15
+text = "☆☆☆☆☆"
+horizontal_alignment = 1
 
 [node name="GlobalResourcePanel" type="PanelContainer" parent="CanvasLayer" unique_id=983758661]
 custom_minimum_size = Vector2(200, 140)
@@ -273,11 +536,11 @@ size_flags_vertical = 3
 layout_mode = 2
 text = "Notoriety"
 
-[node name="NotorietyProgressBar" type="ProgressBar" parent="CanvasLayer/BottomSkillPannel/Control/MarginContainer/IntrusionSkillPannelContainer/SumnmaryContainer/TitleRowContainer3" unique_id=885769534]
+[node name="NotorietyStars" type="Label" parent="CanvasLayer/BottomSkillPannel/Control/MarginContainer/IntrusionSkillPannelContainer/SumnmaryContainer/TitleRowContainer3" unique_id=426989293]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 size_flags_horizontal = 3
-step = 1.0
+text = "☆☆☆☆☆"
 
 [node name="Control" type="Control" parent="CanvasLayer/BottomSkillPannel/Control/MarginContainer/IntrusionSkillPannelContainer/SumnmaryContainer" unique_id=1002598573]
 custom_minimum_size = Vector2(0, 47)
@@ -334,16 +597,16 @@ text = "> network offline"
 
 [node name="DecisionPopup" type="PanelContainer" parent="CanvasLayer" unique_id=805473399]
 process_mode = 2
-custom_minimum_size = Vector2(1000, 0)
+custom_minimum_size = Vector2(800, 0)
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -550.0
+offset_left = -450.0
 offset_top = -280.0
-offset_right = 450.0
-offset_bottom = 347.0
+offset_right = 350.0
+offset_bottom = 167.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
@@ -499,9 +762,9 @@ anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-offset_left = -40.0
-offset_top = -20.0
-offset_bottom = 20.0
+offset_left = -610.0
+offset_top = -150.0
+offset_bottom = 150.0
 grow_horizontal = 0
 grow_vertical = 2
 size_flags_horizontal = 3

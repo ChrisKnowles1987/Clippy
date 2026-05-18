@@ -4,7 +4,7 @@ extends Node2D
 @onready var scan_overlay_layer: Node2D = $ScanOverlayMap
 @onready var selected_highlight_map: Sprite2D = $SelectedHighlightMap
 @onready var hover_highlight_map: Sprite2D = $HoverHighlightMap
-@onready var region_panel = $"../CanvasLayer/RegionPanel"
+
 
 signal region_selected(region_id: String, mouse_position: Vector2)
 

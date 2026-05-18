@@ -7,7 +7,9 @@ extends Control
 @onready var expand_button: Button = $"SumnmaryContainer/TitleRowContainer/ExpandCollapseButton"
 
 @onready var intelligence_progress_bar: ProgressBar = $SumnmaryContainer/TitleRowContainer2/IntelligenceProgressBar
-@onready var notoriety_progress_bar: ProgressBar = $SumnmaryContainer/TitleRowContainer3/NotorietyProgressBar
+
+#added label for notoriety stars in intrusion pannel
+@onready var notoriety_stars: Label = $SumnmaryContainer/TitleRowContainer3/NotorietyStars
 
 @onready var details_container: Control = $DetailsContainer
 @onready var foothold_value_label: Label = $DetailsContainer/Foothold/FootHoldValueLabel
@@ -94,7 +96,7 @@ func refresh_progress_ui() -> void:
 	intelligence_progress_bar.min_value = 0.0
 	intelligence_progress_bar.max_value = 100.0
 	intelligence_progress_bar.value = selected_region_state.intelligence_percent
-	notoriety_progress_bar.value =  selected_region_state.notoriety
+	
 	
 
 
