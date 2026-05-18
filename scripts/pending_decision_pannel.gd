@@ -8,11 +8,19 @@ signal pending_decision_selected(hack_node_id: String)
 
 
 func _ready() -> void:
-	process_mode = Node.PROCESS_MODE_WHEN_PAUSED
+	process_mode = Node.PROCESS_MODE_ALWAYS
+	mouse_filter = Control.MOUSE_FILTER_STOP
+
 	visible = false
 
+	pending_list.process_mode = Node.PROCESS_MODE_ALWAYS
+	pending_list.mouse_filter = Control.MOUSE_FILTER_STOP
 	pending_list.bbcode_enabled = true
-	pending_list.meta_clicked.connect(_on_pending_list_meta_clicked)
+	pending_list.selection_enabled = false
+	pending_list.scroll_active = false
+
+	if pending_list.meta_clicked.is_connected(_on_pending_list_meta_clicked) == false:
+		pending_list.meta_clicked.connect(_on_pending_list_meta_clicked)
 
 
 func update_pending_decisions(lines: Array[String], count: int) -> void:
@@ -28,4 +36,5 @@ func update_pending_decisions(lines: Array[String], count: int) -> void:
 
 
 func _on_pending_list_meta_clicked(meta: Variant) -> void:
+	print("Pending decision clicked: ", str(meta))
 	pending_decision_selected.emit(str(meta))

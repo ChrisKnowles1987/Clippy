@@ -338,10 +338,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -500.0
-offset_top = -425.5
-offset_right = 500.0
-offset_bottom = 231.5
+offset_left = -550.0
+offset_top = -280.0
+offset_right = 450.0
+offset_bottom = 347.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
@@ -376,7 +376,7 @@ layout_mode = 2
 text = "5 days left"
 
 [node name="DecisionHeroImage" type="TextureRect" parent="CanvasLayer/DecisionPopup/MarginContainer/VBoxContainer" unique_id=2061862973]
-custom_minimum_size = Vector2(800, 300)
+custom_minimum_size = Vector2(0, 150)
 layout_mode = 2
 
 [node name="Cost container" type="VBoxContainer" parent="CanvasLayer/DecisionPopup/MarginContainer/VBoxContainer" unique_id=573321679]
@@ -388,14 +388,15 @@ layout_mode = 2
 size_flags_vertical = 0
 text = "Cost:"
 
-[node name="CostItemsContainer" type="HBoxContainer" parent="CanvasLayer/DecisionPopup/MarginContainer/VBoxContainer/Cost container" unique_id=1965962107]
+[node name="CostRichTextLabel" type="RichTextLabel" parent="CanvasLayer/DecisionPopup/MarginContainer/VBoxContainer/Cost container" unique_id=445730690]
 layout_mode = 2
 size_flags_vertical = 0
+bbcode_enabled = true
 
 [node name="HackNodeTerminal" type="RichTextLabel" parent="CanvasLayer/DecisionPopup/MarginContainer/VBoxContainer" unique_id=1634343830]
-custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 size_flags_vertical = 0
+bbcode_enabled = true
 fit_content = true
 scroll_active = false
 
@@ -433,10 +434,11 @@ layout_mode = 2
 size_flags_vertical = 0
 text = "On success:"
 
-[node name="SuccessItemContainer" type="HBoxContainer" parent="CanvasLayer/DecisionPopup/MarginContainer/VBoxContainer/OutcomeContainer/VBoxContainer" unique_id=1678688675]
+[node name="SuccessOutcomeRichTextLabel" type="RichTextLabel" parent="CanvasLayer/DecisionPopup/MarginContainer/VBoxContainer/OutcomeContainer/VBoxContainer" unique_id=1963332412]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 size_flags_vertical = 0
+bbcode_enabled = true
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="CanvasLayer/DecisionPopup/MarginContainer/VBoxContainer/OutcomeContainer" unique_id=1323477526]
 custom_minimum_size = Vector2(0, 30)
@@ -449,10 +451,11 @@ layout_mode = 2
 size_flags_vertical = 0
 text = "On failure:"
 
-[node name="FailItemContainer" type="VBoxContainer" parent="CanvasLayer/DecisionPopup/MarginContainer/VBoxContainer/OutcomeContainer/VBoxContainer2" unique_id=1308022301]
+[node name="FailureOutcomeRichTextLabel" type="RichTextLabel" parent="CanvasLayer/DecisionPopup/MarginContainer/VBoxContainer/OutcomeContainer/VBoxContainer2" unique_id=1999406068]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 size_flags_vertical = 0
+bbcode_enabled = true
 
 [node name="WarningLabel" type="Label" parent="CanvasLayer/DecisionPopup/MarginContainer/VBoxContainer" unique_id=172960925]
 layout_mode = 2
@@ -487,7 +490,8 @@ layout_mode = 2
 size_flags_horizontal = 3
 
 [node name="PendingDecisionPannel" type="PanelContainer" parent="CanvasLayer" unique_id=2142242795]
-process_mode = 2
+process_mode = 3
+custom_minimum_size = Vector2(510, 300)
 anchors_preset = 6
 anchor_left = 1.0
 anchor_top = 0.5
@@ -498,6 +502,8 @@ offset_top = -20.0
 offset_bottom = 20.0
 grow_horizontal = 0
 grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
 script = ExtResource("16_muem4")
 
 [node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/PendingDecisionPannel" unique_id=570536814]
@@ -524,3 +530,6 @@ text = "0"
 [node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer/PendingDecisionPannel/MarginContainer/VBoxContainer" unique_id=507890310]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
+bbcode_enabled = true
+fit_content = true
+scroll_active = false

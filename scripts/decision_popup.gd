@@ -9,14 +9,13 @@ signal choice_selected(hack_node_id: String, choice_id: String)
 @onready var decision_id_label: Label = $"MarginContainer/VBoxContainer/Title row/DecisionIDLabel"
 @onready var days_left_label: Label = $"MarginContainer/VBoxContainer/Title row/DaysLeftVariableLabel"
 
-@onready var cost_items_container: HBoxContainer = $"MarginContainer/VBoxContainer/Cost container/CostItemsContainer"
-
-
 @onready var hack_node_terminal: RichTextLabel = $MarginContainer/VBoxContainer/HackNodeTerminal
-@onready var success_chance_label: Label = $MarginContainer/VBoxContainer/SuccessChanceContainer/SuccessChanceVariableLabel
-@onready var success_item_container: HBoxContainer = $MarginContainer/VBoxContainer/OutcomeContainer/VBoxContainer/SuccessItemContainer
-@onready var failure_item_container: VBoxContainer = $MarginContainer/VBoxContainer/OutcomeContainer/VBoxContainer2/FailItemContainer
 
+@onready var cost_rich_text: RichTextLabel = $"MarginContainer/VBoxContainer/Cost container/CostRichTextLabel"
+@onready var success_outcome_rich_text: RichTextLabel = $MarginContainer/VBoxContainer/OutcomeContainer/VBoxContainer/SuccessOutcomeRichTextLabel
+@onready var failure_outcome_rich_text: RichTextLabel = $MarginContainer/VBoxContainer/OutcomeContainer/VBoxContainer2/FailureOutcomeRichTextLabel
+
+@onready var success_chance_label: Label = $MarginContainer/VBoxContainer/SuccessChanceContainer/SuccessChanceVariableLabel
 
 @onready var warning_label: Label = $MarginContainer/VBoxContainer/WarningLabel
 
@@ -31,7 +30,10 @@ func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_WHEN_PAUSED
 	visible = false
 
-	hack_node_terminal.bbcode_enabled = true
+	setup_rich_text_label(hack_node_terminal)
+	setup_rich_text_label(cost_rich_text)
+	setup_rich_text_label(success_outcome_rich_text)
+	setup_rich_text_label(failure_outcome_rich_text)
 
 	proceed_button.pressed.connect(_on_proceed_pressed)
 	defer_button.pressed.connect(_on_defer_pressed)
@@ -56,13 +58,11 @@ func show_decision(
 	days_left_label.text = str(days_left) + " days left"
 
 	hack_node_terminal.text = terminal_line
+	cost_rich_text.text = build_rich_text_lines(cost_items)
+	success_outcome_rich_text.text = build_rich_text_lines(success_outcomes)
+	failure_outcome_rich_text.text = build_rich_text_lines(failure_outcomes)
 
 	success_chance_label.text = str(snapped(hack_node.success_chance * 100.0, 0.1))
-
-	rebuild_text_items(cost_items_container, cost_items)
-	rebuild_text_items(success_item_container, success_outcomes)
-	rebuild_text_items(failure_item_container, failure_outcomes)
-
 	warning_label.text = ""
 
 	visible = true
@@ -77,17 +77,22 @@ func set_warning_text(text: String) -> void:
 	warning_label.text = text
 
 
-func rebuild_text_items(container: Container, items: Array[String]) -> void:
-	for child in container.get_children():
-		child.queue_free()
+func setup_rich_text_label(label: RichTextLabel) -> void:
+	if label == null:
+		return
 
-	for item in items:
-		var label := RichTextLabel.new()
-		label.bbcode_enabled = true
-		label.fit_content = true
-		label.scroll_active = false
-		label.text = item
-		container.add_child(label)
+	label.bbcode_enabled = true
+	label.fit_content = true
+	label.scroll_active = false
+	label.custom_minimum_size = Vector2.ZERO
+	label.size_flags_vertical = Control.SIZE_SHRINK_BEGIN
+
+
+func build_rich_text_lines(items: Array[String]) -> String:
+	if items.is_empty():
+		return "[color=#999999]None[/color]"
+
+	return "\n".join(items)
 
 
 func _on_proceed_pressed() -> void:
