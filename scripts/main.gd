@@ -21,6 +21,7 @@ const MAX_ACTIVE_EXPLOITS_PER_REGION := 8
 
 var discovery_progress_by_region: Dictionary = {}
 var hack_decision_manager: HackDecisionManager = null
+var hack_exploit_processor: HackExploitProcessor = null
 
 
 func _ready() -> void:
@@ -31,6 +32,17 @@ func _ready() -> void:
 	hack_decision_manager = HackDecisionManager.new()
 	add_child(hack_decision_manager)
 
+	hack_exploit_processor = HackExploitProcessor.new()
+	add_child(hack_exploit_processor)
+
+	hack_exploit_processor.setup(
+		hack_node_manager,
+		region_manager,
+		global_resource_manager,
+		intrusion_panel,
+		hack_decision_manager
+	)
+
 	hack_decision_manager.setup(
 		self,
 		game_clock,
@@ -39,7 +51,8 @@ func _ready() -> void:
 		hack_node_layer,
 		intrusion_panel,
 		decision_popup,
-		pending_decision_pannel
+		pending_decision_pannel,
+		hack_exploit_processor
 	)
 
 	region_panel.show_empty()
@@ -77,11 +90,11 @@ func process_realtime_intrusion(delta: float) -> void:
 				changed = true
 
 		if region_state.run_exploit_enabled:
-			if process_active_exploits(delta, region_state):
+			if hack_exploit_processor.process_active_exploits(delta, region_state):
 				changed = true
 
 	if changed:
-		cleanup_resolved_exploits()
+		hack_exploit_processor.cleanup_resolved_exploits()
 		hack_node_layer.set_nodes(hack_node_manager.active_nodes)
 		refresh_selected_region_ui()
 		update_global_resource_ui()
@@ -123,139 +136,6 @@ func process_exploit_discovery(
 		region_state.active_node_ids.append(hack_node.id)
 
 	return true
-
-
-func process_active_exploits(delta: float, region_state: RegionState) -> bool:
-	var changed := false
-
-	for hack_node in hack_node_manager.active_nodes:
-		if hack_node.region_id != region_state.region_id:
-			continue
-
-		if hack_node.resolved:
-			continue
-
-		if hack_node.status != "processing":
-			continue
-
-		hack_node.processing_speed = calculate_processing_speed(hack_node, region_state)
-		hack_node.processing_progress += hack_node.processing_speed * delta
-
-		if hack_node.processing_progress >= hack_node.processing_required:
-			if requires_player_decision(hack_node):
-				hack_decision_manager.queue_hack_node_decision(hack_node)
-			else:
-				resolve_exploit(hack_node, region_state)
-
-			changed = true
-
-	return changed
-
-
-func requires_player_decision(hack_node: HackNodeData) -> bool:
-	return hack_node.rarity == "rare" or hack_node.rarity == "elite"
-
-
-func calculate_processing_speed(hack_node: HackNodeData, region_state: RegionState) -> float:
-	var compute_factor: float = max(0.1, region_state.infiltration_reserved_compute)
-	var quality_factor: float = 0.75 + hack_node.quality / 100.0
-
-	return compute_factor * quality_factor
-
-
-func resolve_exploit(hack_node: HackNodeData, region_state: RegionState) -> void:
-	if randf() > hack_node.success_chance:
-		hack_node.status = "failed"
-		hack_node.resolved = true
-
-		intrusion_panel.add_intrusion_log_line(
-			hack_node.region_id,
-			HackNodeTextFormatter.format_failed_exploit_line(hack_node)
-		)
-
-		return
-
-	var intelligence_gain := hack_node.intelligence_reward
-	var coin_gain := hack_node.coin_reward
-	var notoriety_gain := calculate_notoriety_gain(hack_node)
-
-	region_state.intelligence_percent = clamp(
-		region_state.intelligence_percent + intelligence_gain,
-		0.0,
-		100.0
-	)
-
-	if coin_gain > 0.0:
-		global_resource_manager.add_coin(coin_gain)
-
-	if notoriety_gain > 0.0:
-		region_state.notoriety += notoriety_gain
-		hack_node.notoriety_gain = notoriety_gain
-
-	hack_node.status = "succeeded"
-	hack_node.resolved = true
-
-	intrusion_panel.add_intrusion_log_line(
-		hack_node.region_id,
-		HackNodeTextFormatter.format_success_exploit_line(
-			hack_node,
-			intelligence_gain,
-			coin_gain,
-			notoriety_gain
-		)
-	)
-
-
-func calculate_notoriety_gain(hack_node: HackNodeData) -> float:
-	var chance := 0.0
-	var base_gain := 0.0
-
-	match hack_node.node_type:
-		"security":
-			chance = 0.18
-			base_gain = 1.0
-		"government":
-			chance = 0.12
-			base_gain = 0.7
-		_:
-			return 0.0
-
-	match hack_node.rarity:
-		"common":
-			chance *= 0.6
-			base_gain *= 0.6
-		"uncommon":
-			chance *= 0.9
-			base_gain *= 0.9
-		"rare":
-			chance *= 1.5
-			base_gain *= 1.6
-		"elite":
-			chance *= 2.2
-			base_gain *= 2.4
-
-	if randf() > chance:
-		return 0.0
-
-	return base_gain
-
-
-func cleanup_resolved_exploits() -> void:
-	hack_node_manager.remove_resolved_nodes()
-
-	for region_id in region_manager.region_states.keys():
-		var region_state: RegionState = region_manager.get_region_state(region_id)
-
-		if region_state == null:
-			continue
-
-		var active_ids: Array[String] = []
-
-		for hack_node in hack_node_manager.active_nodes:
-			if hack_node.region_id == region_id:
-				active_ids.append(hack_node.id)
-
-		region_state.active_node_ids = active_ids
 
 
 func _on_day_passed_legacy_unused() -> void:

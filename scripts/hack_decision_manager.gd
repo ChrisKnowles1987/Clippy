@@ -11,6 +11,7 @@ var hack_node_layer = null
 var intrusion_panel = null
 var decision_popup: DecisionPopup = null
 var pending_decision_pannel: PendingDecisionPannel = null
+var hack_exploit_processor: HackExploitProcessor = null
 
 var pending_decision_node_ids: Array[String] = []
 
@@ -23,7 +24,8 @@ func setup(
 	hack_node_layer_ref: Node,
 	intrusion_panel_ref: Node,
 	decision_popup_ref: DecisionPopup,
-	pending_decision_pannel_ref: PendingDecisionPannel
+	pending_decision_pannel_ref: PendingDecisionPannel,
+	hack_exploit_processor_ref: HackExploitProcessor
 ) -> void:
 	main_controller = main_controller_ref
 	game_clock = game_clock_ref
@@ -33,6 +35,7 @@ func setup(
 	intrusion_panel = intrusion_panel_ref
 	decision_popup = decision_popup_ref
 	pending_decision_pannel = pending_decision_pannel_ref
+	hack_exploit_processor = hack_exploit_processor_ref
 
 	decision_popup.choice_selected.connect(_on_decision_popup_choice_selected)
 	pending_decision_pannel.pending_decision_selected.connect(_on_pending_decision_selected)
@@ -114,12 +117,12 @@ func execute_pending_decision(hack_node: HackNodeData) -> void:
 	remove_pending_decision(hack_node.id)
 
 	hack_node.status = "processing"
-	main_controller.resolve_exploit(hack_node, region_state)
+	hack_exploit_processor.resolve_exploit(hack_node, region_state)
 
 	decision_popup.hide_decision()
 	resume_after_decision()
 
-	main_controller.cleanup_resolved_exploits()
+	hack_exploit_processor.cleanup_resolved_exploits()
 	hack_node_layer.set_nodes(hack_node_manager.active_nodes)
 	refresh_pending_decision_pannel()
 	main_controller.refresh_selected_region_ui()
@@ -154,7 +157,7 @@ func ignore_pending_decision(hack_node: HackNodeData) -> void:
 	decision_popup.hide_decision()
 	resume_after_decision()
 
-	main_controller.cleanup_resolved_exploits()
+	hack_exploit_processor.cleanup_resolved_exploits()
 	hack_node_layer.set_nodes(hack_node_manager.active_nodes)
 	refresh_pending_decision_pannel()
 	main_controller.refresh_selected_region_ui()
@@ -203,7 +206,7 @@ func process_expired_pending_decisions() -> void:
 		remove_pending_decision(hack_node_id)
 
 	if expired_ids.size() > 0:
-		main_controller.cleanup_resolved_exploits()
+		hack_exploit_processor.cleanup_resolved_exploits()
 		hack_node_layer.set_nodes(hack_node_manager.active_nodes)
 
 

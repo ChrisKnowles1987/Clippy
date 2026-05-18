@@ -1,0 +1,537 @@
+[gd_scene format=3 uid="uid://2ybm07j7qqkl"]
+
+[ext_resource type="Script" uid="uid://b3gffeo3avbp6" path="res://scripts/map_controller.gd" id="1_sugp2"]
+[ext_resource type="Script" uid="uid://c0vrfof7ikxbt" path="res://scripts/main.gd" id="1_tbgi4"]
+[ext_resource type="Script" uid="uid://dyakcdtqkh3oj" path="res://scripts/camera_controller.gd" id="2_a8y0u"]
+[ext_resource type="Texture2D" uid="uid://degr2qpantfai" path="res://assets/Nasa/world_map_5000x2000.png" id="4_jbj1t"]
+[ext_resource type="Script" uid="uid://d2urhygerw064" path="res://scripts/region_panel.gd" id="4_jyhfs"]
+[ext_resource type="Script" uid="uid://cs4yuxbiyfqgd" path="res://scripts/game_clock.gd" id="5_85g3d"]
+[ext_resource type="Script" uid="uid://bwwjkuldb6ob3" path="res://scripts/global_resource_manager.gd" id="6_choun"]
+[ext_resource type="Texture2D" uid="uid://cl8a40wdqqua4" path="res://assets/Nasa/nasa_map_16_region_manual_highlight.png" id="6_dp3eg"]
+[ext_resource type="Texture2D" uid="uid://csqmkoco7y2jy" path="res://assets/Nasa/population_spawn_mask_5000x2000.png" id="6_muem4"]
+[ext_resource type="Script" uid="uid://3x2p5s26n4tg" path="res://scripts/global_resource_panel.gd" id="6_tefeu"]
+[ext_resource type="Script" uid="uid://wt4h05hlh6px" path="res://scripts/region_manager.gd" id="6_ya4ey"]
+[ext_resource type="Script" uid="uid://dnvulp6dsql5s" path="res://scripts/intrusion_skill_pannel_container.gd" id="7_o6xl0"]
+[ext_resource type="Script" uid="uid://dnsy67fb3qfmp" path="res://scripts/hack_node_layer.gd" id="9_jbj1t"]
+[ext_resource type="Script" uid="uid://crf16lqacxdoc" path="res://scripts/hack_node_manager.gd" id="13_muem4"]
+[ext_resource type="Script" uid="uid://uy272udtrmhy" path="res://scripts/decision_popup.gd" id="15_jbj1t"]
+[ext_resource type="Script" uid="uid://c1m8m0dumq68e" path="res://scripts/pending_decision_pannel.gd" id="16_muem4"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_o6xl0"]
+font_size = 20
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_tefeu"]
+
+[node name="Node2D" type="Node2D" unique_id=1052680515]
+script = ExtResource("1_tbgi4")
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=438035729]
+position = Vector2(960, 540)
+script = ExtResource("2_a8y0u")
+
+[node name="MapController" type="Node2D" parent="." unique_id=282689334]
+script = ExtResource("1_sugp2")
+
+[node name="WorldMap" type="Sprite2D" parent="MapController" unique_id=12186650]
+position = Vector2(960, 540)
+texture = ExtResource("4_jbj1t")
+
+[node name="RegionMap" type="Sprite2D" parent="MapController" unique_id=690766212]
+visible = false
+position = Vector2(960, 540)
+texture = ExtResource("6_dp3eg")
+
+[node name="ScanOverlayMap" type="Sprite2D" parent="MapController" unique_id=2623980]
+position = Vector2(960, 540)
+
+[node name="SelectedHighlightMap" type="Sprite2D" parent="MapController" unique_id=2113868775]
+position = Vector2(960, 540)
+
+[node name="HoverHighlightMap" type="Sprite2D" parent="MapController" unique_id=245032791]
+position = Vector2(960, 540)
+
+[node name="HackNodeLayer" type="Node2D" parent="MapController" unique_id=19801756]
+script = ExtResource("9_jbj1t")
+
+[node name="PopDensityMap" type="Sprite2D" parent="MapController" unique_id=621138162]
+visible = false
+position = Vector2(960, 540)
+texture = ExtResource("6_muem4")
+
+[node name="GameClock" type="Node" parent="." unique_id=237304964]
+script = ExtResource("5_85g3d")
+
+[node name="GameDayTimer" type="Timer" parent="GameClock" unique_id=982291103]
+wait_time = 5.0
+autostart = true
+
+[node name="RegionManager" type="Node" parent="." unique_id=1934041526]
+script = ExtResource("6_ya4ey")
+
+[node name="GlobalResourceManager" type="Node" parent="." unique_id=908715093]
+script = ExtResource("6_choun")
+
+[node name="HackNodeManager" type="Node" parent="." unique_id=758422693]
+script = ExtResource("13_muem4")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1386638078]
+
+[node name="RegionPanel" type="Panel" parent="CanvasLayer" unique_id=1474460253]
+custom_minimum_size = Vector2(300, 300)
+offset_right = 404.0
+offset_bottom = 540.0
+mouse_filter = 2
+script = ExtResource("4_jyhfs")
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/RegionPanel" unique_id=1699008800]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 40.0
+grow_horizontal = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="Content" type="VBoxContainer" parent="CanvasLayer/RegionPanel/MarginContainer" unique_id=534511917]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+mouse_filter = 2
+
+[node name="GlobalResourcePanel" type="PanelContainer" parent="CanvasLayer" unique_id=983758661]
+custom_minimum_size = Vector2(200, 140)
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -105.0
+offset_bottom = 119.0
+grow_horizontal = 0
+size_flags_horizontal = 3
+script = ExtResource("6_tefeu")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/GlobalResourcePanel" unique_id=1672991502]
+layout_mode = 2
+
+[node name="DateValueLabel" type="Label" parent="CanvasLayer/GlobalResourcePanel/VBoxContainer" unique_id=960557602]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/GlobalResourcePanel/VBoxContainer" unique_id=108606823]
+layout_mode = 2
+
+[node name="PowerNameLabel" type="Label" parent="CanvasLayer/GlobalResourcePanel/VBoxContainer/HBoxContainer" unique_id=570699932]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Power"
+label_settings = SubResource("LabelSettings_o6xl0")
+
+[node name="PowerValueLabel" type="Label" parent="CanvasLayer/GlobalResourcePanel/VBoxContainer/HBoxContainer" unique_id=1239571198]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "0"
+label_settings = SubResource("LabelSettings_o6xl0")
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="CanvasLayer/GlobalResourcePanel/VBoxContainer" unique_id=1959297250]
+layout_mode = 2
+
+[node name="ComputeNameLabel" type="Label" parent="CanvasLayer/GlobalResourcePanel/VBoxContainer/HBoxContainer2" unique_id=458183645]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Compute"
+label_settings = SubResource("LabelSettings_o6xl0")
+
+[node name="ComputeValueLabel" type="Label" parent="CanvasLayer/GlobalResourcePanel/VBoxContainer/HBoxContainer2" unique_id=1020548341]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "0"
+label_settings = SubResource("LabelSettings_o6xl0")
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="CanvasLayer/GlobalResourcePanel/VBoxContainer" unique_id=1400649882]
+layout_mode = 2
+
+[node name="CoinNameLabel" type="Label" parent="CanvasLayer/GlobalResourcePanel/VBoxContainer/HBoxContainer3" unique_id=304856942]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Coin"
+label_settings = SubResource("LabelSettings_o6xl0")
+
+[node name="CoinValueLabel" type="Label" parent="CanvasLayer/GlobalResourcePanel/VBoxContainer/HBoxContainer3" unique_id=869132762]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "0"
+label_settings = SubResource("LabelSettings_o6xl0")
+
+[node name="BottomSkillPannel" type="PanelContainer" parent="CanvasLayer" unique_id=534119209]
+material = SubResource("CanvasItemMaterial_tefeu")
+custom_minimum_size = Vector2(500, 0)
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -89.0
+offset_right = 299.0
+grow_vertical = 0
+size_flags_horizontal = 3
+size_flags_vertical = 8
+
+[node name="Control" type="PanelContainer" parent="CanvasLayer/BottomSkillPannel" unique_id=1955760714]
+layout_mode = 2
+size_flags_vertical = 8
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/BottomSkillPannel/Control" unique_id=521807362]
+custom_minimum_size = Vector2(0, 140)
+layout_mode = 2
+mouse_filter = 0
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 12
+
+[node name="IntrusionSkillPannelContainer" type="VBoxContainer" parent="CanvasLayer/BottomSkillPannel/Control/MarginContainer" unique_id=1894295217]
+layout_mode = 2
+size_flags_vertical = 8
+mouse_filter = 0
+script = ExtResource("7_o6xl0")
+
+[node name="SumnmaryContainer" type="VBoxContainer" parent="CanvasLayer/BottomSkillPannel/Control/MarginContainer/IntrusionSkillPannelContainer" unique_id=1355764306]
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 0
+
+[node name="TitleRowContainer" type="HBoxContainer" parent="CanvasLayer/BottomSkillPannel/Control/MarginContainer/IntrusionSkillPannelContainer/SumnmaryContainer" unique_id=299220103]
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 0
+
+[node name="IntrusionSkillPannelRegionNameLabel" type="Label" parent="CanvasLayer/BottomSkillPannel/Control/MarginContainer/IntrusionSkillPannelContainer/SumnmaryContainer/TitleRowContainer" unique_id=960940592]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+text = "Region selected"
+
+[node name="PowerIcon" type="Label" parent="CanvasLayer/BottomSkillPannel/Control/MarginContainer/IntrusionSkillPannelContainer/SumnmaryContainer/TitleRowContainer" unique_id=597656234]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+text = "P"
+horizontal_alignment = 2
+
+[node name="PowerCostLabel" type="Label" parent="CanvasLayer/BottomSkillPannel/Control/MarginContainer/IntrusionSkillPannelContainer/SumnmaryContainer/TitleRowContainer" unique_id=1043288692]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+text = "0"
+
+[node name="ComputeIcon" type="Label" parent="CanvasLayer/BottomSkillPannel/Control/MarginContainer/IntrusionSkillPannelContainer/SumnmaryContainer/TitleRowContainer" unique_id=650767960]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+text = "C"
+horizontal_alignment = 2
+
+[node name="ComputeCostLabel" type="Label" parent="CanvasLayer/BottomSkillPannel/Control/MarginContainer/IntrusionSkillPannelContainer/SumnmaryContainer/TitleRowContainer" unique_id=1877467130]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+text = "0"
+
+[node name="Infiltration" type="Button" parent="CanvasLayer/BottomSkillPannel/Control/MarginContainer/IntrusionSkillPannelContainer/SumnmaryContainer/TitleRowContainer" unique_id=206254309]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+text = "offline"
+
+[node name="ExpandCollapseButton" type="Button" parent="CanvasLayer/BottomSkillPannel/Control/MarginContainer/IntrusionSkillPannelContainer/SumnmaryContainer/TitleRowContainer" unique_id=665473100]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+text = "+"
+
+[node name="TitleRowContainer2" type="HBoxContainer" parent="CanvasLayer/BottomSkillPannel/Control/MarginContainer/IntrusionSkillPannelContainer/SumnmaryContainer" unique_id=1115180080]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="CanvasLayer/BottomSkillPannel/Control/MarginContainer/IntrusionSkillPannelContainer/SumnmaryContainer/TitleRowContainer2" unique_id=1275168802]
+layout_mode = 2
+text = "Intelligence "
+
+[node name="IntelligenceProgressBar" type="ProgressBar" parent="CanvasLayer/BottomSkillPannel/Control/MarginContainer/IntrusionSkillPannelContainer/SumnmaryContainer/TitleRowContainer2" unique_id=1306536540]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+size_flags_horizontal = 3
+step = 1.0
+
+[node name="TitleRowContainer3" type="HBoxContainer" parent="CanvasLayer/BottomSkillPannel/Control/MarginContainer/IntrusionSkillPannelContainer/SumnmaryContainer" unique_id=1053164386]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="CanvasLayer/BottomSkillPannel/Control/MarginContainer/IntrusionSkillPannelContainer/SumnmaryContainer/TitleRowContainer3" unique_id=1864697575]
+layout_mode = 2
+text = "Notoriety"
+
+[node name="NotorietyProgressBar" type="ProgressBar" parent="CanvasLayer/BottomSkillPannel/Control/MarginContainer/IntrusionSkillPannelContainer/SumnmaryContainer/TitleRowContainer3" unique_id=885769534]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+size_flags_horizontal = 3
+step = 1.0
+
+[node name="Control" type="Control" parent="CanvasLayer/BottomSkillPannel/Control/MarginContainer/IntrusionSkillPannelContainer/SumnmaryContainer" unique_id=1002598573]
+custom_minimum_size = Vector2(0, 47)
+layout_mode = 2
+
+[node name="DetailsContainer" type="VBoxContainer" parent="CanvasLayer/BottomSkillPannel/Control/MarginContainer/IntrusionSkillPannelContainer" unique_id=1817081927]
+layout_mode = 2
+size_flags_vertical = 10
+
+[node name="Foothold" type="HBoxContainer" parent="CanvasLayer/BottomSkillPannel/Control/MarginContainer/IntrusionSkillPannelContainer/DetailsContainer" unique_id=1823851236]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/BottomSkillPannel/Control/MarginContainer/IntrusionSkillPannelContainer/DetailsContainer/Foothold" unique_id=189517256]
+layout_mode = 2
+text = "Foothold:"
+
+[node name="FootHoldValueLabel" type="Label" parent="CanvasLayer/BottomSkillPannel/Control/MarginContainer/IntrusionSkillPannelContainer/DetailsContainer/Foothold" unique_id=129959715]
+layout_mode = 2
+text = "Offline"
+
+[node name="ActiveNodes" type="HBoxContainer" parent="CanvasLayer/BottomSkillPannel/Control/MarginContainer/IntrusionSkillPannelContainer/DetailsContainer" unique_id=1731120396]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/BottomSkillPannel/Control/MarginContainer/IntrusionSkillPannelContainer/DetailsContainer/ActiveNodes" unique_id=1110568800]
+layout_mode = 2
+text = "Active  Nodes: "
+
+[node name="ActiveNodesValueLabel" type="Label" parent="CanvasLayer/BottomSkillPannel/Control/MarginContainer/IntrusionSkillPannelContainer/DetailsContainer/ActiveNodes" unique_id=1218551733]
+layout_mode = 2
+text = "0"
+
+[node name="ExploitActivity" type="HBoxContainer" parent="CanvasLayer/BottomSkillPannel/Control/MarginContainer/IntrusionSkillPannelContainer/DetailsContainer" unique_id=2052492345]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/BottomSkillPannel/Control/MarginContainer/IntrusionSkillPannelContainer/DetailsContainer/ExploitActivity" unique_id=777326942]
+layout_mode = 2
+text = "Exploit Activity: "
+
+[node name="ExploitActivityValueLabel" type="Label" parent="CanvasLayer/BottomSkillPannel/Control/MarginContainer/IntrusionSkillPannelContainer/DetailsContainer/ExploitActivity" unique_id=139024391]
+layout_mode = 2
+text = "Basic"
+
+[node name="TerminalContainer" type="VBoxContainer" parent="CanvasLayer/BottomSkillPannel/Control/MarginContainer/IntrusionSkillPannelContainer/DetailsContainer" unique_id=854193046]
+layout_mode = 2
+
+[node name="Spacer" type="Control" parent="CanvasLayer/BottomSkillPannel/Control/MarginContainer/IntrusionSkillPannelContainer/DetailsContainer/TerminalContainer" unique_id=856167998]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="TerminalLog" type="RichTextLabel" parent="CanvasLayer/BottomSkillPannel/Control/MarginContainer/IntrusionSkillPannelContainer/DetailsContainer/TerminalContainer" unique_id=957510523]
+custom_minimum_size = Vector2(0, 240)
+layout_mode = 2
+text = "> network offline"
+
+[node name="DecisionPopup" type="PanelContainer" parent="CanvasLayer" unique_id=805473399]
+process_mode = 2
+custom_minimum_size = Vector2(1000, 0)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -550.0
+offset_top = -280.0
+offset_right = 450.0
+offset_bottom = 347.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+script = ExtResource("15_jbj1t")
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/DecisionPopup" unique_id=1241814069]
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 12
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/DecisionPopup/MarginContainer" unique_id=87255898]
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="Title row" type="HBoxContainer" parent="CanvasLayer/DecisionPopup/MarginContainer/VBoxContainer" unique_id=1740447359]
+layout_mode = 2
+
+[node name="RegionIDLabel" type="Label" parent="CanvasLayer/DecisionPopup/MarginContainer/VBoxContainer/Title row" unique_id=426234887]
+layout_mode = 2
+text = "Selected Region"
+
+[node name="DecisionIDLabel" type="Label" parent="CanvasLayer/DecisionPopup/MarginContainer/VBoxContainer/Title row" unique_id=287597426]
+layout_mode = 2
+text = "Decision ID"
+
+[node name="DaysLeftVariableLabel" type="Label" parent="CanvasLayer/DecisionPopup/MarginContainer/VBoxContainer/Title row" unique_id=771564999]
+layout_mode = 2
+text = "5 days left"
+
+[node name="DecisionHeroImage" type="TextureRect" parent="CanvasLayer/DecisionPopup/MarginContainer/VBoxContainer" unique_id=2061862973]
+custom_minimum_size = Vector2(0, 150)
+layout_mode = 2
+
+[node name="Cost container" type="VBoxContainer" parent="CanvasLayer/DecisionPopup/MarginContainer/VBoxContainer" unique_id=573321679]
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="CostLabel" type="Label" parent="CanvasLayer/DecisionPopup/MarginContainer/VBoxContainer/Cost container" unique_id=481484088]
+layout_mode = 2
+size_flags_vertical = 0
+text = "Cost:"
+
+[node name="CostRichTextLabel" type="RichTextLabel" parent="CanvasLayer/DecisionPopup/MarginContainer/VBoxContainer/Cost container" unique_id=445730690]
+layout_mode = 2
+size_flags_vertical = 0
+bbcode_enabled = true
+
+[node name="HackNodeTerminal" type="RichTextLabel" parent="CanvasLayer/DecisionPopup/MarginContainer/VBoxContainer" unique_id=1634343830]
+layout_mode = 2
+size_flags_vertical = 0
+bbcode_enabled = true
+fit_content = true
+scroll_active = false
+
+[node name="SuccessChanceContainer" type="HBoxContainer" parent="CanvasLayer/DecisionPopup/MarginContainer/VBoxContainer" unique_id=1412683718]
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="SuccessChanceLabel" type="Label" parent="CanvasLayer/DecisionPopup/MarginContainer/VBoxContainer/SuccessChanceContainer" unique_id=235539945]
+layout_mode = 2
+size_flags_vertical = 0
+text = "Chance for success:"
+
+[node name="SuccessChanceVariableLabel" type="Label" parent="CanvasLayer/DecisionPopup/MarginContainer/VBoxContainer/SuccessChanceContainer" unique_id=1137994652]
+layout_mode = 2
+size_flags_vertical = 0
+text = "0"
+
+[node name="SuccessChanceLabel3" type="Label" parent="CanvasLayer/DecisionPopup/MarginContainer/VBoxContainer/SuccessChanceContainer" unique_id=632020445]
+layout_mode = 2
+size_flags_vertical = 0
+text = "%"
+
+[node name="OutcomeContainer" type="VBoxContainer" parent="CanvasLayer/DecisionPopup/MarginContainer/VBoxContainer" unique_id=1463037782]
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/DecisionPopup/MarginContainer/VBoxContainer/OutcomeContainer" unique_id=1792424618]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+
+[node name="SuccessLabel" type="Label" parent="CanvasLayer/DecisionPopup/MarginContainer/VBoxContainer/OutcomeContainer/VBoxContainer" unique_id=1025463577]
+layout_mode = 2
+size_flags_vertical = 0
+text = "On success:"
+
+[node name="SuccessOutcomeRichTextLabel" type="RichTextLabel" parent="CanvasLayer/DecisionPopup/MarginContainer/VBoxContainer/OutcomeContainer/VBoxContainer" unique_id=1963332412]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+size_flags_vertical = 0
+bbcode_enabled = true
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="CanvasLayer/DecisionPopup/MarginContainer/VBoxContainer/OutcomeContainer" unique_id=1323477526]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+
+[node name="FailLabel" type="Label" parent="CanvasLayer/DecisionPopup/MarginContainer/VBoxContainer/OutcomeContainer/VBoxContainer2" unique_id=1415244331]
+layout_mode = 2
+size_flags_vertical = 0
+text = "On failure:"
+
+[node name="FailureOutcomeRichTextLabel" type="RichTextLabel" parent="CanvasLayer/DecisionPopup/MarginContainer/VBoxContainer/OutcomeContainer/VBoxContainer2" unique_id=1999406068]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+size_flags_vertical = 0
+bbcode_enabled = true
+
+[node name="WarningLabel" type="Label" parent="CanvasLayer/DecisionPopup/MarginContainer/VBoxContainer" unique_id=172960925]
+layout_mode = 2
+size_flags_vertical = 0
+text = "Warning:  "
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/DecisionPopup/MarginContainer/VBoxContainer" unique_id=81749216]
+layout_mode = 2
+size_flags_vertical = 8
+
+[node name="Spacer2" type="Control" parent="CanvasLayer/DecisionPopup/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1342704754]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Proceed" type="Button" parent="CanvasLayer/DecisionPopup/MarginContainer/VBoxContainer/HBoxContainer" unique_id=957940171]
+custom_minimum_size = Vector2(100, 30)
+layout_mode = 2
+text = "Proceed"
+
+[node name="Defer" type="Button" parent="CanvasLayer/DecisionPopup/MarginContainer/VBoxContainer/HBoxContainer" unique_id=814308298]
+custom_minimum_size = Vector2(100, 30)
+layout_mode = 2
+text = "Defer"
+
+[node name="Cancel" type="Button" parent="CanvasLayer/DecisionPopup/MarginContainer/VBoxContainer/HBoxContainer" unique_id=122361650]
+custom_minimum_size = Vector2(100, 30)
+layout_mode = 2
+text = "Cancel"
+
+[node name="Spacer" type="Control" parent="CanvasLayer/DecisionPopup/MarginContainer/VBoxContainer/HBoxContainer" unique_id=357709683]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="PendingDecisionPannel" type="PanelContainer" parent="CanvasLayer" unique_id=2142242795]
+process_mode = 3
+custom_minimum_size = Vector2(510, 300)
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -40.0
+offset_top = -20.0
+offset_bottom = 20.0
+grow_horizontal = 0
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("16_muem4")
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/PendingDecisionPannel" unique_id=570536814]
+layout_mode = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 12
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/PendingDecisionPannel/MarginContainer" unique_id=2068262904]
+layout_mode = 2
+
+[node name="TitleRow" type="HBoxContainer" parent="CanvasLayer/PendingDecisionPannel/MarginContainer/VBoxContainer" unique_id=23712327]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="CanvasLayer/PendingDecisionPannel/MarginContainer/VBoxContainer/TitleRow" unique_id=2004184605]
+layout_mode = 2
+text = "Priority Events: "
+
+[node name="PendingEventsVariableLabel" type="Label" parent="CanvasLayer/PendingDecisionPannel/MarginContainer/VBoxContainer/TitleRow" unique_id=379407814]
+layout_mode = 2
+text = "0"
+
+[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer/PendingDecisionPannel/MarginContainer/VBoxContainer" unique_id=507890310]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+bbcode_enabled = true
+fit_content = true
+scroll_active = false
