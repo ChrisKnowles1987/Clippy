@@ -7,11 +7,11 @@ extends Control
 @onready var expand_button: Button = $"SumnmaryContainer/TitleRowContainer/ExpandCollapseButton"
 
 @onready var intelligence_progress_bar: ProgressBar = $SumnmaryContainer/TitleRowContainer2/IntelligenceProgressBar
+@onready var notoriety_progress_bar: ProgressBar = $SumnmaryContainer/TitleRowContainer3/NotorietyProgressBar
 
 @onready var details_container: Control = $DetailsContainer
 @onready var foothold_value_label: Label = $DetailsContainer/Foothold/FootHoldValueLabel
 @onready var active_nodes_value_label: Label = $DetailsContainer/ActiveNodes/ActiveNodesValueLabel
-@onready var notoriety_value_label: Label = $DetailsContainer/DiscoveryChance/NotorietyChanceValueLabel
 @onready var exploit_activity_value_label: Label = $DetailsContainer/ExploitActivity/ExploitActivityValueLabel
 @onready var terminal_log: RichTextLabel = $DetailsContainer/TerminalContainer/TerminalLog
 
@@ -68,7 +68,7 @@ func refresh_ui() -> void:
 
 	refresh_region_label()
 	refresh_infiltration_ui()
-	refresh_intelligence_ui()
+	refresh_progress_ui()
 	refresh_details_ui()
 	refresh_terminal_log()
 
@@ -90,16 +90,17 @@ func refresh_infiltration_ui() -> void:
 		infiltration_button.text = "offline"
 
 
-func refresh_intelligence_ui() -> void:
+func refresh_progress_ui() -> void:
 	intelligence_progress_bar.min_value = 0.0
 	intelligence_progress_bar.max_value = 100.0
 	intelligence_progress_bar.value = selected_region_state.intelligence_percent
+	notoriety_progress_bar.value =  selected_region_state.notoriety
+	
 
 
 func refresh_details_ui() -> void:
 	foothold_value_label.text = get_network_foothold_title(selected_region_state.network_visibility)
 	active_nodes_value_label.text = str(selected_region_state.active_node_ids.size())
-	notoriety_value_label.text = get_notoriety_title()
 	exploit_activity_value_label.text = get_exploit_activity_title()
 
 
@@ -123,18 +124,13 @@ func refresh_terminal_log() -> void:
 func _on_infiltration_button_pressed() -> void:
 	if selected_region_state == null:
 		return
-	
+
 	if selected_region_state.infiltration_enabled:
 		disable_infiltration()
-		details_container.visible = expanded
-		expanded = !expanded
-		update_details_visibility()
-		
 	else:
 		enable_infiltration()
-		details_container.visible = expanded
-		expanded = !expanded
-		update_details_visibility()
+
+	update_details_visibility()
 		
 
 	refresh_ui()
@@ -200,7 +196,7 @@ func _on_expand_button_pressed() -> void:
 
 
 func update_details_visibility() -> void:
-	details_container.visible = expanded
+	details_container.visible = selected_region_state != null and selected_region_state.infiltration_enabled
 
 	if expanded:
 		expand_button.text = "-"
@@ -303,11 +299,11 @@ func get_network_foothold_title(network_visibility: int) -> String:
 			return "Offline"
 
 
-func get_notoriety_title() -> String:
+func get_notoriety() -> float:
 	if selected_region_state == null:
-		return "0"
+		return 0.0
 
-	return str(snapped(selected_region_state.notoriety, 0.1))
+	return float(snapped(selected_region_state.notoriety, 0.1))
 
 
 func get_exploit_activity_title() -> String:

@@ -265,12 +265,25 @@ layout_mode = 2
 size_flags_horizontal = 3
 step = 1.0
 
+[node name="TitleRowContainer3" type="HBoxContainer" parent="CanvasLayer/BottomSkillPannel/Control/MarginContainer/IntrusionSkillPannelContainer/SumnmaryContainer" unique_id=1053164386]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="CanvasLayer/BottomSkillPannel/Control/MarginContainer/IntrusionSkillPannelContainer/SumnmaryContainer/TitleRowContainer3" unique_id=1864697575]
+layout_mode = 2
+text = "Notoriety"
+
+[node name="NotorietyProgressBar" type="ProgressBar" parent="CanvasLayer/BottomSkillPannel/Control/MarginContainer/IntrusionSkillPannelContainer/SumnmaryContainer/TitleRowContainer3" unique_id=885769534]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+size_flags_horizontal = 3
+step = 1.0
+
 [node name="Control" type="Control" parent="CanvasLayer/BottomSkillPannel/Control/MarginContainer/IntrusionSkillPannelContainer/SumnmaryContainer" unique_id=1002598573]
 custom_minimum_size = Vector2(0, 47)
 layout_mode = 2
 
 [node name="DetailsContainer" type="VBoxContainer" parent="CanvasLayer/BottomSkillPannel/Control/MarginContainer/IntrusionSkillPannelContainer" unique_id=1817081927]
-visible = false
 layout_mode = 2
 size_flags_vertical = 10
 
@@ -295,17 +308,6 @@ text = "Active  Nodes: "
 [node name="ActiveNodesValueLabel" type="Label" parent="CanvasLayer/BottomSkillPannel/Control/MarginContainer/IntrusionSkillPannelContainer/DetailsContainer/ActiveNodes" unique_id=1218551733]
 layout_mode = 2
 text = "0"
-
-[node name="DiscoveryChance" type="HBoxContainer" parent="CanvasLayer/BottomSkillPannel/Control/MarginContainer/IntrusionSkillPannelContainer/DetailsContainer" unique_id=1046331270]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="CanvasLayer/BottomSkillPannel/Control/MarginContainer/IntrusionSkillPannelContainer/DetailsContainer/DiscoveryChance" unique_id=954911393]
-layout_mode = 2
-text = "Notoriety: "
-
-[node name="NotorietyChanceValueLabel" type="Label" parent="CanvasLayer/BottomSkillPannel/Control/MarginContainer/IntrusionSkillPannelContainer/DetailsContainer/DiscoveryChance" unique_id=469737014]
-layout_mode = 2
-text = "Low"
 
 [node name="ExploitActivity" type="HBoxContainer" parent="CanvasLayer/BottomSkillPannel/Control/MarginContainer/IntrusionSkillPannelContainer/DetailsContainer" unique_id=2052492345]
 layout_mode = 2

@@ -6,7 +6,9 @@ class_name RegionState
 @export var intelligence_percent: float = 0.0
 @export var influence_level: int = 0
 
-@export var notoriety: float = 0.0
+@export var notoriety: float = 0.0:
+	set(value):
+		notoriety = clamp(value, 0.0 ,100.0)
 @export var shutdown_progress: float = 0.0
 
 @export var active_campaigns: Array[String] = []
