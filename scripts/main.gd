@@ -16,12 +16,10 @@ extends Node2D
 @onready var decision_popup: DecisionPopup = $CanvasLayer/DecisionPopup
 @onready var pending_decision_pannel: PendingDecisionPannel = $CanvasLayer/PendingDecisionPannel
 
-const BASE_DISCOVERY_REQUIRED := 10.0
-const MAX_ACTIVE_EXPLOITS_PER_REGION := 8
-
 var discovery_progress_by_region: Dictionary = {}
 var hack_decision_manager: HackDecisionManager = null
 var hack_exploit_processor: HackExploitProcessor = null
+var hack_discovery_processor = null
 
 
 func _ready() -> void:
@@ -42,6 +40,11 @@ func _ready() -> void:
 		intrusion_panel,
 		hack_decision_manager
 	)
+	
+	hack_discovery_processor = HackDiscoveryProcessor.new()
+	add_child(hack_discovery_processor)
+
+	hack_discovery_processor.setup(hack_node_manager)
 
 	hack_decision_manager.setup(
 		self,
@@ -86,7 +89,7 @@ func process_realtime_intrusion(delta: float) -> void:
 			continue
 
 		if region_state.scan_networks_enabled:
-			if process_exploit_discovery(delta, region_data, region_state):
+			if hack_discovery_processor.process_exploit_discovery(delta, region_data, region_state):
 				changed = true
 
 		if region_state.run_exploit_enabled:
@@ -98,44 +101,6 @@ func process_realtime_intrusion(delta: float) -> void:
 		hack_node_layer.set_nodes(hack_node_manager.active_nodes)
 		refresh_selected_region_ui()
 		update_global_resource_ui()
-
-
-func process_exploit_discovery(
-	delta: float,
-	region_data: RegionData,
-	region_state: RegionState
-) -> bool:
-	var active_region_nodes = hack_node_manager.get_active_nodes_for_region(region_state.region_id)
-
-	if active_region_nodes.size() >= MAX_ACTIVE_EXPLOITS_PER_REGION:
-		return false
-
-	if discovery_progress_by_region.has(region_state.region_id) == false:
-		discovery_progress_by_region[region_state.region_id] = 0.0
-
-	var power_factor: float = max(0.1, region_state.infiltration_reserved_power)
-	var foothold_factor: float = 1.0 + min(region_state.network_visibility, 25.0) * 0.04
-	var scan_factor: float = max(1.0, float(region_state.scan_networks_level))
-
-	var discovery_speed: float = power_factor * scan_factor * foothold_factor
-	var discovery_required: float = max(4.0, BASE_DISCOVERY_REQUIRED - min(region_state.network_visibility, 20.0) * 0.2)
-
-	discovery_progress_by_region[region_state.region_id] += discovery_speed * delta
-
-	if discovery_progress_by_region[region_state.region_id] < discovery_required:
-		return false
-
-	discovery_progress_by_region[region_state.region_id] -= discovery_required
-
-	var hack_node: HackNodeData = hack_node_manager.generate_region_node(region_data, region_state)
-
-	if hack_node == null:
-		return false
-
-	if region_state.active_node_ids.has(hack_node.id) == false:
-		region_state.active_node_ids.append(hack_node.id)
-
-	return true
 
 
 func _on_day_passed_legacy_unused() -> void:
