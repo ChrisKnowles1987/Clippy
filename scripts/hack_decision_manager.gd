@@ -127,6 +127,7 @@ func execute_pending_decision(hack_node: HackNodeData) -> void:
 	refresh_pending_decision_pannel()
 	main_controller.refresh_selected_region_ui()
 	main_controller.update_global_resource_ui()
+	main_controller.refresh_notoriety_ui()
 
 
 func defer_pending_decision(hack_node: HackNodeData) -> void:
@@ -141,6 +142,7 @@ func defer_pending_decision(hack_node: HackNodeData) -> void:
 	refresh_pending_decision_pannel()
 	main_controller.refresh_selected_region_ui()
 	main_controller.update_global_resource_ui()
+	main_controller.refresh_notoriety_ui()
 
 
 func ignore_pending_decision(hack_node: HackNodeData) -> void:
@@ -162,6 +164,7 @@ func ignore_pending_decision(hack_node: HackNodeData) -> void:
 	refresh_pending_decision_pannel()
 	main_controller.refresh_selected_region_ui()
 	main_controller.update_global_resource_ui()
+	main_controller.refresh_notoriety_ui()
 
 
 func _on_pending_decision_selected(hack_node_id: String) -> void:
@@ -265,6 +268,7 @@ func get_decision_cost_items(hack_node: HackNodeData) -> Array[String]:
 	var items: Array[String] = []
 
 	items.append("[color=#88ccff]Compute:[/color] " + str(snapped(hack_node.processing_required, 0.1)))
+	items.append("[color=#ff4444]Risk:[/color] notoriety exposure possible")
 
 	return items
 
@@ -280,7 +284,7 @@ func get_decision_success_outcomes(hack_node: HackNodeData) -> Array[String]:
 	var possible_notoriety := get_possible_notoriety_gain(hack_node)
 
 	if possible_notoriety > 0.0:
-		items.append("[color=#ffaa44]+[/color] possible notoriety")
+		items.append("[color=#ff4444]+[/color] possible notoriety exposure")
 
 	return items
 
@@ -291,14 +295,41 @@ func get_decision_failure_outcomes(hack_node: HackNodeData) -> Array[String]:
 	items.append("[color=#cc6666]Node fails[/color]")
 	items.append("[color=#999999]No intelligence gained[/color]")
 
+	var possible_notoriety := get_possible_notoriety_gain(hack_node)
+
+	if possible_notoriety > 0.0:
+		items.append("[color=#ff4444]+[/color] possible notoriety exposure")
+
 	return items
 
 
 func get_possible_notoriety_gain(hack_node: HackNodeData) -> float:
+	var gain := 8.0
+
 	match hack_node.node_type:
-		"security":
-			return 1.0
+		"social":
+			gain = 5.0
+		"cultural":
+			gain = 6.0
+		"financial":
+			gain = 10.0
+		"infrastructure":
+			gain = 12.0
 		"government":
-			return 0.7
-		_:
-			return 0.0
+			gain = 18.0
+		"security":
+			gain = 24.0
+
+	match hack_node.rarity:
+		"common":
+			gain *= 0.75
+		"uncommon":
+			gain *= 1.00
+		"rare":
+			gain *= 1.75
+		"elite":
+			gain *= 2.75
+
+	var quality_multiplier := 0.75 + (hack_node.quality / 100.0)
+
+	return gain * quality_multiplier

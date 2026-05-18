@@ -81,7 +81,9 @@ func _on_day_passed(current_date: Dictionary) -> void:
 	hack_decision_manager.process_expired_pending_decisions()
 	hack_decision_manager.refresh_pending_decision_pannel()
 	refresh_selected_region_ui()
+	refresh_notoriety_ui()
 	update_global_resource_ui()
+	
 
 
 func process_realtime_intrusion(delta: float) -> void:
@@ -107,20 +109,13 @@ func process_realtime_intrusion(delta: float) -> void:
 		hack_node_layer.set_nodes(hack_node_manager.active_nodes)
 		refresh_selected_region_ui()
 		update_global_resource_ui()
+		refresh_notoriety_ui()
 
 
-func _on_day_passed_legacy_unused() -> void:
-	pass
 
-
-func generate_daily_nodes() -> void:
-	pass
-
-
-func resolve_daily_nodes() -> void:
-	pass
-
-
+func refresh_notoriety_ui() -> void:
+	notoriety_panel.refresh(region_manager.region_states, notoriety_manager)
+	
 func update_date_ui(current_date: Dictionary) -> void:
 	game_day_timer_label.text = "%02d/%02d/%04d" % [
 		current_date.day,

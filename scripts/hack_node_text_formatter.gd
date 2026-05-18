@@ -42,18 +42,21 @@ static func format_success_exploit_line(
 	parts.append("+" + str(snapped(intelligence_gain, 0.1)) + " intel")
 
 	if notoriety_gain > 0.0:
-		parts.append("+" + str(snapped(notoriety_gain, 0.1)) + " notoriety")
+		parts.append("[color=#ff4444]+" + str(snapped(notoriety_gain, 0.1)) + " notoriety[/color]")
 
 	return " ".join(parts)
 
 
-static func format_failed_exploit_line(hack_node: HackNodeData) -> String:
+static func format_failed_exploit_line(hack_node: HackNodeData, notoriety_gain: float = 0.0) -> String:
 	var parts: Array[String] = [
 		"[color=#cc6666][FAILED][/color]",
 		format_type_tag(hack_node.node_type),
 		format_rarity_tag(hack_node.rarity),
 		hack_node.city_name + " :: " + get_failure_phrase(hack_node)
 	]
+
+	if notoriety_gain > 0.0:
+		parts.append("[color=#ff4444]+" + str(snapped(notoriety_gain, 0.1)) + " notoriety[/color]")
 
 	return " ".join(parts)
 

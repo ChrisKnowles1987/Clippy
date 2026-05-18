@@ -39,4 +39,4 @@ func refresh(region_states: Dictionary, notoriety_manager: NotorietyManager) -> 
 		var region_state: RegionState = region_states[region_id]
 		var label: Label = region_label_map[region_id]
 
-		label.text = notoriety_manager.get_star_text_from_xp(region_state.notoriety)
+		label.text = notoriety_manager.get_star_text_from_xp(region_state.notoriety_xp)

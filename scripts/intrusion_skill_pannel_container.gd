@@ -96,7 +96,7 @@ func refresh_progress_ui() -> void:
 	intelligence_progress_bar.min_value = 0.0
 	intelligence_progress_bar.max_value = 100.0
 	intelligence_progress_bar.value = selected_region_state.intelligence_percent
-	notoriety_stars.text = get_star_text_from_notoriety(selected_region_state.notoriety)
+	notoriety_stars.text = get_star_text_from_notoriety(selected_region_state.notoriety_xp)
 	
 	
 func refresh_details_ui() -> void:
