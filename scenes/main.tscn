@@ -12,6 +12,7 @@
 [ext_resource type="Script" uid="uid://wt4h05hlh6px" path="res://scripts/region_manager.gd" id="6_ya4ey"]
 [ext_resource type="Script" uid="uid://dnvulp6dsql5s" path="res://scripts/intrusion_skill_pannel_container.gd" id="7_o6xl0"]
 [ext_resource type="Script" uid="uid://dnsy67fb3qfmp" path="res://scripts/hack_node_layer.gd" id="9_jbj1t"]
+[ext_resource type="Script" uid="uid://cu7uu5f1g6e8y" path="res://scripts/notoriety_panel.gd" id="12_jbj1t"]
 [ext_resource type="Script" uid="uid://crf16lqacxdoc" path="res://scripts/hack_node_manager.gd" id="13_muem4"]
 [ext_resource type="Script" uid="uid://uy272udtrmhy" path="res://scripts/decision_popup.gd" id="15_jbj1t"]
 [ext_resource type="Script" uid="uid://c1m8m0dumq68e" path="res://scripts/pending_decision_pannel.gd" id="16_muem4"]
@@ -79,6 +80,7 @@ script = ExtResource("13_muem4")
 custom_minimum_size = Vector2(500, 140)
 offset_right = 500.0
 offset_bottom = 140.0
+script = ExtResource("12_jbj1t")
 
 [node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/NotorietyPannelContainer" unique_id=1122926465]
 layout_mode = 2

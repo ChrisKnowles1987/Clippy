@@ -96,15 +96,38 @@ func refresh_progress_ui() -> void:
 	intelligence_progress_bar.min_value = 0.0
 	intelligence_progress_bar.max_value = 100.0
 	intelligence_progress_bar.value = selected_region_state.intelligence_percent
+	notoriety_stars.text = get_star_text_from_notoriety(selected_region_state.notoriety)
 	
 	
-
-
 func refresh_details_ui() -> void:
 	foothold_value_label.text = get_network_foothold_title(selected_region_state.network_visibility)
 	active_nodes_value_label.text = str(selected_region_state.active_node_ids.size())
 	exploit_activity_value_label.text = get_exploit_activity_title()
 
+
+func get_star_text_from_notoriety(notoriety_xp: float) -> String:
+	var thresholds := [100.0, 250.0, 475.0, 800.0, 1250.0]
+	var stars := 0
+
+	for threshold in thresholds:
+		if notoriety_xp >= threshold:
+			stars += 1
+
+	return get_star_text(stars)
+
+
+func get_star_text(stars: int, max_stars: int = 5) -> String:
+	stars = clamp(stars, 0, max_stars)
+
+	var text := ""
+
+	for i in range(max_stars):
+		if i < stars:
+			text += "★"
+		else:
+			text += "☆"
+
+	return text
 
 func refresh_terminal_log() -> void:
 	var region_id := selected_region_state.region_id

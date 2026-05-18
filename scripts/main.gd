@@ -8,6 +8,7 @@ extends Node2D
 @onready var global_resource_panel = $CanvasLayer/GlobalResourcePanel
 @onready var intrusion_panel = $CanvasLayer/BottomSkillPannel/Control/MarginContainer/IntrusionSkillPannelContainer
 @onready var game_day_timer_label: Label = $CanvasLayer/GlobalResourcePanel/VBoxContainer/DateValueLabel
+@onready var notoriety_panel: NotorietyPanel = $CanvasLayer/NotorietyPannelContainer
 
 @onready var hack_node_manager = $HackNodeManager
 @onready var hack_node_layer = $MapController/HackNodeLayer
@@ -15,16 +16,22 @@ extends Node2D
 @onready var decision_popup: DecisionPopup = $CanvasLayer/DecisionPopup
 @onready var pending_decision_pannel: PendingDecisionPannel = $CanvasLayer/PendingDecisionPannel
 
+
 var discovery_progress_by_region: Dictionary = {}
 var hack_decision_manager: HackDecisionManager = null
 var hack_exploit_processor: HackExploitProcessor = null
 var hack_discovery_processor = null
+var notoriety_manager: NotorietyManager = null
 
 
 func _ready() -> void:
 	map_controller.region_selected.connect(_on_region_selected)
 	game_clock.day_passed.connect(_on_day_passed)
 	global_resource_manager.resources_changed.connect(_on_resources_changed)
+	notoriety_manager = NotorietyManager.new()
+	add_child(notoriety_manager)
+
+	notoriety_panel.refresh(region_manager.region_states, notoriety_manager)
 
 	hack_decision_manager = HackDecisionManager.new()
 	add_child(hack_decision_manager)
