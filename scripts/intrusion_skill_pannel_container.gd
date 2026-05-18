@@ -123,11 +123,19 @@ func refresh_terminal_log() -> void:
 func _on_infiltration_button_pressed() -> void:
 	if selected_region_state == null:
 		return
-
+	
 	if selected_region_state.infiltration_enabled:
 		disable_infiltration()
+		details_container.visible = expanded
+		expanded = !expanded
+		update_details_visibility()
+		
 	else:
 		enable_infiltration()
+		details_container.visible = expanded
+		expanded = !expanded
+		update_details_visibility()
+		
 
 	refresh_ui()
 

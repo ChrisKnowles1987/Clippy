@@ -333,9 +333,9 @@ func refresh_pending_decision_pannel() -> void:
 
 func format_pending_decision_line(hack_node: HackNodeData) -> String:
 	var line := "[url=" + hack_node.id + "]"
-	line += format_rarity_tag(hack_node.rarity)
+	line += format_type_tag(hack_node.rarity)
 	line += " "
-	line += format_type_tag(hack_node.node_type)
+	line += format_rarity_tag(hack_node.node_type)
 	line += " "
 	line += hack_node.city_name
 	line += " :: "
@@ -529,6 +529,7 @@ func format_success_exploit_line(
 
 	var parts: Array[String] = [
 		status_tag,
+		
 		format_type_tag(hack_node.node_type),
 		format_rarity_tag(hack_node.rarity),
 		hack_node.city_name + " :: " + get_success_phrase(hack_node)
