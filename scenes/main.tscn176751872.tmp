@@ -646,7 +646,7 @@ text = "5 days left"
 custom_minimum_size = Vector2(0, 150)
 layout_mode = 2
 
-[node name="TerminalText" type="RichTextLabel" parent="CanvasLayer/DecisionPopup/MarginContainer/VBoxContainer" unique_id=1634343830]
+[node name="HackNodeTerminal" type="RichTextLabel" parent="CanvasLayer/DecisionPopup/MarginContainer/VBoxContainer" unique_id=1634343830]
 layout_mode = 2
 size_flags_vertical = 0
 bbcode_enabled = true

@@ -70,14 +70,11 @@ func open_decision_popup_for_node(hack_node: HackNodeData) -> void:
 	if hack_node == null:
 		return
 
-	decision_popup.show_decision(
-		hack_node,
-		HackNodeTextFormatter.format_review_exploit_line(hack_node),
-		get_decision_cost_items(hack_node),
-		get_decision_success_outcomes(hack_node),
-		get_decision_failure_outcomes(hack_node),
-		get_days_left_for_node(hack_node)
-	)
+	var terminal_line := HackNodeTextFormatter.format_review_exploit_line(hack_node)
+	var days_left := get_days_left_for_node(hack_node)
+	var decision := HackDecisionBuilder.build_decision(hack_node, terminal_line, days_left)
+
+	decision_popup.show_decision(decision)
 
 
 func pause_for_decision() -> void:
@@ -88,8 +85,8 @@ func resume_after_decision() -> void:
 	get_tree().paused = false
 
 
-func _on_decision_popup_choice_selected(hack_node_id: String, choice_id: String) -> void:
-	var hack_node := get_hack_node_by_id(hack_node_id)
+func _on_decision_popup_choice_selected(decision_id: String, choice_id: String) -> void:
+	var hack_node := get_hack_node_by_id(decision_id)
 
 	if hack_node == null:
 		decision_popup.hide_decision()
@@ -124,10 +121,7 @@ func execute_pending_decision(hack_node: HackNodeData) -> void:
 
 	hack_exploit_processor.cleanup_resolved_exploits()
 	hack_node_layer.set_nodes(hack_node_manager.active_nodes)
-	refresh_pending_decision_pannel()
-	main_controller.refresh_selected_region_ui()
-	main_controller.update_global_resource_ui()
-	main_controller.refresh_notoriety_ui()
+	refresh_after_decision_change()
 
 
 func defer_pending_decision(hack_node: HackNodeData) -> void:
@@ -139,10 +133,7 @@ func defer_pending_decision(hack_node: HackNodeData) -> void:
 	decision_popup.hide_decision()
 	resume_after_decision()
 
-	refresh_pending_decision_pannel()
-	main_controller.refresh_selected_region_ui()
-	main_controller.update_global_resource_ui()
-	main_controller.refresh_notoriety_ui()
+	refresh_after_decision_change()
 
 
 func ignore_pending_decision(hack_node: HackNodeData) -> void:
@@ -161,10 +152,7 @@ func ignore_pending_decision(hack_node: HackNodeData) -> void:
 
 	hack_exploit_processor.cleanup_resolved_exploits()
 	hack_node_layer.set_nodes(hack_node_manager.active_nodes)
-	refresh_pending_decision_pannel()
-	main_controller.refresh_selected_region_ui()
-	main_controller.update_global_resource_ui()
-	main_controller.refresh_notoriety_ui()
+	refresh_after_decision_change()
 
 
 func _on_pending_decision_selected(hack_node_id: String) -> void:
@@ -235,6 +223,13 @@ func refresh_pending_decision_pannel() -> void:
 	pending_decision_pannel.update_pending_decisions(lines, lines.size())
 
 
+func refresh_after_decision_change() -> void:
+	refresh_pending_decision_pannel()
+	main_controller.refresh_selected_region_ui()
+	main_controller.update_global_resource_ui()
+	main_controller.refresh_notoriety_ui()
+
+
 func remove_pending_decision(hack_node_id: String) -> void:
 	pending_decision_node_ids.erase(hack_node_id)
 
@@ -262,74 +257,3 @@ func get_days_left_for_node(hack_node: HackNodeData) -> int:
 		return DECISION_EXPIRY_DAYS
 
 	return max(0, hack_node.expires_on_day - get_current_day_number())
-
-
-func get_decision_cost_items(hack_node: HackNodeData) -> Array[String]:
-	var items: Array[String] = []
-
-	items.append("[color=#88ccff]Compute:[/color] " + str(snapped(hack_node.processing_required, 0.1)))
-	items.append("[color=#ff4444]Risk:[/color] notoriety exposure possible")
-
-	return items
-
-
-func get_decision_success_outcomes(hack_node: HackNodeData) -> Array[String]:
-	var items: Array[String] = []
-
-	items.append("[color=#88ccff]+[/color] " + str(snapped(hack_node.intelligence_reward, 0.1)) + " intelligence")
-
-	if hack_node.coin_reward > 0.0:
-		items.append("[color=#88dd88]+[/color] " + str(snapped(hack_node.coin_reward, 0.1)) + " coin")
-
-	var possible_notoriety := get_possible_notoriety_gain(hack_node)
-
-	if possible_notoriety > 0.0:
-		items.append("[color=#ff4444]+[/color] possible notoriety exposure")
-
-	return items
-
-
-func get_decision_failure_outcomes(hack_node: HackNodeData) -> Array[String]:
-	var items: Array[String] = []
-
-	items.append("[color=#cc6666]Node fails[/color]")
-	items.append("[color=#999999]No intelligence gained[/color]")
-
-	var possible_notoriety := get_possible_notoriety_gain(hack_node)
-
-	if possible_notoriety > 0.0:
-		items.append("[color=#ff4444]+[/color] possible notoriety exposure")
-
-	return items
-
-
-func get_possible_notoriety_gain(hack_node: HackNodeData) -> float:
-	var gain := 8.0
-
-	match hack_node.node_type:
-		"social":
-			gain = 5.0
-		"cultural":
-			gain = 6.0
-		"financial":
-			gain = 10.0
-		"infrastructure":
-			gain = 12.0
-		"government":
-			gain = 18.0
-		"security":
-			gain = 24.0
-
-	match hack_node.rarity:
-		"common":
-			gain *= 0.75
-		"uncommon":
-			gain *= 1.00
-		"rare":
-			gain *= 1.75
-		"elite":
-			gain *= 2.75
-
-	var quality_multiplier := 0.75 + (hack_node.quality / 100.0)
-
-	return gain * quality_multiplier

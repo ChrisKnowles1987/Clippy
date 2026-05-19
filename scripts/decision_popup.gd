@@ -1,80 +1,127 @@
 extends PanelContainer
 class_name DecisionPopup
 
-signal choice_selected(hack_node_id: String, choice_id: String)
+signal choice_selected(decision_id: String, choice_id: String)
 
-@onready var hero_image: TextureRect = $MarginContainer/VBoxContainer/DecisionHeroImage
-
-@onready var region_id_label: Label = $"MarginContainer/VBoxContainer/Title row/RegionIDLabel"
-@onready var decision_id_label: Label = $"MarginContainer/VBoxContainer/Title row/DecisionIDLabel"
-@onready var days_left_label: Label = $"MarginContainer/VBoxContainer/Title row/DaysLeftVariableLabel"
-
-@onready var hack_node_terminal: RichTextLabel = $MarginContainer/VBoxContainer/HackNodeTerminal
-
-@onready var cost_rich_text: RichTextLabel = $"MarginContainer/VBoxContainer/Cost container/CostRichTextLabel"
-@onready var success_outcome_rich_text: RichTextLabel = $MarginContainer/VBoxContainer/OutcomeContainer/VBoxContainer/SuccessOutcomeRichTextLabel
-@onready var failure_outcome_rich_text: RichTextLabel = $MarginContainer/VBoxContainer/OutcomeContainer/VBoxContainer2/FailureOutcomeRichTextLabel
-
-@onready var success_chance_label: Label = $MarginContainer/VBoxContainer/SuccessChanceContainer/SuccessChanceVariableLabel
-
+@onready var title_label: Label = $MarginContainer/VBoxContainer/Header/TitleLabel
+@onready var subtitle_label: Label = $MarginContainer/VBoxContainer/Header/SubtitleLabel
+@onready var days_left_label: Label = $MarginContainer/VBoxContainer/Header/DaysLeftLabel
+@onready var terminal_text: RichTextLabel = $MarginContainer/VBoxContainer/TerminalText
+@onready var section_container: VBoxContainer = $MarginContainer/VBoxContainer/SectionContainer
+@onready var choice_button_container: HBoxContainer = $MarginContainer/VBoxContainer/ChoiceButtonContainer
 @onready var warning_label: Label = $MarginContainer/VBoxContainer/WarningLabel
 
-@onready var proceed_button: Button = $MarginContainer/VBoxContainer/HBoxContainer/Proceed
-@onready var defer_button: Button = $MarginContainer/VBoxContainer/HBoxContainer/Defer
-@onready var cancel_button: Button = $MarginContainer/VBoxContainer/HBoxContainer/Cancel
-
-var active_hack_node_id: String = ""
+var active_decision_id: String = ""
 
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_WHEN_PAUSED
 	visible = false
 
-	setup_rich_text_label(hack_node_terminal)
-	setup_rich_text_label(cost_rich_text)
-	setup_rich_text_label(success_outcome_rich_text)
-	setup_rich_text_label(failure_outcome_rich_text)
-
-	proceed_button.pressed.connect(_on_proceed_pressed)
-	defer_button.pressed.connect(_on_defer_pressed)
-	cancel_button.pressed.connect(_on_cancel_pressed)
+	setup_rich_text_label(terminal_text)
 
 
-func show_decision(
-	hack_node: HackNodeData,
-	terminal_line: String,
-	cost_items: Array[String],
-	success_outcomes: Array[String],
-	failure_outcomes: Array[String],
-	days_left: int
-) -> void:
-	if hack_node == null:
+func show_decision(decision: DecisionData) -> void:
+	if decision == null:
 		return
 
-	active_hack_node_id = hack_node.id
+	active_decision_id = decision.id
 
-	region_id_label.text = hack_node.region_id
-	decision_id_label.text = hack_node.id
-	days_left_label.text = str(days_left) + " days left"
+	title_label.text = decision.title
+	subtitle_label.text = build_subtitle(decision)
+	days_left_label.text = build_days_left_text(decision)
 
-	hack_node_terminal.text = terminal_line
-	cost_rich_text.text = build_rich_text_lines(cost_items)
-	success_outcome_rich_text.text = build_rich_text_lines(success_outcomes)
-	failure_outcome_rich_text.text = build_rich_text_lines(failure_outcomes)
-
-	success_chance_label.text = str(snapped(hack_node.success_chance * 100.0, 0.1))
+	terminal_text.text = decision.terminal_text
 	warning_label.text = ""
+
+	clear_container(section_container)
+	clear_container(choice_button_container)
+
+	for section in decision.sections:
+		add_section(section)
+
+	for choice in decision.choices:
+		add_choice_button(choice)
 
 	visible = true
 
 
 func hide_decision() -> void:
 	visible = false
-	active_hack_node_id = ""
+	active_decision_id = ""
+	clear_container(section_container)
+	clear_container(choice_button_container)
+	warning_label.text = ""
 
 
 func set_warning_text(text: String) -> void:
 	warning_label.text = text
+
+
+func build_subtitle(decision: DecisionData) -> String:
+	var parts: Array[String] = []
+
+	if decision.source_type != "":
+		parts.append(decision.source_type)
+
+	if decision.region_id != "":
+		parts.append(decision.region_id)
+
+	if decision.subtitle != "":
+		parts.append(decision.subtitle)
+
+	return " / ".join(parts)
+
+
+func build_days_left_text(decision: DecisionData) -> String:
+	if decision.expires_on_day <= 0:
+		return ""
+
+	return "expires day " + str(decision.expires_on_day)
+
+
+func add_section(section: DecisionSectionData) -> void:
+	if section == null:
+		return
+
+	var section_box := VBoxContainer.new()
+	section_box.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+
+	var title := Label.new()
+	title.text = section.title
+	title.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	section_box.add_child(title)
+
+	var body := RichTextLabel.new()
+	setup_rich_text_label(body)
+	body.text = build_rich_text_lines(section.rows)
+	section_box.add_child(body)
+
+	section_container.add_child(section_box)
+
+
+func add_choice_button(choice: DecisionChoiceData) -> void:
+	if choice == null:
+		return
+
+	var button := Button.new()
+	button.text = choice.label
+	button.tooltip_text = choice.tooltip
+	button.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	button.process_mode = Node.PROCESS_MODE_WHEN_PAUSED
+
+	if choice.warning_text != "":
+		button.mouse_entered.connect(set_warning_text.bind(choice.warning_text))
+		button.mouse_exited.connect(set_warning_text.bind(""))
+
+	button.pressed.connect(_on_choice_pressed.bind(choice.id))
+
+	choice_button_container.add_child(button)
+
+
+func clear_container(container: Node) -> void:
+	for child in container.get_children():
+		child.queue_free()
 
 
 func setup_rich_text_label(label: RichTextLabel) -> void:
@@ -95,13 +142,5 @@ func build_rich_text_lines(items: Array[String]) -> String:
 	return "\n".join(items)
 
 
-func _on_proceed_pressed() -> void:
-	choice_selected.emit(active_hack_node_id, "execute")
-
-
-func _on_defer_pressed() -> void:
-	choice_selected.emit(active_hack_node_id, "defer")
-
-
-func _on_cancel_pressed() -> void:
-	choice_selected.emit(active_hack_node_id, "ignore")
+func _on_choice_pressed(choice_id: String) -> void:
+	choice_selected.emit(active_decision_id, choice_id)

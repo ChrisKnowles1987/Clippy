@@ -1,4 +1,5 @@
 extends Node
+class_name HackNodeManager
 
 var active_nodes: Array[HackNodeData] = []
 
