@@ -22,6 +22,9 @@ font_size = 20
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_tefeu"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jbj1t"]
+bg_color = Color(0.012991184, 0.014714115, 0.014715779, 1)
+
 [node name="Node2D" type="Node2D" unique_id=1052680515]
 script = ExtResource("1_tbgi4")
 
@@ -613,6 +616,7 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_jbj1t")
 script = ExtResource("15_jbj1t")
 
 [node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/DecisionPopup" unique_id=1241814069]
