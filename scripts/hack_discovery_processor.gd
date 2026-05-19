@@ -1,7 +1,6 @@
 extends Node
 class_name HackDiscoveryProcessor
 
-const BASE_DISCOVERY_REQUIRED := 10.0
 const MAX_ACTIVE_EXPLOITS_PER_REGION := 8
 
 var hack_node_manager: Node = null
@@ -25,12 +24,8 @@ func process_exploit_discovery(
 	if discovery_progress_by_region.has(region_state.region_id) == false:
 		discovery_progress_by_region[region_state.region_id] = 0.0
 
-	var power_factor: float = max(0.1, region_state.infiltration_reserved_power)
-	var foothold_factor: float = 1.0 + min(region_state.network_visibility, 25.0) * 0.04
-	var scan_factor: float = max(1.0, float(region_state.scan_networks_level))
-
-	var discovery_speed: float = power_factor * scan_factor * foothold_factor
-	var discovery_required: float = max(4.0, BASE_DISCOVERY_REQUIRED - min(region_state.network_visibility, 20.0) * 0.2)
+	var discovery_speed: float = InfiltrationRateCalculator.get_discovery_speed(region_state)
+	var discovery_required: float = InfiltrationRateCalculator.get_discovery_required(region_state)
 
 	discovery_progress_by_region[region_state.region_id] += discovery_speed * delta
 

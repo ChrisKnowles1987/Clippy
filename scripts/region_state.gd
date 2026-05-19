@@ -18,10 +18,5 @@ class_name RegionState
 @export var infiltration_reserved_power: float = 0.0
 @export var infiltration_reserved_compute: float = 0.0
 
-@export var run_exploit_enabled: bool = false
-@export var run_exploit_power_per_day: int = 0
-@export var run_exploit_compute_per_day: int = 0
-
-@export var scan_networks_enabled: bool = false
 @export var scan_networks_level: int = 1
 @export var network_visibility: int = 0

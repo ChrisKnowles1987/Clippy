@@ -16,11 +16,10 @@ extends Node2D
 @onready var decision_popup: DecisionPopup = $CanvasLayer/DecisionPopup
 @onready var pending_decision_pannel: PendingDecisionPannel = $CanvasLayer/PendingDecisionPannel
 
-
-var discovery_progress_by_region: Dictionary = {}
 var hack_decision_manager: HackDecisionManager = null
 var hack_exploit_processor: HackExploitProcessor = null
-var hack_discovery_processor = null
+var hack_discovery_processor: HackDiscoveryProcessor = null
+var infiltration_processor: InfiltrationProcessor = null
 var notoriety_manager: NotorietyManager = null
 
 
@@ -49,6 +48,16 @@ func _ready() -> void:
 	
 	hack_discovery_processor = HackDiscoveryProcessor.new()
 	add_child(hack_discovery_processor)
+	
+	infiltration_processor = InfiltrationProcessor.new()
+	add_child(infiltration_processor)
+
+	infiltration_processor.setup(
+		hack_discovery_processor,
+		hack_exploit_processor
+)
+	
+	
 
 	hack_discovery_processor.setup(hack_node_manager)
 
@@ -77,7 +86,6 @@ func _process(delta: float) -> void:
 
 func _on_day_passed(current_date: Dictionary) -> void:
 	update_date_ui(current_date)
-	process_intrusion_skills()
 	hack_decision_manager.process_expired_pending_decisions()
 	hack_decision_manager.refresh_pending_decision_pannel()
 	refresh_selected_region_ui()
@@ -96,13 +104,15 @@ func process_realtime_intrusion(delta: float) -> void:
 		if region_state == null:
 			continue
 
-		if region_state.scan_networks_enabled:
-			if hack_discovery_processor.process_exploit_discovery(delta, region_data, region_state):
-				changed = true
+		if infiltration_processor.process_region(delta, region_data, region_state):
+			changed = true
 
-		if region_state.run_exploit_enabled:
-			if hack_exploit_processor.process_active_exploits(delta, region_state):
-				changed = true
+	if changed:
+		hack_exploit_processor.cleanup_resolved_exploits()
+		hack_node_layer.set_nodes(hack_node_manager.active_nodes)
+		refresh_selected_region_ui()
+		update_global_resource_ui()
+		refresh_notoriety_ui()
 
 	if changed:
 		hack_exploit_processor.cleanup_resolved_exploits()
@@ -144,21 +154,6 @@ func _on_region_selected(region_id: String, mouse_position: Vector2) -> void:
 	var region_state: RegionState = region_manager.get_region_state(region_id)
 
 	intrusion_panel.show_region(selected_region_data, region_state)
-
-
-func process_intrusion_skills() -> void:
-	for region_id in region_manager.region_states.keys():
-		var region_state: RegionState = region_manager.get_region_state(region_id)
-
-		if region_state == null:
-			continue
-
-		process_scan_networks_state(region_state)
-
-
-func process_scan_networks_state(region_state: RegionState) -> void:
-	if region_state.scan_networks_enabled == false:
-		return
 
 
 func refresh_selected_region_ui() -> void:

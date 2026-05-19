@@ -36,6 +36,7 @@ script = ExtResource("2_a8y0u")
 script = ExtResource("1_sugp2")
 
 [node name="WorldMap" type="Sprite2D" parent="MapController" unique_id=12186650]
+texture_filter = 1
 position = Vector2(960, 540)
 texture = ExtResource("4_jbj1t")
 

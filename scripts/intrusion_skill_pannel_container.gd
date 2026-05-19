@@ -7,8 +7,6 @@ extends Control
 @onready var expand_button: Button = $"SumnmaryContainer/TitleRowContainer/ExpandCollapseButton"
 
 @onready var intelligence_progress_bar: ProgressBar = $SumnmaryContainer/TitleRowContainer2/IntelligenceProgressBar
-
-#added label for notoriety stars in intrusion pannel
 @onready var notoriety_stars: Label = $SumnmaryContainer/TitleRowContainer3/NotorietyStars
 
 @onready var details_container: Control = $DetailsContainer
@@ -97,8 +95,8 @@ func refresh_progress_ui() -> void:
 	intelligence_progress_bar.max_value = 100.0
 	intelligence_progress_bar.value = selected_region_state.intelligence_percent
 	notoriety_stars.text = get_star_text_from_notoriety(selected_region_state.notoriety_xp)
-	
-	
+
+
 func refresh_details_ui() -> void:
 	foothold_value_label.text = get_network_foothold_title(selected_region_state.network_visibility)
 	active_nodes_value_label.text = str(selected_region_state.active_node_ids.size())
@@ -129,7 +127,11 @@ func get_star_text(stars: int, max_stars: int = 5) -> String:
 
 	return text
 
+
 func refresh_terminal_log() -> void:
+	if selected_region_state == null:
+		return
+
 	var region_id := selected_region_state.region_id
 
 	if intrusion_logs_by_region.has(region_id) == false:
@@ -156,8 +158,6 @@ func _on_infiltration_button_pressed() -> void:
 		enable_infiltration()
 
 	update_details_visibility()
-		
-
 	refresh_ui()
 
 
@@ -175,8 +175,6 @@ func enable_infiltration() -> void:
 		return
 
 	selected_region_state.infiltration_enabled = true
-	selected_region_state.scan_networks_enabled = true
-	selected_region_state.run_exploit_enabled = true
 	selected_region_state.infiltration_reserved_power = power_cost
 	selected_region_state.infiltration_reserved_compute = compute_cost
 
@@ -201,8 +199,6 @@ func disable_infiltration() -> void:
 	)
 
 	selected_region_state.infiltration_enabled = false
-	selected_region_state.scan_networks_enabled = false
-	selected_region_state.run_exploit_enabled = false
 	selected_region_state.infiltration_reserved_power = 0.0
 	selected_region_state.infiltration_reserved_compute = 0.0
 
@@ -299,13 +295,13 @@ func get_average_city_security_weight() -> float:
 func get_network_foothold_title(network_visibility: int) -> String:
 	if selected_region_state == null:
 		return "Offline"
-	if selected_region_state.scan_networks_enabled == false:
+
+	if selected_region_state.infiltration_enabled == false:
 		return "Offline"
-		
-	var visibility_level: int 	=	clamp(network_visibility, 0,6)
-	
+
+	var visibility_level: int = clamp(network_visibility, 0, 6)
+
 	match visibility_level:
-		
 		0:
 			return "Passive"
 		1:
@@ -328,14 +324,14 @@ func get_notoriety() -> float:
 	if selected_region_state == null:
 		return 0.0
 
-	return float(snapped(selected_region_state.notoriety, 0.1))
+	return float(snapped(selected_region_state.notoriety_xp, 0.1))
 
 
 func get_exploit_activity_title() -> String:
 	if selected_region_state == null:
 		return "Offline"
 
-	if selected_region_state.run_exploit_enabled:
+	if selected_region_state.infiltration_enabled:
 		return "Active"
 
 	return "Offline"
