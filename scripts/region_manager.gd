@@ -53,7 +53,10 @@ func load_regions_from_csv() -> void:
 			var region := RegionData.new()
 			region.id = city.region_id
 			region.display_name = city.region_id.capitalize()
-
+			region.base_common_chance = 0.80
+			region.base_rare_chance = 0.18
+			region.base_elite_chance = 0.02
+			
 			regions[city.region_id] = region
 
 			var state := RegionState.new()

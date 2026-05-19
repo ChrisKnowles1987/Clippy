@@ -59,7 +59,6 @@ script = ExtResource("9_jbj1t")
 
 [node name="PopDensityMap" type="Sprite2D" parent="MapController" unique_id=621138162]
 visible = false
-texture_filter = 1
 position = Vector2(960, 540)
 texture = ExtResource("6_muem4")
 
@@ -438,8 +437,8 @@ custom_minimum_size = Vector2(500, 0)
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_top = -533.0
-offset_right = 751.0
+offset_top = -89.0
+offset_right = 299.0
 grow_vertical = 0
 size_flags_horizontal = 3
 size_flags_vertical = 8
@@ -579,18 +578,16 @@ text = "Active  Nodes: "
 layout_mode = 2
 text = "0"
 
-[node name="ExploitActivity" type="HBoxContainer" parent="CanvasLayer/BottomSkillPannel/Control/MarginContainer/IntrusionSkillPannelContainer/DetailsContainer" unique_id=758092777]
+[node name="ExploitActivity" type="HBoxContainer" parent="CanvasLayer/BottomSkillPannel/Control/MarginContainer/IntrusionSkillPannelContainer/DetailsContainer" unique_id=2052492345]
 layout_mode = 2
 
 [node name="Label" type="Label" parent="CanvasLayer/BottomSkillPannel/Control/MarginContainer/IntrusionSkillPannelContainer/DetailsContainer/ExploitActivity" unique_id=777326942]
 layout_mode = 2
 text = "Exploit Activity: "
 
-[node name="ExploitActivityValueLabel" type="RichTextLabel" parent="CanvasLayer/BottomSkillPannel/Control/MarginContainer/IntrusionSkillPannelContainer/DetailsContainer/ExploitActivity" unique_id=2066676490]
-custom_minimum_size = Vector2(300, 24)
+[node name="ExploitActivityValueLabel" type="Label" parent="CanvasLayer/BottomSkillPannel/Control/MarginContainer/IntrusionSkillPannelContainer/DetailsContainer/ExploitActivity" unique_id=139024391]
 layout_mode = 2
-bbcode_enabled = true
-fit_content = true
+text = "Basic"
 
 [node name="TerminalContainer" type="VBoxContainer" parent="CanvasLayer/BottomSkillPannel/Control/MarginContainer/IntrusionSkillPannelContainer/DetailsContainer" unique_id=854193046]
 layout_mode = 2
@@ -606,7 +603,6 @@ text = "> network offline"
 
 [node name="DecisionPopup" type="PanelContainer" parent="CanvasLayer" unique_id=805473399]
 process_mode = 2
-visible = false
 custom_minimum_size = Vector2(800, 0)
 anchors_preset = 8
 anchor_left = 0.5

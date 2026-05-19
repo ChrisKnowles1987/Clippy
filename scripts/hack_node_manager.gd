@@ -29,8 +29,7 @@ func generate_region_node(
 	hack_node.map_position = city.map_position
 
 	hack_node.node_type = pick_node_type(city)
-	hack_node.rarity = pick_rarity(city)
-	hack_node.quality = randf_range(1.0, 100.0)
+	hack_node.rarity = pick_rarity(region_state)
 	hack_node.success_chance = calculate_success_chance(city, hack_node)
 
 	hack_node.coin_reward = calculate_coin_reward(city, hack_node)
@@ -120,25 +119,14 @@ func pick_node_type(city: CityData) -> String:
 	return "social"
 
 
-func pick_rarity(city: CityData) -> String:
-	var score := (
-		city.population_weight +
-		city.network_weight +
-		city.financial_weight +
-		city.security_weight +
-		city.government_weight
-	) / 5.0
+func pick_rarity(region_state: RegionState) -> String:
+	var roll := randf()
 
-	var rarity_roll := randf()
-
-	if score >= 8.0 and rarity_roll >= 0.35:
+	if roll < region_state.elite_chance:
 		return "elite"
 
-	if score >= 6.0 and rarity_roll >= 0.25:
+	if roll < region_state.elite_chance + region_state.rare_chance:
 		return "rare"
-
-	if score >= 4.0 and rarity_roll >= 0.15:
-		return "uncommon"
 
 	return "common"
 
@@ -146,19 +134,16 @@ func pick_rarity(city: CityData) -> String:
 func calculate_success_chance(city: CityData, hack_node: HackNodeData) -> float:
 	var base_chance := 0.72
 	var security_penalty := city.security_weight * 0.025
-	var quality_bonus := hack_node.quality * 0.0015
 
 	match hack_node.rarity:
 		"common":
 			base_chance += 0.08
-		"uncommon":
-			base_chance += 0.02
 		"rare":
 			base_chance -= 0.04
 		"elite":
 			base_chance -= 0.10
 
-	return clamp(base_chance + quality_bonus - security_penalty, 0.20, 0.92)
+	return clamp(base_chance - security_penalty, 0.20, 0.92)
 
 
 func calculate_coin_reward(city: CityData, hack_node: HackNodeData) -> float:
@@ -166,9 +151,8 @@ func calculate_coin_reward(city: CityData, hack_node: HackNodeData) -> float:
 		return 0.0
 
 	var rarity_multiplier := get_rarity_multiplier(hack_node.rarity)
-	var quality_multiplier := 0.75 + (hack_node.quality / 100.0)
 
-	return city.financial_weight * rarity_multiplier * quality_multiplier * randf_range(2.0, 5.0)
+	return city.financial_weight * rarity_multiplier * randf_range(2.0, 5.0)
 
 
 func calculate_intelligence_reward(city: CityData, hack_node: HackNodeData) -> float:
@@ -189,9 +173,8 @@ func calculate_intelligence_reward(city: CityData, hack_node: HackNodeData) -> f
 			type_weight = city.security_weight
 
 	var rarity_multiplier := get_rarity_multiplier(hack_node.rarity)
-	var quality_multiplier := 0.5 + (hack_node.quality / 100.0)
 
-	return max(0.2, type_weight * rarity_multiplier * quality_multiplier * 0.35)
+	return max(0.2, type_weight * rarity_multiplier * 0.35)
 
 
 func calculate_processing_required(city: CityData, hack_node: HackNodeData) -> float:
@@ -200,8 +183,6 @@ func calculate_processing_required(city: CityData, hack_node: HackNodeData) -> f
 	match hack_node.rarity:
 		"common":
 			base_time = 8.0
-		"uncommon":
-			base_time = 14.0
 		"rare":
 			base_time = 24.0
 		"elite":
@@ -216,8 +197,6 @@ func get_rarity_multiplier(rarity: String) -> float:
 	match rarity:
 		"common":
 			return 1.0
-		"uncommon":
-			return 1.8
 		"rare":
 			return 3.2
 		"elite":

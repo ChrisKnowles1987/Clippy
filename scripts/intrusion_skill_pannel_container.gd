@@ -12,7 +12,8 @@ extends Control
 @onready var details_container: Control = $DetailsContainer
 @onready var foothold_value_label: Label = $DetailsContainer/Foothold/FootHoldValueLabel
 @onready var active_nodes_value_label: Label = $DetailsContainer/ActiveNodes/ActiveNodesValueLabel
-@onready var exploit_activity_value_label: Label = $DetailsContainer/ExploitActivity/ExploitActivityValueLabel
+@onready var exploit_activity_value_label: RichTextLabel = $DetailsContainer/ExploitActivity/ExploitActivityValueLabel
+
 @onready var terminal_log: RichTextLabel = $DetailsContainer/TerminalContainer/TerminalLog
 
 @onready var global_resource_manager = get_node("/root/Node2D/GlobalResourceManager")
@@ -99,10 +100,18 @@ func refresh_progress_ui() -> void:
 
 func refresh_details_ui() -> void:
 	foothold_value_label.text = get_network_foothold_title(selected_region_state.network_visibility)
-	active_nodes_value_label.text = str(selected_region_state.active_node_ids.size())
-	exploit_activity_value_label.text = get_exploit_activity_title()
+	active_nodes_value_label.text = str(selected_region_state.active_node_ids.size()) + "/" + str(selected_region_data.cities.size())
+	exploit_activity_value_label.text = get_rarity_chance_text()
 
+func get_rarity_chance_text() -> String:
+	if selected_region_state == null:
+		return ""
 
+	var rare_text := HackNodeTextFormatter.format_rarity_tag("rare") + " " + str(roundi(selected_region_state.rare_chance * 100.0)) + "%"
+	var elite_text := HackNodeTextFormatter.format_rarity_tag("elite") + " " + str(roundi(selected_region_state.elite_chance * 100.0)) + "%"
+
+	return  rare_text + " | " + elite_text
+	
 func get_star_text_from_notoriety(notoriety_xp: float) -> String:
 	var thresholds := [100.0, 250.0, 475.0, 800.0, 1250.0]
 	var stars := 0

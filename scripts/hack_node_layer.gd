@@ -20,10 +20,6 @@ func _draw() -> void:
 
 func get_node_color(hack_node: HackNodeData) -> Color:
 	match hack_node.rarity:
-		"common":
-			return Color(0.3, 0.8, 1.0, 0.9)
-		"uncommon":
-			return Color(0.3, 1.0, 0.4, 0.9)
 		"rare":
 			return Color(0.8, 0.4, 1.0, 0.9)
 		"elite":

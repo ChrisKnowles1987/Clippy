@@ -23,6 +23,14 @@ static func get_discovery_required(region_state: RegionState) -> float:
 
 static func get_exploit_processing_speed(hack_node: HackNodeData, region_state: RegionState) -> float:
 	var compute_factor: float = max(0.1, region_state.infiltration_reserved_compute)
-	var quality_factor: float = 0.75 + hack_node.quality / 100.0
+	var rarity_factor: float = 1.0
 
-	return compute_factor * quality_factor
+	match hack_node.rarity:
+		"common":
+			rarity_factor = 1.0
+		"rare":
+			rarity_factor = 0.8
+		"elite":
+			rarity_factor = 0.65
+
+	return compute_factor * rarity_factor

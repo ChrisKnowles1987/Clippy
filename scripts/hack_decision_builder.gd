@@ -124,16 +124,12 @@ static func get_possible_notoriety_gain(hack_node: HackNodeData) -> float:
 	match hack_node.rarity:
 		"common":
 			gain *= 0.75
-		"uncommon":
-			gain *= 1.00
 		"rare":
 			gain *= 1.75
 		"elite":
 			gain *= 2.75
 
-	var quality_multiplier := 0.75 + (hack_node.quality / 100.0)
-
-	return gain * quality_multiplier
+	return gain
 
 
 static func get_possible_notoriety_chance_text(hack_node: HackNodeData) -> String:

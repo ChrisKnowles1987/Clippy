@@ -9,6 +9,7 @@ class_name RegionState
 @export var notoriety_xp: float = 0.0:
 	set(value):
 		notoriety_xp = clamp(value, 0.0 ,100.0)
+
 @export var shutdown_progress: float = 0.0
 
 @export var active_campaigns: Array[String] = []
@@ -20,3 +21,7 @@ class_name RegionState
 
 @export var scan_networks_level: int = 1
 @export var network_visibility: int = 0
+
+@export var common_chance: float = 0.80
+@export var rare_chance: float = 0.18
+@export var elite_chance: float = 0.02

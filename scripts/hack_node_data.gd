@@ -9,7 +9,6 @@ class_name HackNodeData
 
 @export var node_type: String = ""
 @export var rarity: String = "common"
-@export var quality: float = 1.0
 @export var success_chance: float = 0.5
 
 @export var map_position: Vector2 = Vector2.ZERO
