@@ -6,6 +6,7 @@ const DECISION_EXPIRY_DAYS := 5
 var main_controller: Node = null
 var game_clock = null
 var region_manager = null
+var global_resource_manager = null
 var hack_node_manager = null
 var hack_node_layer = null
 var intrusion_panel = null
@@ -30,6 +31,7 @@ func setup(
 	main_controller = main_controller_ref
 	game_clock = game_clock_ref
 	region_manager = region_manager_ref
+	global_resource_manager = main_controller_ref.global_resource_manager
 	hack_node_manager = hack_node_manager_ref
 	hack_node_layer = hack_node_layer_ref
 	intrusion_panel = intrusion_panel_ref
@@ -91,6 +93,23 @@ func _on_decision_popup_choice_selected(decision_id: String, choice_id: String) 
 	if hack_node == null:
 		decision_popup.hide_decision()
 		resume_after_decision()
+		return
+
+	var decision := HackDecisionBuilder.build_decision(
+		hack_node,
+		HackNodeTextFormatter.format_review_exploit_line(hack_node),
+		get_days_left_for_node(hack_node)
+	)
+
+	var choice := get_choice_by_id(decision, choice_id)
+
+	if choice == null:
+		defer_pending_decision(hack_node)
+		return
+
+	if global_resource_manager.apply_decision_choice(choice) == false:
+		open_decision_popup_for_node(hack_node)
+		decision_popup.set_warning_text("Insufficient resources")
 		return
 
 	match choice_id:
@@ -238,6 +257,14 @@ func get_hack_node_by_id(hack_node_id: String) -> HackNodeData:
 	for hack_node in hack_node_manager.active_nodes:
 		if hack_node.id == hack_node_id:
 			return hack_node
+
+	return null
+
+
+func get_choice_by_id(decision: DecisionData, choice_id: String) -> DecisionChoiceData:
+	for choice in decision.choices:
+		if choice.id == choice_id:
+			return choice
 
 	return null
 

@@ -25,6 +25,8 @@ font_size = 20
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jbj1t"]
 bg_color = Color(0.012991184, 0.014714115, 0.014715779, 1)
 
+[sub_resource type="FontVariation" id="FontVariation_jbj1t"]
+
 [node name="Node2D" type="Node2D" unique_id=1052680515]
 script = ExtResource("1_tbgi4")
 
@@ -434,12 +436,13 @@ label_settings = SubResource("LabelSettings_o6xl0")
 
 [node name="BottomSkillPannel" type="PanelContainer" parent="CanvasLayer" unique_id=534119209]
 material = SubResource("CanvasItemMaterial_tefeu")
-custom_minimum_size = Vector2(500, 0)
+custom_minimum_size = Vector2(600, 0)
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
 offset_top = -533.0
-offset_right = 751.0
+offset_right = 451.0
+offset_bottom = -16.0
 grow_vertical = 0
 size_flags_horizontal = 3
 size_flags_vertical = 8
@@ -550,7 +553,7 @@ size_flags_horizontal = 3
 text = "☆☆☆☆☆"
 
 [node name="Control" type="Control" parent="CanvasLayer/BottomSkillPannel/Control/MarginContainer/IntrusionSkillPannelContainer/SumnmaryContainer" unique_id=1002598573]
-custom_minimum_size = Vector2(0, 47)
+custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 
 [node name="DetailsContainer" type="VBoxContainer" parent="CanvasLayer/BottomSkillPannel/Control/MarginContainer/IntrusionSkillPannelContainer" unique_id=1817081927]
@@ -602,11 +605,10 @@ layout_mode = 2
 [node name="TerminalLog" type="RichTextLabel" parent="CanvasLayer/BottomSkillPannel/Control/MarginContainer/IntrusionSkillPannelContainer/DetailsContainer/TerminalContainer" unique_id=957510523]
 custom_minimum_size = Vector2(0, 240)
 layout_mode = 2
-text = "> network offline"
+text = "> network_traffic"
 
 [node name="DecisionPopup" type="PanelContainer" parent="CanvasLayer" unique_id=805473399]
 process_mode = 2
-visible = false
 custom_minimum_size = Vector2(800, 0)
 anchors_preset = 8
 anchor_left = 0.5
@@ -673,7 +675,10 @@ size_flags_vertical = 8
 [node name="WarningLabel" type="Label" parent="CanvasLayer/DecisionPopup/MarginContainer/VBoxContainer" unique_id=172960925]
 layout_mode = 2
 size_flags_vertical = 0
+theme_override_colors/font_color = Color(1, 0.26666668, 0.26666668, 1)
+theme_override_fonts/font = SubResource("FontVariation_jbj1t")
 text = "Warning:  "
+horizontal_alignment = 1
 
 [node name="PendingDecisionPannel" type="PanelContainer" parent="CanvasLayer" unique_id=2142242795]
 process_mode = 3

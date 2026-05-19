@@ -12,6 +12,7 @@ signal choice_selected(decision_id: String, choice_id: String)
 @onready var warning_label: Label = $MarginContainer/VBoxContainer/WarningLabel
 
 var active_decision_id: String = ""
+var global_resource_manager = null
 
 
 func _ready() -> void:
@@ -19,6 +20,10 @@ func _ready() -> void:
 	visible = false
 
 	setup_rich_text_label(terminal_text)
+
+
+func setup(global_resource_manager_ref: Node) -> void:
+	global_resource_manager = global_resource_manager_ref
 
 
 func show_decision(decision: DecisionData) -> void:
@@ -110,13 +115,58 @@ func add_choice_button(choice: DecisionChoiceData) -> void:
 	button.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	button.process_mode = Node.PROCESS_MODE_WHEN_PAUSED
 
-	if choice.warning_text != "":
+	var can_afford := can_afford_choice(choice)
+	var cannot_afford_warning := build_cannot_afford_warning(choice)
+
+	if can_afford == false:
+		button.disabled = true
+		button.tooltip_text = cannot_afford_warning
+
+		if warning_label.text == "":
+			warning_label.text = cannot_afford_warning
+
+	if choice.warning_text != "" and can_afford:
 		button.mouse_entered.connect(set_warning_text.bind(choice.warning_text))
+		button.mouse_exited.connect(set_warning_text.bind(""))
+
+	if cannot_afford_warning != "":
+		button.mouse_entered.connect(set_warning_text.bind(cannot_afford_warning))
 		button.mouse_exited.connect(set_warning_text.bind(""))
 
 	button.pressed.connect(_on_choice_pressed.bind(choice.id))
 
 	choice_button_container.add_child(button)
+
+
+func can_afford_choice(choice: DecisionChoiceData) -> bool:
+	if global_resource_manager == null:
+		return true
+
+	return global_resource_manager.can_apply_decision_choice(choice)
+
+
+func build_cannot_afford_warning(choice: DecisionChoiceData) -> String:
+	if choice == null:
+		return ""
+
+	if global_resource_manager == null:
+		return ""
+
+	var parts: Array[String] = []
+
+	if global_resource_manager.get_available_power() < choice.power_cost:
+		parts.append("Power " + str(snapped(global_resource_manager.get_available_power(), 0.1)) + " / " + str(snapped(choice.power_cost, 0.1)))
+
+	if global_resource_manager.get_available_compute() < choice.compute_cost:
+		parts.append("Compute " + str(snapped(global_resource_manager.get_available_compute(), 0.1)) + " / " + str(snapped(choice.compute_cost, 0.1)))
+
+	if global_resource_manager.get_available_coin() < choice.coin_cost:
+		parts.append("Coin " + str(snapped(global_resource_manager.get_available_coin(), 0.1)) + " / " + str(snapped(choice.coin_cost, 0.1)))
+
+	if parts.is_empty():
+		return ""
+
+	return "Insufficient resources: " + ", ".join(parts)
 
 
 func clear_container(container: Node) -> void:

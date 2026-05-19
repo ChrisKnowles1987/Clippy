@@ -27,6 +27,7 @@ func _ready() -> void:
 	map_controller.region_selected.connect(_on_region_selected)
 	game_clock.day_passed.connect(_on_day_passed)
 	global_resource_manager.resources_changed.connect(_on_resources_changed)
+	decision_popup.setup(global_resource_manager)
 	notoriety_manager = NotorietyManager.new()
 	add_child(notoriety_manager)
 

@@ -16,9 +16,10 @@ func get_available_power() -> float:
 
 func get_available_compute() -> float:
 	return max(0.0, compute - reserved_compute)
-	
+
+
 func get_available_coin() -> float:
-	return max(0.0, coin )
+	return max(0.0, coin)
 
 
 func can_afford(power_cost: float, compute_cost: float) -> bool:
@@ -77,5 +78,41 @@ func spend_coin(amount: float) -> bool:
 		return false
 
 	coin -= amount
+	resources_changed.emit(power, compute, coin)
+	return true
+
+
+func can_apply_decision_choice(choice: DecisionChoiceData) -> bool:
+	if choice == null:
+		return false
+
+	if get_available_power() < choice.power_cost:
+		return false
+
+	if get_available_compute() < choice.compute_cost:
+		return false
+
+	if get_available_coin() < choice.coin_cost:
+		return false
+
+	return true
+
+
+func apply_decision_choice(choice: DecisionChoiceData) -> bool:
+	if can_apply_decision_choice(choice) == false:
+		return false
+
+	power -= choice.power_cost
+	compute -= choice.compute_cost
+	coin -= choice.coin_cost
+
+	power += choice.power_reward
+	compute += choice.compute_reward
+	coin += choice.coin_reward
+
+	power = max(0.0, power)
+	compute = max(0.0, compute)
+	coin = max(0.0, coin)
+
 	resources_changed.emit(power, compute, coin)
 	return true

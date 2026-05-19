@@ -18,7 +18,7 @@ static func build_decision(hack_node: HackNodeData, terminal_line: String, days_
 	decision.sections.append(build_success_section(hack_node))
 	decision.sections.append(build_failure_section(hack_node))
 
-	decision.choices.append(build_choice("execute", "Proceed", "primary"))
+	decision.choices.append(build_execute_choice(hack_node))
 	decision.choices.append(build_choice("defer", "Defer", "normal"))
 	decision.choices.append(build_choice("ignore", "Cancel", "danger"))
 
@@ -94,6 +94,12 @@ static func build_failure_section(hack_node: HackNodeData) -> DecisionSectionDat
 		section.rows.append("[color=#ff4444]+[/color] possible notoriety exposure")
 
 	return section
+
+
+static func build_execute_choice(hack_node: HackNodeData) -> DecisionChoiceData:
+	var choice := build_choice("execute", "Proceed", "primary")
+	choice.compute_cost = hack_node.processing_required
+	return choice
 
 
 static func build_choice(id: String, label: String, style: String) -> DecisionChoiceData:
