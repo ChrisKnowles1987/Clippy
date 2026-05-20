@@ -24,11 +24,33 @@ var notoriety_manager: NotorietyManager = null
 
 
 func _ready() -> void:
-	print(NodeTypeDefinitions.get_short_label("social"))
-	print(NodeTypeDefinitions.get_display_name("financial"))
-	print(NodeTypeDefinitions.get_colour("government"))
-	print(NodeTypeDefinitions.format_display_tag("security"))
-	print(NodeTypeDefinitions.get_all_types())
+	var test_region := RegionData.new()
+
+	var city_a := CityData.new()
+	city_a.soc_score = 8.0
+	city_a.cul_score = 10.0
+	city_a.fin_score = 6.0
+	city_a.inf_score = 8.0
+	city_a.gov_score = 4.0
+	city_a.sec_score = 6.0
+
+	var city_b := CityData.new()
+	city_b.soc_score = 6.0
+	city_b.cul_score = 8.0
+	city_b.fin_score = 8.0
+	city_b.inf_score = 8.0
+	city_b.gov_score = 6.0
+	city_b.sec_score = 6.0
+
+	test_region.cities = [city_a, city_b]
+
+	print(test_region.get_node_type_score(NodeTypeDefinitions.SOCIAL))
+	print(test_region.get_node_type_score(NodeTypeDefinitions.CULTURAL))
+	print(test_region.get_node_type_score(NodeTypeDefinitions.FINANCIAL))
+	print(test_region.get_node_type_score(NodeTypeDefinitions.INFRASTRUCTURE))
+	print(test_region.get_node_type_score(NodeTypeDefinitions.GOVERNMENT))
+	print(test_region.get_node_type_score(NodeTypeDefinitions.SECURITY))
+	print(test_region.get_all_node_type_scores())
 	
 	map_controller.region_selected.connect(_on_region_selected)
 	game_clock.day_passed.connect(_on_day_passed)

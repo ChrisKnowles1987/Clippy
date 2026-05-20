@@ -94,13 +94,14 @@ func pick_city(cities: Array[CityData]) -> CityData:
 
 func pick_node_type(city: CityData) -> String:
 	var weights := {
-		NodeTypeDefinitions.SOCIAL: max(0.1, city.population_weight),
-		NodeTypeDefinitions.CULTURAL: max(0.1, city.cultural_weight),
-		NodeTypeDefinitions.INFRASTRUCTURE: max(0.1, city.network_weight),
-		NodeTypeDefinitions.GOVERNMENT: max(0.1, city.government_weight),
-		NodeTypeDefinitions.FINANCIAL: max(0.1, city.financial_weight),
-		NodeTypeDefinitions.SECURITY: max(0.1, city.security_weight)
+		NodeTypeDefinitions.SOCIAL: max(0.1, city.soc_score),
+		NodeTypeDefinitions.CULTURAL: max(0.1, city.cul_score),
+		NodeTypeDefinitions.INFRASTRUCTURE: max(0.1, city.inf_score),
+		NodeTypeDefinitions.GOVERNMENT: max(0.1, city.gov_score),
+		NodeTypeDefinitions.FINANCIAL: max(0.1, city.fin_score),
+		NodeTypeDefinitions.SECURITY: max(0.1, city.sec_score)
 	}
+
 
 	var total := 0.0
 
@@ -156,32 +157,33 @@ func calculate_success_chance(city: CityData, hack_node: HackNodeData) -> float:
 
 
 func calculate_coin_reward(city: CityData, hack_node: HackNodeData) -> float:
-
+	if hack_node.node_type != NodeTypeDefinitions.FINANCIAL:
+		return 0.0
 	var rarity_multiplier := get_rarity_multiplier(hack_node.rarity)
 
 	return city.financial_weight * rarity_multiplier * randf_range(2.0, 5.0)
 
 
 func calculate_intelligence_reward(city: CityData, hack_node: HackNodeData) -> float:
-	var type_weight := city.network_weight
+	var type_score := 1.0
 
 	match hack_node.node_type:
 		NodeTypeDefinitions.SOCIAL:
-			type_weight = city.population_weight
+			type_score = city.soc_score
 		NodeTypeDefinitions.CULTURAL:
-			type_weight = city.cultural_weight
+			type_score = city.cul_score
 		NodeTypeDefinitions.INFRASTRUCTURE:
-			type_weight = city.network_weight
+			type_score = city.inf_score
 		NodeTypeDefinitions.GOVERNMENT:
-			type_weight = city.government_weight
+			type_score = city.gov_score
 		NodeTypeDefinitions.FINANCIAL:
-			type_weight = city.financial_weight
+			type_score = city.fin_score
 		NodeTypeDefinitions.SECURITY:
-			type_weight = city.security_weight
+			type_score = city.sec_score
 
 	var rarity_multiplier := get_rarity_multiplier(hack_node.rarity)
 
-	return max(0.2, type_weight * rarity_multiplier * 0.35)
+	return max(0.2, type_score * rarity_multiplier * 0.35)
 
 
 func calculate_processing_required(city: CityData, hack_node: HackNodeData) -> float:

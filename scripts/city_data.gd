@@ -13,3 +13,10 @@ class_name CityData
 @export var cultural_weight: float = 1.0
 @export var financial_weight: float = 1.0
 @export var government_weight: float = 1.0
+
+@export_range(0.0, 10.0, 0.1) var soc_score: float = 5.0
+@export_range(0.0, 10.0, 0.1) var cul_score: float = 5.0
+@export_range(0.0, 10.0, 0.1) var fin_score: float = 5.0
+@export_range(0.0, 10.0, 0.1) var inf_score: float = 5.0
+@export_range(0.0, 10.0, 0.1) var gov_score: float = 5.0
+@export_range(0.0, 10.0, 0.1) var sec_score: float = 5.0
