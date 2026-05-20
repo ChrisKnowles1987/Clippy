@@ -24,6 +24,12 @@ var notoriety_manager: NotorietyManager = null
 
 
 func _ready() -> void:
+	print(NodeTypeDefinitions.get_short_label("social"))
+	print(NodeTypeDefinitions.get_display_name("financial"))
+	print(NodeTypeDefinitions.get_colour("government"))
+	print(NodeTypeDefinitions.format_display_tag("security"))
+	print(NodeTypeDefinitions.get_all_types())
+	
 	map_controller.region_selected.connect(_on_region_selected)
 	game_clock.day_passed.connect(_on_day_passed)
 	global_resource_manager.resources_changed.connect(_on_resources_changed)

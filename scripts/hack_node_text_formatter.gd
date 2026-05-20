@@ -95,21 +95,7 @@ static func format_expired_exploit_line(hack_node: HackNodeData) -> String:
 
 
 static func format_type_tag(node_type: String) -> String:
-	match node_type:
-		"financial":
-			return "[color=#88dd88][financial][/color]"
-		"infrastructure":
-			return "[color=#dddd77][infrastructure][/color]"
-		"security":
-			return "[color=#77aaff][security][/color]"
-		"government":
-			return "[color=#bb88ff][government][/color]"
-		"cultural":
-			return "[color=#ff99cc][cultural][/color]"
-		"social":
-			return "[color=#dddddd][social][/color]"
-		_:
-			return "[color=#dddddd][" + node_type + "][/color]"
+	return NodeTypeDefinitions.format_display_tag(node_type)
 
 
 static func format_rarity_tag(rarity: String) -> String:

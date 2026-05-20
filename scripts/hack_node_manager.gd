@@ -94,12 +94,12 @@ func pick_city(cities: Array[CityData]) -> CityData:
 
 func pick_node_type(city: CityData) -> String:
 	var weights := {
-		"social": max(0.1, city.population_weight),
-		"cultural": max(0.1, city.cultural_weight),
-		"infrastructure": max(0.1, city.network_weight),
-		"government": max(0.1, city.government_weight),
-		"financial": max(0.1, city.financial_weight),
-		"security": max(0.1, city.security_weight)
+		NodeTypeDefinitions.SOCIAL: max(0.1, city.population_weight),
+		NodeTypeDefinitions.CULTURAL: max(0.1, city.cultural_weight),
+		NodeTypeDefinitions.INFRASTRUCTURE: max(0.1, city.network_weight),
+		NodeTypeDefinitions.GOVERNMENT: max(0.1, city.government_weight),
+		NodeTypeDefinitions.FINANCIAL: max(0.1, city.financial_weight),
+		NodeTypeDefinitions.SECURITY: max(0.1, city.security_weight)
 	}
 
 	var total := 0.0
@@ -156,8 +156,6 @@ func calculate_success_chance(city: CityData, hack_node: HackNodeData) -> float:
 
 
 func calculate_coin_reward(city: CityData, hack_node: HackNodeData) -> float:
-	if hack_node.node_type != "financial":
-		return 0.0
 
 	var rarity_multiplier := get_rarity_multiplier(hack_node.rarity)
 
@@ -168,17 +166,17 @@ func calculate_intelligence_reward(city: CityData, hack_node: HackNodeData) -> f
 	var type_weight := city.network_weight
 
 	match hack_node.node_type:
-		"social":
+		NodeTypeDefinitions.SOCIAL:
 			type_weight = city.population_weight
-		"cultural":
+		NodeTypeDefinitions.CULTURAL:
 			type_weight = city.cultural_weight
-		"infrastructure":
+		NodeTypeDefinitions.INFRASTRUCTURE:
 			type_weight = city.network_weight
-		"government":
+		NodeTypeDefinitions.GOVERNMENT:
 			type_weight = city.government_weight
-		"financial":
+		NodeTypeDefinitions.FINANCIAL:
 			type_weight = city.financial_weight
-		"security":
+		NodeTypeDefinitions.SECURITY:
 			type_weight = city.security_weight
 
 	var rarity_multiplier := get_rarity_multiplier(hack_node.rarity)
