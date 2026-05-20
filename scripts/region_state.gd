@@ -38,23 +38,16 @@ const MAX_REGION_LEVEL := 10
 @export var elite_weight: float = 2.0
 
 
-func add_typed_xp(node_type: String, amount: float) -> void:
+func add_typed_xp(node_type: String, amount: float) -> int:
 	if amount <= 0.0:
-		return
+		return 0
 
-	match node_type:
-		NodeTypeDefinitions.SOCIAL:
-			soc_xp += amount
-		NodeTypeDefinitions.CULTURAL:
-			cul_xp += amount
-		NodeTypeDefinitions.FINANCIAL:
-			fin_xp += amount
-		NodeTypeDefinitions.INFRASTRUCTURE:
-			inf_xp += amount
-		NodeTypeDefinitions.GOVERNMENT:
-			gov_xp += amount
-		NodeTypeDefinitions.SECURITY:
-			sec_xp += amount
+	if NodeTypeDefinitions.is_valid_type(node_type) == false:
+		return 0
+
+	add_raw_typed_xp(node_type, amount)
+
+	return process_typed_xp_thresholds(node_type)
 
 
 func get_typed_xp(node_type: String) -> float:
@@ -74,6 +67,62 @@ func get_typed_xp(node_type: String) -> float:
 		_:
 			return 0.0
 
+func get_typed_xp_percent(node_type: String) -> float:
+	var xp_required := get_xp_required(node_type)
+
+	if xp_required <= 0.0:
+		return 0.0
+
+	return clamp((get_typed_xp(node_type) / xp_required) * 100.0, 0.0, 100.0)
+	
+	
+func add_raw_typed_xp(node_type: String, amount: float) -> void:
+	match node_type:
+		NodeTypeDefinitions.SOCIAL:
+			soc_xp += amount
+		NodeTypeDefinitions.CULTURAL:
+			cul_xp += amount
+		NodeTypeDefinitions.FINANCIAL:
+			fin_xp += amount
+		NodeTypeDefinitions.INFRASTRUCTURE:
+			inf_xp += amount
+		NodeTypeDefinitions.GOVERNMENT:
+			gov_xp += amount
+		NodeTypeDefinitions.SECURITY:
+			sec_xp += amount
+
+
+func spend_typed_xp(node_type: String, amount: float) -> void:
+	match node_type:
+		NodeTypeDefinitions.SOCIAL:
+			soc_xp = max(0.0, soc_xp - amount)
+		NodeTypeDefinitions.CULTURAL:
+			cul_xp = max(0.0, cul_xp - amount)
+		NodeTypeDefinitions.FINANCIAL:
+			fin_xp = max(0.0, fin_xp - amount)
+		NodeTypeDefinitions.INFRASTRUCTURE:
+			inf_xp = max(0.0, inf_xp - amount)
+		NodeTypeDefinitions.GOVERNMENT:
+			gov_xp = max(0.0, gov_xp - amount)
+		NodeTypeDefinitions.SECURITY:
+			sec_xp = max(0.0, sec_xp - amount)
+
+func process_typed_xp_thresholds(node_type: String) -> int:
+	var slots_added := 0
+	var xp_required := get_xp_required(node_type)
+
+	if xp_required <= 0.0:
+		return 0
+
+	while get_typed_xp(node_type) >= xp_required and can_add_level_slot():
+		spend_typed_xp(node_type, xp_required)
+
+		if add_level_slot(node_type):
+			slots_added += 1
+		else:
+			break
+
+	return slots_added
 
 func get_xp_required(node_type: String) -> float:
 	if NodeTypeDefinitions.is_valid_type(node_type) == false:
