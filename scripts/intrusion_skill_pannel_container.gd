@@ -17,6 +17,7 @@ extends Control
 @onready var terminal_log: RichTextLabel = $DetailsContainer/TerminalContainer/TerminalLog
 
 @onready var global_resource_manager = get_node("/root/Node2D/GlobalResourceManager")
+@onready var map_controller = get_node("/root/Node2D/MapController")
 
 const MAX_LOG_LINES := 24
 
@@ -95,56 +96,13 @@ func refresh_progress_ui() -> void:
 	intelligence_progress_bar.min_value = 0.0
 	intelligence_progress_bar.max_value = 100.0
 	intelligence_progress_bar.value = selected_region_state.intelligence_percent
-	notoriety_stars.text = get_star_text_from_notoriety(selected_region_state.notoriety_xp)
+	notoriety_stars.text = IntrusionPanelFormatter.get_star_text_from_notoriety(selected_region_state.notoriety_xp)
 
 
 func refresh_details_ui() -> void:
-	foothold_value_label.text = get_network_foothold_title(selected_region_state.network_visibility)
+	foothold_value_label.text = IntrusionPanelFormatter.get_network_foothold_title(selected_region_state)
 	active_nodes_value_label.text = str(selected_region_state.active_node_ids.size()) + "/" + str(selected_region_data.cities.size())
-	exploit_activity_value_label.text = get_rarity_chance_text()
-
-func get_rarity_chance_text() -> String:
-	if selected_region_state == null:
-		return ""
-
-	var total_weight: float = selected_region_state.common_weight + selected_region_state.rare_weight + selected_region_state.elite_weight
-
-	if total_weight <= 0.0:
-		return "[common] 100%\n" + HackNodeTextFormatter.format_rarity_tag("rare") + " 0%\n" + HackNodeTextFormatter.format_rarity_tag("elite") + " 0%"
-
-	var common_percent := roundi((selected_region_state.common_weight / total_weight) * 100.0)
-	var rare_percent := roundi((selected_region_state.rare_weight / total_weight) * 100.0)
-	var elite_percent := roundi((selected_region_state.elite_weight / total_weight) * 100.0)
-
-	var common_text := HackNodeTextFormatter.format_rarity_tag("common") + " " + str(common_percent) + "%"
-	var rare_text := HackNodeTextFormatter.format_rarity_tag("rare") + " " + str(rare_percent) + "%"
-	var elite_text := HackNodeTextFormatter.format_rarity_tag("elite") + " " + str(elite_percent) + "%"
-
-	return common_text + "\n" + rare_text + "\n" + elite_text
-	
-func get_star_text_from_notoriety(notoriety_xp: float) -> String:
-	var thresholds := [100.0, 250.0, 475.0, 800.0, 1250.0]
-	var stars := 0
-
-	for threshold in thresholds:
-		if notoriety_xp >= threshold:
-			stars += 1
-
-	return get_star_text(stars)
-
-
-func get_star_text(stars: int, max_stars: int = 5) -> String:
-	stars = clamp(stars, 0, max_stars)
-
-	var text := ""
-
-	for i in range(max_stars):
-		if i < stars:
-			text += "★"
-		else:
-			text += "☆"
-
-	return text
+	exploit_activity_value_label.text = IntrusionPanelFormatter.get_rarity_chance_text(selected_region_state)
 
 
 func refresh_terminal_log() -> void:
@@ -197,7 +155,6 @@ func enable_infiltration() -> void:
 	selected_region_state.infiltration_reserved_power = power_cost
 	selected_region_state.infiltration_reserved_compute = compute_cost
 
-	var map_controller = get_node("/root/Node2D/MapController")
 	map_controller.set_persistent_region(selected_region_state.region_id)
 
 	add_intrusion_log_line(
@@ -221,7 +178,6 @@ func disable_infiltration() -> void:
 	selected_region_state.infiltration_reserved_power = 0.0
 	selected_region_state.infiltration_reserved_compute = 0.0
 
-	var map_controller = get_node("/root/Node2D/MapController")
 	map_controller.clear_persistent_region(selected_region_state.region_id)
 
 	add_intrusion_log_line(
@@ -264,79 +220,11 @@ func add_intrusion_log_line(region_id: String, line: String) -> void:
 
 
 func get_infiltration_power_cost() -> float:
-	if selected_region_state == null:
-		return 0.0
-
-	var scan_level := float(selected_region_state.scan_networks_level)
-
-	return get_average_city_network_weight() * scan_level
+	return IntrusionPanelCosts.get_infiltration_power_cost(selected_region_data, selected_region_state)
 
 
 func get_infiltration_compute_cost() -> float:
-	if selected_region_state == null:
-		return 0.0
-
-	var scan_level := float(selected_region_state.scan_networks_level)
-
-	return get_average_city_security_weight() * scan_level
-
-
-func get_average_city_network_weight() -> float:
-	if selected_region_data == null:
-		return 2.0
-
-	if selected_region_data.cities.is_empty():
-		return 2.0
-
-	var total := 0.0
-
-	for city in selected_region_data.cities:
-		total += city.network_weight
-
-	return total / float(selected_region_data.cities.size())
-
-
-func get_average_city_security_weight() -> float:
-	if selected_region_data == null:
-		return 2.0
-
-	if selected_region_data.cities.is_empty():
-		return 2.0
-
-	var total := 0.0
-
-	for city in selected_region_data.cities:
-		total += city.security_weight
-
-	return total / float(selected_region_data.cities.size())
-
-
-func get_network_foothold_title(network_visibility: int) -> String:
-	if selected_region_state == null:
-		return "Offline"
-
-	if selected_region_state.infiltration_enabled == false:
-		return "Offline"
-
-	var visibility_level: int = clamp(network_visibility, 0, 6)
-
-	match visibility_level:
-		0:
-			return "Passive"
-		1:
-			return "Observing"
-		2:
-			return "Modelling"
-		3:
-			return "Interfacing"
-		4:
-			return "Embedded"
-		5:
-			return "Persistent"
-		6:
-			return "Omnipresent"
-		_:
-			return "Offline"
+	return IntrusionPanelCosts.get_infiltration_compute_cost(selected_region_data, selected_region_state)
 
 
 func get_notoriety() -> float:
@@ -344,15 +232,3 @@ func get_notoriety() -> float:
 		return 0.0
 
 	return float(snapped(selected_region_state.notoriety_xp, 0.1))
-	
-
-
-
-func get_exploit_activity_title() -> String:
-	if selected_region_state == null:
-		return "Offline"
-
-	if selected_region_state.infiltration_enabled:
-		return "Active"
-
-	return "Offline"
