@@ -22,6 +22,6 @@ class_name RegionState
 @export var scan_networks_level: int = 1
 @export var network_visibility: int = 0
 
-@export var common_chance: float = 0.80
-@export var rare_chance: float = 0.18
-@export var elite_chance: float = 0.02
+@export var common_weight: float = 80.0
+@export var rare_weight: float = 18.0
+@export var elite_weight: float = 2.0

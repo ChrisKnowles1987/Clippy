@@ -107,10 +107,20 @@ func get_rarity_chance_text() -> String:
 	if selected_region_state == null:
 		return ""
 
-	var rare_text := HackNodeTextFormatter.format_rarity_tag("rare") + " " + str(roundi(selected_region_state.rare_chance * 100.0)) + "%"
-	var elite_text := HackNodeTextFormatter.format_rarity_tag("elite") + " " + str(roundi(selected_region_state.elite_chance * 100.0)) + "%"
+	var total_weight: float = selected_region_state.common_weight + selected_region_state.rare_weight + selected_region_state.elite_weight
 
-	return  rare_text + " | " + elite_text
+	if total_weight <= 0.0:
+		return "[common] 100%\n" + HackNodeTextFormatter.format_rarity_tag("rare") + " 0%\n" + HackNodeTextFormatter.format_rarity_tag("elite") + " 0%"
+
+	var common_percent := roundi((selected_region_state.common_weight / total_weight) * 100.0)
+	var rare_percent := roundi((selected_region_state.rare_weight / total_weight) * 100.0)
+	var elite_percent := roundi((selected_region_state.elite_weight / total_weight) * 100.0)
+
+	var common_text := HackNodeTextFormatter.format_rarity_tag("common") + " " + str(common_percent) + "%"
+	var rare_text := HackNodeTextFormatter.format_rarity_tag("rare") + " " + str(rare_percent) + "%"
+	var elite_text := HackNodeTextFormatter.format_rarity_tag("elite") + " " + str(elite_percent) + "%"
+
+	return common_text + "\n" + rare_text + "\n" + elite_text
 	
 func get_star_text_from_notoriety(notoriety_xp: float) -> String:
 	var thresholds := [100.0, 250.0, 475.0, 800.0, 1250.0]
@@ -334,6 +344,8 @@ func get_notoriety() -> float:
 		return 0.0
 
 	return float(snapped(selected_region_state.notoriety_xp, 0.1))
+	
+
 
 
 func get_exploit_activity_title() -> String:

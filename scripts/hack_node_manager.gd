@@ -120,12 +120,21 @@ func pick_node_type(city: CityData) -> String:
 
 
 func pick_rarity(region_state: RegionState) -> String:
-	var roll := randf()
+	var common_weight: float = max(0.0, region_state.common_weight)
+	var rare_weight: float = max(0.0, region_state.rare_weight)
+	var elite_weight: float = max(0.0, region_state.elite_weight)
 
-	if roll < region_state.elite_chance:
+	var total_weight := common_weight + rare_weight + elite_weight
+
+	if total_weight <= 0.0:
+		return "common"
+
+	var roll := randf() * total_weight
+
+	if roll < elite_weight:
 		return "elite"
 
-	if roll < region_state.elite_chance + region_state.rare_chance:
+	if roll < elite_weight + rare_weight:
 		return "rare"
 
 	return "common"
