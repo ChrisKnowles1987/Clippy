@@ -24,34 +24,20 @@ var notoriety_manager: NotorietyManager = null
 
 
 func _ready() -> void:
-	var test_region := RegionData.new()
+	var test_region := RegionData.new()	
+	var test_state := RegionState.new()
+	test_state.region_id = "test_region"
 
-	var city_a := CityData.new()
-	city_a.soc_score = 8.0
-	city_a.cul_score = 10.0
-	city_a.fin_score = 6.0
-	city_a.inf_score = 8.0
-	city_a.gov_score = 4.0
-	city_a.sec_score = 6.0
+	test_state.add_typed_xp(NodeTypeDefinitions.SOCIAL, 12.0)
+	test_state.add_typed_xp(NodeTypeDefinitions.FINANCIAL, 7.5)
+	test_state.add_typed_xp(NodeTypeDefinitions.SECURITY, 3.0)
 
-	var city_b := CityData.new()
-	city_b.soc_score = 6.0
-	city_b.cul_score = 8.0
-	city_b.fin_score = 8.0
-	city_b.inf_score = 8.0
-	city_b.gov_score = 6.0
-	city_b.sec_score = 6.0
-
-	test_region.cities = [city_a, city_b]
-
-	print(test_region.get_node_type_score(NodeTypeDefinitions.SOCIAL))
-	print(test_region.get_node_type_score(NodeTypeDefinitions.CULTURAL))
-	print(test_region.get_node_type_score(NodeTypeDefinitions.FINANCIAL))
-	print(test_region.get_node_type_score(NodeTypeDefinitions.INFRASTRUCTURE))
-	print(test_region.get_node_type_score(NodeTypeDefinitions.GOVERNMENT))
-	print(test_region.get_node_type_score(NodeTypeDefinitions.SECURITY))
-	print(test_region.get_all_node_type_scores())
-	
+	print(test_state.get_typed_xp(NodeTypeDefinitions.SOCIAL))
+	print(test_state.get_typed_xp(NodeTypeDefinitions.CULTURAL))
+	print(test_state.get_typed_xp(NodeTypeDefinitions.FINANCIAL))
+	print(test_state.get_typed_xp(NodeTypeDefinitions.SECURITY))
+	print(test_state.get_xp_required(NodeTypeDefinitions.SOCIAL))
+	print(test_state.get_all_typed_xp())
 	map_controller.region_selected.connect(_on_region_selected)
 	game_clock.day_passed.connect(_on_day_passed)
 	global_resource_manager.resources_changed.connect(_on_resources_changed)
