@@ -1,6 +1,8 @@
 extends Resource
 class_name RegionState
 
+const MAX_REGION_LEVEL := 10
+
 @export var region_id: String = ""
 
 @export var intelligence_percent: float = 0.0
@@ -12,6 +14,8 @@ class_name RegionState
 @export var inf_xp: float = 0.0
 @export var gov_xp: float = 0.0
 @export var sec_xp: float = 0.0
+
+@export var level_slots: Array[String] = []
 
 @export var notoriety_xp: float = 0.0:
 	set(value):
@@ -85,3 +89,30 @@ func get_all_typed_xp() -> Dictionary:
 		typed_xp[node_type] = get_typed_xp(node_type)
 
 	return typed_xp
+
+
+func get_region_level() -> int:
+	return level_slots.size()
+
+
+func get_max_region_level() -> int:
+	return MAX_REGION_LEVEL
+
+
+func can_add_level_slot() -> bool:
+	return level_slots.size() < MAX_REGION_LEVEL
+
+
+func add_level_slot(node_type: String) -> bool:
+	if can_add_level_slot() == false:
+		return false
+
+	if NodeTypeDefinitions.is_valid_type(node_type) == false:
+		return false
+
+	level_slots.append(node_type)
+	return true
+
+
+func get_level_slots() -> Array[String]:
+	return level_slots.duplicate()

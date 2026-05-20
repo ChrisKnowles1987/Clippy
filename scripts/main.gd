@@ -24,20 +24,6 @@ var notoriety_manager: NotorietyManager = null
 
 
 func _ready() -> void:
-	var test_region := RegionData.new()	
-	var test_state := RegionState.new()
-	test_state.region_id = "test_region"
-
-	test_state.add_typed_xp(NodeTypeDefinitions.SOCIAL, 12.0)
-	test_state.add_typed_xp(NodeTypeDefinitions.FINANCIAL, 7.5)
-	test_state.add_typed_xp(NodeTypeDefinitions.SECURITY, 3.0)
-
-	print(test_state.get_typed_xp(NodeTypeDefinitions.SOCIAL))
-	print(test_state.get_typed_xp(NodeTypeDefinitions.CULTURAL))
-	print(test_state.get_typed_xp(NodeTypeDefinitions.FINANCIAL))
-	print(test_state.get_typed_xp(NodeTypeDefinitions.SECURITY))
-	print(test_state.get_xp_required(NodeTypeDefinitions.SOCIAL))
-	print(test_state.get_all_typed_xp())
 	map_controller.region_selected.connect(_on_region_selected)
 	game_clock.day_passed.connect(_on_day_passed)
 	global_resource_manager.resources_changed.connect(_on_resources_changed)
