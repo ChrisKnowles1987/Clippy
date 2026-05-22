@@ -525,6 +525,59 @@ custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
 text = "+"
 
+[node name="LevelContainer" type="VBoxContainer" parent="CanvasLayer/BottomSkillPannel/Control/MarginContainer/IntrusionSkillPannelContainer/SumnmaryContainer" unique_id=801583062]
+layout_mode = 2
+
+[node name="RegionLevelLabel" type="Label" parent="CanvasLayer/BottomSkillPannel/Control/MarginContainer/IntrusionSkillPannelContainer/SumnmaryContainer/LevelContainer" unique_id=275466275]
+layout_mode = 2
+
+[node name="LevelSlotsContainer" type="HBoxContainer" parent="CanvasLayer/BottomSkillPannel/Control/MarginContainer/IntrusionSkillPannelContainer/SumnmaryContainer/LevelContainer" unique_id=1109908983]
+layout_mode = 2
+
+[node name="LevelSlot0" type="Label" parent="CanvasLayer/BottomSkillPannel/Control/MarginContainer/IntrusionSkillPannelContainer/SumnmaryContainer/LevelContainer/LevelSlotsContainer" unique_id=1593045135]
+custom_minimum_size = Vector2(34, 24)
+layout_mode = 2
+
+[node name="LevelSlot1" type="Label" parent="CanvasLayer/BottomSkillPannel/Control/MarginContainer/IntrusionSkillPannelContainer/SumnmaryContainer/LevelContainer/LevelSlotsContainer" unique_id=1969313103]
+custom_minimum_size = Vector2(34, 24)
+layout_mode = 2
+
+[node name="LevelSlot2" type="Label" parent="CanvasLayer/BottomSkillPannel/Control/MarginContainer/IntrusionSkillPannelContainer/SumnmaryContainer/LevelContainer/LevelSlotsContainer" unique_id=1419913238]
+custom_minimum_size = Vector2(34, 24)
+layout_mode = 2
+
+[node name="LevelSlot3" type="Label" parent="CanvasLayer/BottomSkillPannel/Control/MarginContainer/IntrusionSkillPannelContainer/SumnmaryContainer/LevelContainer/LevelSlotsContainer" unique_id=1331986194]
+custom_minimum_size = Vector2(34, 24)
+layout_mode = 2
+
+[node name="LevelSlot4" type="Label" parent="CanvasLayer/BottomSkillPannel/Control/MarginContainer/IntrusionSkillPannelContainer/SumnmaryContainer/LevelContainer/LevelSlotsContainer" unique_id=624760539]
+custom_minimum_size = Vector2(34, 24)
+layout_mode = 2
+
+[node name="LevelSlot5" type="Label" parent="CanvasLayer/BottomSkillPannel/Control/MarginContainer/IntrusionSkillPannelContainer/SumnmaryContainer/LevelContainer/LevelSlotsContainer" unique_id=774872876]
+custom_minimum_size = Vector2(34, 24)
+layout_mode = 2
+
+[node name="LevelSlot6" type="Label" parent="CanvasLayer/BottomSkillPannel/Control/MarginContainer/IntrusionSkillPannelContainer/SumnmaryContainer/LevelContainer/LevelSlotsContainer" unique_id=23095103]
+custom_minimum_size = Vector2(34, 24)
+layout_mode = 2
+
+[node name="LevelSlot7" type="Label" parent="CanvasLayer/BottomSkillPannel/Control/MarginContainer/IntrusionSkillPannelContainer/SumnmaryContainer/LevelContainer/LevelSlotsContainer" unique_id=55683128]
+custom_minimum_size = Vector2(34, 24)
+layout_mode = 2
+
+[node name="LevelSlot8" type="Label" parent="CanvasLayer/BottomSkillPannel/Control/MarginContainer/IntrusionSkillPannelContainer/SumnmaryContainer/LevelContainer/LevelSlotsContainer" unique_id=1045351609]
+custom_minimum_size = Vector2(34, 24)
+layout_mode = 2
+
+[node name="LevelSlot9" type="Label" parent="CanvasLayer/BottomSkillPannel/Control/MarginContainer/IntrusionSkillPannelContainer/SumnmaryContainer/LevelContainer/LevelSlotsContainer" unique_id=1754998034]
+custom_minimum_size = Vector2(34, 24)
+layout_mode = 2
+
+[node name="LevelSlot10" type="Label" parent="CanvasLayer/BottomSkillPannel/Control/MarginContainer/IntrusionSkillPannelContainer/SumnmaryContainer/LevelContainer/LevelSlotsContainer" unique_id=507628352]
+custom_minimum_size = Vector2(34, 24)
+layout_mode = 2
+
 [node name="TypedXpProgressBars" type="GridContainer" parent="CanvasLayer/BottomSkillPannel/Control/MarginContainer/IntrusionSkillPannelContainer/SumnmaryContainer" unique_id=221584911]
 layout_mode = 2
 size_flags_horizontal = 0

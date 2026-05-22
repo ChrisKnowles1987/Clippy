@@ -6,6 +6,20 @@ extends Control
 @onready var infiltration_button: Button = $"SumnmaryContainer/TitleRowContainer/Infiltration"
 @onready var expand_button: Button = $"SumnmaryContainer/TitleRowContainer/ExpandCollapseButton"
 
+@onready var region_level_label: Label = $SumnmaryContainer/LevelContainer/RegionLevelLabel
+@onready var level_slot_labels := [
+	$SumnmaryContainer/LevelContainer/LevelSlotsContainer/LevelSlot0,
+	$SumnmaryContainer/LevelContainer/LevelSlotsContainer/LevelSlot1,
+	$SumnmaryContainer/LevelContainer/LevelSlotsContainer/LevelSlot2,
+	$SumnmaryContainer/LevelContainer/LevelSlotsContainer/LevelSlot3,
+	$SumnmaryContainer/LevelContainer/LevelSlotsContainer/LevelSlot4,
+	$SumnmaryContainer/LevelContainer/LevelSlotsContainer/LevelSlot5,
+	$SumnmaryContainer/LevelContainer/LevelSlotsContainer/LevelSlot6,
+	$SumnmaryContainer/LevelContainer/LevelSlotsContainer/LevelSlot7,
+	$SumnmaryContainer/LevelContainer/LevelSlotsContainer/LevelSlot8,
+	$SumnmaryContainer/LevelContainer/LevelSlotsContainer/LevelSlot9
+]
+
 @onready var notoriety_stars: Label = $SumnmaryContainer/TitleRowContainer3/NotorietyStars
 
 @onready var details_container: Control = $DetailsContainer
@@ -63,6 +77,7 @@ func show_empty() -> void:
 
 
 func show_region(region_data: RegionData, region_state: RegionState) -> void:
+
 	selected_region_data = region_data
 	selected_region_state = region_state
 	visible = true
@@ -103,6 +118,7 @@ func refresh_infiltration_ui() -> void:
 func refresh_progress_ui() -> void:
 	notoriety_stars.text = IntrusionPanelFormatter.get_star_text_from_notoriety(selected_region_state.notoriety_xp)
 	refresh_region_stat_rows()
+	refresh_region_level_ui()
 
 func refresh_region_stat_rows() -> void:
 	if selected_region_data == null:
@@ -117,6 +133,22 @@ func refresh_region_stat_rows() -> void:
 	refresh_region_stat_row(inf_row, NodeTypeDefinitions.INFRASTRUCTURE)
 	refresh_region_stat_row(gov_row, NodeTypeDefinitions.GOVERNMENT)
 	refresh_region_stat_row(sec_row, NodeTypeDefinitions.SECURITY)
+
+func refresh_region_level_ui() -> void:
+	if selected_region_state == null:
+		return
+
+	region_level_label.text = "Region Level " + str(selected_region_state.get_region_level()) + "/" + str(selected_region_state.get_max_region_level())
+
+	var slots := selected_region_state.get_level_slots()
+
+	for i in range(level_slot_labels.size()):
+		var label: Label = level_slot_labels[i]
+
+		if i < slots.size():
+			label.text = "[" + NodeTypeDefinitions.get_short_label(slots[i]) + "]"
+		else:
+			label.text = "[ ]"
 
 
 func refresh_region_stat_row(row, node_type: String) -> void:
