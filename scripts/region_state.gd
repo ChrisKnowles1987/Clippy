@@ -109,12 +109,16 @@ func spend_typed_xp(node_type: String, amount: float) -> void:
 
 func process_typed_xp_thresholds(node_type: String) -> int:
 	var slots_added := 0
-	var xp_required := get_xp_required(node_type)
 
-	if xp_required <= 0.0:
-		return 0
+	while can_add_level_slot():
+		var xp_required := get_xp_required(node_type)
 
-	while get_typed_xp(node_type) >= xp_required and can_add_level_slot():
+		if xp_required <= 0.0:
+			break
+
+		if get_typed_xp(node_type) < xp_required:
+			break
+
 		spend_typed_xp(node_type, xp_required)
 
 		if add_level_slot(node_type):
@@ -128,7 +132,10 @@ func get_xp_required(node_type: String) -> float:
 	if NodeTypeDefinitions.is_valid_type(node_type) == false:
 		return 0.0
 
-	return 100.0
+	if can_add_level_slot() == false:
+		return 0.0
+
+	return 100.0 * float(get_region_level() + 1)
 
 
 func get_all_typed_xp() -> Dictionary:
