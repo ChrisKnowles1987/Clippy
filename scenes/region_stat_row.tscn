@@ -1,0 +1,42 @@
+[gd_scene format=3 uid="uid://umjq1yqmk2co"]
+
+[ext_resource type="Script" uid="uid://x8m27x1o3afg" path="res://scripts/region_stat_row.gd" id="1_k16u7"]
+
+[node name="RegionStatRow" type="Control" unique_id=852947273]
+custom_minimum_size = Vector2(220, 44)
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_k16u7")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=728682349]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="IconBox" type="ColorRect" parent="HBoxContainer" unique_id=1138257157]
+custom_minimum_size = Vector2(24, 24)
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+
+[node name="StatLabel" type="Label" parent="HBoxContainer" unique_id=2074094923]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Test"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer" unique_id=1432500733]
+layout_mode = 2
+
+[node name="XPProgressBar" type="ProgressBar" parent="HBoxContainer/VBoxContainer" unique_id=79003171]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 10
+show_percentage = false
+
+[node name="XPLabel" type="Label" parent="HBoxContainer/VBoxContainer" unique_id=538646042]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 10
+theme_override_font_sizes/font_size = 10
+text = "test"

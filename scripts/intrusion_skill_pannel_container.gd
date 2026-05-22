@@ -6,10 +6,18 @@ extends Control
 @onready var infiltration_button: Button = $"SumnmaryContainer/TitleRowContainer/Infiltration"
 @onready var expand_button: Button = $"SumnmaryContainer/TitleRowContainer/ExpandCollapseButton"
 
-@onready var intelligence_progress_bar: ProgressBar = $SumnmaryContainer/TitleRowContainer2/IntelligenceProgressBar
 @onready var notoriety_stars: Label = $SumnmaryContainer/TitleRowContainer3/NotorietyStars
 
 @onready var details_container: Control = $DetailsContainer
+
+@onready var soc_row =$SumnmaryContainer/TypedXpProgressBars/SocRow
+@onready var cul_row = $SumnmaryContainer/TypedXpProgressBars/CulRow
+@onready var fin_row = $SumnmaryContainer/TypedXpProgressBars/FinRow
+@onready var inf_row = $SumnmaryContainer/TypedXpProgressBars/InfRow
+@onready var gov_row = $SumnmaryContainer/TypedXpProgressBars/GovRow
+@onready var sec_row = $SumnmaryContainer/TypedXpProgressBars/SecRow
+
+
 @onready var foothold_value_label: Label = $DetailsContainer/Foothold/FootHoldValueLabel
 @onready var active_nodes_value_label: Label = $DetailsContainer/ActiveNodes/ActiveNodesValueLabel
 @onready var exploit_activity_value_label: RichTextLabel = $DetailsContainer/ExploitActivity/ExploitActivityValueLabel
@@ -93,10 +101,33 @@ func refresh_infiltration_ui() -> void:
 
 
 func refresh_progress_ui() -> void:
-	intelligence_progress_bar.min_value = 0.0
-	intelligence_progress_bar.max_value = 100.0
-	intelligence_progress_bar.value = selected_region_state.intelligence_percent
 	notoriety_stars.text = IntrusionPanelFormatter.get_star_text_from_notoriety(selected_region_state.notoriety_xp)
+	refresh_region_stat_rows()
+
+func refresh_region_stat_rows() -> void:
+	if selected_region_data == null:
+		return
+
+	if selected_region_state == null:
+		return
+
+	refresh_region_stat_row(soc_row, NodeTypeDefinitions.SOCIAL)
+	refresh_region_stat_row(cul_row, NodeTypeDefinitions.CULTURAL)
+	refresh_region_stat_row(fin_row, NodeTypeDefinitions.FINANCIAL)
+	refresh_region_stat_row(inf_row, NodeTypeDefinitions.INFRASTRUCTURE)
+	refresh_region_stat_row(gov_row, NodeTypeDefinitions.GOVERNMENT)
+	refresh_region_stat_row(sec_row, NodeTypeDefinitions.SECURITY)
+
+
+func refresh_region_stat_row(row, node_type: String) -> void:
+	row.setup(
+		node_type,
+		selected_region_data.get_node_type_score(node_type),
+		selected_region_state.get_typed_xp(node_type),
+		selected_region_state.get_xp_required(node_type),
+		NodeTypeDefinitions.get_colour(node_type),
+		NodeTypeDefinitions.get_icon(node_type)
+	)
 
 
 func refresh_details_ui() -> void:

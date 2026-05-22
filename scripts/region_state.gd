@@ -5,7 +5,6 @@ const MAX_REGION_LEVEL := 10
 
 @export var region_id: String = ""
 
-@export var intelligence_percent: float = 0.0
 @export var influence_level: int = 0
 
 @export var soc_xp: float = 0.0

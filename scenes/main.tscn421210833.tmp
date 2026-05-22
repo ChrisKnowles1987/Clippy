@@ -525,10 +525,9 @@ custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
 text = "+"
 
-[node name="TypedXpProgressBars" type="GridContainer" parent="CanvasLayer/BottomSkillPannel/Control/MarginContainer/IntrusionSkillPannelContainer/SumnmaryContainer" unique_id=221584911]
+[node name="TypedXpProgressBars" type="HBoxContainer" parent="CanvasLayer/BottomSkillPannel/Control/MarginContainer/IntrusionSkillPannelContainer/SumnmaryContainer" unique_id=1115180080]
 layout_mode = 2
 size_flags_vertical = 3
-columns = 3
 
 [node name="SocRow" parent="CanvasLayer/BottomSkillPannel/Control/MarginContainer/IntrusionSkillPannelContainer/SumnmaryContainer/TypedXpProgressBars" unique_id=852947273 instance=ExtResource("15_muem4")]
 layout_mode = 2
@@ -619,7 +618,6 @@ text = "> network_traffic"
 
 [node name="DecisionPopup" type="PanelContainer" parent="CanvasLayer" unique_id=805473399]
 process_mode = 2
-visible = false
 custom_minimum_size = Vector2(800, 0)
 anchors_preset = 8
 anchor_left = 0.5
