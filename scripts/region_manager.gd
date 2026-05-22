@@ -1,6 +1,6 @@
 extends Node
 
-const CITY_CSV_PATH := "res://data/Natural_earth_coords/natural_earth_major_city_coordinates_with_regions_and_weights_clean.csv"
+const CITY_CSV_PATH := "res://data/Natural_earth_coords/natural_earth_major_city_coordinates_with_regions_and_weights_clean_social.csv"
 
 var selected_region_data: RegionData = null
 
