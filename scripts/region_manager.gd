@@ -28,7 +28,7 @@ func load_regions_from_csv() -> void:
 
 		var columns := line.split(",")
 
-		if columns.size() < 27:
+		if columns.size() < 28:
 			continue
 
 		var city := CityData.new()
@@ -43,13 +43,13 @@ func load_regions_from_csv() -> void:
 			)
 
 		city.population_weight = float(columns[21])
-		city.network_weight = float(columns[22])
-		city.security_weight = float(columns[23])
-		city.financial_weight = float(columns[24])
-		city.cultural_weight = float(columns[25])
-		city.government_weight = float(columns[26])
+		city.soc_score = float(columns[22])
+		city.network_weight = float(columns[23])
+		city.security_weight = float(columns[24])
+		city.financial_weight = float(columns[25])
+		city.cultural_weight = float(columns[26])
+		city.government_weight = float(columns[27])
 
-		city.soc_score = city.population_weight
 		city.cul_score = city.cultural_weight
 		city.fin_score = city.financial_weight
 		city.inf_score = city.network_weight
