@@ -49,6 +49,13 @@ func load_regions_from_csv() -> void:
 		city.cultural_weight = float(columns[25])
 		city.government_weight = float(columns[26])
 
+		city.soc_score = city.population_weight
+		city.cul_score = city.cultural_weight
+		city.fin_score = city.financial_weight
+		city.inf_score = city.network_weight
+		city.gov_score = city.government_weight
+		city.sec_score = city.security_weight
+
 		if not regions.has(city.region_id):
 			var region := RegionData.new()
 			region.id = city.region_id
