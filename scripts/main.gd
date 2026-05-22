@@ -24,14 +24,7 @@ var notoriety_manager: NotorietyManager = null
 
 
 func _ready() -> void:
-	var capped_state := RegionState.new()
-	capped_state.add_typed_xp(NodeTypeDefinitions.GOVERNMENT, 10000.0)
 
-	print(capped_state.get_region_level())
-	print(capped_state.get_xp_required(NodeTypeDefinitions.GOVERNMENT))
-	print(capped_state.get_level_slots().size())
-	print(capped_state.get_typed_xp(NodeTypeDefinitions.GOVERNMENT))
-	
 	map_controller.region_selected.connect(_on_region_selected)
 	game_clock.day_passed.connect(_on_day_passed)
 	global_resource_manager.resources_changed.connect(_on_resources_changed)
