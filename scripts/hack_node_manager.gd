@@ -94,12 +94,12 @@ func pick_city(cities: Array[CityData]) -> CityData:
 
 func pick_node_type(city: CityData) -> String:
 	var weights := {
-		NodeTypeDefinitions.SOCIAL: max(0.1, city.soc_score),
-		NodeTypeDefinitions.CULTURAL: max(0.1, city.cul_score),
-		NodeTypeDefinitions.INFRASTRUCTURE: max(0.1, city.inf_score),
-		NodeTypeDefinitions.GOVERNMENT: max(0.1, city.gov_score),
-		NodeTypeDefinitions.FINANCIAL: max(0.1, city.fin_score),
-		NodeTypeDefinitions.SECURITY: max(0.1, city.sec_score)
+		NodeTypeDefinitions.SOCIAL: max(0.1, city.soc_score) * 1.6,
+		NodeTypeDefinitions.CULTURAL: max(0.1, city.cul_score) * 1.4,
+		NodeTypeDefinitions.INFRASTRUCTURE: max(0.1, city.inf_score) * 1.0,
+		NodeTypeDefinitions.GOVERNMENT: max(0.1, city.gov_score) * 0.65,
+		NodeTypeDefinitions.FINANCIAL: max(0.1, city.fin_score) * 1.0,
+		NodeTypeDefinitions.SECURITY: max(0.1, city.sec_score) * 0.7
 	}
 
 
@@ -152,6 +152,13 @@ func calculate_success_chance(city: CityData, hack_node: HackNodeData) -> float:
 			base_chance -= 0.04
 		"elite":
 			base_chance -= 0.10
+			
+	#Make Gov and Sec harder to succed because they dominate early
+	match hack_node.node_type:
+		NodeTypeDefinitions.GOVERNMENT:
+			base_chance -= 0.18
+		NodeTypeDefinitions.SECURITY:
+			base_chance -= 0.22
 
 	return clamp(base_chance - security_penalty, 0.20, 0.92)
 
