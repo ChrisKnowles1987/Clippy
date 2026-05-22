@@ -154,7 +154,7 @@ func refresh_region_level_ui() -> void:
 func refresh_region_stat_row(row, node_type: String) -> void:
 	row.setup(
 		node_type,
-		selected_region_data.get_node_type_score(node_type),
+		selected_region_state.get_node_type_level(node_type),
 		selected_region_state.get_typed_xp(node_type),
 		selected_region_state.get_xp_required(node_type),
 		NodeTypeDefinitions.get_colour(node_type),

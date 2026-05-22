@@ -183,7 +183,7 @@ func calculate_intelligence_reward(city: CityData, hack_node: HackNodeData) -> f
 
 	var rarity_multiplier := get_rarity_multiplier(hack_node.rarity)
 
-	return max(0.2, type_score * rarity_multiplier * 0.35)
+	return max(1, type_score * rarity_multiplier * 1.0)
 
 
 func calculate_processing_required(city: CityData, hack_node: HackNodeData) -> float:

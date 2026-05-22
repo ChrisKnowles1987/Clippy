@@ -37,6 +37,15 @@ const MAX_REGION_LEVEL := 10
 @export var elite_weight: float = 2.0
 
 
+func get_node_type_level(node_type: String) -> int:
+	var count := 0
+
+	for slot_type in level_slots:
+		if slot_type == node_type:
+			count += 1
+
+	return count
+
 func add_typed_xp(node_type: String, amount: float) -> int:
 	if amount <= 0.0:
 		return 0
@@ -134,7 +143,7 @@ func get_xp_required(node_type: String) -> float:
 	if can_add_level_slot() == false:
 		return 0.0
 
-	return 100.0 * float(get_region_level() + 1)
+	return 100.0 * float(get_node_type_level(node_type) + 1)
 
 
 func get_all_typed_xp() -> Dictionary:
