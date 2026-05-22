@@ -1,11 +1,11 @@
 extends Control
 class_name RegionStatRow
 
-@onready var icon_box: ColorRect = $HBoxContainer/IconBox
-@onready var stat_label: Label = $HBoxContainer/StatLabel
-@onready var xp_progress_bar: ProgressBar = $HBoxContainer/VBoxContainer/XPProgressBar
-@onready var xp_label: Label = $HBoxContainer/VBoxContainer/XPLabel
 
+@onready var stat_label: Label = $HBoxContainer/StatLabel
+@onready var icon_box: ColorRect = $HBoxContainer/IconBox
+@onready var xp_progress_bar: ProgressBar = $HBoxContainer/XPProgressBar
+@onready var xp_label: Label = $HBoxContainer/XPLabel
 
 
 var node_type: String = ""
