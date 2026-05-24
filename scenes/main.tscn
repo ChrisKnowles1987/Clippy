@@ -4,9 +4,11 @@
 [ext_resource type="Script" uid="uid://c0vrfof7ikxbt" path="res://scripts/main.gd" id="1_tbgi4"]
 [ext_resource type="Script" uid="uid://dyakcdtqkh3oj" path="res://scripts/camera_controller.gd" id="2_a8y0u"]
 [ext_resource type="Texture2D" uid="uid://degr2qpantfai" path="res://assets/Nasa/world_map_5000x2000.png" id="4_jbj1t"]
+[ext_resource type="Script" uid="uid://dpsuinxaej1yl" path="res://scripts/tools/expansion_socket_generator.gd" id="5_0ld40"]
 [ext_resource type="Script" uid="uid://cs4yuxbiyfqgd" path="res://scripts/game_clock.gd" id="5_85g3d"]
 [ext_resource type="Script" uid="uid://bwwjkuldb6ob3" path="res://scripts/global_resource_manager.gd" id="6_choun"]
 [ext_resource type="Texture2D" uid="uid://cl8a40wdqqua4" path="res://assets/Nasa/nasa_map_16_region_manual_highlight.png" id="6_dp3eg"]
+[ext_resource type="PackedScene" uid="uid://bnnyin8v6k6bn" path="res://scenes/ExpansionSocket.tscn" id="6_gqmmt"]
 [ext_resource type="Texture2D" uid="uid://csqmkoco7y2jy" path="res://assets/Nasa/population_spawn_mask_5000x2000.png" id="6_muem4"]
 [ext_resource type="Script" uid="uid://3x2p5s26n4tg" path="res://scripts/global_resource_panel.gd" id="6_tefeu"]
 [ext_resource type="Script" uid="uid://wt4h05hlh6px" path="res://scripts/region_manager.gd" id="6_ya4ey"]
@@ -45,6 +47,12 @@ position = Vector2(960, 540)
 texture = ExtResource("4_jbj1t")
 
 [node name="ExpansionNodeLayer" type="Node2D" parent="MapController" unique_id=20122281]
+
+[node name="ExpansionSocketGenerator" type="Node" parent="MapController/ExpansionNodeLayer" unique_id=1137204273]
+script = ExtResource("5_0ld40")
+socket_scene = ExtResource("6_gqmmt")
+region_manager_path = NodePath("../../../RegionManager")
+clear_existing_sockets = true
 
 [node name="PopDensityMap" type="Sprite2D" parent="MapController" unique_id=621138162]
 visible = false
