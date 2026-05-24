@@ -12,7 +12,7 @@
 [ext_resource type="Script" uid="uid://wt4h05hlh6px" path="res://scripts/region_manager.gd" id="6_ya4ey"]
 [ext_resource type="Script" uid="uid://dnvulp6dsql5s" path="res://scripts/intrusion_skill_pannel_container.gd" id="7_o6xl0"]
 [ext_resource type="Script" uid="uid://dnsy67fb3qfmp" path="res://scripts/hack_node_layer.gd" id="9_jbj1t"]
-[ext_resource type="Script" uid="uid://c40s4aoakpyva" path="res://scenes/map_view_tabs.gd" id="12_dp3eg"]
+[ext_resource type="Script" uid="uid://c40s4aoakpyva" path="res://map_view_tabs.gd" id="12_dp3eg"]
 [ext_resource type="Script" uid="uid://cu7uu5f1g6e8y" path="res://scripts/notoriety_panel.gd" id="12_jbj1t"]
 [ext_resource type="Script" uid="uid://crf16lqacxdoc" path="res://scripts/hack_node_manager.gd" id="13_muem4"]
 [ext_resource type="Script" uid="uid://uy272udtrmhy" path="res://scripts/decision_popup.gd" id="15_jbj1t"]
@@ -43,6 +43,8 @@ script = ExtResource("1_sugp2")
 texture_filter = 1
 position = Vector2(960, 540)
 texture = ExtResource("4_jbj1t")
+
+[node name="ExpansionNodeLayer" type="Node2D" parent="MapController" unique_id=20122281]
 
 [node name="PopDensityMap" type="Sprite2D" parent="MapController" unique_id=621138162]
 visible = false

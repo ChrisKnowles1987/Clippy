@@ -1,0 +1,26 @@
+[gd_scene format=3 uid="uid://bnnyin8v6k6bn"]
+
+[ext_resource type="Script" uid="uid://pbbmatby5em5" path="res://scripts/Expansion/expansion_socket.gd" id="1_3fi41"]
+[ext_resource type="Script" uid="uid://d4dij4l4q8ckn" path="res://scripts/Expansion/node_box.gd" id="2_stbwh"]
+[ext_resource type="Texture2D" uid="uid://bj74qk4dlp0hw" path="res://icon.svg" id="3_6ricx"]
+
+[node name="ExpansionSocket" type="Node2D" unique_id=1508622988]
+script = ExtResource("1_3fi41")
+
+[node name="Line2D" type="Line2D" parent="." unique_id=2140403920]
+points = PackedVector2Array(0, 0, 100, 100)
+width = 1.0
+
+[node name="CityAnchorMarker" type="Sprite2D" parent="." unique_id=5726351]
+
+[node name="NodeBox" type="Node2D" parent="." unique_id=371308446]
+position = Vector2(31, 16)
+script = ExtResource("2_stbwh")
+
+[node name="Sprite2D" type="Sprite2D" parent="NodeBox" unique_id=901834471]
+scale = Vector2(0.1328125, 0.1328125)
+texture = ExtResource("3_6ricx")
+
+[node name="Area2D" type="Area2D" parent="NodeBox" unique_id=1496228041]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="NodeBox/Area2D" unique_id=2077628623]
