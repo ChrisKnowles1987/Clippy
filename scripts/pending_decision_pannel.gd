@@ -1,7 +1,7 @@
 extends PanelContainer
 class_name PendingDecisionPannel
 
-signal pending_decision_selected(hack_node_id: String)
+signal pending_decision_selected(decision_id: String)
 
 @onready var count_label: Label = $MarginContainer/VBoxContainer/TitleRow/PendingEventsVariableLabel
 @onready var pending_list: RichTextLabel = $MarginContainer/VBoxContainer/RichTextLabel
