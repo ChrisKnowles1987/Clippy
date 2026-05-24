@@ -2,8 +2,13 @@ extends RefCounted
 class_name HackNodeTextFormatter
 
 
-static func format_pending_decision_line(hack_node: HackNodeData, days_left: int) -> String:
-	var line := "[url=" + hack_node.id + "]"
+static func format_pending_decision_line(hack_node: HackNodeData, days_left: int, decision_id: String = "") -> String:
+	var meta_id := decision_id
+
+	if meta_id == "":
+		meta_id = hack_node.id
+
+	var line := "[url=" + meta_id + "]"
 	line += format_type_tag(hack_node.node_type)
 	line += " "
 	line += format_rarity_tag(hack_node.rarity)
