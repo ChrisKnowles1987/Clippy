@@ -6,6 +6,9 @@ const MAX_REGION_LEVEL := 10
 @export var region_id: String = ""
 
 @export var influence_level: int = 0
+@export var confirmed_region_level: int = 0
+@export var pending_level_ups: int = 0
+@export var expansion_points: int = 0
 
 @export var soc_xp: float = 0.0
 @export var cul_xp: float = 0.0
@@ -174,6 +177,10 @@ func get_all_typed_xp() -> Dictionary:
 
 
 func get_region_level() -> int:
+	return confirmed_region_level
+
+
+func get_earned_slot_count() -> int:
 	return level_slots.size()
 
 
@@ -193,11 +200,43 @@ func add_level_slot(node_type: String) -> bool:
 		return false
 
 	level_slots.append(node_type)
+	pending_level_ups += 1
 	return true
 
 
 func get_level_slots() -> Array[String]:
 	return level_slots.duplicate()
+
+
+func has_pending_level_up() -> bool:
+	return pending_level_ups > 0
+
+
+func get_next_level_number() -> int:
+	return clamp(confirmed_region_level + 1, 1, MAX_REGION_LEVEL)
+
+
+func get_next_level_up_power_cost() -> float:
+	return float(get_next_level_number() * 5)
+
+
+func get_next_level_up_compute_cost() -> float:
+	return float(get_next_level_number() * 5)
+
+
+func confirm_level_up() -> bool:
+	if pending_level_ups <= 0:
+		return false
+
+	if confirmed_region_level >= MAX_REGION_LEVEL:
+		return false
+
+	pending_level_ups -= 1
+	confirmed_region_level += 1
+	scan_networks_level += 1
+	expansion_points += 1
+
+	return true
 
 
 func start_slot_conversion(slot_index: int, target_type: String) -> bool:
