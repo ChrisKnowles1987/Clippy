@@ -2,6 +2,7 @@ extends Node
 class_name HackDecisionManager
 
 const DECISION_EXPIRY_DAYS := 5
+const HACK_NODE_DECISION_PREFIX := "hack_node:"
 
 var main_controller: Node = null
 var game_clock = null
@@ -14,7 +15,7 @@ var decision_popup: DecisionPopup = null
 var pending_decision_pannel: PendingDecisionPannel = null
 var hack_exploit_processor: HackExploitProcessor = null
 
-var pending_decision_node_ids: Array[String] = []
+var pending_decision_ids: Array[String] = []
 
 
 func setup(
@@ -55,8 +56,7 @@ func queue_hack_node_decision(hack_node: HackNodeData) -> void:
 	if hack_node.expires_on_day <= 0:
 		hack_node.expires_on_day = get_current_day_number() + DECISION_EXPIRY_DAYS
 
-	if pending_decision_node_ids.has(hack_node.id) == false:
-		pending_decision_node_ids.append(hack_node.id)
+	add_pending_decision(get_hack_node_decision_id(hack_node.id))
 
 	intrusion_panel.add_intrusion_log_line(
 		hack_node.region_id,
@@ -68,6 +68,22 @@ func queue_hack_node_decision(hack_node: HackNodeData) -> void:
 	pause_for_decision()
 
 
+func queue_regional_level_up_decision(region_id: String) -> void:
+	var region_state: RegionState = region_manager.get_region_state(region_id)
+
+	if region_state == null:
+		return
+
+	if region_state.has_pending_level_up() == false:
+		return
+
+	var decision_id := RegionalLevelUpDecisionBuilder.get_decision_id(region_id)
+	add_pending_decision(decision_id)
+	refresh_pending_decision_pannel()
+	open_regional_level_up_popup(region_id)
+	pause_for_decision()
+
+
 func open_decision_popup_for_node(hack_node: HackNodeData) -> void:
 	if hack_node == null:
 		return
@@ -75,6 +91,19 @@ func open_decision_popup_for_node(hack_node: HackNodeData) -> void:
 	var terminal_line := HackNodeTextFormatter.format_review_exploit_line(hack_node)
 	var days_left := get_days_left_for_node(hack_node)
 	var decision := HackDecisionBuilder.build_decision(hack_node, terminal_line, days_left)
+
+	decision.id = get_hack_node_decision_id(hack_node.id)
+	decision_popup.show_decision(decision)
+
+
+func open_regional_level_up_popup(region_id: String) -> void:
+	var region_state: RegionState = region_manager.get_region_state(region_id)
+
+	if region_state == null:
+		return
+
+	var region_data: RegionData = region_manager.regions.get(region_id, null)
+	var decision := RegionalLevelUpDecisionBuilder.build_decision(region_data, region_state)
 
 	decision_popup.show_decision(decision)
 
@@ -88,7 +117,21 @@ func resume_after_decision() -> void:
 
 
 func _on_decision_popup_choice_selected(decision_id: String, choice_id: String) -> void:
-	var hack_node := get_hack_node_by_id(decision_id)
+	if is_hack_node_decision_id(decision_id):
+		handle_hack_node_choice(decision_id, choice_id)
+		return
+
+	if RegionalLevelUpDecisionBuilder.is_level_up_decision_id(decision_id):
+		handle_regional_level_up_choice(decision_id, choice_id)
+		return
+
+	decision_popup.hide_decision()
+	resume_after_decision()
+
+
+func handle_hack_node_choice(decision_id: String, choice_id: String) -> void:
+	var hack_node_id := get_hack_node_id_from_decision_id(decision_id)
+	var hack_node := get_hack_node_by_id(hack_node_id)
 
 	if hack_node == null:
 		decision_popup.hide_decision()
@@ -104,7 +147,7 @@ func _on_decision_popup_choice_selected(decision_id: String, choice_id: String) 
 	var choice := get_choice_by_id(decision, choice_id)
 
 	if choice == null:
-		defer_pending_decision(hack_node)
+		defer_pending_hack_node_decision(hack_node)
 		return
 
 	if global_resource_manager.apply_decision_choice(choice) == false:
@@ -114,23 +157,54 @@ func _on_decision_popup_choice_selected(decision_id: String, choice_id: String) 
 
 	match choice_id:
 		"execute":
-			execute_pending_decision(hack_node)
+			execute_pending_hack_node_decision(hack_node)
 		"defer":
-			defer_pending_decision(hack_node)
+			defer_pending_hack_node_decision(hack_node)
 		"ignore":
-			ignore_pending_decision(hack_node)
+			ignore_pending_hack_node_decision(hack_node)
 		_:
-			defer_pending_decision(hack_node)
+			defer_pending_hack_node_decision(hack_node)
 
 
-func execute_pending_decision(hack_node: HackNodeData) -> void:
+func handle_regional_level_up_choice(decision_id: String, choice_id: String) -> void:
+	var region_id := RegionalLevelUpDecisionBuilder.get_region_id_from_decision_id(decision_id)
+	var region_state: RegionState = region_manager.get_region_state(region_id)
+
+	if region_state == null:
+		remove_pending_decision(decision_id)
+		decision_popup.hide_decision()
+		resume_after_decision()
+		refresh_after_decision_change()
+		return
+
+	var region_data: RegionData = region_manager.regions.get(region_id, null)
+	var decision := RegionalLevelUpDecisionBuilder.build_decision(region_data, region_state)
+	var choice := get_choice_by_id(decision, choice_id)
+
+	if choice_id == "defer" or choice == null:
+		defer_regional_level_up_decision(region_id)
+		return
+
+	if global_resource_manager.apply_decision_choice(choice) == false:
+		open_regional_level_up_popup(region_id)
+		decision_popup.set_warning_text("Insufficient resources")
+		return
+
+	match choice_id:
+		"confirm_level_up":
+			confirm_regional_level_up_decision(region_id)
+		_:
+			defer_regional_level_up_decision(region_id)
+
+
+func execute_pending_hack_node_decision(hack_node: HackNodeData) -> void:
 	var region_state: RegionState = region_manager.get_region_state(hack_node.region_id)
 
 	if region_state == null:
-		defer_pending_decision(hack_node)
+		defer_pending_hack_node_decision(hack_node)
 		return
 
-	remove_pending_decision(hack_node.id)
+	remove_pending_decision(get_hack_node_decision_id(hack_node.id))
 
 	hack_node.status = "processing"
 	hack_exploit_processor.resolve_exploit(hack_node, region_state)
@@ -143,11 +217,9 @@ func execute_pending_decision(hack_node: HackNodeData) -> void:
 	refresh_after_decision_change()
 
 
-func defer_pending_decision(hack_node: HackNodeData) -> void:
+func defer_pending_hack_node_decision(hack_node: HackNodeData) -> void:
 	hack_node.status = "awaiting_choice"
-
-	if pending_decision_node_ids.has(hack_node.id) == false:
-		pending_decision_node_ids.append(hack_node.id)
+	add_pending_decision(get_hack_node_decision_id(hack_node.id))
 
 	decision_popup.hide_decision()
 	resume_after_decision()
@@ -155,8 +227,8 @@ func defer_pending_decision(hack_node: HackNodeData) -> void:
 	refresh_after_decision_change()
 
 
-func ignore_pending_decision(hack_node: HackNodeData) -> void:
-	remove_pending_decision(hack_node.id)
+func ignore_pending_hack_node_decision(hack_node: HackNodeData) -> void:
+	remove_pending_decision(get_hack_node_decision_id(hack_node.id))
 
 	hack_node.status = "ignored"
 	hack_node.resolved = true
@@ -174,46 +246,100 @@ func ignore_pending_decision(hack_node: HackNodeData) -> void:
 	refresh_after_decision_change()
 
 
-func _on_pending_decision_selected(hack_node_id: String) -> void:
-	var hack_node := get_hack_node_by_id(hack_node_id)
+func defer_regional_level_up_decision(region_id: String) -> void:
+	var decision_id := RegionalLevelUpDecisionBuilder.get_decision_id(region_id)
+	add_pending_decision(decision_id)
 
-	if hack_node == null:
-		remove_pending_decision(hack_node_id)
-		refresh_pending_decision_pannel()
+	decision_popup.hide_decision()
+	resume_after_decision()
+
+	refresh_after_decision_change()
+
+
+func confirm_regional_level_up_decision(region_id: String) -> void:
+	var region_state: RegionState = region_manager.get_region_state(region_id)
+
+	if region_state == null:
 		return
 
-	if hack_node.resolved:
-		remove_pending_decision(hack_node_id)
-		refresh_pending_decision_pannel()
+	var decision_id := RegionalLevelUpDecisionBuilder.get_decision_id(region_id)
+
+	if region_state.confirm_level_up():
+		intrusion_panel.add_intrusion_log_line(
+			region_id,
+			"[color=#88ccff][LEVEL][/color] regional level authorised | scan networks +1 | expansion point +1"
+		)
+
+	if region_state.has_pending_level_up() == false:
+		remove_pending_decision(decision_id)
+	else:
+		add_pending_decision(decision_id)
+
+	decision_popup.hide_decision()
+	resume_after_decision()
+
+	refresh_after_decision_change()
+
+
+func _on_pending_decision_selected(decision_id: String) -> void:
+	if is_hack_node_decision_id(decision_id):
+		var hack_node_id := get_hack_node_id_from_decision_id(decision_id)
+		var hack_node := get_hack_node_by_id(hack_node_id)
+
+		if hack_node == null:
+			remove_pending_decision(decision_id)
+			refresh_pending_decision_pannel()
+			return
+
+		if hack_node.resolved:
+			remove_pending_decision(decision_id)
+			refresh_pending_decision_pannel()
+			return
+
+		open_decision_popup_for_node(hack_node)
+		pause_for_decision()
 		return
 
-	open_decision_popup_for_node(hack_node)
-	pause_for_decision()
+	if RegionalLevelUpDecisionBuilder.is_level_up_decision_id(decision_id):
+		var region_id := RegionalLevelUpDecisionBuilder.get_region_id_from_decision_id(decision_id)
+		var region_state: RegionState = region_manager.get_region_state(region_id)
+
+		if region_state == null or region_state.has_pending_level_up() == false:
+			remove_pending_decision(decision_id)
+			refresh_pending_decision_pannel()
+			return
+
+		open_regional_level_up_popup(region_id)
+		pause_for_decision()
 
 
 func process_expired_pending_decisions() -> void:
 	var current_day_number := get_current_day_number()
 	var expired_ids: Array[String] = []
 
-	for hack_node_id in pending_decision_node_ids:
+	for decision_id in pending_decision_ids:
+		if is_hack_node_decision_id(decision_id) == false:
+			continue
+
+		var hack_node_id := get_hack_node_id_from_decision_id(decision_id)
 		var hack_node := get_hack_node_by_id(hack_node_id)
 
 		if hack_node == null:
-			expired_ids.append(hack_node_id)
+			expired_ids.append(decision_id)
 			continue
 
 		if hack_node.expires_on_day > 0 and current_day_number >= hack_node.expires_on_day:
 			hack_node.status = "expired"
 			hack_node.resolved = true
-			expired_ids.append(hack_node.id)
+			expired_ids.append(decision_id)
 
 			intrusion_panel.add_intrusion_log_line(
 				hack_node.region_id,
 				HackNodeTextFormatter.format_expired_exploit_line(hack_node)
 			)
 
-	for hack_node_id in expired_ids:
-		remove_pending_decision(hack_node_id)
+	for decision_id in expired_ids:
+		remove_pending_decision(decision_id)
 
 	if expired_ids.size() > 0:
 		hack_exploit_processor.cleanup_resolved_exploits()
@@ -223,23 +349,56 @@ func process_expired_pending_decisions() -> void:
 func refresh_pending_decision_pannel() -> void:
 	var lines: Array[String] = []
 
-	for hack_node_id in pending_decision_node_ids:
-		var hack_node := get_hack_node_by_id(hack_node_id)
+	for decision_id in pending_decision_ids:
+		if is_hack_node_decision_id(decision_id):
+			var hack_node_id := get_hack_node_id_from_decision_id(decision_id)
+			var hack_node := get_hack_node_by_id(hack_node_id)
 
-		if hack_node == null:
-			continue
+			if hack_node == null:
+				continue
 
-		if hack_node.resolved:
-			continue
+			if hack_node.resolved:
+				continue
 
-		lines.append(
-			HackNodeTextFormatter.format_pending_decision_line(
-				hack_node,
-				get_days_left_for_node(hack_node)
+			lines.append(
+				HackNodeTextFormatter.format_pending_decision_line(
+					hack_node,
+					get_days_left_for_node(hack_node),
+					decision_id
+				)
 			)
-		)
+			continue
+
+		if RegionalLevelUpDecisionBuilder.is_level_up_decision_id(decision_id):
+			var region_id := RegionalLevelUpDecisionBuilder.get_region_id_from_decision_id(decision_id)
+			var region_state: RegionState = region_manager.get_region_state(region_id)
+
+			if region_state == null:
+				continue
+
+			if region_state.has_pending_level_up() == false:
+				continue
+
+			var region_data: RegionData = region_manager.regions.get(region_id, null)
+			lines.append(format_pending_level_up_line(decision_id, region_data, region_state))
 
 	pending_decision_pannel.update_pending_decisions(lines, lines.size())
+
+
+func format_pending_level_up_line(decision_id: String, region_data: RegionData, region_state: RegionState) -> String:
+	var region_name := region_state.region_id
+
+	if region_data != null:
+		region_name = region_data.display_name
+
+	var line := "[url=" + decision_id + "]"
+	line += "[color=#88ccff][LEVEL][/color] "
+	line += region_name
+	line += " :: authorisation pending"
+	line += " [color=#aaaaaa](" + str(region_state.pending_level_ups) + ") [/color]"
+	line += "[/url]"
+
+	return line
 
 
 func refresh_after_decision_change() -> void:
@@ -249,8 +408,13 @@ func refresh_after_decision_change() -> void:
 	main_controller.refresh_notoriety_ui()
 
 
-func remove_pending_decision(hack_node_id: String) -> void:
-	pending_decision_node_ids.erase(hack_node_id)
+func add_pending_decision(decision_id: String) -> void:
+	if pending_decision_ids.has(decision_id) == false:
+		pending_decision_ids.append(decision_id)
+
+
+func remove_pending_decision(decision_id: String) -> void:
+	pending_decision_ids.erase(decision_id)
 
 
 func get_hack_node_by_id(hack_node_id: String) -> HackNodeData:
@@ -284,3 +448,18 @@ func get_days_left_for_node(hack_node: HackNodeData) -> int:
 		return DECISION_EXPIRY_DAYS
 
 	return max(0, hack_node.expires_on_day - get_current_day_number())
+
+
+func get_hack_node_decision_id(hack_node_id: String) -> String:
+	return HACK_NODE_DECISION_PREFIX + hack_node_id
+
+
+func get_hack_node_id_from_decision_id(decision_id: String) -> String:
+	if is_hack_node_decision_id(decision_id) == false:
+		return ""
+
+	return decision_id.substr(HACK_NODE_DECISION_PREFIX.length())
+
+
+func is_hack_node_decision_id(decision_id: String) -> bool:
+	return decision_id.begins_with(HACK_NODE_DECISION_PREFIX)
