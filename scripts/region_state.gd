@@ -16,6 +16,10 @@ const MAX_REGION_LEVEL := 10
 
 @export var level_slots: Array[String] = []
 
+@export var conversion_slot_index: int = -1
+@export var conversion_target_type: String = ""
+@export var conversion_progress: float = 0.0
+
 @export var notoriety_xp: float = 0.0:
 	set(value):
 		notoriety_xp = clamp(value, 0.0 ,100.0)
@@ -46,11 +50,15 @@ func get_node_type_level(node_type: String) -> int:
 
 	return count
 
+
 func add_typed_xp(node_type: String, amount: float) -> int:
 	if amount <= 0.0:
 		return 0
 
 	if NodeTypeDefinitions.is_valid_type(node_type) == false:
+		return 0
+
+	if add_conversion_xp(node_type, amount):
 		return 0
 
 	add_raw_typed_xp(node_type, amount)
@@ -74,6 +82,7 @@ func get_typed_xp(node_type: String) -> float:
 			return sec_xp
 		_:
 			return 0.0
+
 
 func get_typed_xp_percent(node_type: String) -> float:
 	var xp_required := get_xp_required(node_type)
@@ -115,6 +124,7 @@ func spend_typed_xp(node_type: String, amount: float) -> void:
 		NodeTypeDefinitions.SECURITY:
 			sec_xp = max(0.0, sec_xp - amount)
 
+
 func process_typed_xp_thresholds(node_type: String) -> int:
 	var slots_added := 0
 
@@ -136,11 +146,19 @@ func process_typed_xp_thresholds(node_type: String) -> int:
 
 	return slots_added
 
+
 func get_xp_required(node_type: String) -> float:
 	if NodeTypeDefinitions.is_valid_type(node_type) == false:
 		return 0.0
 
 	if can_add_level_slot() == false:
+		return 0.0
+
+	return get_xp_required_for_next_slot(node_type)
+
+
+func get_xp_required_for_next_slot(node_type: String) -> float:
+	if NodeTypeDefinitions.is_valid_type(node_type) == false:
 		return 0.0
 
 	return 100.0 * float(get_node_type_level(node_type) + 1)
@@ -180,3 +198,78 @@ func add_level_slot(node_type: String) -> bool:
 
 func get_level_slots() -> Array[String]:
 	return level_slots.duplicate()
+
+
+func start_slot_conversion(slot_index: int, target_type: String) -> bool:
+	if slot_index < 0 or slot_index >= level_slots.size():
+		return false
+
+	if NodeTypeDefinitions.is_valid_type(target_type) == false:
+		return false
+
+	if level_slots[slot_index] == target_type:
+		return false
+
+	conversion_slot_index = slot_index
+	conversion_target_type = target_type
+	conversion_progress = 0.0
+
+	return true
+
+
+func cancel_slot_conversion() -> void:
+	conversion_slot_index = -1
+	conversion_target_type = ""
+	conversion_progress = 0.0
+
+
+func has_active_slot_conversion() -> bool:
+	if conversion_slot_index < 0:
+		return false
+
+	if conversion_slot_index >= level_slots.size():
+		return false
+
+	return NodeTypeDefinitions.is_valid_type(conversion_target_type)
+
+
+func add_conversion_xp(node_type: String, amount: float) -> bool:
+	if has_active_slot_conversion() == false:
+		return false
+
+	if node_type != conversion_target_type:
+		return false
+
+	conversion_progress += amount
+
+	var xp_required := get_conversion_xp_required()
+
+	if xp_required > 0.0 and conversion_progress >= xp_required:
+		complete_slot_conversion()
+
+	return true
+
+
+func get_conversion_xp_required() -> float:
+	if has_active_slot_conversion() == false:
+		return 0.0
+
+	return get_xp_required_for_next_slot(conversion_target_type)
+
+
+func get_conversion_progress_percent() -> float:
+	var xp_required := get_conversion_xp_required()
+
+	if xp_required <= 0.0:
+		return 0.0
+
+	return clamp((conversion_progress / xp_required) * 100.0, 0.0, 100.0)
+
+
+func complete_slot_conversion() -> void:
+	if has_active_slot_conversion() == false:
+		cancel_slot_conversion()
+		return
+
+	level_slots[conversion_slot_index] = conversion_target_type
+	cancel_slot_conversion()
