@@ -48,6 +48,9 @@ var selected_region_state: RegionState = null
 
 var expanded: bool = false
 var intrusion_logs_by_region: Dictionary = {}
+var conversion_menu: PopupMenu = null
+var conversion_menu_slot_index: int = -1
+var conversion_menu_types: Dictionary = {}
 
 var flavour_lines_scan := [
 	"probing regional network surface",
@@ -61,6 +64,8 @@ var flavour_lines_scan := [
 func _ready() -> void:
 	infiltration_button.pressed.connect(_on_infiltration_button_pressed)
 	expand_button.pressed.connect(_on_expand_button_pressed)
+	setup_level_slot_click_handlers()
+	setup_conversion_menu()
 
 	terminal_log.bbcode_enabled = true
 	terminal_log.scroll_following = true
@@ -120,6 +125,7 @@ func refresh_progress_ui() -> void:
 	refresh_region_stat_rows()
 	refresh_region_level_ui()
 
+
 func refresh_region_stat_rows() -> void:
 	if selected_region_data == null:
 		return
@@ -134,6 +140,7 @@ func refresh_region_stat_rows() -> void:
 	refresh_region_stat_row(gov_row, NodeTypeDefinitions.GOVERNMENT)
 	refresh_region_stat_row(sec_row, NodeTypeDefinitions.SECURITY)
 
+
 func refresh_region_level_ui() -> void:
 	if selected_region_state == null:
 		return
@@ -146,9 +153,19 @@ func refresh_region_level_ui() -> void:
 		var label: Label = level_slot_labels[i]
 
 		if i < slots.size():
-			label.text = "[" + NodeTypeDefinitions.get_short_label(slots[i]) + "]"
+			label.text = get_slot_display_text(i, slots[i])
 		else:
 			label.text = "[ ]"
+
+
+func get_slot_display_text(slot_index: int, current_type: String) -> String:
+	if selected_region_state.has_active_slot_conversion() and selected_region_state.conversion_slot_index == slot_index:
+		var current_label := NodeTypeDefinitions.get_short_label(current_type)
+		var target_label := NodeTypeDefinitions.get_short_label(selected_region_state.conversion_target_type)
+		var progress := int(round(selected_region_state.get_conversion_progress_percent()))
+		return "[" + current_label + ">" + target_label + " " + str(progress) + "%]"
+
+	return "[" + NodeTypeDefinitions.get_short_label(current_type) + "]"
 
 
 func refresh_region_stat_row(row, node_type: String) -> void:
@@ -186,6 +203,89 @@ func refresh_terminal_log() -> void:
 		output += "> " + str(line) + "\n"
 
 	terminal_log.text = output
+
+
+func setup_level_slot_click_handlers() -> void:
+	for i in range(level_slot_labels.size()):
+		var label: Label = level_slot_labels[i]
+		label.mouse_filter = Control.MOUSE_FILTER_STOP
+		label.gui_input.connect(_on_level_slot_gui_input.bind(i))
+
+
+func setup_conversion_menu() -> void:
+	conversion_menu = PopupMenu.new()
+	conversion_menu.id_pressed.connect(_on_conversion_type_selected)
+	add_child(conversion_menu)
+
+
+func _on_level_slot_gui_input(event: InputEvent, slot_index: int) -> void:
+	if selected_region_state == null:
+		return
+
+	if event is InputEventMouseButton == false:
+		return
+
+	var mouse_event := event as InputEventMouseButton
+
+	if mouse_event.pressed == false:
+		return
+
+	if mouse_event.button_index == MOUSE_BUTTON_RIGHT:
+		if selected_region_state.has_active_slot_conversion() and selected_region_state.conversion_slot_index == slot_index:
+			selected_region_state.cancel_slot_conversion()
+			refresh_ui()
+		return
+
+	if mouse_event.button_index != MOUSE_BUTTON_LEFT:
+		return
+
+	open_conversion_menu(slot_index)
+
+
+func open_conversion_menu(slot_index: int) -> void:
+	if selected_region_state == null:
+		return
+
+	var slots := selected_region_state.get_level_slots()
+
+	if slot_index < 0 or slot_index >= slots.size():
+		return
+
+	conversion_menu_slot_index = slot_index
+	conversion_menu_types.clear()
+	conversion_menu.clear()
+
+	var current_type: String = slots[slot_index]
+	var item_id := 0
+
+	for node_type in NodeTypeDefinitions.get_all_types():
+		if node_type == current_type:
+			continue
+
+		conversion_menu.add_item(NodeTypeDefinitions.get_display_name(node_type), item_id)
+		conversion_menu_types[item_id] = node_type
+		item_id += 1
+
+	conversion_menu.position = get_global_mouse_position()
+	conversion_menu.popup()
+
+
+func _on_conversion_type_selected(item_id: int) -> void:
+	if selected_region_state == null:
+		return
+
+	if conversion_menu_types.has(item_id) == false:
+		return
+
+	var target_type: String = conversion_menu_types[item_id]
+
+	if selected_region_state.start_slot_conversion(conversion_menu_slot_index, target_type):
+		add_intrusion_log_line(
+			selected_region_state.region_id,
+			"[color=#dddd77][OK][/color] slot reassignment started | target: " + NodeTypeDefinitions.get_display_name(target_type)
+		)
+
+	refresh_ui()
 
 
 func _on_infiltration_button_pressed() -> void:
