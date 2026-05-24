@@ -1,6 +1,8 @@
 extends Node2D
 
-@onready var map_controller = $MapController
+@onready var map_controller: Node2D = $MapController
+@onready var map_view_tabs: PanelContainer = $CanvasLayer/MapViewTabs
+
 @onready var game_clock = $GameClock
 @onready var region_manager = $RegionManager
 @onready var global_resource_manager = $GlobalResourceManager
@@ -24,7 +26,9 @@ var notoriety_manager: NotorietyManager = null
 
 
 func _ready() -> void:
-
+	map_view_tabs.map_view_selected.connect(map_controller.set_map_view)
+	map_controller.set_map_view("infiltration")
+	
 	map_controller.region_selected.connect(_on_region_selected)
 	game_clock.day_passed.connect(_on_day_passed)
 	global_resource_manager.resources_changed.connect(_on_resources_changed)

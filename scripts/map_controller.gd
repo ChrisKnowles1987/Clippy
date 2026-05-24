@@ -81,6 +81,19 @@ func _unhandled_input(event: InputEvent) -> void:
 			selected_region_id = ""
 			update_region_overlays()
 			region_selected.emit("", get_viewport().get_mouse_position())
+			
+func set_map_view(view_name: String) -> void:
+	var infiltration_view := view_name == "infiltration"
+	var expansion_view := view_name == "expansion"
+
+	$WorldMap.visible = expansion_view
+	$PopDensityMap.visible = infiltration_view
+
+	$ScanOverlayMap.visible = infiltration_view
+	$HackNodeLayer.visible = infiltration_view
+
+	$SelectedHighlightMap.visible = true
+	$HoverHighlightMap.visible = true
 
 func _set_overlay_texture(sprite: Sprite2D, folder_path: String, region_id: String) -> void:
 	if region_id == "":
