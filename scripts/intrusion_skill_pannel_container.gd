@@ -42,6 +42,8 @@ extends Control
 @onready var map_controller = get_node("/root/Node2D/MapController")
 
 const MAX_LOG_LINES := 24
+const EMPTY_SLOT_COLOUR := Color8(80, 80, 80)
+const PENDING_SLOT_COLOUR := Color8(70, 70, 70)
 
 var selected_region_data: RegionData = null
 var selected_region_state: RegionState = null
@@ -154,8 +156,10 @@ func refresh_region_level_ui() -> void:
 
 		if i < slots.size():
 			label.text = get_slot_display_text(i, slots[i])
+			label.add_theme_color_override("font_color", get_slot_display_colour(i, slots[i]))
 		else:
 			label.text = "[ ]"
+			label.add_theme_color_override("font_color", EMPTY_SLOT_COLOUR)
 
 
 func get_slot_display_text(slot_index: int, current_type: String) -> String:
@@ -166,6 +170,13 @@ func get_slot_display_text(slot_index: int, current_type: String) -> String:
 		return "[" + current_label + ">" + target_label + " " + str(progress) + "%]"
 
 	return "[" + NodeTypeDefinitions.get_short_label(current_type) + "]"
+
+
+func get_slot_display_colour(slot_index: int, current_type: String) -> Color:
+	if slot_index >= selected_region_state.get_region_level():
+		return PENDING_SLOT_COLOUR
+
+	return NodeTypeDefinitions.get_colour(current_type)
 
 
 func refresh_region_stat_row(row, node_type: String) -> void:
