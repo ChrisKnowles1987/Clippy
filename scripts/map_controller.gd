@@ -50,6 +50,7 @@ var region_lookup = {
 var region_image: Image
 var hovered_region_id: String = ""
 var selected_region_id: String = ""
+var expansion_selected_region_id: String = ""
 var scanned_region_ids: Array[String] = []
 
 var current_map_view: String = "infiltration"
@@ -85,6 +86,8 @@ func _unhandled_input(event: InputEvent) -> void:
 
 	if current_map_view == "expansion":
 		if clicked_region_id != "":
+			expansion_selected_region_id = clicked_region_id
+			update_region_overlays()
 			expansion_region_selected.emit(clicked_region_id)
 		return
 
@@ -113,7 +116,8 @@ func set_map_view(view_name: String) -> void:
 	$HackNodeLayer.visible = infiltration_view
 
 	$SelectedHighlightMap.visible = infiltration_view
-	$HoverHighlightMap.visible = infiltration_view
+	$HoverHighlightMap.visible = infiltration_view or expansion_view
+	update_region_overlays()
 
 func _set_overlay_texture(sprite: Sprite2D, folder_path: String, region_id: String) -> void:
 	if region_id == "":
@@ -136,10 +140,15 @@ func update_region_overlays() -> void:
 		selected_region_id
 	)
 
+	var outline_region_id := hovered_region_id
+
+	if current_map_view == "expansion":
+		outline_region_id = expansion_selected_region_id
+
 	_set_overlay_texture(
 		hover_highlight_map,
 		"res://assets/Nasa/outline_highlights",
-		hovered_region_id
+		outline_region_id
 	)
 
 func update_scan_overlay_layer() -> void:
