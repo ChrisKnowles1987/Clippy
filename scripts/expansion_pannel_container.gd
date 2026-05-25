@@ -21,12 +21,14 @@ const BASE_RESOURCE_VALUE := 10
 var region_manager = null
 var global_resource_manager = null
 var expansion_node_layer: Node = null
-var selected_region_id: String = ""
+var selected_socket_id: String = ""
 
 
 func _ready() -> void:
 	increase_power_button.pressed.connect(_on_increase_power_pressed)
 	increase_compute_button.pressed.connect(_on_increase_compute_pressed)
+	available_sockets_log.bbcode_enabled = true
+	available_sockets_log.meta_clicked.connect(_on_available_socket_meta_clicked)
 	show_empty()
 
 
@@ -36,6 +38,7 @@ func setup(region_manager_ref, expansion_node_layer_ref: Node, global_resource_m
 	global_resource_manager = global_resource_manager_ref
 	connect_expansion_sockets()
 	show_empty()
+	refresh()
 
 
 func connect_expansion_sockets() -> void:
@@ -51,8 +54,8 @@ func connect_expansion_sockets() -> void:
 
 
 func show_empty() -> void:
-	selected_region_id = ""
-	pannel_region_name_label.text = "No expansion region selected"
+	selected_socket_id = ""
+	pannel_region_name_label.text = "Expansion Queue"
 	expansion_points_value_label.text = "0"
 	power_slot_assignment_count_value_label.text = "0"
 	compute_slot_assignment_count_value_label.text = "0"
@@ -62,25 +65,28 @@ func show_empty() -> void:
 
 
 func show_region(region_id: String) -> void:
-	selected_region_id = region_id
+	select_first_available_socket_for_region(region_id)
 	refresh()
 
 
 func refresh() -> void:
-	if selected_region_id == "":
-		show_empty()
-		return
+	var sockets := get_available_expansion_sockets_sorted()
+	validate_selected_socket(sockets)
 
-	var region_state: RegionState = get_selected_region_state()
-	if region_state == null:
-		show_empty()
-		return
+	var selected_socket = get_selected_socket()
 
-	pannel_region_name_label.text = get_region_display_name(selected_region_id)
-	expansion_points_value_label.text = str(region_state.expansion_points)
+	if selected_socket == null:
+		pannel_region_name_label.text = "Expansion Queue | Selected: none"
+	else:
+		pannel_region_name_label.text = "Expansion Queue | Selected: %s / %s" % [
+			get_region_display_name(selected_socket.region_id),
+			selected_socket.display_name
+		]
+
+	expansion_points_value_label.text = str(get_total_expansion_points())
 	power_slot_assignment_count_value_label.text = str(get_total_resource_value_for_type(NODE_TYPE_POWER))
-	compute_slot_assignment_count_value_label.text = str(get_total_resource_value_for_type(NODE_TYPE_COMPUTE))	
-	available_sockets_log.text = build_available_sockets_text()
+	compute_slot_assignment_count_value_label.text = str(get_total_resource_value_for_type(NODE_TYPE_COMPUTE))
+	available_sockets_log.text = build_available_sockets_text(sockets)
 	increase_power_button.disabled = false
 	increase_compute_button.disabled = false
 
@@ -89,7 +95,13 @@ func _on_expansion_socket_clicked(socket) -> void:
 	if socket == null:
 		return
 
-	show_region(socket.region_id)
+	selected_socket_id = socket.id
+	refresh()
+
+
+func _on_available_socket_meta_clicked(meta) -> void:
+	selected_socket_id = str(meta)
+	refresh()
 
 
 func _on_increase_power_pressed() -> void:
@@ -101,16 +113,25 @@ func _on_increase_compute_pressed() -> void:
 
 
 func assign_expansion_point(target_node_type: String) -> bool:
-	var region_state: RegionState = get_selected_region_state()
-	if region_state == null:
-		return false
-
-	if region_state.expansion_points <= 0:
+	var socket = get_selected_socket()
+	if socket == null:
 		refresh()
 		return false
 
-	var socket = get_next_assignment_socket(target_node_type)
-	if socket == null:
+	if socket.node_type != NODE_TYPE_EMPTY and socket.node_type != target_node_type:
+		refresh()
+		return false
+
+	if socket.points_invested >= socket.max_points:
+		refresh()
+		return false
+
+	var region_state: RegionState = get_socket_region_state(socket)
+	if region_state == null:
+		refresh()
+		return false
+
+	if region_state.expansion_points <= 0:
 		refresh()
 		return false
 
@@ -154,27 +175,54 @@ func refresh_socket_visual(socket) -> void:
 		socket.refresh_visual()
 
 
-func get_next_assignment_socket(target_node_type: String):
-	var sockets := get_selected_region_sockets_sorted_by_population()
+func validate_selected_socket(sockets: Array) -> void:
+	if selected_socket_id != "":
+		for socket in sockets:
+			if socket.id == selected_socket_id:
+				return
+
+	if sockets.is_empty():
+		selected_socket_id = ""
+		return
+
+	selected_socket_id = sockets[0].id
+
+
+func select_first_available_socket_for_region(region_id: String) -> void:
+	var sockets := get_available_expansion_sockets_sorted()
 
 	for socket in sockets:
-		if socket.node_type == target_node_type and socket.points_invested < socket.max_points:
-			return socket
+		if socket.region_id == region_id:
+			selected_socket_id = socket.id
+			return
 
-	for socket in sockets:
-		if socket.node_type == NODE_TYPE_EMPTY:
-			return socket
+	selected_socket_id = ""
+
+
+func get_selected_socket():
+	if selected_socket_id == "":
+		return null
+
+	if expansion_node_layer == null:
+		return null
+
+	for child in expansion_node_layer.get_children():
+		if child.has_method("update_line") == false:
+			continue
+
+		if child.id == selected_socket_id:
+			return child
 
 	return null
 
 
-func get_selected_region_sockets_sorted_by_population() -> Array:
-	var sockets := get_selected_region_sockets()
-	sockets.sort_custom(_sort_socket_by_population_ascending)
+func get_available_expansion_sockets_sorted() -> Array:
+	var sockets := get_all_available_expansion_sockets()
+	sockets.sort_custom(_sort_socket_for_global_queue)
 	return sockets
 
 
-func get_selected_region_sockets() -> Array:
+func get_all_available_expansion_sockets() -> Array:
 	var sockets := []
 
 	if expansion_node_layer == null:
@@ -184,18 +232,34 @@ func get_selected_region_sockets() -> Array:
 		if child.has_method("update_line") == false:
 			continue
 
-		if child.region_id == selected_region_id:
-			sockets.append(child)
+		var region_state: RegionState = get_socket_region_state(child)
+		if region_state == null:
+			continue
+
+		if region_state.expansion_points <= 0:
+			continue
+
+		if child.points_invested >= child.max_points:
+			continue
+
+		sockets.append(child)
 
 	return sockets
 
 
-func build_available_sockets_text() -> String:
+func build_available_sockets_text(sockets: Array) -> String:
 	var text := "Available Sockets >\n"
-	var sockets := get_selected_region_sockets_sorted_by_population()
 
 	for socket in sockets:
-		text += "%s | %s | %s\n" % [
+		var selected_prefix := "  "
+
+		if socket.id == selected_socket_id:
+			selected_prefix = "> "
+
+		text += "[url=%s]%s%s | %s | %s | %s[/url]\n" % [
+			socket.id,
+			selected_prefix,
+			get_region_display_name(socket.region_id),
 			socket.display_name,
 			get_socket_type_display_name(socket.node_type),
 			get_socket_assignment_display_text(socket)
@@ -224,11 +288,17 @@ func get_socket_assignment_display_text(socket) -> String:
 func get_total_resource_value_for_type(node_type: String) -> int:
 	var total := 0
 
-	for socket in get_selected_region_sockets():
-		if socket.node_type != node_type:
+	if expansion_node_layer == null:
+		return total
+
+	for child in expansion_node_layer.get_children():
+		if child.has_method("update_line") == false:
 			continue
 
-		total += get_resource_value_for_assignment_count(socket.points_invested)
+		if child.node_type != node_type:
+			continue
+
+		total += get_resource_value_for_assignment_count(child.points_invested)
 
 	return total
 
@@ -240,11 +310,31 @@ func get_resource_value_for_assignment_count(points: int) -> int:
 	return BASE_RESOURCE_VALUE * int(pow(2.0, float(points - 1)))
 
 
-func get_selected_region_state() -> RegionState:
+func get_total_expansion_points() -> int:
+	var total := 0
+
+	if region_manager == null:
+		return total
+
+	for region_id in region_manager.region_states.keys():
+		var region_state: RegionState = region_manager.get_region_state(region_id)
+
+		if region_state == null:
+			continue
+
+		total += region_state.expansion_points
+
+	return total
+
+
+func get_socket_region_state(socket) -> RegionState:
+	if socket == null:
+		return null
+
 	if region_manager == null:
 		return null
 
-	return region_manager.get_region_state(selected_region_id)
+	return region_manager.get_region_state(socket.region_id)
 
 
 func get_region_display_name(region_id: String) -> String:
@@ -254,21 +344,30 @@ func get_region_display_name(region_id: String) -> String:
 	return region_id.replace("_", " ").capitalize()
 
 
-func get_city_population_weight(city_id: String) -> float:
+func get_city_population_weight(socket) -> float:
+	if socket == null:
+		return 0.0
+
 	if region_manager == null:
 		return 0.0
 
-	if region_manager.regions.has(selected_region_id) == false:
+	if region_manager.regions.has(socket.region_id) == false:
 		return 0.0
 
-	var region_data: RegionData = region_manager.regions[selected_region_id]
+	var region_data: RegionData = region_manager.regions[socket.region_id]
 
 	for city in region_data.cities:
-		if city.id == city_id:
+		if city.id == socket.city_id:
 			return city.population_weight
 
 	return 0.0
 
 
-func _sort_socket_by_population_ascending(a, b) -> bool:
-	return get_city_population_weight(a.city_id) < get_city_population_weight(b.city_id)
+func _sort_socket_for_global_queue(a, b) -> bool:
+	var region_a := get_region_display_name(a.region_id)
+	var region_b := get_region_display_name(b.region_id)
+
+	if region_a == region_b:
+		return get_city_population_weight(a) < get_city_population_weight(b)
+
+	return region_a < region_b
