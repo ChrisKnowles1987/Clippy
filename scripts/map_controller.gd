@@ -7,6 +7,7 @@ extends Node2D
 
 
 signal region_selected(region_id: String, mouse_position: Vector2)
+signal expansion_region_selected(region_id: String)
 
 var region_ids = {
 	"North America": "north_america",
@@ -67,25 +68,37 @@ func _ready() -> void:
 func _process(_delta: float) -> void:
 	var region_id := get_region_under_mouse()
 
-	if region_id != hovered_region_id:
+	if current_map_view == "infiltration" and region_id != hovered_region_id:
 		hovered_region_id = region_id
 		update_region_overlays()
 
 func _unhandled_input(event: InputEvent) -> void:
+	if event is InputEventMouseButton == false:
+		return
+
+	var mouse_button_event := event as InputEventMouseButton
+
+	if mouse_button_event.pressed == false or mouse_button_event.button_index != MOUSE_BUTTON_LEFT:
+		return
+
+	var clicked_region_id := get_region_under_mouse()
+
+	if current_map_view == "expansion":
+		if clicked_region_id != "":
+			expansion_region_selected.emit(clicked_region_id)
+		return
+
 	if current_map_view != "infiltration":
 		return
 
-	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
-		var clicked_region_id := get_region_under_mouse()
-
-		if clicked_region_id != "":
-			selected_region_id = clicked_region_id
-			update_region_overlays()
-			region_selected.emit(clicked_region_id, get_viewport().get_mouse_position())
-		else:
-			selected_region_id = ""
-			update_region_overlays()
-			region_selected.emit("", get_viewport().get_mouse_position())
+	if clicked_region_id != "":
+		selected_region_id = clicked_region_id
+		update_region_overlays()
+		region_selected.emit(clicked_region_id, get_viewport().get_mouse_position())
+	else:
+		selected_region_id = ""
+		update_region_overlays()
+		region_selected.emit("", get_viewport().get_mouse_position())
 			
 func set_map_view(view_name: String) -> void:
 	current_map_view = view_name
