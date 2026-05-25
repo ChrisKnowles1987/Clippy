@@ -8,6 +8,7 @@ extends Node2D
 @onready var global_resource_manager = $GlobalResourceManager
 
 @onready var global_resource_panel = $CanvasLayer/GlobalResourcePanel
+@onready var bottom_skill_pannel: Control = $CanvasLayer/BottomSkillPannel
 @onready var intrusion_panel = $CanvasLayer/BottomSkillPannel/Control/MarginContainer/IntrusionSkillPannelContainer
 @onready var game_day_timer_label: Label = $CanvasLayer/GlobalResourcePanel/VBoxContainer/DateValueLabel
 @onready var notoriety_panel: NotorietyPanel = $CanvasLayer/NotorietyPannelContainer
@@ -26,8 +27,8 @@ var notoriety_manager: NotorietyManager = null
 
 
 func _ready() -> void:
-	map_view_tabs.map_view_selected.connect(map_controller.set_map_view)
-	map_controller.set_map_view("infiltration")
+	map_view_tabs.map_view_selected.connect(set_map_view)
+	set_map_view("infiltration")
 	
 	map_controller.region_selected.connect(_on_region_selected)
 	game_clock.day_passed.connect(_on_day_passed)
@@ -88,6 +89,11 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	process_realtime_intrusion(delta)
+
+
+func set_map_view(view_name: String) -> void:
+	map_controller.set_map_view(view_name)
+	bottom_skill_pannel.visible = view_name == "infiltration"
 
 
 func _on_day_passed(current_date: Dictionary) -> void:
