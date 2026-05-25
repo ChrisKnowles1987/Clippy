@@ -33,6 +33,7 @@ func _ready() -> void:
 	set_map_view("infiltration")
 	
 	map_controller.region_selected.connect(_on_region_selected)
+	map_controller.expansion_region_selected.connect(_on_expansion_region_selected)
 	game_clock.day_passed.connect(_on_day_passed)
 	global_resource_manager.resources_changed.connect(_on_resources_changed)
 	decision_popup.setup(global_resource_manager)
@@ -179,6 +180,13 @@ func _on_region_selected(region_id: String, mouse_position: Vector2) -> void:
 	var region_state: RegionState = region_manager.get_region_state(region_id)
 
 	intrusion_panel.show_region(selected_region_data, region_state)
+
+
+func _on_expansion_region_selected(region_id: String) -> void:
+	if region_id == "":
+		return
+
+	expansion_panel.show_region(region_id)
 
 
 func refresh_selected_region_ui() -> void:
