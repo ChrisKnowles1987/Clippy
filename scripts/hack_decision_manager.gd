@@ -185,7 +185,7 @@ func handle_regional_level_up_choice(decision_id: String, choice_id: String) -> 
 		defer_regional_level_up_decision(region_id)
 		return
 
-	if global_resource_manager.apply_decision_choice(choice) == false:
+	if choice_id == "confirm_level_up" and can_assign_level_up_resources(region_state) == false:
 		open_regional_level_up_popup(region_id)
 		decision_popup.set_warning_text("Insufficient resources")
 		return
@@ -195,6 +195,13 @@ func handle_regional_level_up_choice(decision_id: String, choice_id: String) -> 
 			confirm_regional_level_up_decision(region_id)
 		_:
 			defer_regional_level_up_decision(region_id)
+
+
+func can_assign_level_up_resources(region_state: RegionState) -> bool:
+	var power_assignment := region_state.get_next_level_up_power_cost()
+	var compute_assignment := region_state.get_next_level_up_compute_cost()
+
+	return global_resource_manager.can_reserve(power_assignment, compute_assignment)
 
 
 func execute_pending_hack_node_decision(hack_node: HackNodeData) -> void:
@@ -263,11 +270,19 @@ func confirm_regional_level_up_decision(region_id: String) -> void:
 		return
 
 	var decision_id := RegionalLevelUpDecisionBuilder.get_decision_id(region_id)
+	var power_assignment := region_state.get_next_level_up_power_cost()
+	var compute_assignment := region_state.get_next_level_up_compute_cost()
+
+	if region_state.infiltration_enabled:
+		global_resource_manager.reserve(power_assignment, compute_assignment)
 
 	if region_state.confirm_level_up():
+		region_state.infiltration_reserved_power += power_assignment
+		region_state.infiltration_reserved_compute += compute_assignment
+
 		intrusion_panel.add_intrusion_log_line(
 			region_id,
-			"[color=#88ccff][LEVEL][/color] regional level authorised | scan networks +1 | expansion point +1"
+			"[color=#88ccff][LEVEL][/color] regional level authorised | Power +" + str(snapped(power_assignment, 0.1)) + " | Compute +" + str(snapped(compute_assignment, 0.1)) + " | scan networks +1 | expansion point +1"
 		)
 
 	if region_state.has_pending_level_up() == false:
