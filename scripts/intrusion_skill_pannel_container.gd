@@ -192,7 +192,7 @@ func refresh_region_stat_row(row, node_type: String) -> void:
 
 
 func refresh_details_ui() -> void:
-	foothold_value_label.text = IntrusionPanelFormatter.get_network_foothold_title(selected_region_state)
+	foothold_value_label.text = IntrusionPanelFormatter.get_network_foothold_title(selected_region_state) + " | Scan L" + str(selected_region_state.scan_networks_level)
 	active_nodes_value_label.text = str(selected_region_state.active_node_ids.size()) + "/" + str(selected_region_data.cities.size())
 	exploit_activity_value_label.text = IntrusionPanelFormatter.get_rarity_chance_text(selected_region_state)
 
