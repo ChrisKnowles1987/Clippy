@@ -217,12 +217,49 @@ func get_selected_socket():
 
 
 func get_available_expansion_sockets_sorted() -> Array:
-	var sockets := get_all_available_expansion_sockets()
+	var sockets := get_next_available_socket_per_region()
 	sockets.sort_custom(_sort_socket_for_global_queue)
 	return sockets
 
 
-func get_all_available_expansion_sockets() -> Array:
+func get_next_available_socket_per_region() -> Array:
+	var sockets := []
+
+	if region_manager == null:
+		return sockets
+
+	for region_id in region_manager.region_states.keys():
+		var region_state: RegionState = region_manager.get_region_state(region_id)
+
+		if region_state == null:
+			continue
+
+		if region_state.expansion_points <= 0:
+			continue
+
+		var socket = get_next_socket_for_region(region_id)
+
+		if socket != null:
+			sockets.append(socket)
+
+	return sockets
+
+
+func get_next_socket_for_region(region_id: String):
+	var region_sockets := get_region_sockets_sorted(region_id)
+
+	for socket in region_sockets:
+		if socket.node_type != NODE_TYPE_EMPTY and socket.points_invested < socket.max_points:
+			return socket
+
+	for socket in region_sockets:
+		if socket.node_type == NODE_TYPE_EMPTY:
+			return socket
+
+	return null
+
+
+func get_region_sockets_sorted(region_id: String) -> Array:
 	var sockets := []
 
 	if expansion_node_layer == null:
@@ -232,18 +269,10 @@ func get_all_available_expansion_sockets() -> Array:
 		if child.has_method("update_line") == false:
 			continue
 
-		var region_state: RegionState = get_socket_region_state(child)
-		if region_state == null:
-			continue
+		if child.region_id == region_id:
+			sockets.append(child)
 
-		if region_state.expansion_points <= 0:
-			continue
-
-		if child.points_invested >= child.max_points:
-			continue
-
-		sockets.append(child)
-
+	sockets.sort_custom(_sort_socket_by_population_ascending)
 	return sockets
 
 
@@ -361,6 +390,10 @@ func get_city_population_weight(socket) -> float:
 			return city.population_weight
 
 	return 0.0
+
+
+func _sort_socket_by_population_ascending(a, b) -> bool:
+	return get_city_population_weight(a) < get_city_population_weight(b)
 
 
 func _sort_socket_for_global_queue(a, b) -> bool:
