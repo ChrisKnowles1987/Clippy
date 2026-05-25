@@ -12,7 +12,7 @@ signal expansion_socket_clicked(socket)
 @export var points_invested: int = 0
 @export var max_points: int = 5
 @export var minimum_points_required: int = 1
-@export var node_box_offset: Vector2 = Vector2(40, -30)
+@export var node_box_offset: Vector2 = Vector2(0, -35)
 
 func _ready() -> void:
 	update_node_box()

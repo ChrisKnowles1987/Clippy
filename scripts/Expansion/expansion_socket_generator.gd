@@ -6,7 +6,7 @@ const CITY_CSV_PATH := "res://data/Natural_earth_coords/natural_earth_major_city
 @export var socket_scene: PackedScene
 @export var sockets_per_region: int = 10
 @export var clear_existing_sockets: bool = false
-@export var minimum_box_spacing: float = 60.0
+@export var minimum_box_spacing: float = 35.0
 
 @export var generate_sockets: bool = false:
 	set(value):
@@ -17,28 +17,44 @@ const CITY_CSV_PATH := "res://data/Natural_earth_coords/natural_earth_major_city
 var placed_box_positions: Array[Vector2] = []
 
 var candidate_offsets: Array[Vector2] = [
-	Vector2(50, -35),
-	Vector2(60, 0),
-	Vector2(50, 35),
-	Vector2(-50, -35),
-	Vector2(-60, 0),
-	Vector2(-50, 35),
-	Vector2(0, -60),
-	Vector2(0, 60),
-	Vector2(85, -55),
-	Vector2(85, 55),
-	Vector2(-85, -55),
-	Vector2(-85, 55),
-	Vector2(110, 0),
-	Vector2(-110, 0),
-	Vector2(0, -100),
-	Vector2(0, 100),
-	Vector2(130, -80),
-	Vector2(130, 80),
-	Vector2(-130, -80),
-	Vector2(-130, 80),
-	Vector2(150, 0),
-	Vector2(-150, 0)
+	Vector2(0, -35),
+	Vector2(8, -34),
+	Vector2(16, -31),
+	Vector2(24, -26),
+	Vector2(30, -18),
+	Vector2(34, -9),
+	Vector2(35, 0),
+	Vector2(34, 9),
+	Vector2(30, 18),
+	Vector2(24, 26),
+	Vector2(16, 31),
+	Vector2(8, 34),
+
+	Vector2(0, -50),
+	Vector2(12, -48),
+	Vector2(23, -44),
+	Vector2(34, -36),
+	Vector2(43, -25),
+	Vector2(48, -13),
+	Vector2(50, 0),
+	Vector2(48, 13),
+	Vector2(43, 25),
+	Vector2(34, 36),
+	Vector2(23, 44),
+	Vector2(12, 48),
+
+	Vector2(0, -65),
+	Vector2(16, -63),
+	Vector2(30, -58),
+	Vector2(44, -47),
+	Vector2(56, -33),
+	Vector2(63, -17),
+	Vector2(65, 0),
+	Vector2(63, 17),
+	Vector2(56, 33),
+	Vector2(44, 47),
+	Vector2(30, 58),
+	Vector2(16, 63)
 ]
 
 func generate() -> void:
@@ -111,16 +127,19 @@ func generate_region_sockets(region_id: String, cities: Array) -> void:
 	cities.sort_custom(_sort_city_by_population_desc)
 
 	var count: int = min(sockets_per_region, cities.size())
+	var selected_cities: Array = cities.slice(0, count)
 
-	for i in range(count):
-		var city: Dictionary = cities[i]
+	selected_cities.sort_custom(_sort_city_by_x_position)
+
+	for i in range(selected_cities.size()):
+		var city: Dictionary = selected_cities[i]
 		var socket := socket_scene.instantiate()
 
 		if socket == null:
 			continue
 
 		var city_position: Vector2 = city["map_position"]
-		var offset := get_non_overlapping_offset(city_position)
+		var offset := get_clockwise_clear_offset(city_position)
 
 		var city_id := str(city["id"])
 		var city_name := str(city["display_name"])
@@ -139,9 +158,9 @@ func generate_region_sockets(region_id: String, cities: Array) -> void:
 
 		placed_box_positions.append(city_position + offset)
 
-func get_non_overlapping_offset(city_position: Vector2) -> Vector2:
+func get_clockwise_clear_offset(city_position: Vector2) -> Vector2:
 	for offset in candidate_offsets:
-		var candidate_position := city_position + offset
+		var candidate_position: Vector2 = city_position + offset
 
 		if is_position_clear(candidate_position):
 			return offset
@@ -154,6 +173,9 @@ func is_position_clear(candidate_position: Vector2) -> bool:
 			return false
 
 	return true
+
+func _sort_city_by_x_position(a: Dictionary, b: Dictionary) -> bool:
+	return Vector2(a["map_position"]).x < Vector2(b["map_position"]).x
 
 func _sort_city_by_population_desc(a: Dictionary, b: Dictionary) -> bool:
 	return float(a["population_weight"]) > float(b["population_weight"])
