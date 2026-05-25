@@ -16,7 +16,7 @@ static func build_decision(region_data: RegionData, region_state: RegionState) -
 	decision.subtitle = region_name
 	decision.region_id = region_state.region_id
 	decision.source_type = "regional_level_up"
-	decision.terminal_text = "Typed intelligence threshold reached. Regional model expansion is available pending resource authorisation."
+	decision.terminal_text = "Intelligence threshold reached. Requires additional power and compute. Expansion in he physical world is available pending resource authorisation."
 	decision.expires_on_day = 0
 
 	decision.sections.append(build_cost_section(region_state))
