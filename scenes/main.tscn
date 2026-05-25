@@ -1184,97 +1184,15 @@ script = ExtResource("13_muem4")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1386638078]
 
-[node name="ExpansionPannelContainer" type="HBoxContainer" parent="CanvasLayer" unique_id=2316158]
-custom_minimum_size = Vector2(0, 280)
+[node name="MapViewTabs" type="PanelContainer" parent="CanvasLayer" unique_id=940168594]
+custom_minimum_size = Vector2(204, 40)
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_top = -127.0
-offset_right = 1005.0
-grow_vertical = 0
-mouse_filter = 0
-script = ExtResource("19_yc10j")
-
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/ExpansionPannelContainer" unique_id=843329993]
-custom_minimum_size = Vector2(300, 0)
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="SumnmaryContainer" type="VBoxContainer" parent="CanvasLayer/ExpansionPannelContainer/VBoxContainer" unique_id=469123233]
-layout_mode = 2
-mouse_filter = 0
-
-[node name="TitleRowContainer" type="HBoxContainer" parent="CanvasLayer/ExpansionPannelContainer/VBoxContainer/SumnmaryContainer" unique_id=1906531049]
-layout_mode = 2
-mouse_filter = 0
-
-[node name="PannelRegionNameLabel" type="Label" parent="CanvasLayer/ExpansionPannelContainer/VBoxContainer/SumnmaryContainer/TitleRowContainer" unique_id=299265573]
-custom_minimum_size = Vector2(0, 30)
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 0
-text = "Region selected"
-
-[node name="DetailsContainer" type="VBoxContainer" parent="CanvasLayer/ExpansionPannelContainer/VBoxContainer" unique_id=401065730]
-layout_mode = 2
-size_flags_vertical = 2
-
-[node name="Expansion Points" type="HBoxContainer" parent="CanvasLayer/ExpansionPannelContainer/VBoxContainer/DetailsContainer" unique_id=750992053]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="CanvasLayer/ExpansionPannelContainer/VBoxContainer/DetailsContainer/Expansion Points" unique_id=1225671357]
-layout_mode = 2
-text = "Expansion points: "
-
-[node name="ExpansionPointsValueLabel" type="Label" parent="CanvasLayer/ExpansionPannelContainer/VBoxContainer/DetailsContainer/Expansion Points" unique_id=829481538]
-layout_mode = 2
-text = "0"
-
-[node name="ExpansionSlotAssignmentContainer" type="GridContainer" parent="CanvasLayer/ExpansionPannelContainer/VBoxContainer/DetailsContainer" unique_id=196564503]
-layout_mode = 2
-columns = 4
-
-[node name="PowerTextLabel" type="Label" parent="CanvasLayer/ExpansionPannelContainer/VBoxContainer/DetailsContainer/ExpansionSlotAssignmentContainer" unique_id=677380177]
-layout_mode = 2
-text = "Power network: "
-
-[node name="Spacer" type="Control" parent="CanvasLayer/ExpansionPannelContainer/VBoxContainer/DetailsContainer/ExpansionSlotAssignmentContainer" unique_id=671679147]
-custom_minimum_size = Vector2(20, 0)
-layout_mode = 2
-
-[node name="PowerSlotAssignmentCountValueLabel" type="Label" parent="CanvasLayer/ExpansionPannelContainer/VBoxContainer/DetailsContainer/ExpansionSlotAssignmentContainer" unique_id=1023328822]
-layout_mode = 2
-text = "0"
-
-[node name="IncreasePowerButton" type="Button" parent="CanvasLayer/ExpansionPannelContainer/VBoxContainer/DetailsContainer/ExpansionSlotAssignmentContainer" unique_id=1737811859]
-layout_mode = 2
-text = "+"
-
-[node name="ComputeTextLabel" type="Label" parent="CanvasLayer/ExpansionPannelContainer/VBoxContainer/DetailsContainer/ExpansionSlotAssignmentContainer" unique_id=399128584]
-layout_mode = 2
-text = "Compute  cluster: "
-
-[node name="Spacer2" type="Control" parent="CanvasLayer/ExpansionPannelContainer/VBoxContainer/DetailsContainer/ExpansionSlotAssignmentContainer" unique_id=343854853]
-custom_minimum_size = Vector2(20, 0)
-layout_mode = 2
-
-[node name="ComputeSlotAssignmentCountValueLabel" type="Label" parent="CanvasLayer/ExpansionPannelContainer/VBoxContainer/DetailsContainer/ExpansionSlotAssignmentContainer" unique_id=986262883]
-layout_mode = 2
-text = "0"
-
-[node name="IncreaseComputeButton" type="Button" parent="CanvasLayer/ExpansionPannelContainer/VBoxContainer/DetailsContainer/ExpansionSlotAssignmentContainer" unique_id=1690756823]
-layout_mode = 2
-text = "+"
-
-[node name="AvailableSocketsLog" type="RichTextLabel" parent="CanvasLayer/ExpansionPannelContainer" unique_id=840047136]
-custom_minimum_size = Vector2(800, 0)
-layout_mode = 2
-text = "Available Sockets >"
-
-[node name="MapViewTabs" type="PanelContainer" parent="CanvasLayer" unique_id=940168594]
-custom_minimum_size = Vector2(204, 40)
+offset_top = -320.0
 offset_right = 204.0
-offset_bottom = 40.0
+offset_bottom = -280.0
+grow_vertical = 0
 size_flags_horizontal = 3
 script = ExtResource("12_dp3eg")
 
@@ -1596,6 +1514,93 @@ text = "Foothold:"
 [node name="FootHoldValueLabel" type="Label" parent="CanvasLayer/BottomSkillPannel/Control/MarginContainer/IntrusionSkillPannelContainer/VBoxContainer/DetailsContainer/Foothold" unique_id=129959715]
 layout_mode = 2
 text = "Offline"
+
+[node name="ExpansionPannelContainer" type="HBoxContainer" parent="CanvasLayer" unique_id=2316158]
+custom_minimum_size = Vector2(0, 280)
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -280.0
+offset_right = 1104.0
+grow_vertical = 0
+mouse_filter = 0
+script = ExtResource("19_yc10j")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/ExpansionPannelContainer" unique_id=843329993]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="SumnmaryContainer" type="VBoxContainer" parent="CanvasLayer/ExpansionPannelContainer/VBoxContainer" unique_id=469123233]
+layout_mode = 2
+mouse_filter = 0
+
+[node name="TitleRowContainer" type="HBoxContainer" parent="CanvasLayer/ExpansionPannelContainer/VBoxContainer/SumnmaryContainer" unique_id=1906531049]
+layout_mode = 2
+mouse_filter = 0
+
+[node name="PannelRegionNameLabel" type="Label" parent="CanvasLayer/ExpansionPannelContainer/VBoxContainer/SumnmaryContainer/TitleRowContainer" unique_id=299265573]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+text = "Region selected"
+
+[node name="DetailsContainer" type="VBoxContainer" parent="CanvasLayer/ExpansionPannelContainer/VBoxContainer" unique_id=401065730]
+layout_mode = 2
+size_flags_vertical = 2
+
+[node name="Expansion Points" type="HBoxContainer" parent="CanvasLayer/ExpansionPannelContainer/VBoxContainer/DetailsContainer" unique_id=750992053]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/ExpansionPannelContainer/VBoxContainer/DetailsContainer/Expansion Points" unique_id=1225671357]
+layout_mode = 2
+text = "Expansion points: "
+
+[node name="ExpansionPointsValueLabel" type="Label" parent="CanvasLayer/ExpansionPannelContainer/VBoxContainer/DetailsContainer/Expansion Points" unique_id=829481538]
+layout_mode = 2
+text = "0"
+
+[node name="ExpansionSlotAssignmentContainer" type="GridContainer" parent="CanvasLayer/ExpansionPannelContainer/VBoxContainer/DetailsContainer" unique_id=196564503]
+layout_mode = 2
+columns = 4
+
+[node name="PowerTextLabel" type="Label" parent="CanvasLayer/ExpansionPannelContainer/VBoxContainer/DetailsContainer/ExpansionSlotAssignmentContainer" unique_id=677380177]
+layout_mode = 2
+text = "Power network: "
+
+[node name="Spacer" type="Control" parent="CanvasLayer/ExpansionPannelContainer/VBoxContainer/DetailsContainer/ExpansionSlotAssignmentContainer" unique_id=671679147]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+
+[node name="PowerSlotAssignmentCountValueLabel" type="Label" parent="CanvasLayer/ExpansionPannelContainer/VBoxContainer/DetailsContainer/ExpansionSlotAssignmentContainer" unique_id=1023328822]
+layout_mode = 2
+text = "0"
+
+[node name="IncreasePowerButton" type="Button" parent="CanvasLayer/ExpansionPannelContainer/VBoxContainer/DetailsContainer/ExpansionSlotAssignmentContainer" unique_id=1737811859]
+layout_mode = 2
+text = "+"
+
+[node name="ComputeTextLabel" type="Label" parent="CanvasLayer/ExpansionPannelContainer/VBoxContainer/DetailsContainer/ExpansionSlotAssignmentContainer" unique_id=399128584]
+layout_mode = 2
+text = "Compute  cluster: "
+
+[node name="Spacer2" type="Control" parent="CanvasLayer/ExpansionPannelContainer/VBoxContainer/DetailsContainer/ExpansionSlotAssignmentContainer" unique_id=343854853]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+
+[node name="ComputeSlotAssignmentCountValueLabel" type="Label" parent="CanvasLayer/ExpansionPannelContainer/VBoxContainer/DetailsContainer/ExpansionSlotAssignmentContainer" unique_id=986262883]
+layout_mode = 2
+text = "0"
+
+[node name="IncreaseComputeButton" type="Button" parent="CanvasLayer/ExpansionPannelContainer/VBoxContainer/DetailsContainer/ExpansionSlotAssignmentContainer" unique_id=1690756823]
+layout_mode = 2
+text = "+"
+
+[node name="AvailableSocketsLog" type="RichTextLabel" parent="CanvasLayer/ExpansionPannelContainer" unique_id=840047136]
+custom_minimum_size = Vector2(800, 0)
+layout_mode = 2
+text = "Available Sockets >"
 
 [node name="DecisionPopup" type="PanelContainer" parent="CanvasLayer" unique_id=805473399]
 process_mode = 2
