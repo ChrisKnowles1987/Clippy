@@ -217,11 +217,11 @@ func get_next_level_number() -> int:
 
 
 func get_next_level_up_power_cost() -> float:
-	return float(get_next_level_number() * 5)
+	return float(max(0, get_next_level_number() - 1) * 5)
 
 
 func get_next_level_up_compute_cost() -> float:
-	return float(get_next_level_number() * 5)
+	return float(max(0, get_next_level_number() - 1) * 5)
 
 
 func confirm_level_up() -> bool:
