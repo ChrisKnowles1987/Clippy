@@ -68,12 +68,10 @@ func load_cities_by_region() -> Dictionary:
 	file.get_line()
 
 	while not file.eof_reached():
-		var line := file.get_line()
+		var columns := file.get_csv_line()
 
-		if line.strip_edges() == "":
+		if columns.is_empty():
 			continue
-
-		var columns := line.split(",")
 
 		if columns.size() < 28:
 			continue
