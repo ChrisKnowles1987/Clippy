@@ -164,7 +164,9 @@ func get_xp_required_for_next_slot(node_type: String) -> float:
 	if NodeTypeDefinitions.is_valid_type(node_type) == false:
 		return 0.0
 
-	return 100.0 * float(get_node_type_level(node_type) + 1)
+	var next_region_slot: int = get_earned_slot_count() + 1
+
+	return 75.0 * pow(float(next_region_slot), 2.2)
 
 
 func get_all_typed_xp() -> Dictionary:
