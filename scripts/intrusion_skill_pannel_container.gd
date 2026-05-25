@@ -87,6 +87,7 @@ func show_region(region_data: RegionData, region_state: RegionState) -> void:
 
 	selected_region_data = region_data
 	selected_region_state = region_state
+	ensure_initial_region_assignment()
 	visible = true
 	refresh_ui()
 
@@ -313,6 +314,8 @@ func _on_infiltration_button_pressed() -> void:
 
 
 func enable_infiltration() -> void:
+	ensure_initial_region_assignment()
+
 	var power_assignment := selected_region_state.infiltration_reserved_power
 	var compute_assignment := selected_region_state.infiltration_reserved_compute
 
@@ -387,6 +390,20 @@ func add_intrusion_log_line(region_id: String, line: String) -> void:
 
 	if selected_region_state != null and selected_region_state.region_id == region_id:
 		refresh_terminal_log()
+
+
+func ensure_initial_region_assignment() -> void:
+	if selected_region_data == null:
+		return
+
+	if selected_region_state == null:
+		return
+
+	if selected_region_state.infiltration_reserved_power <= 0.0:
+		selected_region_state.infiltration_reserved_power = IntrusionPanelCosts.get_infiltration_power_cost(selected_region_data, selected_region_state)
+
+	if selected_region_state.infiltration_reserved_compute <= 0.0:
+		selected_region_state.infiltration_reserved_compute = IntrusionPanelCosts.get_infiltration_compute_cost(selected_region_data, selected_region_state)
 
 
 func get_infiltration_power_cost() -> float:
