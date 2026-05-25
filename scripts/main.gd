@@ -38,7 +38,7 @@ func _ready() -> void:
 	game_clock.day_passed.connect(_on_day_passed)
 	global_resource_manager.resources_changed.connect(_on_resources_changed)
 	decision_popup.setup(global_resource_manager)
-	expansion_panel.setup(region_manager, expansion_node_layer)
+	expansion_panel.setup(region_manager, expansion_node_layer, global_resource_manager)
 	notoriety_manager = NotorietyManager.new()
 	add_child(notoriety_manager)
 
