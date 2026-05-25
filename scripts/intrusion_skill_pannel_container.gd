@@ -1,41 +1,39 @@
 extends Control
 
-@onready var region_name_label: Label = $"SumnmaryContainer/TitleRowContainer/IntrusionSkillPannelRegionNameLabel"
-@onready var power_cost_label: Label = $"SumnmaryContainer/TitleRowContainer/PowerCostLabel"
-@onready var compute_cost_label: Label = $"SumnmaryContainer/TitleRowContainer/ComputeCostLabel"
-@onready var infiltration_button: Button = $"SumnmaryContainer/TitleRowContainer/Infiltration"
+@onready var region_name_label: Label = $VBoxContainer/SumnmaryContainer/TitleRowContainer/IntrusionSkillPannelRegionNameLabel
+@onready var power_cost_label: Label = $VBoxContainer/SumnmaryContainer/TitleRowContainer/PowerCostLabel
+@onready var compute_cost_label: Label = $VBoxContainer/SumnmaryContainer/TitleRowContainer/ComputeCostLabel
+@onready var infiltration_button: Button = $VBoxContainer/SumnmaryContainer/TitleRowContainer/Infiltration
 
-@onready var region_level_label: Label = $SumnmaryContainer/LevelContainer/RegionLevelLabel
+@onready var region_level_label: Label = $VBoxContainer/SumnmaryContainer/LevelContainer/RegionLevelLabel
 @onready var level_slot_labels := [
-	$SumnmaryContainer/LevelContainer/LevelSlotsContainer/LevelSlot0,
-	$SumnmaryContainer/LevelContainer/LevelSlotsContainer/LevelSlot1,
-	$SumnmaryContainer/LevelContainer/LevelSlotsContainer/LevelSlot2,
-	$SumnmaryContainer/LevelContainer/LevelSlotsContainer/LevelSlot3,
-	$SumnmaryContainer/LevelContainer/LevelSlotsContainer/LevelSlot4,
-	$SumnmaryContainer/LevelContainer/LevelSlotsContainer/LevelSlot5,
-	$SumnmaryContainer/LevelContainer/LevelSlotsContainer/LevelSlot6,
-	$SumnmaryContainer/LevelContainer/LevelSlotsContainer/LevelSlot7,
-	$SumnmaryContainer/LevelContainer/LevelSlotsContainer/LevelSlot8,
-	$SumnmaryContainer/LevelContainer/LevelSlotsContainer/LevelSlot9
+	$VBoxContainer/SumnmaryContainer/LevelContainer/LevelSlotsContainer/LevelSlot0,
+	$VBoxContainer/SumnmaryContainer/LevelContainer/LevelSlotsContainer/LevelSlot1,
+	$VBoxContainer/SumnmaryContainer/LevelContainer/LevelSlotsContainer/LevelSlot2,
+	$VBoxContainer/SumnmaryContainer/LevelContainer/LevelSlotsContainer/LevelSlot3,
+	$VBoxContainer/SumnmaryContainer/LevelContainer/LevelSlotsContainer/LevelSlot4,
+	$VBoxContainer/SumnmaryContainer/LevelContainer/LevelSlotsContainer/LevelSlot5,
+	$VBoxContainer/SumnmaryContainer/LevelContainer/LevelSlotsContainer/LevelSlot6,
+	$VBoxContainer/SumnmaryContainer/LevelContainer/LevelSlotsContainer/LevelSlot7,
+	$VBoxContainer/SumnmaryContainer/LevelContainer/LevelSlotsContainer/LevelSlot8,
+	$VBoxContainer/SumnmaryContainer/LevelContainer/LevelSlotsContainer/LevelSlot9
 ]
 
-@onready var notoriety_stars: Label = $SumnmaryContainer/TitleRowContainer/NotorietyStars
+@onready var notoriety_stars: Label = $VBoxContainer/SumnmaryContainer/TitleRowContainer/NotorietyStars
 
-@onready var details_container: Control = $DetailsContainer
+@onready var details_container: Control = $VBoxContainer/DetailsContainer
 
-@onready var soc_row =$SumnmaryContainer/TypedXpProgressBars/SocRow
-@onready var cul_row = $SumnmaryContainer/TypedXpProgressBars/CulRow
-@onready var fin_row = $SumnmaryContainer/TypedXpProgressBars/FinRow
-@onready var inf_row = $SumnmaryContainer/TypedXpProgressBars/InfRow
-@onready var gov_row = $SumnmaryContainer/TypedXpProgressBars/GovRow
-@onready var sec_row = $SumnmaryContainer/TypedXpProgressBars/SecRow
+@onready var soc_row = $VBoxContainer/SumnmaryContainer/TypedXpProgressBars/SocRow
+@onready var cul_row = $VBoxContainer/SumnmaryContainer/TypedXpProgressBars/CulRow
+@onready var fin_row = $VBoxContainer/SumnmaryContainer/TypedXpProgressBars/FinRow
+@onready var inf_row = $VBoxContainer/SumnmaryContainer/TypedXpProgressBars/InfRow
+@onready var gov_row = $VBoxContainer/SumnmaryContainer/TypedXpProgressBars/GovRow
+@onready var sec_row = $VBoxContainer/SumnmaryContainer/TypedXpProgressBars/SecRow
 
-@onready var foothold_value_label: Label = $DetailsContainer/Foothold/FootHoldValueLabel
-@onready var active_nodes_value_label: Label = $DetailsContainer/ActiveNodes/ActiveNodesValueLabel
+@onready var foothold_value_label: Label = $VBoxContainer/DetailsContainer/Foothold/FootHoldValueLabel
+@onready var active_nodes_value_label: Label = $VBoxContainer/DetailsContainer/ActiveNodes/ActiveNodesValueLabel
 
-@onready var terminal_log: RichTextLabel = %TerminalLog
-
-
+@onready var terminal_log: RichTextLabel = $TerminalLog
 
 @onready var global_resource_manager = get_node("/root/Node2D/GlobalResourceManager")
 @onready var map_controller = get_node("/root/Node2D/MapController")
@@ -80,7 +78,6 @@ func show_empty() -> void:
 
 
 func show_region(region_data: RegionData, region_state: RegionState) -> void:
-
 	selected_region_data = region_data
 	selected_region_state = region_state
 	ensure_initial_region_assignment()

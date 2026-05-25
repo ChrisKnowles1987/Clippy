@@ -1,4 +1,4 @@
-extends VBoxContainer
+extends HBoxContainer
 
 const NODE_TYPE_EMPTY := "empty"
 const NODE_TYPE_POWER := "power"
@@ -8,15 +8,15 @@ const COMPUTE_NODE_DISPLAY_NAME := "Compute cluster"
 const EMPTY_NODE_DISPLAY_NAME := "empty"
 const BASE_RESOURCE_VALUE := 10
 
-@onready var pannel_region_name_label: Label = $SumnmaryContainer/TitleRowContainer/PannelRegionNameLabel
-@onready var expansion_points_value_label: Label = $"DetailsContainer/Expansion Points/ExpansionPointsValueLabel"
+@onready var pannel_region_name_label: Label = $VBoxContainer/SumnmaryContainer/TitleRowContainer/PannelRegionNameLabel
+@onready var expansion_points_value_label: Label = $"VBoxContainer/DetailsContainer/Expansion Points/ExpansionPointsValueLabel"
 
-@onready var power_slot_assignment_count_value_label: Label = $DetailsContainer/ExpansionSlotAssignmentContainer/PowerSlotAssignmentCountValueLabel
-@onready var increase_power_button: Button = $DetailsContainer/ExpansionSlotAssignmentContainer/IncreasePowerButton
+@onready var power_slot_assignment_count_value_label: Label = $VBoxContainer/DetailsContainer/ExpansionSlotAssignmentContainer/PowerSlotAssignmentCountValueLabel
+@onready var increase_power_button: Button = $VBoxContainer/DetailsContainer/ExpansionSlotAssignmentContainer/IncreasePowerButton
 
-@onready var compute_slot_assignment_count_value_label: Label = $DetailsContainer/ExpansionSlotAssignmentContainer/ComputeSlotAssignmentCountValueLabel
-@onready var increase_compute_button: Button = $DetailsContainer/ExpansionSlotAssignmentContainer/IncreaseComputeButton
-@onready var available_sockets_log: RichTextLabel = $DetailsContainer/TerminalContainer/AvailableSocketsLog
+@onready var compute_slot_assignment_count_value_label: Label = $VBoxContainer/DetailsContainer/ExpansionSlotAssignmentContainer/ComputeSlotAssignmentCountValueLabel
+@onready var increase_compute_button: Button = $VBoxContainer/DetailsContainer/ExpansionSlotAssignmentContainer/IncreaseComputeButton
+@onready var available_sockets_log: RichTextLabel = $AvailableSocketsLog
 
 var region_manager = null
 var global_resource_manager = null
