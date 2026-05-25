@@ -26,6 +26,7 @@ var hack_exploit_processor: HackExploitProcessor = null
 var hack_discovery_processor: HackDiscoveryProcessor = null
 var infiltration_processor: InfiltrationProcessor = null
 var notoriety_manager: NotorietyManager = null
+var current_map_view: String = "infiltration"
 
 
 func _ready() -> void:
@@ -97,6 +98,7 @@ func _process(delta: float) -> void:
 
 
 func set_map_view(view_name: String) -> void:
+	current_map_view = view_name
 	map_controller.set_map_view(view_name)
 
 	var infiltration_view := view_name == "infiltration"
@@ -190,6 +192,9 @@ func _on_expansion_region_selected(region_id: String) -> void:
 
 
 func refresh_selected_region_ui() -> void:
+	if current_map_view != "infiltration":
+		return
+
 	if region_manager.selected_region_data == null:
 		return
 
