@@ -1,42 +1,50 @@
 extends PanelContainer
 class_name NotorietyPanel
 
-@onready var grid_container: GridContainer = $MarginContainer/GridContainer
-
-var region_label_map: Dictionary = {}
-
-
-func _ready() -> void:
-	build_region_label_map()
-
-
-func build_region_label_map() -> void:
-	region_label_map = {
-		"north_america": grid_container.get_node("NorthAmericaStars"),
-		"central_america_caribbean": grid_container.get_node("CentralAmerica&CaribbeanStars"),
-		"south_america": grid_container.get_node("SouthAmericaStars"),
-		"western_europe": grid_container.get_node("WesternEuropeStars"),
-		"eastern_europe": grid_container.get_node("EasternEuropeStars"),
-		"north_africa": grid_container.get_node("NorthAfricaStars"),
-		"east_africa": grid_container.get_node("EastAfricaStars"),
-		"west_africa": grid_container.get_node("WestAfricaStars"),
-		"russia_central_asia": grid_container.get_node("Russia&CentralAsiaStars"),
-		"middle_east": grid_container.get_node("MiddleEastStars"),
-		"india": grid_container.get_node("IndiaStars"),
-		"china": grid_container.get_node("ChinaStars"),
-		"southern_africa": grid_container.get_node("SouthAfricaStars"),
-		"japan_korea": grid_container.get_node("EastAsiaStars"),
-		"southeast_asia": grid_container.get_node("SouthEastAsiaStars"),
-		"oceania": grid_container.get_node("OceaniaStars")
-	}
+@onready var region_list: VBoxContainer = $MarginContainer/ScrollContainer/RegionList
 
 
 func refresh(region_states: Dictionary, notoriety_manager: NotorietyManager) -> void:
-	for region_id in region_label_map.keys():
-		if region_states.has(region_id) == false:
+	clear_region_list()
+
+	var notorious_regions := get_notorious_regions_sorted(region_states)
+
+	for entry in notorious_regions:
+		var label := Label.new()
+		label.text = "%s  %s" % [
+			get_region_display_name(entry.region_id),
+			notoriety_manager.get_star_text_from_xp(entry.notoriety_xp)
+		]
+
+		region_list.add_child(label)
+
+
+func clear_region_list() -> void:
+	for child in region_list.get_children():
+		child.queue_free()
+
+
+func get_notorious_regions_sorted(region_states: Dictionary) -> Array:
+	var regions := []
+
+	for region_id in region_states.keys():
+		var region_state: RegionState = region_states[region_id]
+
+		if region_state.notoriety_xp <= 0.0:
 			continue
 
-		var region_state: RegionState = region_states[region_id]
-		var label: Label = region_label_map[region_id]
+		regions.append({
+			"region_id": region_id,
+			"notoriety_xp": region_state.notoriety_xp
+		})
 
-		label.text = notoriety_manager.get_star_text_from_xp(region_state.notoriety_xp)
+	regions.sort_custom(_sort_by_notoriety_desc)
+	return regions
+
+
+func _sort_by_notoriety_desc(a: Dictionary, b: Dictionary) -> bool:
+	return float(a.notoriety_xp) > float(b.notoriety_xp)
+
+
+func get_region_display_name(region_id: String) -> String:
+	return region_id.replace("_", " ").capitalize()

@@ -4,7 +4,6 @@ extends Control
 @onready var power_cost_label: Label = $"SumnmaryContainer/TitleRowContainer/PowerCostLabel"
 @onready var compute_cost_label: Label = $"SumnmaryContainer/TitleRowContainer/ComputeCostLabel"
 @onready var infiltration_button: Button = $"SumnmaryContainer/TitleRowContainer/Infiltration"
-@onready var expand_button: Button = $"SumnmaryContainer/TitleRowContainer/ExpandCollapseButton"
 
 @onready var region_level_label: Label = $SumnmaryContainer/LevelContainer/RegionLevelLabel
 @onready var level_slot_labels := [
@@ -20,7 +19,7 @@ extends Control
 	$SumnmaryContainer/LevelContainer/LevelSlotsContainer/LevelSlot9
 ]
 
-@onready var notoriety_stars: Label = $SumnmaryContainer/TitleRowContainer3/NotorietyStars
+@onready var notoriety_stars: Label = $SumnmaryContainer/TitleRowContainer/NotorietyStars
 
 @onready var details_container: Control = $DetailsContainer
 
@@ -31,12 +30,12 @@ extends Control
 @onready var gov_row = $SumnmaryContainer/TypedXpProgressBars/GovRow
 @onready var sec_row = $SumnmaryContainer/TypedXpProgressBars/SecRow
 
-
 @onready var foothold_value_label: Label = $DetailsContainer/Foothold/FootHoldValueLabel
 @onready var active_nodes_value_label: Label = $DetailsContainer/ActiveNodes/ActiveNodesValueLabel
-@onready var exploit_activity_value_label: RichTextLabel = $DetailsContainer/ExploitActivity/ExploitActivityValueLabel
 
-@onready var terminal_log: RichTextLabel = $DetailsContainer/TerminalContainer/TerminalLog
+@onready var terminal_log: RichTextLabel = %TerminalLog
+
+
 
 @onready var global_resource_manager = get_node("/root/Node2D/GlobalResourceManager")
 @onready var map_controller = get_node("/root/Node2D/MapController")
@@ -48,7 +47,6 @@ const PENDING_SLOT_COLOUR := Color8(70, 70, 70)
 var selected_region_data: RegionData = null
 var selected_region_state: RegionState = null
 
-var expanded: bool = false
 var intrusion_logs_by_region: Dictionary = {}
 var conversion_menu: PopupMenu = null
 var conversion_menu_slot_index: int = -1
@@ -65,14 +63,12 @@ var flavour_lines_scan := [
 
 func _ready() -> void:
 	infiltration_button.pressed.connect(_on_infiltration_button_pressed)
-	expand_button.pressed.connect(_on_expand_button_pressed)
 	setup_level_slot_click_handlers()
 	setup_conversion_menu()
 
 	terminal_log.bbcode_enabled = true
 	terminal_log.scroll_following = true
 
-	expanded = false
 	update_details_visibility()
 	refresh_ui()
 
@@ -89,6 +85,7 @@ func show_region(region_data: RegionData, region_state: RegionState) -> void:
 	selected_region_state = region_state
 	ensure_initial_region_assignment()
 	visible = true
+	update_details_visibility()
 	refresh_ui()
 
 
@@ -194,7 +191,6 @@ func refresh_region_stat_row(row, node_type: String) -> void:
 func refresh_details_ui() -> void:
 	foothold_value_label.text = IntrusionPanelFormatter.get_network_foothold_title(selected_region_state) + " | Scan L" + str(selected_region_state.scan_networks_level)
 	active_nodes_value_label.text = str(selected_region_state.active_node_ids.size()) + "/" + str(selected_region_data.cities.size())
-	exploit_activity_value_label.text = IntrusionPanelFormatter.get_rarity_chance_text(selected_region_state)
 
 
 func refresh_terminal_log() -> void:
@@ -359,18 +355,8 @@ func disable_infiltration() -> void:
 	)
 
 
-func _on_expand_button_pressed() -> void:
-	expanded = !expanded
-	update_details_visibility()
-
-
 func update_details_visibility() -> void:
-	details_container.visible = selected_region_state != null and selected_region_state.infiltration_enabled
-
-	if expanded:
-		expand_button.text = "-"
-	else:
-		expand_button.text = "+"
+	details_container.visible = selected_region_state != null
 
 
 func add_intrusion_log_line(region_id: String, line: String) -> void:
