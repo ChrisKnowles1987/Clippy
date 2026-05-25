@@ -10,11 +10,13 @@ extends Node2D
 @onready var global_resource_panel = $CanvasLayer/GlobalResourcePanel
 @onready var bottom_skill_pannel: Control = $CanvasLayer/BottomSkillPannel
 @onready var intrusion_panel = $CanvasLayer/BottomSkillPannel/Control/MarginContainer/IntrusionSkillPannelContainer
+@onready var expansion_panel = $CanvasLayer/BottomSkillPannel/Control/MarginContainer/ExpansionPannelContainer
 @onready var game_day_timer_label: Label = $CanvasLayer/GlobalResourcePanel/VBoxContainer/DateValueLabel
 @onready var notoriety_panel: NotorietyPanel = $CanvasLayer/NotorietyPannelContainer
 
 @onready var hack_node_manager = $HackNodeManager
 @onready var hack_node_layer = $MapController/HackNodeLayer
+@onready var expansion_node_layer = $MapController/ExpansionNodeLayer
 
 @onready var decision_popup: DecisionPopup = $CanvasLayer/DecisionPopup
 @onready var pending_decision_pannel: PendingDecisionPannel = $CanvasLayer/PendingDecisionPannel
@@ -34,6 +36,7 @@ func _ready() -> void:
 	game_clock.day_passed.connect(_on_day_passed)
 	global_resource_manager.resources_changed.connect(_on_resources_changed)
 	decision_popup.setup(global_resource_manager)
+	expansion_panel.setup(region_manager, expansion_node_layer)
 	notoriety_manager = NotorietyManager.new()
 	add_child(notoriety_manager)
 
@@ -82,6 +85,7 @@ func _ready() -> void:
 
 	
 	intrusion_panel.show_empty()
+	expansion_panel.show_empty()
 
 	update_date_ui(game_clock.current_date)
 	update_global_resource_ui()
@@ -93,7 +97,13 @@ func _process(delta: float) -> void:
 
 func set_map_view(view_name: String) -> void:
 	map_controller.set_map_view(view_name)
-	bottom_skill_pannel.visible = view_name == "infiltration"
+
+	var infiltration_view := view_name == "infiltration"
+	var expansion_view := view_name == "expansion"
+
+	bottom_skill_pannel.visible = infiltration_view or expansion_view
+	intrusion_panel.visible = infiltration_view
+	expansion_panel.visible = expansion_view
 
 
 func _on_day_passed(current_date: Dictionary) -> void:
@@ -101,6 +111,7 @@ func _on_day_passed(current_date: Dictionary) -> void:
 	hack_decision_manager.process_expired_pending_decisions()
 	hack_decision_manager.refresh_pending_decision_pannel()
 	refresh_selected_region_ui()
+	expansion_panel.refresh()
 	refresh_notoriety_ui()
 	update_global_resource_ui()
 	
@@ -123,6 +134,7 @@ func process_realtime_intrusion(delta: float) -> void:
 		hack_exploit_processor.cleanup_resolved_exploits()
 		hack_node_layer.set_nodes(hack_node_manager.active_nodes)
 		refresh_selected_region_ui()
+		expansion_panel.refresh()
 		update_global_resource_ui()
 		refresh_notoriety_ui()
 
@@ -130,6 +142,7 @@ func process_realtime_intrusion(delta: float) -> void:
 		hack_exploit_processor.cleanup_resolved_exploits()
 		hack_node_layer.set_nodes(hack_node_manager.active_nodes)
 		refresh_selected_region_ui()
+		expansion_panel.refresh()
 		update_global_resource_ui()
 		refresh_notoriety_ui()
 
