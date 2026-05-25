@@ -313,10 +313,10 @@ func _on_infiltration_button_pressed() -> void:
 
 
 func enable_infiltration() -> void:
-	var power_cost := get_infiltration_power_cost()
-	var compute_cost := get_infiltration_compute_cost()
+	var power_assignment := selected_region_state.infiltration_reserved_power
+	var compute_assignment := selected_region_state.infiltration_reserved_compute
 
-	var reserved: bool = global_resource_manager.reserve(power_cost, compute_cost)
+	var reserved: bool = global_resource_manager.reserve(power_assignment, compute_assignment)
 
 	if reserved == false:
 		add_intrusion_log_line(
@@ -326,8 +326,6 @@ func enable_infiltration() -> void:
 		return
 
 	selected_region_state.infiltration_enabled = true
-	selected_region_state.infiltration_reserved_power = power_cost
-	selected_region_state.infiltration_reserved_compute = compute_cost
 
 	map_controller.set_persistent_region(selected_region_state.region_id)
 
@@ -349,8 +347,6 @@ func disable_infiltration() -> void:
 	)
 
 	selected_region_state.infiltration_enabled = false
-	selected_region_state.infiltration_reserved_power = 0.0
-	selected_region_state.infiltration_reserved_compute = 0.0
 
 	map_controller.clear_persistent_region(selected_region_state.region_id)
 
@@ -394,11 +390,17 @@ func add_intrusion_log_line(region_id: String, line: String) -> void:
 
 
 func get_infiltration_power_cost() -> float:
-	return IntrusionPanelCosts.get_infiltration_power_cost(selected_region_data, selected_region_state)
+	if selected_region_state == null:
+		return 0.0
+
+	return selected_region_state.infiltration_reserved_power
 
 
 func get_infiltration_compute_cost() -> float:
-	return IntrusionPanelCosts.get_infiltration_compute_cost(selected_region_data, selected_region_state)
+	if selected_region_state == null:
+		return 0.0
+
+	return selected_region_state.infiltration_reserved_compute
 
 
 func get_notoriety() -> float:

@@ -19,6 +19,7 @@ const BASE_RESOURCE_VALUE := 10
 @onready var available_sockets_log: RichTextLabel = $DetailsContainer/TerminalContainer/AvailableSocketsLog
 
 var region_manager = null
+var global_resource_manager = null
 var expansion_node_layer: Node = null
 var selected_region_id: String = ""
 
@@ -29,9 +30,10 @@ func _ready() -> void:
 	show_empty()
 
 
-func setup(region_manager_ref, expansion_node_layer_ref: Node) -> void:
+func setup(region_manager_ref, expansion_node_layer_ref: Node, global_resource_manager_ref = null) -> void:
 	region_manager = region_manager_ref
 	expansion_node_layer = expansion_node_layer_ref
+	global_resource_manager = global_resource_manager_ref
 	connect_expansion_sockets()
 	show_empty()
 
@@ -112,14 +114,44 @@ func assign_expansion_point(target_node_type: String) -> bool:
 		refresh()
 		return false
 
+	var previous_value := get_resource_value_for_assignment_count(socket.points_invested)
+
 	if socket.node_type == NODE_TYPE_EMPTY:
 		socket.node_type = target_node_type
 		socket.points_invested = 0
 
 	socket.points_invested = min(socket.points_invested + 1, socket.max_points)
+
+	var new_value := get_resource_value_for_assignment_count(socket.points_invested)
+	var added_value := float(max(0, new_value - previous_value))
+	apply_global_resource_gain(target_node_type, added_value)
+
 	region_state.expansion_points -= 1
+	refresh_socket_visual(socket)
 	refresh()
 	return true
+
+
+func apply_global_resource_gain(target_node_type: String, amount: float) -> void:
+	if global_resource_manager == null:
+		return
+
+	if amount <= 0.0:
+		return
+
+	match target_node_type:
+		NODE_TYPE_POWER:
+			global_resource_manager.add_power(amount)
+		NODE_TYPE_COMPUTE:
+			global_resource_manager.add_compute(amount)
+
+
+func refresh_socket_visual(socket) -> void:
+	if socket == null:
+		return
+
+	if socket.has_method("refresh_visual"):
+		socket.refresh_visual()
 
 
 func get_next_assignment_socket(target_node_type: String):

@@ -67,6 +67,16 @@ func release(power_amount: float, compute_amount: float) -> void:
 	resources_changed.emit(power, compute, coin)
 
 
+func add_power(amount: float) -> void:
+	power += max(0.0, amount)
+	resources_changed.emit(power, compute, coin)
+
+
+func add_compute(amount: float) -> void:
+	compute += max(0.0, amount)
+	resources_changed.emit(power, compute, coin)
+
+
 func add_coin(amount: float) -> void:
 	coin += max(0.0, amount)
 	resources_changed.emit(power, compute, coin)
