@@ -6,7 +6,7 @@ const NODE_TYPE_COMPUTE := "compute"
 const POWER_NODE_DISPLAY_NAME := "Power network"
 const COMPUTE_NODE_DISPLAY_NAME := "Compute cluster"
 const EMPTY_NODE_DISPLAY_NAME := "empty"
-const BASE_RESOURCE_VALUE := 5
+const BASE_RESOURCE_VALUE := 10
 
 @onready var pannel_region_name_label: Label = $SumnmaryContainer/TitleRowContainer/PannelRegionNameLabel
 @onready var expansion_points_value_label: Label = $"DetailsContainer/Expansion Points/ExpansionPointsValueLabel"
