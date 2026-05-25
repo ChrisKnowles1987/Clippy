@@ -53,7 +53,7 @@ texture = ExtResource("4_jbj1t")
 script = ExtResource("5_0ld40")
 socket_scene = ExtResource("6_gqmmt")
 clear_existing_sockets = true
-minimum_box_spacing = 40.0
+minimum_box_spacing = 50.0
 
 [node name="western_europe_paris_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=1508622988 instance=ExtResource("6_gqmmt")]
 position = Vector2(992.6805, 28.08205)
@@ -64,7 +64,7 @@ city_id = "paris"
 display_name = "Paris"
 node_box_offset = Vector2(50, -35)
 
-[node name="western_europe_london_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=712992226 instance=ExtResource("6_gqmmt")]
+[node name="western_europe_london_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=1745937091 instance=ExtResource("6_gqmmt")]
 position = Vector2(958.35187, -8.638063)
 script = ExtResource("7_yc10j")
 id = "western_europe_london_expansion_socket"
@@ -73,7 +73,7 @@ city_id = "london"
 display_name = "London"
 node_box_offset = Vector2(50, -35)
 
-[node name="western_europe_madrid_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=887245878 instance=ExtResource("6_gqmmt")]
+[node name="western_europe_madrid_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=1383416172 instance=ExtResource("6_gqmmt")]
 position = Vector2(908.8153, 145.52817)
 script = ExtResource("7_yc10j")
 id = "western_europe_madrid_expansion_socket"
@@ -82,7 +82,7 @@ city_id = "madrid"
 display_name = "Madrid"
 node_box_offset = Vector2(50, -35)
 
-[node name="western_europe_barcelona_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=240243630 instance=ExtResource("6_gqmmt")]
+[node name="western_europe_barcelona_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=70124234 instance=ExtResource("6_gqmmt")]
 position = Vector2(990.29755, 131.8716)
 script = ExtResource("7_yc10j")
 id = "western_europe_barcelona_expansion_socket"
@@ -91,7 +91,7 @@ city_id = "barcelona"
 display_name = "Barcelona"
 node_box_offset = Vector2(50, -35)
 
-[node name="western_europe_berlin_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=1836163823 instance=ExtResource("6_gqmmt")]
+[node name="western_europe_berlin_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=1355295262 instance=ExtResource("6_gqmmt")]
 position = Vector2(1146.1056, -22.830063)
 script = ExtResource("7_yc10j")
 id = "western_europe_berlin_expansion_socket"
@@ -100,7 +100,7 @@ city_id = "berlin"
 display_name = "Berlin"
 node_box_offset = Vector2(50, -35)
 
-[node name="western_europe_rome_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=894377563 instance=ExtResource("6_gqmmt")]
+[node name="western_europe_rome_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=431457849 instance=ExtResource("6_gqmmt")]
 position = Vector2(1133.3516, 124.751366)
 script = ExtResource("7_yc10j")
 id = "western_europe_rome_expansion_socket"
@@ -109,7 +109,7 @@ city_id = "rome"
 display_name = "Rome"
 node_box_offset = Vector2(50, -35)
 
-[node name="western_europe_milan_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=1912894073 instance=ExtResource("6_gqmmt")]
+[node name="western_europe_milan_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=562840301 instance=ExtResource("6_gqmmt")]
 position = Vector2(1087.8203, 75.112206)
 script = ExtResource("7_yc10j")
 id = "western_europe_milan_expansion_socket"
@@ -118,16 +118,16 @@ city_id = "milan"
 display_name = "Milan"
 node_box_offset = Vector2(50, -35)
 
-[node name="western_europe_stuttgart_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=1688481647 instance=ExtResource("6_gqmmt")]
+[node name="western_europe_stuttgart_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=603397050 instance=ExtResource("6_gqmmt")]
 position = Vector2(1087.7777, 29.166946)
 script = ExtResource("7_yc10j")
 id = "western_europe_stuttgart_expansion_socket"
 region_id = "western_europe"
 city_id = "stuttgart"
 display_name = "Stuttgart"
-node_box_offset = Vector2(50, -35)
+node_box_offset = Vector2(0, -60)
 
-[node name="western_europe_frankfurt_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=1603935518 instance=ExtResource("6_gqmmt")]
+[node name="western_europe_frankfurt_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=801154787 instance=ExtResource("6_gqmmt")]
 position = Vector2(1080.4863, 10.833655)
 script = ExtResource("7_yc10j")
 id = "western_europe_frankfurt_expansion_socket"
@@ -136,7 +136,7 @@ city_id = "frankfurt"
 display_name = "Frankfurt"
 node_box_offset = Vector2(-50, 35)
 
-[node name="western_europe_lisbon_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=1307800445 instance=ExtResource("6_gqmmt")]
+[node name="western_europe_lisbon_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=1870178796 instance=ExtResource("6_gqmmt")]
 position = Vector2(832.96094, 168.82405)
 script = ExtResource("7_yc10j")
 id = "western_europe_lisbon_expansion_socket"
@@ -145,7 +145,7 @@ city_id = "lisbon"
 display_name = "Lisbon"
 node_box_offset = Vector2(50, -35)
 
-[node name="west_africa_lagos_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=1161125963 instance=ExtResource("6_gqmmt")]
+[node name="west_africa_lagos_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=451805123 instance=ExtResource("6_gqmmt")]
 position = Vector2(1007.0776, 617.1499)
 script = ExtResource("7_yc10j")
 id = "west_africa_lagos_expansion_socket"
@@ -154,7 +154,7 @@ city_id = "lagos"
 display_name = "Lagos"
 node_box_offset = Vector2(50, -35)
 
-[node name="west_africa_abidjan_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=748888779 instance=ExtResource("6_gqmmt")]
+[node name="west_africa_abidjan_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=1843563582 instance=ExtResource("6_gqmmt")]
 position = Vector2(904.1638, 632.7344)
 script = ExtResource("7_yc10j")
 id = "west_africa_abidjan_expansion_socket"
@@ -163,7 +163,7 @@ city_id = "abidjan"
 display_name = "Abidjan"
 node_box_offset = Vector2(50, -35)
 
-[node name="west_africa_kano_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=954564265 instance=ExtResource("6_gqmmt")]
+[node name="west_africa_kano_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=1238917914 instance=ExtResource("6_gqmmt")]
 position = Vector2(1078.3069, 539.97327)
 script = ExtResource("7_yc10j")
 id = "west_africa_kano_expansion_socket"
@@ -172,7 +172,7 @@ city_id = "kano"
 display_name = "Kano"
 node_box_offset = Vector2(50, -35)
 
-[node name="west_africa_ibadan_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=184547273 instance=ExtResource("6_gqmmt")]
+[node name="west_africa_ibadan_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=818248581 instance=ExtResource("6_gqmmt")]
 position = Vector2(1014.556, 604.1393)
 script = ExtResource("7_yc10j")
 id = "west_africa_ibadan_expansion_socket"
@@ -181,7 +181,7 @@ city_id = "ibadan"
 display_name = "Ibadan"
 node_box_offset = Vector2(50, 35)
 
-[node name="west_africa_dakar_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=564692398 instance=ExtResource("6_gqmmt")]
+[node name="west_africa_dakar_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=1994332180 instance=ExtResource("6_gqmmt")]
 position = Vector2(717.2906, 502.25308)
 script = ExtResource("7_yc10j")
 id = "west_africa_dakar_expansion_socket"
@@ -190,7 +190,7 @@ city_id = "dakar"
 display_name = "Dakar"
 node_box_offset = Vector2(50, -35)
 
-[node name="west_africa_accra_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=1389060132 instance=ExtResource("6_gqmmt")]
+[node name="west_africa_accra_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=1680972433 instance=ExtResource("6_gqmmt")]
 position = Vector2(956.963, 629.55585)
 script = ExtResource("7_yc10j")
 id = "west_africa_accra_expansion_socket"
@@ -199,7 +199,7 @@ city_id = "accra"
 display_name = "Accra"
 node_box_offset = Vector2(50, -35)
 
-[node name="west_africa_douala_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=212063338 instance=ExtResource("6_gqmmt")]
+[node name="west_africa_douala_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=341456318 instance=ExtResource("6_gqmmt")]
 position = Vector2(1094.834, 650.24506)
 script = ExtResource("7_yc10j")
 id = "west_africa_douala_expansion_socket"
@@ -208,7 +208,7 @@ city_id = "douala"
 display_name = "Douala"
 node_box_offset = Vector2(50, -35)
 
-[node name="west_africa_kumasi_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=1901203852 instance=ExtResource("6_gqmmt")]
+[node name="west_africa_kumasi_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=1808954390 instance=ExtResource("6_gqmmt")]
 position = Vector2(937.33386, 613.7231)
 script = ExtResource("7_yc10j")
 id = "west_africa_kumasi_expansion_socket"
@@ -217,7 +217,7 @@ city_id = "kumasi"
 display_name = "Kumasi"
 node_box_offset = Vector2(50, 35)
 
-[node name="west_africa_yaounde_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=1747365713 instance=ExtResource("6_gqmmt")]
+[node name="west_africa_yaounde_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=98460001 instance=ExtResource("6_gqmmt")]
 position = Vector2(1119.9265, 652.9355)
 script = ExtResource("7_yc10j")
 id = "west_africa_yaounde_expansion_socket"
@@ -226,16 +226,16 @@ city_id = "yaounde"
 display_name = "Yaoundé"
 node_box_offset = Vector2(60, 0)
 
-[node name="west_africa_abuja_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=559772053 instance=ExtResource("6_gqmmt")]
+[node name="west_africa_abuja_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=1355615984 instance=ExtResource("6_gqmmt")]
 position = Vector2(1064.0209, 580.908)
 script = ExtResource("7_yc10j")
 id = "west_africa_abuja_expansion_socket"
 region_id = "west_africa"
 city_id = "abuja"
 display_name = "Abuja"
-node_box_offset = Vector2(50, -35)
+node_box_offset = Vector2(0, -60)
 
-[node name="southern_africa_kinshasa_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=1777888730 instance=ExtResource("6_gqmmt")]
+[node name="southern_africa_kinshasa_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=1550109186 instance=ExtResource("6_gqmmt")]
 position = Vector2(1172.6809, 766.7747)
 script = ExtResource("7_yc10j")
 id = "southern_africa_kinshasa_expansion_socket"
@@ -244,7 +244,7 @@ city_id = "kinshasa"
 display_name = "Kinshasa"
 node_box_offset = Vector2(50, -35)
 
-[node name="southern_africa_luanda_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=67533064 instance=ExtResource("6_gqmmt")]
+[node name="southern_africa_luanda_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=1307128839 instance=ExtResource("6_gqmmt")]
 position = Vector2(1143.7844, 829.3936)
 script = ExtResource("7_yc10j")
 id = "southern_africa_luanda_expansion_socket"
@@ -253,7 +253,7 @@ city_id = "luanda"
 display_name = "Luanda"
 node_box_offset = Vector2(50, -35)
 
-[node name="southern_africa_johannesburg_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=596767678 instance=ExtResource("6_gqmmt")]
+[node name="southern_africa_johannesburg_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=895749534 instance=ExtResource("6_gqmmt")]
 position = Vector2(1349.2787, 1070.1124)
 script = ExtResource("7_yc10j")
 id = "southern_africa_johannesburg_expansion_socket"
@@ -262,7 +262,7 @@ city_id = "johannesburg"
 display_name = "Johannesburg"
 node_box_offset = Vector2(50, -35)
 
-[node name="southern_africa_cape_town_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=403833120 instance=ExtResource("6_gqmmt")]
+[node name="southern_africa_cape_town_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=757280507 instance=ExtResource("6_gqmmt")]
 position = Vector2(1216.0145, 1177.7509)
 script = ExtResource("7_yc10j")
 id = "southern_africa_cape_town_expansion_socket"
@@ -271,7 +271,7 @@ city_id = "cape_town"
 display_name = "Cape Town"
 node_box_offset = Vector2(50, -35)
 
-[node name="southern_africa_benoni_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=617775398 instance=ExtResource("6_gqmmt")]
+[node name="southern_africa_benoni_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=1312788418 instance=ExtResource("6_gqmmt")]
 position = Vector2(1353.4443, 1069.8282)
 script = ExtResource("7_yc10j")
 id = "southern_africa_benoni_expansion_socket"
@@ -280,16 +280,16 @@ city_id = "benoni"
 display_name = "Benoni"
 node_box_offset = Vector2(50, 35)
 
-[node name="southern_africa_durban_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=917451689 instance=ExtResource("6_gqmmt")]
+[node name="southern_africa_durban_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=1731218298 instance=ExtResource("6_gqmmt")]
 position = Vector2(1390.7075, 1121.3981)
 script = ExtResource("7_yc10j")
 id = "southern_africa_durban_expansion_socket"
 region_id = "southern_africa"
 city_id = "durban"
 display_name = "Durban"
-node_box_offset = Vector2(50, -35)
+node_box_offset = Vector2(60, 0)
 
-[node name="southern_africa_antananarivo_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=1436983710 instance=ExtResource("6_gqmmt")]
+[node name="southern_africa_antananarivo_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=1427012100 instance=ExtResource("6_gqmmt")]
 position = Vector2(1619.926, 969.3707)
 script = ExtResource("7_yc10j")
 id = "southern_africa_antananarivo_expansion_socket"
@@ -298,7 +298,7 @@ city_id = "antananarivo"
 display_name = "Antananarivo"
 node_box_offset = Vector2(50, -35)
 
-[node name="southern_africa_harare_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=2099132448 instance=ExtResource("6_gqmmt")]
+[node name="southern_africa_harare_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=408067015 instance=ExtResource("6_gqmmt")]
 position = Vector2(1391.1495, 954.10895)
 script = ExtResource("7_yc10j")
 id = "southern_africa_harare_expansion_socket"
@@ -307,7 +307,7 @@ city_id = "harare"
 display_name = "Harare"
 node_box_offset = Vector2(50, -35)
 
-[node name="southern_africa_maputo_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=1893099464 instance=ExtResource("6_gqmmt")]
+[node name="southern_africa_maputo_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=1073174764 instance=ExtResource("6_gqmmt")]
 position = Vector2(1412.6002, 1067.1296)
 script = ExtResource("7_yc10j")
 id = "southern_africa_maputo_expansion_socket"
@@ -316,7 +316,7 @@ city_id = "maputo"
 display_name = "Maputo"
 node_box_offset = Vector2(50, -35)
 
-[node name="southern_africa_brazzaville_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=1251386841 instance=ExtResource("6_gqmmt")]
+[node name="southern_africa_brazzaville_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=926692271 instance=ExtResource("6_gqmmt")]
 position = Vector2(1172.2604, 765.795)
 script = ExtResource("7_yc10j")
 id = "southern_africa_brazzaville_expansion_socket"
@@ -325,7 +325,7 @@ city_id = "brazzaville"
 display_name = "Brazzaville"
 node_box_offset = Vector2(-50, -35)
 
-[node name="southeast_asia_manila_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=1758386410 instance=ExtResource("6_gqmmt")]
+[node name="southeast_asia_manila_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=1513505899 instance=ExtResource("6_gqmmt")]
 position = Vector2(2640.2815, 503.8041)
 script = ExtResource("7_yc10j")
 id = "southeast_asia_manila_expansion_socket"
@@ -334,7 +334,7 @@ city_id = "manila"
 display_name = "Manila"
 node_box_offset = Vector2(50, -35)
 
-[node name="southeast_asia_jakarta_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=1840893775 instance=ExtResource("6_gqmmt")]
+[node name="southeast_asia_jakarta_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=1894726529 instance=ExtResource("6_gqmmt")]
 position = Vector2(2443.715, 792.39545)
 script = ExtResource("7_yc10j")
 id = "southeast_asia_jakarta_expansion_socket"
@@ -343,7 +343,7 @@ city_id = "jakarta"
 display_name = "Jakarta"
 node_box_offset = Vector2(50, -35)
 
-[node name="southeast_asia_bangkok_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=374055072 instance=ExtResource("6_gqmmt")]
+[node name="southeast_asia_bangkok_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=1768968941 instance=ExtResource("6_gqmmt")]
 position = Vector2(2356.0376, 515.6674)
 script = ExtResource("7_yc10j")
 id = "southeast_asia_bangkok_expansion_socket"
@@ -352,7 +352,7 @@ city_id = "bangkok"
 display_name = "Bangkok"
 node_box_offset = Vector2(50, -35)
 
-[node name="southeast_asia_ho_chi_minh_city_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=1203576996 instance=ExtResource("6_gqmmt")]
+[node name="southeast_asia_ho_chi_minh_city_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=1887827796 instance=ExtResource("6_gqmmt")]
 position = Vector2(2441.9858, 557.1927)
 script = ExtResource("7_yc10j")
 id = "southeast_asia_ho_chi_minh_city_expansion_socket"
@@ -361,7 +361,7 @@ city_id = "ho_chi_minh_city"
 display_name = "Ho Chi Minh City"
 node_box_offset = Vector2(50, -35)
 
-[node name="southeast_asia_singapore_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=389913225 instance=ExtResource("6_gqmmt")]
+[node name="southeast_asia_singapore_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=1453844187 instance=ExtResource("6_gqmmt")]
 position = Vector2(2402.415, 688.68085)
 script = ExtResource("7_yc10j")
 id = "southeast_asia_singapore_expansion_socket"
@@ -370,7 +370,7 @@ city_id = "singapore"
 display_name = "Singapore"
 node_box_offset = Vector2(50, -35)
 
-[node name="southeast_asia_hanoi_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=590204095 instance=ExtResource("6_gqmmt")]
+[node name="southeast_asia_hanoi_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=1736951097 instance=ExtResource("6_gqmmt")]
 position = Vector2(2430.112, 414.5101)
 script = ExtResource("7_yc10j")
 id = "southeast_asia_hanoi_expansion_socket"
@@ -379,7 +379,7 @@ city_id = "hanoi"
 display_name = "Hanoi"
 node_box_offset = Vector2(50, -35)
 
-[node name="southeast_asia_rangoon_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=1013484121 instance=ExtResource("6_gqmmt")]
+[node name="southeast_asia_rangoon_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=256173210 instance=ExtResource("6_gqmmt")]
 position = Vector2(2295.6213, 473.5375)
 script = ExtResource("7_yc10j")
 id = "southeast_asia_rangoon_expansion_socket"
@@ -388,7 +388,7 @@ city_id = "rangoon"
 display_name = "Yangon"
 node_box_offset = Vector2(50, -35)
 
-[node name="southeast_asia_surabaya_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=1898859972 instance=ExtResource("6_gqmmt")]
+[node name="southeast_asia_surabaya_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=338302796 instance=ExtResource("6_gqmmt")]
 position = Vector2(2525.9568, 807.3235)
 script = ExtResource("7_yc10j")
 id = "southeast_asia_surabaya_expansion_socket"
@@ -397,7 +397,7 @@ city_id = "surabaya"
 display_name = "Surabaya"
 node_box_offset = Vector2(50, -35)
 
-[node name="southeast_asia_quezon_city_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=1257866172 instance=ExtResource("6_gqmmt")]
+[node name="southeast_asia_quezon_city_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=931459237 instance=ExtResource("6_gqmmt")]
 position = Vector2(2640.9717, 503.1884)
 script = ExtResource("7_yc10j")
 id = "southeast_asia_quezon_city_expansion_socket"
@@ -406,7 +406,7 @@ city_id = "quezon_city"
 display_name = "Quezon City"
 node_box_offset = Vector2(50, 35)
 
-[node name="southeast_asia_george_town_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=891542131 instance=ExtResource("6_gqmmt")]
+[node name="southeast_asia_george_town_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=1783574025 instance=ExtResource("6_gqmmt")]
 position = Vector2(2353.4634, 631.4776)
 script = ExtResource("7_yc10j")
 id = "southeast_asia_george_town_expansion_socket"
@@ -415,7 +415,7 @@ city_id = "george_town"
 display_name = "George Town"
 node_box_offset = Vector2(50, -35)
 
-[node name="south_america_sao_paulo_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=2082879358 instance=ExtResource("6_gqmmt")]
+[node name="south_america_sao_paulo_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=1245104349 instance=ExtResource("6_gqmmt")]
 position = Vector2(312.40326, 1033.8435)
 script = ExtResource("7_yc10j")
 id = "south_america_sao_paulo_expansion_socket"
@@ -424,7 +424,7 @@ city_id = "sao_paulo"
 display_name = "São Paulo"
 node_box_offset = Vector2(50, -35)
 
-[node name="south_america_buenos_aires_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=1667242163 instance=ExtResource("6_gqmmt")]
+[node name="south_america_buenos_aires_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=1139460810 instance=ExtResource("6_gqmmt")]
 position = Vector2(148.43732, 1187.3711)
 script = ExtResource("7_yc10j")
 id = "south_america_buenos_aires_expansion_socket"
@@ -433,16 +433,16 @@ city_id = "buenos_aires"
 display_name = "Buenos Aires"
 node_box_offset = Vector2(50, -35)
 
-[node name="south_america_rio_de_janeiro_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=1680375331 instance=ExtResource("6_gqmmt")]
+[node name="south_america_rio_de_janeiro_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=2007914360 instance=ExtResource("6_gqmmt")]
 position = Vector2(359.8317, 1024.8237)
 script = ExtResource("7_yc10j")
 id = "south_america_rio_de_janeiro_expansion_socket"
 region_id = "south_america"
 city_id = "rio_de_janeiro"
 display_name = "Rio de Janeiro"
-node_box_offset = Vector2(50, -35)
+node_box_offset = Vector2(60, 0)
 
-[node name="south_america_lima_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=423755327 instance=ExtResource("6_gqmmt")]
+[node name="south_america_lima_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=823603260 instance=ExtResource("6_gqmmt")]
 position = Vector2(-110.16678, 873.97314)
 script = ExtResource("7_yc10j")
 id = "south_america_lima_expansion_socket"
@@ -451,7 +451,7 @@ city_id = "lima"
 display_name = "Lima"
 node_box_offset = Vector2(50, -35)
 
-[node name="south_america_bogota_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=1907675065 instance=ExtResource("6_gqmmt")]
+[node name="south_america_bogota_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=2033728786 instance=ExtResource("6_gqmmt")]
 position = Vector2(-68.96236, 642.8004)
 script = ExtResource("7_yc10j")
 id = "south_america_bogota_expansion_socket"
@@ -460,7 +460,7 @@ city_id = "bogota"
 display_name = "Bogota"
 node_box_offset = Vector2(50, -35)
 
-[node name="south_america_santiago_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=2100672246 instance=ExtResource("6_gqmmt")]
+[node name="south_america_santiago_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=491756256 instance=ExtResource("6_gqmmt")]
 position = Vector2(-21.257002, 1171.114)
 script = ExtResource("7_yc10j")
 id = "south_america_santiago_expansion_socket"
@@ -469,7 +469,7 @@ city_id = "santiago"
 display_name = "Santiago"
 node_box_offset = Vector2(50, -35)
 
-[node name="south_america_belo_horizonte_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=70061089 instance=ExtResource("6_gqmmt")]
+[node name="south_america_belo_horizonte_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=686032975 instance=ExtResource("6_gqmmt")]
 position = Vector2(350.04236, 983.23724)
 script = ExtResource("7_yc10j")
 id = "south_america_belo_horizonte_expansion_socket"
@@ -478,7 +478,7 @@ city_id = "belo_horizonte"
 display_name = "Belo Horizonte"
 node_box_offset = Vector2(50, -35)
 
-[node name="south_america_porto_alegre_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=1719539959 instance=ExtResource("6_gqmmt")]
+[node name="south_america_porto_alegre_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=1039811590 instance=ExtResource("6_gqmmt")]
 position = Vector2(248.8617, 1124.001)
 script = ExtResource("7_yc10j")
 id = "south_america_porto_alegre_expansion_socket"
@@ -487,7 +487,7 @@ city_id = "porto_alegre"
 display_name = "Porto Alegre"
 node_box_offset = Vector2(50, -35)
 
-[node name="south_america_brasilia_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=852351970 instance=ExtResource("6_gqmmt")]
+[node name="south_america_brasilia_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=1145990620 instance=ExtResource("6_gqmmt")]
 position = Vector2(294.47226, 925.8527)
 script = ExtResource("7_yc10j")
 id = "south_america_brasilia_expansion_socket"
@@ -496,7 +496,7 @@ city_id = "brasilia"
 display_name = "Brasília"
 node_box_offset = Vector2(50, -35)
 
-[node name="south_america_recife_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=2022201666 instance=ExtResource("6_gqmmt")]
+[node name="south_america_recife_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=910455896 instance=ExtResource("6_gqmmt")]
 position = Vector2(475.15604, 818.61847)
 script = ExtResource("7_yc10j")
 id = "south_america_recife_expansion_socket"
@@ -505,7 +505,7 @@ city_id = "recife"
 display_name = "Recife"
 node_box_offset = Vector2(50, -35)
 
-[node name="russia_central_asia_moscow_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=33406111 instance=ExtResource("6_gqmmt")]
+[node name="russia_central_asia_moscow_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=1933276367 instance=ExtResource("6_gqmmt")]
 position = Vector2(1482.4108, -67.69597)
 script = ExtResource("7_yc10j")
 id = "russia_central_asia_moscow_expansion_socket"
@@ -514,16 +514,16 @@ city_id = "moscow"
 display_name = "Moscow"
 node_box_offset = Vector2(50, -35)
 
-[node name="russia_central_asia_st__petersburg_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=984205379 instance=ExtResource("6_gqmmt")]
+[node name="russia_central_asia_st__petersburg_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=1450374350 instance=ExtResource("6_gqmmt")]
 position = Vector2(1381.0288, -125.84667)
 script = ExtResource("7_yc10j")
-id = "russia_central_asia_st__petersburg_expansion_socket"
+id = "russia_central_asia_st._petersburg_expansion_socket"
 region_id = "russia_central_asia"
 city_id = "st._petersburg"
 display_name = "St.  Petersburg"
 node_box_offset = Vector2(50, -35)
 
-[node name="russia_central_asia_tashkent_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=1796444208 instance=ExtResource("6_gqmmt")]
+[node name="russia_central_asia_tashkent_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=1925644579 instance=ExtResource("6_gqmmt")]
 position = Vector2(1922.067, 133.00238)
 script = ExtResource("7_yc10j")
 id = "russia_central_asia_tashkent_expansion_socket"
@@ -532,7 +532,7 @@ city_id = "tashkent"
 display_name = "Tashkent"
 node_box_offset = Vector2(50, -35)
 
-[node name="russia_central_asia_baku_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=706494584 instance=ExtResource("6_gqmmt")]
+[node name="russia_central_asia_baku_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=414054677 instance=ExtResource("6_gqmmt")]
 position = Vector2(1652.5038, 145.5942)
 script = ExtResource("7_yc10j")
 id = "russia_central_asia_baku_expansion_socket"
@@ -541,7 +541,7 @@ city_id = "baku"
 display_name = "Baku"
 node_box_offset = Vector2(50, -35)
 
-[node name="russia_central_asia_novosibirsk_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=728337315 instance=ExtResource("6_gqmmt")]
+[node name="russia_central_asia_novosibirsk_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=530261848 instance=ExtResource("6_gqmmt")]
 position = Vector2(2112.1958, -57.66536)
 script = ExtResource("7_yc10j")
 id = "russia_central_asia_novosibirsk_expansion_socket"
@@ -550,7 +550,7 @@ city_id = "novosibirsk"
 display_name = "Novosibirsk"
 node_box_offset = Vector2(50, -35)
 
-[node name="russia_central_asia_yekaterinburg_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=646466182 instance=ExtResource("6_gqmmt")]
+[node name="russia_central_asia_yekaterinburg_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=333638250 instance=ExtResource("6_gqmmt")]
 position = Vector2(1801.639, -82.94411)
 script = ExtResource("7_yc10j")
 id = "russia_central_asia_yekaterinburg_expansion_socket"
@@ -559,7 +559,7 @@ city_id = "yekaterinburg"
 display_name = "Yekaterinburg"
 node_box_offset = Vector2(50, -35)
 
-[node name="russia_central_asia_nizhny_novgorod_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=1522482009 instance=ExtResource("6_gqmmt")]
+[node name="russia_central_asia_nizhny_novgorod_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=2137626845 instance=ExtResource("6_gqmmt")]
 position = Vector2(1571.0854, -75.76324)
 script = ExtResource("7_yc10j")
 id = "russia_central_asia_nizhny_novgorod_expansion_socket"
@@ -568,7 +568,7 @@ city_id = "nizhny_novgorod"
 display_name = "Nizhny Novgorod"
 node_box_offset = Vector2(50, -35)
 
-[node name="russia_central_asia_almaty_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=1614444429 instance=ExtResource("6_gqmmt")]
+[node name="russia_central_asia_almaty_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=1794037438 instance=ExtResource("6_gqmmt")]
 position = Vector2(2028.2373, 104.90367)
 script = ExtResource("7_yc10j")
 id = "russia_central_asia_almaty_expansion_socket"
@@ -577,7 +577,7 @@ city_id = "almaty"
 display_name = "Almaty"
 node_box_offset = Vector2(50, -35)
 
-[node name="russia_central_asia_omsk_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=1588807819 instance=ExtResource("6_gqmmt")]
+[node name="russia_central_asia_omsk_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=2074896655 instance=ExtResource("6_gqmmt")]
 position = Vector2(1979.4167, -57.1102)
 script = ExtResource("7_yc10j")
 id = "russia_central_asia_omsk_expansion_socket"
@@ -586,7 +586,7 @@ city_id = "omsk"
 display_name = "Omsk"
 node_box_offset = Vector2(50, -35)
 
-[node name="russia_central_asia_samara_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=983875465 instance=ExtResource("6_gqmmt")]
+[node name="russia_central_asia_samara_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=1104415660 instance=ExtResource("6_gqmmt")]
 position = Vector2(1656.5188, -32.17991)
 script = ExtResource("7_yc10j")
 id = "russia_central_asia_samara_expansion_socket"
@@ -595,7 +595,7 @@ city_id = "samara"
 display_name = "Samara"
 node_box_offset = Vector2(50, -35)
 
-[node name="oceania_sydney_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=2028956616 instance=ExtResource("6_gqmmt")]
+[node name="oceania_sydney_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=754026030 instance=ExtResource("6_gqmmt")]
 position = Vector2(3060.1743, 1177.1024)
 script = ExtResource("7_yc10j")
 id = "oceania_sydney_expansion_socket"
@@ -604,7 +604,7 @@ city_id = "sydney"
 display_name = "Sydney"
 node_box_offset = Vector2(50, -35)
 
-[node name="oceania_melbourne_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=360948031 instance=ExtResource("6_gqmmt")]
+[node name="oceania_melbourne_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=606574456 instance=ExtResource("6_gqmmt")]
 position = Vector2(2973.515, 1231.9178)
 script = ExtResource("7_yc10j")
 id = "oceania_melbourne_expansion_socket"
@@ -613,7 +613,7 @@ city_id = "melbourne"
 display_name = "Melbourne"
 node_box_offset = Vector2(50, -35)
 
-[node name="oceania_brisbane_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=1129752871 instance=ExtResource("6_gqmmt")]
+[node name="oceania_brisbane_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=1451795210 instance=ExtResource("6_gqmmt")]
 position = Vector2(3085.4604, 1087.9595)
 script = ExtResource("7_yc10j")
 id = "oceania_brisbane_expansion_socket"
@@ -622,7 +622,7 @@ city_id = "brisbane"
 display_name = "Brisbane"
 node_box_offset = Vector2(50, -35)
 
-[node name="oceania_perth_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=2133340381 instance=ExtResource("6_gqmmt")]
+[node name="oceania_perth_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=1235381445 instance=ExtResource("6_gqmmt")]
 position = Vector2(2568.8618, 1150.4592)
 script = ExtResource("7_yc10j")
 id = "oceania_perth_expansion_socket"
@@ -631,7 +631,7 @@ city_id = "perth"
 display_name = "Perth"
 node_box_offset = Vector2(50, -35)
 
-[node name="oceania_auckland_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=673723053 instance=ExtResource("6_gqmmt")]
+[node name="oceania_auckland_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=942914755 instance=ExtResource("6_gqmmt")]
 position = Vector2(3387.2642, 1218.4452)
 script = ExtResource("7_yc10j")
 id = "oceania_auckland_expansion_socket"
@@ -640,7 +640,7 @@ city_id = "auckland"
 display_name = "Auckland"
 node_box_offset = Vector2(50, -35)
 
-[node name="oceania_adelaide_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=1949099116 instance=ExtResource("6_gqmmt")]
+[node name="oceania_adelaide_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=1559563665 instance=ExtResource("6_gqmmt")]
 position = Vector2(2884.9731, 1191.8478)
 script = ExtResource("7_yc10j")
 id = "oceania_adelaide_expansion_socket"
@@ -649,7 +649,7 @@ city_id = "adelaide"
 display_name = "Adelaide"
 node_box_offset = Vector2(50, -35)
 
-[node name="north_america_new_york_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=1375138245 instance=ExtResource("6_gqmmt")]
+[node name="north_america_new_york_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=1256013204 instance=ExtResource("6_gqmmt")]
 position = Vector2(-67.7183, 141.08942)
 script = ExtResource("7_yc10j")
 id = "north_america_new_york_expansion_socket"
@@ -658,7 +658,7 @@ city_id = "new_york"
 display_name = "New York"
 node_box_offset = Vector2(50, -35)
 
-[node name="north_america_los_angeles_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=542685614 instance=ExtResource("6_gqmmt")]
+[node name="north_america_los_angeles_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=1586755049 instance=ExtResource("6_gqmmt")]
 position = Vector2(-682.1109, 233.76085)
 script = ExtResource("7_yc10j")
 id = "north_america_los_angeles_expansion_socket"
@@ -667,7 +667,7 @@ city_id = "los_angeles"
 display_name = "Los Angeles"
 node_box_offset = Vector2(50, -35)
 
-[node name="north_america_chicago_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=99482336 instance=ExtResource("6_gqmmt")]
+[node name="north_america_chicago_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=1191051505 instance=ExtResource("6_gqmmt")]
 position = Vector2(-257.15607, 125.444984)
 script = ExtResource("7_yc10j")
 id = "north_america_chicago_expansion_socket"
@@ -676,7 +676,7 @@ city_id = "chicago"
 display_name = "Chicago"
 node_box_offset = Vector2(50, -35)
 
-[node name="north_america_miami_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=1211525985 instance=ExtResource("6_gqmmt")]
+[node name="north_america_miami_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=1908528988 instance=ExtResource("6_gqmmt")]
 position = Vector2(-154.25072, 348.4784)
 script = ExtResource("7_yc10j")
 id = "north_america_miami_expansion_socket"
@@ -685,16 +685,16 @@ city_id = "miami"
 display_name = "Miami"
 node_box_offset = Vector2(50, -35)
 
-[node name="north_america_philadelphia_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=1472577398 instance=ExtResource("6_gqmmt")]
+[node name="north_america_philadelphia_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=971984235 instance=ExtResource("6_gqmmt")]
 position = Vector2(-84.16446, 151.86191)
 script = ExtResource("7_yc10j")
 id = "north_america_philadelphia_expansion_socket"
 region_id = "north_america"
 city_id = "philadelphia"
 display_name = "Philadelphia"
-node_box_offset = Vector2(60, 0)
+node_box_offset = Vector2(50, 35)
 
-[node name="north_america_toronto_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=2042512850 instance=ExtResource("6_gqmmt")]
+[node name="north_america_toronto_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=24365160 instance=ExtResource("6_gqmmt")]
 position = Vector2(-142.63136, 100.21327)
 script = ExtResource("7_yc10j")
 id = "north_america_toronto_expansion_socket"
@@ -703,7 +703,7 @@ city_id = "toronto"
 display_name = "Toronto"
 node_box_offset = Vector2(50, -35)
 
-[node name="north_america_dallas_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=1251452467 instance=ExtResource("6_gqmmt")]
+[node name="north_america_dallas_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=1010828976 instance=ExtResource("6_gqmmt")]
 position = Vector2(-384.37067, 251.50058)
 script = ExtResource("7_yc10j")
 id = "north_america_dallas_expansion_socket"
@@ -712,7 +712,7 @@ city_id = "dallas"
 display_name = "Dallas"
 node_box_offset = Vector2(50, -35)
 
-[node name="north_america_atlanta_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=1405589960 instance=ExtResource("6_gqmmt")]
+[node name="north_america_atlanta_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=682848016 instance=ExtResource("6_gqmmt")]
 position = Vector2(-211.7728, 238.0631)
 script = ExtResource("7_yc10j")
 id = "north_america_atlanta_expansion_socket"
@@ -721,34 +721,34 @@ city_id = "atlanta"
 display_name = "Atlanta"
 node_box_offset = Vector2(50, -35)
 
-[node name="north_america_boston_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=150357301 instance=ExtResource("6_gqmmt")]
+[node name="north_america_boston_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=1848106305 instance=ExtResource("6_gqmmt")]
 position = Vector2(-27.110548, 118.723526)
 script = ExtResource("7_yc10j")
 id = "north_america_boston_expansion_socket"
 region_id = "north_america"
 city_id = "boston"
 display_name = "Boston"
-node_box_offset = Vector2(50, -35)
+node_box_offset = Vector2(60, 0)
 
-[node name="north_america_houston_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=936286184 instance=ExtResource("6_gqmmt")]
+[node name="north_america_houston_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=1277898953 instance=ExtResource("6_gqmmt")]
 position = Vector2(-364.28384, 293.59344)
 script = ExtResource("7_yc10j")
 id = "north_america_houston_expansion_socket"
 region_id = "north_america"
 city_id = "houston"
 display_name = "Houston"
-node_box_offset = Vector2(50, -35)
+node_box_offset = Vector2(60, 0)
 
-[node name="-1070___d_c___expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=1687764093 instance=ExtResource("6_gqmmt")]
+[node name="-1070___d_c___expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=115005287 instance=ExtResource("6_gqmmt")]
 position = Vector2(2390, 1166)
 script = ExtResource("7_yc10j")
-id = "-1070___d_c___expansion_socket"
+id = "-1070___d.c.\"_expansion_socket"
 region_id = "-1070"
 city_id = "__d.c.\""
 display_name = "\"Washington"
 node_box_offset = Vector2(50, -35)
 
-[node name="north_africa_cairo_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=505112854 instance=ExtResource("6_gqmmt")]
+[node name="north_africa_cairo_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=1082798258 instance=ExtResource("6_gqmmt")]
 position = Vector2(1394.0004, 289.27908)
 script = ExtResource("7_yc10j")
 id = "north_africa_cairo_expansion_socket"
@@ -757,7 +757,7 @@ city_id = "cairo"
 display_name = "Cairo"
 node_box_offset = Vector2(50, -35)
 
-[node name="north_africa_khartoum_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=1459414956 instance=ExtResource("6_gqmmt")]
+[node name="north_africa_khartoum_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=799068823 instance=ExtResource("6_gqmmt")]
 position = Vector2(1411.8365, 490.13855)
 script = ExtResource("7_yc10j")
 id = "north_africa_khartoum_expansion_socket"
@@ -766,7 +766,7 @@ city_id = "khartoum"
 display_name = "Khartoum"
 node_box_offset = Vector2(50, -35)
 
-[node name="north_africa_alexandria_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=82198494 instance=ExtResource("6_gqmmt")]
+[node name="north_africa_alexandria_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=1511378503 instance=ExtResource("6_gqmmt")]
 position = Vector2(1375.9452, 273.30603)
 script = ExtResource("7_yc10j")
 id = "north_africa_alexandria_expansion_socket"
@@ -775,7 +775,7 @@ city_id = "alexandria"
 display_name = "Alexandria"
 node_box_offset = Vector2(50, 35)
 
-[node name="north_africa_algiers_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=1614042892 instance=ExtResource("6_gqmmt")]
+[node name="north_africa_algiers_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=2138805554 instance=ExtResource("6_gqmmt")]
 position = Vector2(1002.34174, 196.04152)
 script = ExtResource("7_yc10j")
 id = "north_africa_algiers_expansion_socket"
@@ -784,7 +784,7 @@ city_id = "algiers"
 display_name = "Algiers"
 node_box_offset = Vector2(50, -35)
 
-[node name="north_africa_casablanca_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=366228171 instance=ExtResource("6_gqmmt")]
+[node name="north_africa_casablanca_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=890781421 instance=ExtResource("6_gqmmt")]
 position = Vector2(854.19006, 239.9733)
 script = ExtResource("7_yc10j")
 id = "north_africa_casablanca_expansion_socket"
@@ -793,7 +793,7 @@ city_id = "casablanca"
 display_name = "Casablanca"
 node_box_offset = Vector2(50, -35)
 
-[node name="north_africa_el_giza_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=1825920937 instance=ExtResource("6_gqmmt")]
+[node name="north_africa_el_giza_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=2104217214 instance=ExtResource("6_gqmmt")]
 position = Vector2(1393.1948, 289.86127)
 script = ExtResource("7_yc10j")
 id = "north_africa_el_giza_expansion_socket"
@@ -802,7 +802,7 @@ city_id = "el_giza"
 display_name = "Giza"
 node_box_offset = Vector2(-50, -35)
 
-[node name="north_africa_tunis_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=277504240 instance=ExtResource("6_gqmmt")]
+[node name="north_africa_tunis_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=351122393 instance=ExtResource("6_gqmmt")]
 position = Vector2(1101.3844, 195.51697)
 script = ExtResource("7_yc10j")
 id = "north_africa_tunis_expansion_socket"
@@ -811,7 +811,7 @@ city_id = "tunis"
 display_name = "Tunis"
 node_box_offset = Vector2(50, -35)
 
-[node name="north_africa_omdurman_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=1921295908 instance=ExtResource("6_gqmmt")]
+[node name="north_africa_omdurman_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=1817694804 instance=ExtResource("6_gqmmt")]
 position = Vector2(1411.1115, 489.7683)
 script = ExtResource("7_yc10j")
 id = "north_africa_omdurman_expansion_socket"
@@ -820,7 +820,7 @@ city_id = "omdurman"
 display_name = "Omdurman"
 node_box_offset = Vector2(50, 35)
 
-[node name="north_africa_tripoli_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=339520602 instance=ExtResource("6_gqmmt")]
+[node name="north_africa_tripoli_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=1570770736 instance=ExtResource("6_gqmmt")]
 position = Vector2(1143.0557, 249.82639)
 script = ExtResource("7_yc10j")
 id = "north_africa_tripoli_expansion_socket"
@@ -829,7 +829,7 @@ city_id = "tripoli"
 display_name = "Tripoli"
 node_box_offset = Vector2(50, -35)
 
-[node name="north_africa_rabat_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=43684780 instance=ExtResource("6_gqmmt")]
+[node name="north_africa_rabat_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=57891805 instance=ExtResource("6_gqmmt")]
 position = Vector2(865.04987, 234.09296)
 script = ExtResource("7_yc10j")
 id = "north_africa_rabat_expansion_socket"
@@ -838,7 +838,7 @@ city_id = "rabat"
 display_name = "Rabat"
 node_box_offset = Vector2(50, 35)
 
-[node name="middle_east_karachi_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=1804306104 instance=ExtResource("6_gqmmt")]
+[node name="middle_east_karachi_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=1344355129 instance=ExtResource("6_gqmmt")]
 position = Vector2(1890.3898, 361.22308)
 script = ExtResource("7_yc10j")
 id = "middle_east_karachi_expansion_socket"
@@ -847,7 +847,7 @@ city_id = "karachi"
 display_name = "Karachi"
 node_box_offset = Vector2(50, -35)
 
-[node name="middle_east_istanbul_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=1911909755 instance=ExtResource("6_gqmmt")]
+[node name="middle_east_istanbul_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=470799171 instance=ExtResource("6_gqmmt")]
 position = Vector2(1362.4205, 136.97775)
 script = ExtResource("7_yc10j")
 id = "middle_east_istanbul_expansion_socket"
@@ -856,7 +856,7 @@ city_id = "istanbul"
 display_name = "Istanbul"
 node_box_offset = Vector2(50, -35)
 
-[node name="middle_east_tehran_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=191614930 instance=ExtResource("6_gqmmt")]
+[node name="middle_east_tehran_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=1924672881 instance=ExtResource("6_gqmmt")]
 position = Vector2(1674.2, 211.196)
 script = ExtResource("7_yc10j")
 id = "middle_east_tehran_expansion_socket"
@@ -865,7 +865,7 @@ city_id = "tehran"
 display_name = "Tehran"
 node_box_offset = Vector2(50, -35)
 
-[node name="middle_east_lahore_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=507489833 instance=ExtResource("6_gqmmt")]
+[node name="middle_east_lahore_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=1221128166 instance=ExtResource("6_gqmmt")]
 position = Vector2(1992.6122, 268.3067)
 script = ExtResource("7_yc10j")
 id = "middle_east_lahore_expansion_socket"
@@ -874,7 +874,7 @@ city_id = "lahore"
 display_name = "Lahore"
 node_box_offset = Vector2(50, -35)
 
-[node name="middle_east_baghdad_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=16455763 instance=ExtResource("6_gqmmt")]
+[node name="middle_east_baghdad_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=388209432 instance=ExtResource("6_gqmmt")]
 position = Vector2(1576.5544, 243.60286)
 script = ExtResource("7_yc10j")
 id = "middle_east_baghdad_expansion_socket"
@@ -883,7 +883,7 @@ city_id = "baghdad"
 display_name = "Baghdad"
 node_box_offset = Vector2(50, -35)
 
-[node name="middle_east_riyadh_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=1438381077 instance=ExtResource("6_gqmmt")]
+[node name="middle_east_riyadh_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=787480793 instance=ExtResource("6_gqmmt")]
 position = Vector2(1608.8956, 364.52087)
 script = ExtResource("7_yc10j")
 id = "middle_east_riyadh_expansion_socket"
@@ -892,7 +892,7 @@ city_id = "riyadh"
 display_name = "Riyadh"
 node_box_offset = Vector2(50, -35)
 
-[node name="middle_east_ankara_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=414408394 instance=ExtResource("6_gqmmt")]
+[node name="middle_east_ankara_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=1379935521 instance=ExtResource("6_gqmmt")]
 position = Vector2(1416.4229, 152.09467)
 script = ExtResource("7_yc10j")
 id = "middle_east_ankara_expansion_socket"
@@ -901,7 +901,7 @@ city_id = "ankara"
 display_name = "Ankara"
 node_box_offset = Vector2(50, -35)
 
-[node name="middle_east_kabul_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=2095221470 instance=ExtResource("6_gqmmt")]
+[node name="middle_east_kabul_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=1952088809 instance=ExtResource("6_gqmmt")]
 position = Vector2(1920.8516, 227.24117)
 script = ExtResource("7_yc10j")
 id = "middle_east_kabul_expansion_socket"
@@ -910,7 +910,7 @@ city_id = "kabul"
 display_name = "Kabul"
 node_box_offset = Vector2(50, -35)
 
-[node name="middle_east_tel_aviv-yafo_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=512625777 instance=ExtResource("6_gqmmt")]
+[node name="middle_east_tel_aviv-yafo_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=740913098 instance=ExtResource("6_gqmmt")]
 position = Vector2(1442.8898, 261.0842)
 script = ExtResource("7_yc10j")
 id = "middle_east_tel_aviv-yafo_expansion_socket"
@@ -919,7 +919,7 @@ city_id = "tel_aviv-yafo"
 display_name = "Tel Aviv"
 node_box_offset = Vector2(50, -35)
 
-[node name="middle_east_jeddah_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=117286468 instance=ExtResource("6_gqmmt")]
+[node name="middle_east_jeddah_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=982968546 instance=ExtResource("6_gqmmt")]
 position = Vector2(1504.6841, 407.79395)
 script = ExtResource("7_yc10j")
 id = "middle_east_jeddah_expansion_socket"
@@ -928,7 +928,7 @@ city_id = "jeddah"
 display_name = "Jeddah"
 node_box_offset = Vector2(50, -35)
 
-[node name="east_asia_tokyo_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=1740044579 instance=ExtResource("6_gqmmt")]
+[node name="east_asia_tokyo_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=672761854 instance=ExtResource("6_gqmmt")]
 position = Vector2(2900.9648, 211.0144)
 script = ExtResource("7_yc10j")
 id = "east_asia_tokyo_expansion_socket"
@@ -937,7 +937,7 @@ city_id = "tokyo"
 display_name = "Tokyo"
 node_box_offset = Vector2(50, -35)
 
-[node name="east_asia_osaka_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=230137847 instance=ExtResource("6_gqmmt")]
+[node name="east_asia_osaka_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=1033594132 instance=ExtResource("6_gqmmt")]
 position = Vector2(2841.9966, 224.8459)
 script = ExtResource("7_yc10j")
 id = "east_asia_osaka_expansion_socket"
@@ -946,7 +946,7 @@ city_id = "osaka"
 display_name = "Ōsaka"
 node_box_offset = Vector2(50, -35)
 
-[node name="east_asia_seoul_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=1934349313 instance=ExtResource("6_gqmmt")]
+[node name="east_asia_seoul_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=1291315727 instance=ExtResource("6_gqmmt")]
 position = Vector2(2723.8582, 184.8848)
 script = ExtResource("7_yc10j")
 id = "east_asia_seoul_expansion_socket"
@@ -955,7 +955,7 @@ city_id = "seoul"
 display_name = "Seoul"
 node_box_offset = Vector2(50, -35)
 
-[node name="east_asia_taipei_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=1346820387 instance=ExtResource("6_gqmmt")]
+[node name="east_asia_taipei_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=1860090001 instance=ExtResource("6_gqmmt")]
 position = Vector2(2648.449, 358.94675)
 script = ExtResource("7_yc10j")
 id = "east_asia_taipei_expansion_socket"
@@ -964,7 +964,7 @@ city_id = "taipei"
 display_name = "Taipei"
 node_box_offset = Vector2(50, -35)
 
-[node name="east_asia_new_taipei_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=1944183179 instance=ExtResource("6_gqmmt")]
+[node name="east_asia_new_taipei_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=1806425283 instance=ExtResource("6_gqmmt")]
 position = Vector2(2647.014, 359.26697)
 script = ExtResource("7_yc10j")
 id = "east_asia_new_taipei_expansion_socket"
@@ -973,7 +973,7 @@ city_id = "new_taipei"
 display_name = "New Taipei"
 node_box_offset = Vector2(50, 35)
 
-[node name="east_asia_yokohama_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=2050262658 instance=ExtResource("6_gqmmt")]
+[node name="east_asia_yokohama_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=464449548 instance=ExtResource("6_gqmmt")]
 position = Vector2(2898.917, 214.57422)
 script = ExtResource("7_yc10j")
 id = "east_asia_yokohama_expansion_socket"
@@ -982,16 +982,16 @@ city_id = "yokohama"
 display_name = "Yokohama"
 node_box_offset = Vector2(50, 35)
 
-[node name="east_asia_busan_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=1895231524 instance=ExtResource("6_gqmmt")]
+[node name="east_asia_busan_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=2141315962 instance=ExtResource("6_gqmmt")]
 position = Vector2(2751.7793, 219.20834)
 script = ExtResource("7_yc10j")
 id = "east_asia_busan_expansion_socket"
 region_id = "east_asia"
 city_id = "busan"
 display_name = "Busan"
-node_box_offset = Vector2(50, -35)
+node_box_offset = Vector2(60, 0)
 
-[node name="east_asia_pyongyang_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=653839270 instance=ExtResource("6_gqmmt")]
+[node name="east_asia_pyongyang_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=1098411784 instance=ExtResource("6_gqmmt")]
 position = Vector2(2706.566, 164.70299)
 script = ExtResource("7_yc10j")
 id = "east_asia_pyongyang_expansion_socket"
@@ -1000,25 +1000,25 @@ city_id = "pyongyang"
 display_name = "Pyongyang"
 node_box_offset = Vector2(50, 35)
 
-[node name="east_asia_nagoya_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=1350070723 instance=ExtResource("6_gqmmt")]
+[node name="east_asia_nagoya_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=1041863956 instance=ExtResource("6_gqmmt")]
 position = Vector2(2861.57, 218.3758)
 script = ExtResource("7_yc10j")
 id = "east_asia_nagoya_expansion_socket"
 region_id = "east_asia"
 city_id = "nagoya"
 display_name = "Nagoya"
-node_box_offset = Vector2(60, 0)
+node_box_offset = Vector2(0, 60)
 
-[node name="east_asia_fukuoka_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=1355940206 instance=ExtResource("6_gqmmt")]
+[node name="east_asia_fukuoka_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=1066913320 instance=ExtResource("6_gqmmt")]
 position = Vector2(2771.2231, 240.0422)
 script = ExtResource("7_yc10j")
 id = "east_asia_fukuoka_expansion_socket"
 region_id = "east_asia"
 city_id = "fukuoka"
 display_name = "Fukuoka"
-node_box_offset = Vector2(60, 0)
+node_box_offset = Vector2(-60, 0)
 
-[node name="india_mumbai_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=132265287 instance=ExtResource("6_gqmmt")]
+[node name="india_mumbai_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=626559585 instance=ExtResource("6_gqmmt")]
 position = Vector2(1972.1644, 441.82767)
 script = ExtResource("7_yc10j")
 id = "india_mumbai_expansion_socket"
@@ -1027,7 +1027,7 @@ city_id = "mumbai"
 display_name = "Mumbai"
 node_box_offset = Vector2(50, -35)
 
-[node name="india_delhi_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=1651366574 instance=ExtResource("6_gqmmt")]
+[node name="india_delhi_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=735070216 instance=ExtResource("6_gqmmt")]
 position = Vector2(2032.6119, 308.44528)
 script = ExtResource("7_yc10j")
 id = "india_delhi_expansion_socket"
@@ -1036,7 +1036,7 @@ city_id = "delhi"
 display_name = "Delhi"
 node_box_offset = Vector2(50, -35)
 
-[node name="india_kolkata_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=1885992732 instance=ExtResource("6_gqmmt")]
+[node name="india_kolkata_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=1646068446 instance=ExtResource("6_gqmmt")]
 position = Vector2(2187.3489, 393.2003)
 script = ExtResource("7_yc10j")
 id = "india_kolkata_expansion_socket"
@@ -1045,16 +1045,16 @@ city_id = "kolkata"
 display_name = "Kolkata"
 node_box_offset = Vector2(50, -35)
 
-[node name="india_dhaka_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=753312427 instance=ExtResource("6_gqmmt")]
+[node name="india_dhaka_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=1548693137 instance=ExtResource("6_gqmmt")]
 position = Vector2(2215.6477, 377.1527)
 script = ExtResource("7_yc10j")
 id = "india_dhaka_expansion_socket"
 region_id = "india"
 city_id = "dhaka"
 display_name = "Dhaka"
-node_box_offset = Vector2(60, 0)
+node_box_offset = Vector2(50, 35)
 
-[node name="india_chennai_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=294937792 instance=ExtResource("6_gqmmt")]
+[node name="india_chennai_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=486573771 instance=ExtResource("6_gqmmt")]
 position = Vector2(2074.973, 524.8342)
 script = ExtResource("7_yc10j")
 id = "india_chennai_expansion_socket"
@@ -1063,16 +1063,16 @@ city_id = "chennai"
 display_name = "Chennai"
 node_box_offset = Vector2(50, -35)
 
-[node name="india_bengaluru_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=1082221928 instance=ExtResource("6_gqmmt")]
+[node name="india_bengaluru_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=369145243 instance=ExtResource("6_gqmmt")]
 position = Vector2(2037.1953, 526.5008)
 script = ExtResource("7_yc10j")
 id = "india_bengaluru_expansion_socket"
 region_id = "india"
 city_id = "bengaluru"
 display_name = "Bengaluru"
-node_box_offset = Vector2(60, 0)
+node_box_offset = Vector2(50, 35)
 
-[node name="india_hyderabad_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=1138087271 instance=ExtResource("6_gqmmt")]
+[node name="india_hyderabad_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=1945628429 instance=ExtResource("6_gqmmt")]
 position = Vector2(2049.9724, 464.9732)
 script = ExtResource("7_yc10j")
 id = "india_hyderabad_expansion_socket"
@@ -1081,7 +1081,7 @@ city_id = "hyderabad"
 display_name = "Hyderabad"
 node_box_offset = Vector2(50, -35)
 
-[node name="india_amaravati_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=1242464912 instance=ExtResource("6_gqmmt")]
+[node name="india_amaravati_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=665588165 instance=ExtResource("6_gqmmt")]
 position = Vector2(2078.3933, 477.03253)
 script = ExtResource("7_yc10j")
 id = "india_amaravati_expansion_socket"
@@ -1090,7 +1090,7 @@ city_id = "amaravati"
 display_name = "Amaravati"
 node_box_offset = Vector2(-60, 0)
 
-[node name="india_ahmedabad_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=262765290 instance=ExtResource("6_gqmmt")]
+[node name="india_ahmedabad_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=778865206 instance=ExtResource("6_gqmmt")]
 position = Vector2(1968.0286, 386.7778)
 script = ExtResource("7_yc10j")
 id = "india_ahmedabad_expansion_socket"
@@ -1099,16 +1099,16 @@ city_id = "ahmedabad"
 display_name = "Ahmedabad"
 node_box_offset = Vector2(50, -35)
 
-[node name="india_haora_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=922006093 instance=ExtResource("6_gqmmt")]
+[node name="india_haora_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=1754531848 instance=ExtResource("6_gqmmt")]
 position = Vector2(2186.646, 392.99033)
 script = ExtResource("7_yc10j")
 id = "india_haora_expansion_socket"
 region_id = "india"
 city_id = "haora"
 display_name = "Haora"
-node_box_offset = Vector2(50, 35)
+node_box_offset = Vector2(-50, -35)
 
-[node name="eastern_europe_athens_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=791785512 instance=ExtResource("6_gqmmt")]
+[node name="eastern_europe_athens_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=1724494343 instance=ExtResource("6_gqmmt")]
 position = Vector2(1289.6024, 179.09344)
 script = ExtResource("7_yc10j")
 id = "eastern_europe_athens_expansion_socket"
@@ -1117,7 +1117,7 @@ city_id = "athens"
 display_name = "Athens"
 node_box_offset = Vector2(50, -35)
 
-[node name="eastern_europe_katowice_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=71262635 instance=ExtResource("6_gqmmt")]
+[node name="eastern_europe_katowice_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=1162636035 instance=ExtResource("6_gqmmt")]
 position = Vector2(1224.1669, 8.605826)
 script = ExtResource("7_yc10j")
 id = "eastern_europe_katowice_expansion_socket"
@@ -1126,7 +1126,7 @@ city_id = "katowice"
 display_name = "Katowice"
 node_box_offset = Vector2(50, -35)
 
-[node name="eastern_europe_kiev_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=996735003 instance=ExtResource("6_gqmmt")]
+[node name="eastern_europe_kiev_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=1600465000 instance=ExtResource("6_gqmmt")]
 position = Vector2(1383.8151, 6.1762056)
 script = ExtResource("7_yc10j")
 id = "eastern_europe_kiev_expansion_socket"
@@ -1135,7 +1135,7 @@ city_id = "kiev"
 display_name = "Kyiv"
 node_box_offset = Vector2(50, -35)
 
-[node name="eastern_europe_bucharest_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=1704411486 instance=ExtResource("6_gqmmt")]
+[node name="eastern_europe_bucharest_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=1274993943 instance=ExtResource("6_gqmmt")]
 position = Vector2(1322.4723, 89.509476)
 script = ExtResource("7_yc10j")
 id = "eastern_europe_bucharest_expansion_socket"
@@ -1144,7 +1144,7 @@ city_id = "bucharest"
 display_name = "Bucharest"
 node_box_offset = Vector2(50, -35)
 
-[node name="eastern_europe_minsk_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=1005956153 instance=ExtResource("6_gqmmt")]
+[node name="eastern_europe_minsk_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=226106488 instance=ExtResource("6_gqmmt")]
 position = Vector2(1342.8428, -41.971157)
 script = ExtResource("7_yc10j")
 id = "eastern_europe_minsk_expansion_socket"
@@ -1153,7 +1153,7 @@ city_id = "minsk"
 display_name = "Minsk"
 node_box_offset = Vector2(50, -35)
 
-[node name="eastern_europe_warsaw_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=187903083 instance=ExtResource("6_gqmmt")]
+[node name="eastern_europe_warsaw_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=199767191 instance=ExtResource("6_gqmmt")]
 position = Vector2(1251.741, -18.762112)
 script = ExtResource("7_yc10j")
 id = "eastern_europe_warsaw_expansion_socket"
@@ -1162,7 +1162,7 @@ city_id = "warsaw"
 display_name = "Warsaw"
 node_box_offset = Vector2(50, 35)
 
-[node name="eastern_europe_budapest_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=635006618 instance=ExtResource("6_gqmmt")]
+[node name="eastern_europe_budapest_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=1283457616 instance=ExtResource("6_gqmmt")]
 position = Vector2(1225.019, 46.91733)
 script = ExtResource("7_yc10j")
 id = "eastern_europe_budapest_expansion_socket"
@@ -1171,7 +1171,7 @@ city_id = "budapest"
 display_name = "Budapest"
 node_box_offset = Vector2(50, 35)
 
-[node name="eastern_europe_kharkiv_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=1405064912 instance=ExtResource("6_gqmmt")]
+[node name="eastern_europe_kharkiv_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=764030006 instance=ExtResource("6_gqmmt")]
 position = Vector2(1463.4456, 12.195434)
 script = ExtResource("7_yc10j")
 id = "eastern_europe_kharkiv_expansion_socket"
@@ -1180,16 +1180,16 @@ city_id = "kharkiv"
 display_name = "Kharkiv"
 node_box_offset = Vector2(50, -35)
 
-[node name="eastern_europe_sofia_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=1457229249 instance=ExtResource("6_gqmmt")]
+[node name="eastern_europe_sofia_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=1244487290 instance=ExtResource("6_gqmmt")]
 position = Vector2(1283.8154, 113.815346)
 script = ExtResource("7_yc10j")
 id = "eastern_europe_sofia_expansion_socket"
 region_id = "eastern_europe"
 city_id = "sofia"
 display_name = "Sofia"
-node_box_offset = Vector2(50, -35)
+node_box_offset = Vector2(-50, 35)
 
-[node name="eastern_europe_prague_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=393831594 instance=ExtResource("6_gqmmt")]
+[node name="eastern_europe_prague_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=722692821 instance=ExtResource("6_gqmmt")]
 position = Vector2(1160.3186, 11.014354)
 script = ExtResource("7_yc10j")
 id = "eastern_europe_prague_expansion_socket"
@@ -1198,7 +1198,7 @@ city_id = "prague"
 display_name = "Prague"
 node_box_offset = Vector2(60, 0)
 
-[node name="east_africa_addis_ababa_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=2052098765 instance=ExtResource("6_gqmmt")]
+[node name="east_africa_addis_ababa_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=1618336609 instance=ExtResource("6_gqmmt")]
 position = Vector2(1497.473, 581.177)
 script = ExtResource("7_yc10j")
 id = "east_africa_addis_ababa_expansion_socket"
@@ -1207,7 +1207,7 @@ city_id = "addis_ababa"
 display_name = "Addis Ababa"
 node_box_offset = Vector2(50, -35)
 
-[node name="east_africa_nairobi_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=1189856254 instance=ExtResource("6_gqmmt")]
+[node name="east_africa_nairobi_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=724014202 instance=ExtResource("6_gqmmt")]
 position = Vector2(1471.3154, 724.4639)
 script = ExtResource("7_yc10j")
 id = "east_africa_nairobi_expansion_socket"
@@ -1216,7 +1216,7 @@ city_id = "nairobi"
 display_name = "Nairobi"
 node_box_offset = Vector2(50, -35)
 
-[node name="east_africa_dar_es_salaam_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=1260696034 instance=ExtResource("6_gqmmt")]
+[node name="east_africa_dar_es_salaam_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=1065493001 instance=ExtResource("6_gqmmt")]
 position = Vector2(1505.3666, 801.0843)
 script = ExtResource("7_yc10j")
 id = "east_africa_dar_es_salaam_expansion_socket"
@@ -1225,7 +1225,7 @@ city_id = "dar_es_salaam"
 display_name = "Dar es Salaam"
 node_box_offset = Vector2(50, -35)
 
-[node name="east_africa_kampala_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=929755414 instance=ExtResource("6_gqmmt")]
+[node name="east_africa_kampala_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=1505033660 instance=ExtResource("6_gqmmt")]
 position = Vector2(1412.5192, 702.2416)
 script = ExtResource("7_yc10j")
 id = "east_africa_kampala_expansion_socket"
@@ -1234,7 +1234,7 @@ city_id = "kampala"
 display_name = "Kampala"
 node_box_offset = Vector2(50, -35)
 
-[node name="east_africa_mogadishu_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=1163454207 instance=ExtResource("6_gqmmt")]
+[node name="east_africa_mogadishu_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=1650477721 instance=ExtResource("6_gqmmt")]
 position = Vector2(1590.0657, 677.9357)
 script = ExtResource("7_yc10j")
 id = "east_africa_mogadishu_expansion_socket"
@@ -1243,16 +1243,16 @@ city_id = "mogadishu"
 display_name = "Mogadishu"
 node_box_offset = Vector2(50, -35)
 
-[node name="china_shanghai_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=1614652204 instance=ExtResource("6_gqmmt")]
+[node name="china_shanghai_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=2020279408 instance=ExtResource("6_gqmmt")]
 position = Vector2(2646.591, 273.0778)
 script = ExtResource("7_yc10j")
 id = "china_shanghai_expansion_socket"
 region_id = "china"
 city_id = "shanghai"
 display_name = "Shanghai"
-node_box_offset = Vector2(50, -35)
+node_box_offset = Vector2(-50, -35)
 
-[node name="china_beijing_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=756933536 instance=ExtResource("6_gqmmt")]
+[node name="china_beijing_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=2103861206 instance=ExtResource("6_gqmmt")]
 position = Vector2(2576.5862, 152.4761)
 script = ExtResource("7_yc10j")
 id = "china_beijing_expansion_socket"
@@ -1261,7 +1261,7 @@ city_id = "beijing"
 display_name = "Beijing"
 node_box_offset = Vector2(50, -35)
 
-[node name="china_guangzhou_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=1845744826 instance=ExtResource("6_gqmmt")]
+[node name="china_guangzhou_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=1160007457 instance=ExtResource("6_gqmmt")]
 position = Vector2(2533.0803, 385.48996)
 script = ExtResource("7_yc10j")
 id = "china_guangzhou_expansion_socket"
@@ -1270,25 +1270,25 @@ city_id = "guangzhou"
 display_name = "Guangzhou"
 node_box_offset = Vector2(50, -35)
 
-[node name="china_shenzhen_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=929446720 instance=ExtResource("6_gqmmt")]
+[node name="china_shenzhen_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=1691619666 instance=ExtResource("6_gqmmt")]
 position = Vector2(2544.1826, 393.49866)
 script = ExtResource("7_yc10j")
 id = "china_shenzhen_expansion_socket"
 region_id = "china"
 city_id = "shenzhen"
 display_name = "Shenzhen"
-node_box_offset = Vector2(60, 0)
+node_box_offset = Vector2(50, 35)
 
-[node name="china_wuhan_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=428673132 instance=ExtResource("6_gqmmt")]
+[node name="china_wuhan_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=323140347 instance=ExtResource("6_gqmmt")]
 position = Vector2(2547.0566, 281.917)
 script = ExtResource("7_yc10j")
 id = "china_wuhan_expansion_socket"
 region_id = "china"
 city_id = "wuhan"
 display_name = "Wuhan"
-node_box_offset = Vector2(50, -35)
+node_box_offset = Vector2(-50, -35)
 
-[node name="china_hong_kong_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=365890013 instance=ExtResource("6_gqmmt")]
+[node name="china_hong_kong_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=1693337657 instance=ExtResource("6_gqmmt")]
 position = Vector2(2545.876, 396.84824)
 script = ExtResource("7_yc10j")
 id = "china_hong_kong_expansion_socket"
@@ -1297,7 +1297,7 @@ city_id = "hong_kong"
 display_name = "Hong Kong"
 node_box_offset = Vector2(-50, 35)
 
-[node name="china_tianjin_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=623176332 instance=ExtResource("6_gqmmt")]
+[node name="china_tianjin_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=744737936 instance=ExtResource("6_gqmmt")]
 position = Vector2(2587.7307, 163.85039)
 script = ExtResource("7_yc10j")
 id = "china_tianjin_expansion_socket"
@@ -1306,16 +1306,16 @@ city_id = "tianjin"
 display_name = "Tianjin"
 node_box_offset = Vector2(60, 0)
 
-[node name="china_chongqing_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=876023284 instance=ExtResource("6_gqmmt")]
+[node name="china_chongqing_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=87713291 instance=ExtResource("6_gqmmt")]
 position = Vector2(2440.4587, 296.01495)
 script = ExtResource("7_yc10j")
 id = "china_chongqing_expansion_socket"
 region_id = "china"
 city_id = "chongqing"
 display_name = "Chongqing"
-node_box_offset = Vector2(50, -35)
+node_box_offset = Vector2(-50, -35)
 
-[node name="china_shenyeng_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=1726783731 instance=ExtResource("6_gqmmt")]
+[node name="china_shenyeng_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=1838667245 instance=ExtResource("6_gqmmt")]
 position = Vector2(2674.556, 126.01493)
 script = ExtResource("7_yc10j")
 id = "china_shenyeng_expansion_socket"
@@ -1324,16 +1324,16 @@ city_id = "shenyeng"
 display_name = "Shenyeng"
 node_box_offset = Vector2(50, -35)
 
-[node name="china_dongguan_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=1763313732 instance=ExtResource("6_gqmmt")]
+[node name="china_dongguan_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=1031198111 instance=ExtResource("6_gqmmt")]
 position = Vector2(2539.8677, 386.9231)
 script = ExtResource("7_yc10j")
 id = "china_dongguan_expansion_socket"
 region_id = "china"
 city_id = "dongguan"
 display_name = "Dongguan"
-node_box_offset = Vector2(0, -60)
+node_box_offset = Vector2(-85, -55)
 
-[node name="central_america_caribbean_mexico_city_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=969171562 instance=ExtResource("6_gqmmt")]
+[node name="central_america_caribbean_mexico_city_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=1560429971 instance=ExtResource("6_gqmmt")]
 position = Vector2(-416.8463, 436.6057)
 script = ExtResource("7_yc10j")
 id = "central_america_caribbean_mexico_city_expansion_socket"
@@ -1342,7 +1342,7 @@ city_id = "mexico_city"
 display_name = "Mexico City"
 node_box_offset = Vector2(50, -35)
 
-[node name="central_america_caribbean_guadalajara_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=1787460977 instance=ExtResource("6_gqmmt")]
+[node name="central_america_caribbean_guadalajara_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=1021100713 instance=ExtResource("6_gqmmt")]
 position = Vector2(-475.16638, 419.5561)
 script = ExtResource("7_yc10j")
 id = "central_america_caribbean_guadalajara_expansion_socket"
@@ -1351,7 +1351,7 @@ city_id = "guadalajara"
 display_name = "Guadalajara"
 node_box_offset = Vector2(50, -35)
 
-[node name="central_america_caribbean_monterrey_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=1797431688 instance=ExtResource("6_gqmmt")]
+[node name="central_america_caribbean_monterrey_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=123608560 instance=ExtResource("6_gqmmt")]
 position = Vector2(-433.49902, 350.11194)
 script = ExtResource("7_yc10j")
 id = "central_america_caribbean_monterrey_expansion_socket"
@@ -1360,7 +1360,7 @@ city_id = "monterrey"
 display_name = "Monterrey"
 node_box_offset = Vector2(50, -35)
 
-[node name="central_america_caribbean_san_juan_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=1870558918 instance=ExtResource("6_gqmmt")]
+[node name="central_america_caribbean_san_juan_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=1724816781 instance=ExtResource("6_gqmmt")]
 position = Vector2(41.528065, 450.55524)
 script = ExtResource("7_yc10j")
 id = "central_america_caribbean_san_juan_expansion_socket"
@@ -1369,25 +1369,25 @@ city_id = "san_juan"
 display_name = "San Juan"
 node_box_offset = Vector2(50, -35)
 
-[node name="central_america_caribbean_puebla_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=1135835661 instance=ExtResource("6_gqmmt")]
+[node name="central_america_caribbean_puebla_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=1350478609 instance=ExtResource("6_gqmmt")]
 position = Vector2(-403.9408, 442.32507)
 script = ExtResource("7_yc10j")
 id = "central_america_caribbean_puebla_expansion_socket"
 region_id = "central_america_caribbean"
 city_id = "puebla"
 display_name = "Puebla"
-node_box_offset = Vector2(60, 0)
+node_box_offset = Vector2(50, 35)
 
-[node name="central_america_caribbean_havana_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=1016804160 instance=ExtResource("6_gqmmt")]
+[node name="central_america_caribbean_havana_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=2130482665 instance=ExtResource("6_gqmmt")]
 position = Vector2(-183.974, 385.36243)
 script = ExtResource("7_yc10j")
 id = "central_america_caribbean_havana_expansion_socket"
 region_id = "central_america_caribbean"
 city_id = "havana"
 display_name = "Havana"
-node_box_offset = Vector2(50, -35)
+node_box_offset = Vector2(60, 0)
 
-[node name="central_america_caribbean_santo_domingo_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=91363432 instance=ExtResource("6_gqmmt")]
+[node name="central_america_caribbean_santo_domingo_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=1498036669 instance=ExtResource("6_gqmmt")]
 position = Vector2(-11.246421, 450.12854)
 script = ExtResource("7_yc10j")
 id = "central_america_caribbean_santo_domingo_expansion_socket"
@@ -1396,25 +1396,25 @@ city_id = "santo_domingo"
 display_name = "Santo Domingo"
 node_box_offset = Vector2(50, -35)
 
-[node name="central_america_caribbean_port-au-prince_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=1943390009 instance=ExtResource("6_gqmmt")]
+[node name="central_america_caribbean_port-au-prince_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=1309576588 instance=ExtResource("6_gqmmt")]
 position = Vector2(-44.69417, 449.1254)
 script = ExtResource("7_yc10j")
 id = "central_america_caribbean_port-au-prince_expansion_socket"
 region_id = "central_america_caribbean"
 city_id = "port-au-prince"
 display_name = "Port-au-Prince"
-node_box_offset = Vector2(60, 0)
+node_box_offset = Vector2(50, 35)
 
-[node name="central_america_caribbean_toluca_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=582706179 instance=ExtResource("6_gqmmt")]
+[node name="central_america_caribbean_toluca_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=492107162 instance=ExtResource("6_gqmmt")]
 position = Vector2(-424.07193, 438.7596)
 script = ExtResource("7_yc10j")
 id = "central_america_caribbean_toluca_expansion_socket"
 region_id = "central_america_caribbean"
 city_id = "toluca"
 display_name = "Toluca"
-node_box_offset = Vector2(50, 35)
+node_box_offset = Vector2(-50, -35)
 
-[node name="central_america_caribbean_santiago_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=1827391162 instance=ExtResource("6_gqmmt")]
+[node name="central_america_caribbean_santiago_expansion_socket" type="Node2D" parent="MapController/ExpansionNodeLayer" unique_id=1510117375 instance=ExtResource("6_gqmmt")]
 position = Vector2(-21.527946, 435.8332)
 script = ExtResource("7_yc10j")
 id = "central_america_caribbean_santiago_expansion_socket"

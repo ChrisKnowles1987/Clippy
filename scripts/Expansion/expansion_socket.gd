@@ -1,6 +1,8 @@
 @tool
 extends Node2D
 
+signal expansion_socket_clicked(socket)
+
 @export var id: String = ""
 @export var region_id: String = ""
 @export var city_id: String = ""
@@ -15,6 +17,12 @@ extends Node2D
 func _ready() -> void:
 	update_node_box()
 	update_line()
+
+	var area := get_node_or_null("NodeBox/Area2D") as Area2D
+	if area != null:
+		area.input_pickable = true
+		if area.input_event.is_connected(_on_area_input_event) == false:
+			area.input_event.connect(_on_area_input_event)
 
 func _process(_delta: float) -> void:
 	update_node_box()
@@ -36,3 +44,11 @@ func update_line() -> void:
 		Vector2.ZERO,
 		node_box_offset
 	])
+
+func _on_area_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
+	if Engine.is_editor_hint():
+		return
+
+	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
+		print("Clicked expansion socket: ", id, " region: ", region_id, " city: ", city_id)
+		expansion_socket_clicked.emit(self)

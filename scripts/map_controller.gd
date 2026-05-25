@@ -51,6 +51,8 @@ var hovered_region_id: String = ""
 var selected_region_id: String = ""
 var scanned_region_ids: Array[String] = []
 
+var current_map_view: String = "infiltration"
+
 func _ready() -> void:
 	print("map controller ready")
 	set_process_input(true)
@@ -70,6 +72,9 @@ func _process(_delta: float) -> void:
 		update_region_overlays()
 
 func _unhandled_input(event: InputEvent) -> void:
+	if current_map_view != "infiltration":
+		return
+
 	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
 		var clicked_region_id := get_region_under_mouse()
 
@@ -83,6 +88,8 @@ func _unhandled_input(event: InputEvent) -> void:
 			region_selected.emit("", get_viewport().get_mouse_position())
 			
 func set_map_view(view_name: String) -> void:
+	current_map_view = view_name
+
 	var infiltration_view := view_name == "infiltration"
 	var expansion_view := view_name == "expansion"
 
@@ -92,8 +99,8 @@ func set_map_view(view_name: String) -> void:
 	$ScanOverlayMap.visible = infiltration_view
 	$HackNodeLayer.visible = infiltration_view
 
-	$SelectedHighlightMap.visible = true
-	$HoverHighlightMap.visible = true
+	$SelectedHighlightMap.visible = infiltration_view
+	$HoverHighlightMap.visible = infiltration_view
 
 func _set_overlay_texture(sprite: Sprite2D, folder_path: String, region_id: String) -> void:
 	if region_id == "":

@@ -124,18 +124,22 @@ func generate_region_sockets(region_id: String, cities: Array) -> void:
 		var city_position: Vector2 = city["map_position"]
 		var offset := get_non_overlapping_offset(city_position)
 
-		socket.name = "%s_%s_expansion_socket" % [region_id, city["id"]]
-		socket.id = socket.name
+		var city_id := str(city["id"])
+		var city_name := str(city["display_name"])
+		var socket_name := "%s_%s_expansion_socket" % [region_id, city_id]
+
 		socket.region_id = region_id
-		socket.city_id = city["id"]
-		socket.display_name = city["display_name"]
+		socket.city_id = city_id
+		socket.display_name = city_name
 		socket.position = city_position
 		socket.node_box_offset = offset
 
-		placed_box_positions.append(city_position + offset)
-
 		get_parent().add_child(socket)
+		socket.name = socket_name
+		socket.id = socket_name
 		socket.owner = get_tree().edited_scene_root
+
+		placed_box_positions.append(city_position + offset)
 
 func get_non_overlapping_offset(city_position: Vector2) -> Vector2:
 	for offset in candidate_offsets:
