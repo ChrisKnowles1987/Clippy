@@ -107,7 +107,7 @@ func assign_expansion_point(target_node_type: String) -> bool:
 		refresh()
 		return false
 
-	var socket := get_next_assignment_socket(target_node_type)
+	var socket = get_next_assignment_socket(target_node_type)
 	if socket == null:
 		refresh()
 		return false
