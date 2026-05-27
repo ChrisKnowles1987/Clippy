@@ -6,7 +6,7 @@ extends Camera2D
 @export var max_zoom: float = 2.5
 
 @export var map_center: Vector2 = Vector2(960, 540)
-@export var map_size: Vector2 = Vector2(5000, 2000)
+@export var map_size: Vector2 = Vector2(5000, 2700)
 
 var right_mouse_dragging: bool = false
 var last_mouse_position: Vector2 = Vector2.ZERO
