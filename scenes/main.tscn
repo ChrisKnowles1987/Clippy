@@ -21,6 +21,7 @@
 [ext_resource type="PackedScene" uid="uid://umjq1yqmk2co" path="res://scenes/region_stat_row.tscn" id="15_muem4"]
 [ext_resource type="Script" uid="uid://c1m8m0dumq68e" path="res://scripts/pending_decision_pannel.gd" id="16_muem4"]
 [ext_resource type="PackedScene" uid="uid://cvh3ftfxw8i2n" path="res://scenes/CampaignRow.tscn" id="19_jscy8"]
+[ext_resource type="Script" uid="uid://b87fagd11d0bq" path="res://scripts/campaigns/campaigns_pannel_container.gd" id="19_pm3ni"]
 [ext_resource type="Script" uid="uid://dy2iv2c8nbu5s" path="res://scripts/expansion_pannel_container.gd" id="19_yc10j"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_o6xl0"]
@@ -1528,6 +1529,7 @@ text = "Offline"
 layout_mode = 2
 theme_override_constants/margin_left = 12
 theme_override_constants/margin_right = 12
+script = ExtResource("19_pm3ni")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/BottomSkillPannel/MarginContainer/Control/CampaignsPannelContainer" unique_id=1194455186]
 custom_minimum_size = Vector2(534, 0)

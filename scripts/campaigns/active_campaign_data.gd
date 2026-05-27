@@ -1,11 +1,10 @@
-extends Node
+extends Resource
+class_name ActiveCampaignData
 
+var campaign_id: String = ""
+var display_name: String = ""
+var description: String = ""
+var effect_id: String = ""
 
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
+var remaining_days: int = 0
+var always_on: bool = false

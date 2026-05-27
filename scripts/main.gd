@@ -23,12 +23,18 @@ extends Node2D
 @onready var decision_popup: DecisionPopup = $CanvasLayer/DecisionPopup
 @onready var pending_decision_pannel: PendingDecisionPannel = $CanvasLayer/PendingDecisionPannel
 
+@onready var campaigns_panel: CampaignsPannelContainer = $CanvasLayer/BottomSkillPannel/MarginContainer/Control/CampaignsPannelContainer
+
 var hack_decision_manager: HackDecisionManager = null
 var hack_exploit_processor: HackExploitProcessor = null
 var hack_discovery_processor: HackDiscoveryProcessor = null
 var infiltration_processor: InfiltrationProcessor = null
 var notoriety_manager: NotorietyManager = null
+var campaign_database: CampaignDatabase = null
+var campaign_manager: CampaignManager = null
+
 var current_map_view: String = "infiltration"
+
 
 
 func _ready() -> void:
@@ -43,6 +49,20 @@ func _ready() -> void:
 	expansion_panel.setup(region_manager, expansion_node_layer, global_resource_manager)
 	notoriety_manager = NotorietyManager.new()
 	add_child(notoriety_manager)
+
+	campaign_database = CampaignDatabase.new()
+	add_child(campaign_database)
+
+	campaign_manager = CampaignManager.new()
+	add_child(campaign_manager)
+
+	campaign_manager.setup(
+		campaign_database,
+		region_manager,
+		global_resource_manager
+	)
+
+	campaigns_panel.setup(campaign_manager, region_manager)
 
 	notoriety_panel.refresh(region_manager.region_states, notoriety_manager)
 
@@ -119,6 +139,8 @@ func _on_day_passed(current_date: Dictionary) -> void:
 	expansion_panel.refresh()
 	refresh_notoriety_ui()
 	update_global_resource_ui()
+	campaign_manager.process_day_passed()
+	campaigns_panel.refresh()
 	
 
 
@@ -184,6 +206,7 @@ func _on_region_selected(region_id: String, mouse_position: Vector2) -> void:
 	var region_state: RegionState = region_manager.get_region_state(region_id)
 
 	intrusion_panel.show_region(selected_region_data, region_state)
+	campaigns_panel.show_region(region_id)
 
 
 func _on_expansion_region_selected(region_id: String) -> void:
@@ -208,3 +231,4 @@ func refresh_selected_region_ui() -> void:
 
 
 	intrusion_panel.show_region(region_manager.selected_region_data, selected_region_state)
+	campaigns_panel.refresh()

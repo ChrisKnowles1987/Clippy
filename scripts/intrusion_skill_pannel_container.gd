@@ -7,16 +7,18 @@ extends Control
 
 @onready var region_level_label: Label = $VBoxContainer/SumnmaryContainer/LevelContainer/RegionLevelLabel
 @onready var level_slot_labels := [
-	$VBoxContainer/SumnmaryContainer/LevelContainer/LevelSlotsContainer/LevelSlot0,
-	$VBoxContainer/SumnmaryContainer/LevelContainer/LevelSlotsContainer/LevelSlot1,
-	$VBoxContainer/SumnmaryContainer/LevelContainer/LevelSlotsContainer/LevelSlot2,
-	$VBoxContainer/SumnmaryContainer/LevelContainer/LevelSlotsContainer/LevelSlot3,
-	$VBoxContainer/SumnmaryContainer/LevelContainer/LevelSlotsContainer/LevelSlot4,
-	$VBoxContainer/SumnmaryContainer/LevelContainer/LevelSlotsContainer/LevelSlot5,
-	$VBoxContainer/SumnmaryContainer/LevelContainer/LevelSlotsContainer/LevelSlot6,
-	$VBoxContainer/SumnmaryContainer/LevelContainer/LevelSlotsContainer/LevelSlot7,
-	$VBoxContainer/SumnmaryContainer/LevelContainer/LevelSlotsContainer/LevelSlot8,
-	$VBoxContainer/SumnmaryContainer/LevelContainer/LevelSlotsContainer/LevelSlot9
+	$"../CampaignsPannelContainer/VBoxContainer/FilterRow/LevelSlotsContainer/LevelSlot0",
+	$"../CampaignsPannelContainer/VBoxContainer/FilterRow/LevelSlotsContainer/LevelSlot1",
+	$"../CampaignsPannelContainer/VBoxContainer/FilterRow/LevelSlotsContainer/LevelSlot2",
+	$"../CampaignsPannelContainer/VBoxContainer/FilterRow/LevelSlotsContainer/LevelSlot3",
+	$"../CampaignsPannelContainer/VBoxContainer/FilterRow/LevelSlotsContainer/LevelSlot4",
+	$"../CampaignsPannelContainer/VBoxContainer/FilterRow/LevelSlotsContainer/LevelSlot5",
+	$"../CampaignsPannelContainer/VBoxContainer/FilterRow/LevelSlotsContainer/LevelSlot6",
+	$"../CampaignsPannelContainer/VBoxContainer/FilterRow/LevelSlotsContainer/LevelSlot7",
+	$"../CampaignsPannelContainer/VBoxContainer/FilterRow/LevelSlotsContainer/LevelSlot8",
+	$"../CampaignsPannelContainer/VBoxContainer/FilterRow/LevelSlotsContainer/LevelSlot9",
+	$"../CampaignsPannelContainer/VBoxContainer/FilterRow/LevelSlotsContainer/LevelSlot10",
+
 ]
 
 @onready var notoriety_stars: Label = $VBoxContainer/SumnmaryContainer/TitleRowContainer/NotorietyStars

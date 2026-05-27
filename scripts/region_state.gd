@@ -29,7 +29,7 @@ const MAX_REGION_LEVEL := 10
 
 @export var shutdown_progress: float = 0.0
 
-@export var active_campaigns: Array[String] = []
+@export var active_campaigns: Array[ActiveCampaignData] = []
 @export var active_node_ids: Array[String] = []
 
 @export var infiltration_enabled: bool = false
@@ -188,6 +188,72 @@ func get_earned_slot_count() -> int:
 
 func get_max_region_level() -> int:
 	return MAX_REGION_LEVEL
+
+
+
+func has_available_campaign_slots(required_slots: Array[String]) -> bool:
+	var available_slots := level_slots.duplicate()
+
+	for required_slot in required_slots:
+		var slot_index := available_slots.find(required_slot)
+
+		if slot_index == -1:
+			return false
+
+		available_slots.remove_at(slot_index)
+
+	return true
+
+
+func consume_campaign_slots(required_slots: Array[String]) -> bool:
+	if has_available_campaign_slots(required_slots) == false:
+		return false
+
+	for required_slot in required_slots:
+		var slot_index := level_slots.find(required_slot)
+
+		if slot_index == -1:
+			return false
+
+		level_slots[slot_index] = ""
+
+	return true
+
+
+func add_active_campaign(active_campaign: ActiveCampaignData) -> void:
+	if active_campaign == null:
+		return
+
+	active_campaigns.append(active_campaign)
+
+
+func has_active_campaign(campaign_id: String) -> bool:
+	for active_campaign in active_campaigns:
+		if active_campaign.campaign_id == campaign_id:
+			return true
+
+	return false
+
+
+func process_active_campaigns_day() -> void:
+	var finished_campaigns: Array[ActiveCampaignData] = []
+
+	for active_campaign in active_campaigns:
+		if active_campaign.always_on:
+			continue
+
+		active_campaign.remaining_days -= 1
+
+		if active_campaign.remaining_days <= 0:
+			finished_campaigns.append(active_campaign)
+
+	for active_campaign in finished_campaigns:
+		active_campaigns.erase(active_campaign)
+
+
+func get_active_campaigns() -> Array[ActiveCampaignData]:
+	return active_campaigns.duplicate()
+
 
 
 func can_add_level_slot() -> bool:

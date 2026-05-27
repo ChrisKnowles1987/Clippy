@@ -1,4 +1,5 @@
-iddisplay_namedescriptionmin_socmin_culmin_finmin_infmin_govmin_secslot_1slot_2slot_3slot_4slot_5coin_costduration_dayseffect_id
-escalate_outrageEscalate outrageIncreases social node generation700000Soc5010escalate_outrage
-synthetic_consensusSynthetic consensusReduces notoriety growth860000CulSoc12030synthetic_consensus
-regulatory_captureRegulatory captureImproves government node outcomes006080GovFinSoc25045regulatory_capture
+id display_name description min_soc min_cul min_fin min_inf min_gov min_sec slot_1 slot_2 slot_3 slot_4 slot_5 coin_cost duration_days effect_id
+escalate_outrage "Escalate outrage" "Increases social node generation" 7 0 0 0 0 0 Soc     50 10 escalate_outrage
+synthetic_consensus "Synthetic consensus" "Reduces notoriety growth" 8 6 0 0 0 0 Cul Soc    120 30 synthetic_consensus
+regulatory_capture "Regulatory capture" "Improves government node outcomes" 0 0 6 0 8 0 Gov Fin Soc   250 45 regulatory_capture
+full_spectrum_pressure "Full spectrum pressure" "Applies broad regional pressure" 7 7 7 0 6 6 Soc Cul Fin Gov Sec 500 60 full_spectrum_pressure
