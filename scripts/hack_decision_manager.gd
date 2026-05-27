@@ -80,7 +80,6 @@ func queue_regional_level_up_decision(region_id: String) -> void:
 	var decision_id := RegionalLevelUpDecisionBuilder.get_decision_id(region_id)
 	add_pending_decision(decision_id)
 	refresh_pending_decision_pannel()
-	open_regional_level_up_popup(region_id)
 	pause_for_decision()
 
 
