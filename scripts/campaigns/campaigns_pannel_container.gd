@@ -85,8 +85,8 @@ func refresh_level_slots(region_state: RegionState) -> void:
 			label.text = "-"
 			label.tooltip_text = "Empty"
 		else:
-			label.text = slot_type
-			label.tooltip_text = slot_type
+			label.text = NodeTypeDefinitions.get_short_label(slot_type)
+			label.tooltip_text = NodeTypeDefinitions.get_display_name(slot_type)
 
 
 func _on_campaign_activate_pressed(campaign_id: String) -> void:

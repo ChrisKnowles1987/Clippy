@@ -132,16 +132,16 @@ func get_region_stat_level(region_data: RegionData, stat_type: String) -> int:
 
 	match stat_type:
 		"Soc":
-			return int(round(region_data.soc_score))
+			return int(round(region_data.get_node_type_score(NodeTypeDefinitions.SOCIAL)))
 		"Cul":
-			return int(round(region_data.cul_score))
+			return int(round(region_data.get_node_type_score(NodeTypeDefinitions.CULTURAL)))
 		"Fin":
-			return int(round(region_data.fin_score))
+			return int(round(region_data.get_node_type_score(NodeTypeDefinitions.FINANCIAL)))
 		"Inf":
-			return int(round(region_data.inf_score))
+			return int(round(region_data.get_node_type_score(NodeTypeDefinitions.INFRASTRUCTURE)))
 		"Gov":
-			return int(round(region_data.gov_score))
+			return int(round(region_data.get_node_type_score(NodeTypeDefinitions.GOVERNMENT)))
 		"Sec":
-			return int(round(region_data.sec_score))
+			return int(round(region_data.get_node_type_score(NodeTypeDefinitions.SECURITY)))
 		_:
 			return 0

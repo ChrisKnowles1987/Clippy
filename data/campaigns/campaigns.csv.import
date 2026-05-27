@@ -6,7 +6,10 @@ uid="uid://ih11ljbl8xhe"
 
 [deps]
 
+files=["res://data/campaigns/campaigns.display.translation", "res://data/campaigns/campaigns.description.translation", "res://data/campaigns/campaigns.min.translation", "res://data/campaigns/campaigns.min.translation", "res://data/campaigns/campaigns.min.translation", "res://data/campaigns/campaigns.min.translation", "res://data/campaigns/campaigns.min.translation", "res://data/campaigns/campaigns.min.translation", "res://data/campaigns/campaigns.slot.translation", "res://data/campaigns/campaigns.slot.translation", "res://data/campaigns/campaigns.slot.translation", "res://data/campaigns/campaigns.slot.translation", "res://data/campaigns/campaigns.slot.translation", "res://data/campaigns/campaigns.coin.translation", "res://data/campaigns/campaigns.duration.translation", "res://data/campaigns/campaigns.effect.translation"]
+
 source_file="res://data/campaigns/campaigns.csv"
+dest_files=["res://data/campaigns/campaigns.display.translation", "res://data/campaigns/campaigns.description.translation", "res://data/campaigns/campaigns.min.translation", "res://data/campaigns/campaigns.min.translation", "res://data/campaigns/campaigns.min.translation", "res://data/campaigns/campaigns.min.translation", "res://data/campaigns/campaigns.min.translation", "res://data/campaigns/campaigns.min.translation", "res://data/campaigns/campaigns.slot.translation", "res://data/campaigns/campaigns.slot.translation", "res://data/campaigns/campaigns.slot.translation", "res://data/campaigns/campaigns.slot.translation", "res://data/campaigns/campaigns.slot.translation", "res://data/campaigns/campaigns.coin.translation", "res://data/campaigns/campaigns.duration.translation", "res://data/campaigns/campaigns.effect.translation"]
 
 [params]
 
