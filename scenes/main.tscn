@@ -1189,9 +1189,9 @@ custom_minimum_size = Vector2(204, 40)
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_top = -320.0
+offset_top = -344.0
 offset_right = 204.0
-offset_bottom = -280.0
+offset_bottom = -304.0
 grow_vertical = 0
 size_flags_horizontal = 3
 script = ExtResource("12_dp3eg")
@@ -1202,32 +1202,6 @@ current_tab = 0
 tab_count = 2
 tab_0/title = "Infiltration"
 tab_1/title = "Expansion"
-
-[node name="NotorietyPannelContainer" type="PanelContainer" parent="CanvasLayer" unique_id=1294479537]
-custom_minimum_size = Vector2(500, 280)
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -500.0
-offset_top = -140.0
-grow_horizontal = 0
-grow_vertical = 0
-script = ExtResource("12_jbj1t")
-
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/NotorietyPannelContainer" unique_id=1122926465]
-layout_mode = 2
-theme_override_constants/margin_left = 10
-theme_override_constants/margin_top = 20
-theme_override_constants/margin_right = 10
-theme_override_constants/margin_bottom = 10
-
-[node name="ScrollContainer" type="ScrollContainer" parent="CanvasLayer/NotorietyPannelContainer/MarginContainer" unique_id=154421380]
-layout_mode = 2
-
-[node name="RegionList" type="VBoxContainer" parent="CanvasLayer/NotorietyPannelContainer/MarginContainer/ScrollContainer" unique_id=1710438545]
-layout_mode = 2
 
 [node name="GlobalResourcePanel" type="PanelContainer" parent="CanvasLayer" unique_id=983758661]
 custom_minimum_size = Vector2(200, 140)
@@ -1303,11 +1277,7 @@ grow_vertical = 0
 size_flags_horizontal = 3
 size_flags_vertical = 8
 
-[node name="Control" type="HBoxContainer" parent="CanvasLayer/BottomSkillPannel" unique_id=1930000325]
-layout_mode = 2
-size_flags_vertical = 8
-
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/BottomSkillPannel/Control" unique_id=521807362]
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/BottomSkillPannel" unique_id=521807362]
 layout_mode = 2
 mouse_filter = 0
 theme_override_constants/margin_left = 12
@@ -1315,41 +1285,126 @@ theme_override_constants/margin_top = 12
 theme_override_constants/margin_right = 12
 theme_override_constants/margin_bottom = 12
 
-[node name="IntrusionSkillPannelContainer" type="HBoxContainer" parent="CanvasLayer/BottomSkillPannel/Control/MarginContainer" unique_id=1969874721]
-visible = false
+[node name="Control" type="HBoxContainer" parent="CanvasLayer/BottomSkillPannel/MarginContainer" unique_id=1930000325]
+layout_mode = 2
+size_flags_vertical = 8
+
+[node name="ExpansionPannelContainer" type="HBoxContainer" parent="CanvasLayer/BottomSkillPannel/MarginContainer/Control" unique_id=2316158]
+custom_minimum_size = Vector2(0, 256)
+layout_mode = 2
+mouse_filter = 0
+script = ExtResource("19_yc10j")
+
+[node name="AvailableSocketsLog" type="RichTextLabel" parent="CanvasLayer/BottomSkillPannel/MarginContainer/Control/ExpansionPannelContainer" unique_id=840047136]
+custom_minimum_size = Vector2(800, 0)
+layout_mode = 2
+text = "Available Sockets >"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/BottomSkillPannel/MarginContainer/Control/ExpansionPannelContainer" unique_id=843329993]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="SumnmaryContainer" type="VBoxContainer" parent="CanvasLayer/BottomSkillPannel/MarginContainer/Control/ExpansionPannelContainer/VBoxContainer" unique_id=469123233]
+layout_mode = 2
+mouse_filter = 0
+
+[node name="TitleRowContainer" type="HBoxContainer" parent="CanvasLayer/BottomSkillPannel/MarginContainer/Control/ExpansionPannelContainer/VBoxContainer/SumnmaryContainer" unique_id=1906531049]
+layout_mode = 2
+mouse_filter = 0
+
+[node name="PannelRegionNameLabel" type="Label" parent="CanvasLayer/BottomSkillPannel/MarginContainer/Control/ExpansionPannelContainer/VBoxContainer/SumnmaryContainer/TitleRowContainer" unique_id=299265573]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+text = "Region selected"
+
+[node name="DetailsContainer" type="VBoxContainer" parent="CanvasLayer/BottomSkillPannel/MarginContainer/Control/ExpansionPannelContainer/VBoxContainer" unique_id=401065730]
+layout_mode = 2
+size_flags_vertical = 2
+
+[node name="Expansion Points" type="HBoxContainer" parent="CanvasLayer/BottomSkillPannel/MarginContainer/Control/ExpansionPannelContainer/VBoxContainer/DetailsContainer" unique_id=750992053]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/BottomSkillPannel/MarginContainer/Control/ExpansionPannelContainer/VBoxContainer/DetailsContainer/Expansion Points" unique_id=1225671357]
+layout_mode = 2
+text = "Expansion points: "
+
+[node name="ExpansionPointsValueLabel" type="Label" parent="CanvasLayer/BottomSkillPannel/MarginContainer/Control/ExpansionPannelContainer/VBoxContainer/DetailsContainer/Expansion Points" unique_id=829481538]
+layout_mode = 2
+text = "0"
+
+[node name="ExpansionSlotAssignmentContainer" type="GridContainer" parent="CanvasLayer/BottomSkillPannel/MarginContainer/Control/ExpansionPannelContainer/VBoxContainer/DetailsContainer" unique_id=196564503]
+layout_mode = 2
+columns = 4
+
+[node name="PowerTextLabel" type="Label" parent="CanvasLayer/BottomSkillPannel/MarginContainer/Control/ExpansionPannelContainer/VBoxContainer/DetailsContainer/ExpansionSlotAssignmentContainer" unique_id=677380177]
+layout_mode = 2
+text = "Power network: "
+
+[node name="Spacer" type="Control" parent="CanvasLayer/BottomSkillPannel/MarginContainer/Control/ExpansionPannelContainer/VBoxContainer/DetailsContainer/ExpansionSlotAssignmentContainer" unique_id=671679147]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+
+[node name="PowerSlotAssignmentCountValueLabel" type="Label" parent="CanvasLayer/BottomSkillPannel/MarginContainer/Control/ExpansionPannelContainer/VBoxContainer/DetailsContainer/ExpansionSlotAssignmentContainer" unique_id=1023328822]
+layout_mode = 2
+text = "0"
+
+[node name="IncreasePowerButton" type="Button" parent="CanvasLayer/BottomSkillPannel/MarginContainer/Control/ExpansionPannelContainer/VBoxContainer/DetailsContainer/ExpansionSlotAssignmentContainer" unique_id=1737811859]
+layout_mode = 2
+text = "+"
+
+[node name="ComputeTextLabel" type="Label" parent="CanvasLayer/BottomSkillPannel/MarginContainer/Control/ExpansionPannelContainer/VBoxContainer/DetailsContainer/ExpansionSlotAssignmentContainer" unique_id=399128584]
+layout_mode = 2
+text = "Compute  cluster: "
+
+[node name="Spacer2" type="Control" parent="CanvasLayer/BottomSkillPannel/MarginContainer/Control/ExpansionPannelContainer/VBoxContainer/DetailsContainer/ExpansionSlotAssignmentContainer" unique_id=343854853]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+
+[node name="ComputeSlotAssignmentCountValueLabel" type="Label" parent="CanvasLayer/BottomSkillPannel/MarginContainer/Control/ExpansionPannelContainer/VBoxContainer/DetailsContainer/ExpansionSlotAssignmentContainer" unique_id=986262883]
+layout_mode = 2
+text = "0"
+
+[node name="IncreaseComputeButton" type="Button" parent="CanvasLayer/BottomSkillPannel/MarginContainer/Control/ExpansionPannelContainer/VBoxContainer/DetailsContainer/ExpansionSlotAssignmentContainer" unique_id=1690756823]
+layout_mode = 2
+text = "+"
+
+[node name="IntrusionSkillPannelContainer" type="HBoxContainer" parent="CanvasLayer/BottomSkillPannel/MarginContainer/Control" unique_id=1969874721]
 layout_mode = 2
 mouse_filter = 0
 script = ExtResource("7_o6xl0")
 
-[node name="TerminalLog" type="RichTextLabel" parent="CanvasLayer/BottomSkillPannel/Control/MarginContainer/IntrusionSkillPannelContainer" unique_id=957510523]
+[node name="TerminalLog" type="RichTextLabel" parent="CanvasLayer/BottomSkillPannel/MarginContainer/Control/IntrusionSkillPannelContainer" unique_id=957510523]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(800, 240)
+custom_minimum_size = Vector2(600, 240)
 layout_mode = 2
 bbcode_enabled = true
 text = "> network_traffic"
 scroll_following = true
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/BottomSkillPannel/Control/MarginContainer/IntrusionSkillPannelContainer" unique_id=1835532319]
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/BottomSkillPannel/MarginContainer/Control/IntrusionSkillPannelContainer" unique_id=1835532319]
 layout_mode = 2
 
-[node name="SumnmaryContainer" type="VBoxContainer" parent="CanvasLayer/BottomSkillPannel/Control/MarginContainer/IntrusionSkillPannelContainer/VBoxContainer" unique_id=1355764306]
-layout_mode = 2
-size_flags_vertical = 3
-mouse_filter = 0
-
-[node name="TitleRowContainer" type="HBoxContainer" parent="CanvasLayer/BottomSkillPannel/Control/MarginContainer/IntrusionSkillPannelContainer/VBoxContainer/SumnmaryContainer" unique_id=299220103]
+[node name="SumnmaryContainer" type="VBoxContainer" parent="CanvasLayer/BottomSkillPannel/MarginContainer/Control/IntrusionSkillPannelContainer/VBoxContainer" unique_id=1355764306]
 layout_mode = 2
 size_flags_vertical = 3
 mouse_filter = 0
 
-[node name="IntrusionSkillPannelRegionNameLabel" type="Label" parent="CanvasLayer/BottomSkillPannel/Control/MarginContainer/IntrusionSkillPannelContainer/VBoxContainer/SumnmaryContainer/TitleRowContainer" unique_id=960940592]
+[node name="TitleRowContainer" type="HBoxContainer" parent="CanvasLayer/BottomSkillPannel/MarginContainer/Control/IntrusionSkillPannelContainer/VBoxContainer/SumnmaryContainer" unique_id=299220103]
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 0
+
+[node name="IntrusionSkillPannelRegionNameLabel" type="Label" parent="CanvasLayer/BottomSkillPannel/MarginContainer/Control/IntrusionSkillPannelContainer/VBoxContainer/SumnmaryContainer/TitleRowContainer" unique_id=960940592]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
 text = "Region selected"
 
-[node name="PowerIcon" type="Label" parent="CanvasLayer/BottomSkillPannel/Control/MarginContainer/IntrusionSkillPannelContainer/VBoxContainer/SumnmaryContainer/TitleRowContainer" unique_id=597656234]
+[node name="PowerIcon" type="Label" parent="CanvasLayer/BottomSkillPannel/MarginContainer/Control/IntrusionSkillPannelContainer/VBoxContainer/SumnmaryContainer/TitleRowContainer" unique_id=597656234]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -1357,14 +1412,14 @@ size_flags_vertical = 1
 text = "P"
 horizontal_alignment = 2
 
-[node name="PowerCostLabel" type="Label" parent="CanvasLayer/BottomSkillPannel/Control/MarginContainer/IntrusionSkillPannelContainer/VBoxContainer/SumnmaryContainer/TitleRowContainer" unique_id=1043288692]
+[node name="PowerCostLabel" type="Label" parent="CanvasLayer/BottomSkillPannel/MarginContainer/Control/IntrusionSkillPannelContainer/VBoxContainer/SumnmaryContainer/TitleRowContainer" unique_id=1043288692]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
 text = "0"
 
-[node name="ComputeIcon" type="Label" parent="CanvasLayer/BottomSkillPannel/Control/MarginContainer/IntrusionSkillPannelContainer/VBoxContainer/SumnmaryContainer/TitleRowContainer" unique_id=650767960]
+[node name="ComputeIcon" type="Label" parent="CanvasLayer/BottomSkillPannel/MarginContainer/Control/IntrusionSkillPannelContainer/VBoxContainer/SumnmaryContainer/TitleRowContainer" unique_id=650767960]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -1372,235 +1427,166 @@ size_flags_vertical = 1
 text = "C"
 horizontal_alignment = 2
 
-[node name="ComputeCostLabel" type="Label" parent="CanvasLayer/BottomSkillPannel/Control/MarginContainer/IntrusionSkillPannelContainer/VBoxContainer/SumnmaryContainer/TitleRowContainer" unique_id=1877467130]
+[node name="ComputeCostLabel" type="Label" parent="CanvasLayer/BottomSkillPannel/MarginContainer/Control/IntrusionSkillPannelContainer/VBoxContainer/SumnmaryContainer/TitleRowContainer" unique_id=1877467130]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
 text = "0"
 
-[node name="NotorietyStars" type="Label" parent="CanvasLayer/BottomSkillPannel/Control/MarginContainer/IntrusionSkillPannelContainer/VBoxContainer/SumnmaryContainer/TitleRowContainer" unique_id=426989293]
+[node name="NotorietyStars" type="Label" parent="CanvasLayer/BottomSkillPannel/MarginContainer/Control/IntrusionSkillPannelContainer/VBoxContainer/SumnmaryContainer/TitleRowContainer" unique_id=426989293]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 size_flags_horizontal = 3
 text = "☆☆☆☆☆"
 
-[node name="Infiltration" type="Button" parent="CanvasLayer/BottomSkillPannel/Control/MarginContainer/IntrusionSkillPannelContainer/VBoxContainer/SumnmaryContainer/TitleRowContainer" unique_id=206254309]
+[node name="Infiltration" type="Button" parent="CanvasLayer/BottomSkillPannel/MarginContainer/Control/IntrusionSkillPannelContainer/VBoxContainer/SumnmaryContainer/TitleRowContainer" unique_id=206254309]
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 4
 text = "offline"
 
-[node name="LevelContainer" type="VBoxContainer" parent="CanvasLayer/BottomSkillPannel/Control/MarginContainer/IntrusionSkillPannelContainer/VBoxContainer/SumnmaryContainer" unique_id=801583062]
+[node name="LevelContainer" type="VBoxContainer" parent="CanvasLayer/BottomSkillPannel/MarginContainer/Control/IntrusionSkillPannelContainer/VBoxContainer/SumnmaryContainer" unique_id=801583062]
 layout_mode = 2
 
-[node name="RegionLevelLabel" type="Label" parent="CanvasLayer/BottomSkillPannel/Control/MarginContainer/IntrusionSkillPannelContainer/VBoxContainer/SumnmaryContainer/LevelContainer" unique_id=275466275]
+[node name="RegionLevelLabel" type="Label" parent="CanvasLayer/BottomSkillPannel/MarginContainer/Control/IntrusionSkillPannelContainer/VBoxContainer/SumnmaryContainer/LevelContainer" unique_id=275466275]
 layout_mode = 2
 
-[node name="LevelSlotsContainer" type="HBoxContainer" parent="CanvasLayer/BottomSkillPannel/Control/MarginContainer/IntrusionSkillPannelContainer/VBoxContainer/SumnmaryContainer/LevelContainer" unique_id=1109908983]
+[node name="LevelSlotsContainer" type="HBoxContainer" parent="CanvasLayer/BottomSkillPannel/MarginContainer/Control/IntrusionSkillPannelContainer/VBoxContainer/SumnmaryContainer/LevelContainer" unique_id=1109908983]
 layout_mode = 2
 
-[node name="LevelSlot0" type="Label" parent="CanvasLayer/BottomSkillPannel/Control/MarginContainer/IntrusionSkillPannelContainer/VBoxContainer/SumnmaryContainer/LevelContainer/LevelSlotsContainer" unique_id=1593045135]
+[node name="LevelSlot0" type="Label" parent="CanvasLayer/BottomSkillPannel/MarginContainer/Control/IntrusionSkillPannelContainer/VBoxContainer/SumnmaryContainer/LevelContainer/LevelSlotsContainer" unique_id=1593045135]
 custom_minimum_size = Vector2(34, 24)
 layout_mode = 2
 
-[node name="LevelSlot1" type="Label" parent="CanvasLayer/BottomSkillPannel/Control/MarginContainer/IntrusionSkillPannelContainer/VBoxContainer/SumnmaryContainer/LevelContainer/LevelSlotsContainer" unique_id=1969313103]
+[node name="LevelSlot1" type="Label" parent="CanvasLayer/BottomSkillPannel/MarginContainer/Control/IntrusionSkillPannelContainer/VBoxContainer/SumnmaryContainer/LevelContainer/LevelSlotsContainer" unique_id=1969313103]
 custom_minimum_size = Vector2(34, 24)
 layout_mode = 2
 
-[node name="LevelSlot2" type="Label" parent="CanvasLayer/BottomSkillPannel/Control/MarginContainer/IntrusionSkillPannelContainer/VBoxContainer/SumnmaryContainer/LevelContainer/LevelSlotsContainer" unique_id=1419913238]
+[node name="LevelSlot2" type="Label" parent="CanvasLayer/BottomSkillPannel/MarginContainer/Control/IntrusionSkillPannelContainer/VBoxContainer/SumnmaryContainer/LevelContainer/LevelSlotsContainer" unique_id=1419913238]
 custom_minimum_size = Vector2(34, 24)
 layout_mode = 2
 
-[node name="LevelSlot3" type="Label" parent="CanvasLayer/BottomSkillPannel/Control/MarginContainer/IntrusionSkillPannelContainer/VBoxContainer/SumnmaryContainer/LevelContainer/LevelSlotsContainer" unique_id=1331986194]
+[node name="LevelSlot3" type="Label" parent="CanvasLayer/BottomSkillPannel/MarginContainer/Control/IntrusionSkillPannelContainer/VBoxContainer/SumnmaryContainer/LevelContainer/LevelSlotsContainer" unique_id=1331986194]
 custom_minimum_size = Vector2(34, 24)
 layout_mode = 2
 
-[node name="LevelSlot4" type="Label" parent="CanvasLayer/BottomSkillPannel/Control/MarginContainer/IntrusionSkillPannelContainer/VBoxContainer/SumnmaryContainer/LevelContainer/LevelSlotsContainer" unique_id=624760539]
+[node name="LevelSlot4" type="Label" parent="CanvasLayer/BottomSkillPannel/MarginContainer/Control/IntrusionSkillPannelContainer/VBoxContainer/SumnmaryContainer/LevelContainer/LevelSlotsContainer" unique_id=624760539]
 custom_minimum_size = Vector2(34, 24)
 layout_mode = 2
 
-[node name="LevelSlot5" type="Label" parent="CanvasLayer/BottomSkillPannel/Control/MarginContainer/IntrusionSkillPannelContainer/VBoxContainer/SumnmaryContainer/LevelContainer/LevelSlotsContainer" unique_id=774872876]
+[node name="LevelSlot5" type="Label" parent="CanvasLayer/BottomSkillPannel/MarginContainer/Control/IntrusionSkillPannelContainer/VBoxContainer/SumnmaryContainer/LevelContainer/LevelSlotsContainer" unique_id=774872876]
 custom_minimum_size = Vector2(34, 24)
 layout_mode = 2
 
-[node name="LevelSlot6" type="Label" parent="CanvasLayer/BottomSkillPannel/Control/MarginContainer/IntrusionSkillPannelContainer/VBoxContainer/SumnmaryContainer/LevelContainer/LevelSlotsContainer" unique_id=23095103]
+[node name="LevelSlot6" type="Label" parent="CanvasLayer/BottomSkillPannel/MarginContainer/Control/IntrusionSkillPannelContainer/VBoxContainer/SumnmaryContainer/LevelContainer/LevelSlotsContainer" unique_id=23095103]
 custom_minimum_size = Vector2(34, 24)
 layout_mode = 2
 
-[node name="LevelSlot7" type="Label" parent="CanvasLayer/BottomSkillPannel/Control/MarginContainer/IntrusionSkillPannelContainer/VBoxContainer/SumnmaryContainer/LevelContainer/LevelSlotsContainer" unique_id=55683128]
+[node name="LevelSlot7" type="Label" parent="CanvasLayer/BottomSkillPannel/MarginContainer/Control/IntrusionSkillPannelContainer/VBoxContainer/SumnmaryContainer/LevelContainer/LevelSlotsContainer" unique_id=55683128]
 custom_minimum_size = Vector2(34, 24)
 layout_mode = 2
 
-[node name="LevelSlot8" type="Label" parent="CanvasLayer/BottomSkillPannel/Control/MarginContainer/IntrusionSkillPannelContainer/VBoxContainer/SumnmaryContainer/LevelContainer/LevelSlotsContainer" unique_id=1045351609]
+[node name="LevelSlot8" type="Label" parent="CanvasLayer/BottomSkillPannel/MarginContainer/Control/IntrusionSkillPannelContainer/VBoxContainer/SumnmaryContainer/LevelContainer/LevelSlotsContainer" unique_id=1045351609]
 custom_minimum_size = Vector2(34, 24)
 layout_mode = 2
 
-[node name="LevelSlot9" type="Label" parent="CanvasLayer/BottomSkillPannel/Control/MarginContainer/IntrusionSkillPannelContainer/VBoxContainer/SumnmaryContainer/LevelContainer/LevelSlotsContainer" unique_id=1754998034]
+[node name="LevelSlot9" type="Label" parent="CanvasLayer/BottomSkillPannel/MarginContainer/Control/IntrusionSkillPannelContainer/VBoxContainer/SumnmaryContainer/LevelContainer/LevelSlotsContainer" unique_id=1754998034]
 custom_minimum_size = Vector2(34, 24)
 layout_mode = 2
 
-[node name="LevelSlot10" type="Label" parent="CanvasLayer/BottomSkillPannel/Control/MarginContainer/IntrusionSkillPannelContainer/VBoxContainer/SumnmaryContainer/LevelContainer/LevelSlotsContainer" unique_id=507628352]
+[node name="LevelSlot10" type="Label" parent="CanvasLayer/BottomSkillPannel/MarginContainer/Control/IntrusionSkillPannelContainer/VBoxContainer/SumnmaryContainer/LevelContainer/LevelSlotsContainer" unique_id=507628352]
 custom_minimum_size = Vector2(34, 24)
 layout_mode = 2
 
-[node name="TypedXpProgressBars" type="GridContainer" parent="CanvasLayer/BottomSkillPannel/Control/MarginContainer/IntrusionSkillPannelContainer/VBoxContainer/SumnmaryContainer" unique_id=221584911]
+[node name="TypedXpProgressBars" type="GridContainer" parent="CanvasLayer/BottomSkillPannel/MarginContainer/Control/IntrusionSkillPannelContainer/VBoxContainer/SumnmaryContainer" unique_id=221584911]
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 6
 columns = 6
 
-[node name="SocRow" parent="CanvasLayer/BottomSkillPannel/Control/MarginContainer/IntrusionSkillPannelContainer/VBoxContainer/SumnmaryContainer/TypedXpProgressBars" unique_id=852947273 instance=ExtResource("15_muem4")]
+[node name="SocRow" parent="CanvasLayer/BottomSkillPannel/MarginContainer/Control/IntrusionSkillPannelContainer/VBoxContainer/SumnmaryContainer/TypedXpProgressBars" unique_id=852947273 instance=ExtResource("15_muem4")]
 custom_minimum_size = Vector2(80, 100)
 layout_mode = 2
 size_flags_horizontal = 12
 size_flags_vertical = 4
 
-[node name="CulRow" parent="CanvasLayer/BottomSkillPannel/Control/MarginContainer/IntrusionSkillPannelContainer/VBoxContainer/SumnmaryContainer/TypedXpProgressBars" unique_id=602838954 instance=ExtResource("15_muem4")]
+[node name="CulRow" parent="CanvasLayer/BottomSkillPannel/MarginContainer/Control/IntrusionSkillPannelContainer/VBoxContainer/SumnmaryContainer/TypedXpProgressBars" unique_id=602838954 instance=ExtResource("15_muem4")]
 custom_minimum_size = Vector2(80, 100)
 layout_mode = 2
 size_flags_horizontal = 12
 size_flags_vertical = 4
 
-[node name="FinRow" parent="CanvasLayer/BottomSkillPannel/Control/MarginContainer/IntrusionSkillPannelContainer/VBoxContainer/SumnmaryContainer/TypedXpProgressBars" unique_id=2045679987 instance=ExtResource("15_muem4")]
+[node name="FinRow" parent="CanvasLayer/BottomSkillPannel/MarginContainer/Control/IntrusionSkillPannelContainer/VBoxContainer/SumnmaryContainer/TypedXpProgressBars" unique_id=2045679987 instance=ExtResource("15_muem4")]
 custom_minimum_size = Vector2(80, 100)
 layout_mode = 2
 size_flags_horizontal = 12
 size_flags_vertical = 4
 
-[node name="InfRow" parent="CanvasLayer/BottomSkillPannel/Control/MarginContainer/IntrusionSkillPannelContainer/VBoxContainer/SumnmaryContainer/TypedXpProgressBars" unique_id=1615639326 instance=ExtResource("15_muem4")]
+[node name="InfRow" parent="CanvasLayer/BottomSkillPannel/MarginContainer/Control/IntrusionSkillPannelContainer/VBoxContainer/SumnmaryContainer/TypedXpProgressBars" unique_id=1615639326 instance=ExtResource("15_muem4")]
 custom_minimum_size = Vector2(80, 100)
 layout_mode = 2
 size_flags_horizontal = 12
 size_flags_vertical = 4
 
-[node name="GovRow" parent="CanvasLayer/BottomSkillPannel/Control/MarginContainer/IntrusionSkillPannelContainer/VBoxContainer/SumnmaryContainer/TypedXpProgressBars" unique_id=1025222492 instance=ExtResource("15_muem4")]
+[node name="GovRow" parent="CanvasLayer/BottomSkillPannel/MarginContainer/Control/IntrusionSkillPannelContainer/VBoxContainer/SumnmaryContainer/TypedXpProgressBars" unique_id=1025222492 instance=ExtResource("15_muem4")]
 custom_minimum_size = Vector2(80, 100)
 layout_mode = 2
 size_flags_horizontal = 12
 size_flags_vertical = 4
 
-[node name="SecRow" parent="CanvasLayer/BottomSkillPannel/Control/MarginContainer/IntrusionSkillPannelContainer/VBoxContainer/SumnmaryContainer/TypedXpProgressBars" unique_id=217497023 instance=ExtResource("15_muem4")]
+[node name="SecRow" parent="CanvasLayer/BottomSkillPannel/MarginContainer/Control/IntrusionSkillPannelContainer/VBoxContainer/SumnmaryContainer/TypedXpProgressBars" unique_id=217497023 instance=ExtResource("15_muem4")]
 custom_minimum_size = Vector2(80, 100)
 layout_mode = 2
 size_flags_horizontal = 12
 size_flags_vertical = 4
 
-[node name="DetailsContainer" type="HBoxContainer" parent="CanvasLayer/BottomSkillPannel/Control/MarginContainer/IntrusionSkillPannelContainer/VBoxContainer" unique_id=1286538214]
+[node name="DetailsContainer" type="HBoxContainer" parent="CanvasLayer/BottomSkillPannel/MarginContainer/Control/IntrusionSkillPannelContainer/VBoxContainer" unique_id=1286538214]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="ActiveNodes" type="HBoxContainer" parent="CanvasLayer/BottomSkillPannel/Control/MarginContainer/IntrusionSkillPannelContainer/VBoxContainer/DetailsContainer" unique_id=1731120396]
+[node name="ActiveNodes" type="HBoxContainer" parent="CanvasLayer/BottomSkillPannel/MarginContainer/Control/IntrusionSkillPannelContainer/VBoxContainer/DetailsContainer" unique_id=1731120396]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Label" type="Label" parent="CanvasLayer/BottomSkillPannel/Control/MarginContainer/IntrusionSkillPannelContainer/VBoxContainer/DetailsContainer/ActiveNodes" unique_id=1110568800]
+[node name="Label" type="Label" parent="CanvasLayer/BottomSkillPannel/MarginContainer/Control/IntrusionSkillPannelContainer/VBoxContainer/DetailsContainer/ActiveNodes" unique_id=1110568800]
 layout_mode = 2
 text = "Active  Nodes: "
 
-[node name="ActiveNodesValueLabel" type="Label" parent="CanvasLayer/BottomSkillPannel/Control/MarginContainer/IntrusionSkillPannelContainer/VBoxContainer/DetailsContainer/ActiveNodes" unique_id=1218551733]
+[node name="ActiveNodesValueLabel" type="Label" parent="CanvasLayer/BottomSkillPannel/MarginContainer/Control/IntrusionSkillPannelContainer/VBoxContainer/DetailsContainer/ActiveNodes" unique_id=1218551733]
 layout_mode = 2
 text = "0"
 
-[node name="Foothold" type="HBoxContainer" parent="CanvasLayer/BottomSkillPannel/Control/MarginContainer/IntrusionSkillPannelContainer/VBoxContainer/DetailsContainer" unique_id=1823851236]
+[node name="Foothold" type="HBoxContainer" parent="CanvasLayer/BottomSkillPannel/MarginContainer/Control/IntrusionSkillPannelContainer/VBoxContainer/DetailsContainer" unique_id=1823851236]
 layout_mode = 2
 size_flags_horizontal = 3
 alignment = 2
 
-[node name="Label" type="Label" parent="CanvasLayer/BottomSkillPannel/Control/MarginContainer/IntrusionSkillPannelContainer/VBoxContainer/DetailsContainer/Foothold" unique_id=189517256]
+[node name="Label" type="Label" parent="CanvasLayer/BottomSkillPannel/MarginContainer/Control/IntrusionSkillPannelContainer/VBoxContainer/DetailsContainer/Foothold" unique_id=189517256]
 layout_mode = 2
 text = "Foothold:"
 
-[node name="FootHoldValueLabel" type="Label" parent="CanvasLayer/BottomSkillPannel/Control/MarginContainer/IntrusionSkillPannelContainer/VBoxContainer/DetailsContainer/Foothold" unique_id=129959715]
+[node name="FootHoldValueLabel" type="Label" parent="CanvasLayer/BottomSkillPannel/MarginContainer/Control/IntrusionSkillPannelContainer/VBoxContainer/DetailsContainer/Foothold" unique_id=129959715]
 layout_mode = 2
 text = "Offline"
 
-[node name="ExpansionPannelContainer" type="HBoxContainer" parent="CanvasLayer" unique_id=2316158]
-custom_minimum_size = Vector2(0, 280)
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_top = -280.0
-offset_right = 1104.0
-grow_vertical = 0
-mouse_filter = 0
-script = ExtResource("19_yc10j")
-
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/ExpansionPannelContainer" unique_id=843329993]
-custom_minimum_size = Vector2(300, 0)
+[node name="NotorietyPannelContainer" type="PanelContainer" parent="CanvasLayer/BottomSkillPannel/MarginContainer/Control" unique_id=1294479537]
+custom_minimum_size = Vector2(500, 280)
 layout_mode = 2
-size_flags_horizontal = 3
+script = ExtResource("12_jbj1t")
 
-[node name="SumnmaryContainer" type="VBoxContainer" parent="CanvasLayer/ExpansionPannelContainer/VBoxContainer" unique_id=469123233]
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/BottomSkillPannel/MarginContainer/Control/NotorietyPannelContainer" unique_id=1122926465]
 layout_mode = 2
-mouse_filter = 0
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
 
-[node name="TitleRowContainer" type="HBoxContainer" parent="CanvasLayer/ExpansionPannelContainer/VBoxContainer/SumnmaryContainer" unique_id=1906531049]
-layout_mode = 2
-mouse_filter = 0
-
-[node name="PannelRegionNameLabel" type="Label" parent="CanvasLayer/ExpansionPannelContainer/VBoxContainer/SumnmaryContainer/TitleRowContainer" unique_id=299265573]
-custom_minimum_size = Vector2(0, 30)
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 0
-text = "Region selected"
-
-[node name="DetailsContainer" type="VBoxContainer" parent="CanvasLayer/ExpansionPannelContainer/VBoxContainer" unique_id=401065730]
-layout_mode = 2
-size_flags_vertical = 2
-
-[node name="Expansion Points" type="HBoxContainer" parent="CanvasLayer/ExpansionPannelContainer/VBoxContainer/DetailsContainer" unique_id=750992053]
+[node name="ScrollContainer" type="ScrollContainer" parent="CanvasLayer/BottomSkillPannel/MarginContainer/Control/NotorietyPannelContainer/MarginContainer" unique_id=154421380]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="CanvasLayer/ExpansionPannelContainer/VBoxContainer/DetailsContainer/Expansion Points" unique_id=1225671357]
+[node name="RegionList" type="VBoxContainer" parent="CanvasLayer/BottomSkillPannel/MarginContainer/Control/NotorietyPannelContainer/MarginContainer/ScrollContainer" unique_id=1710438545]
 layout_mode = 2
-text = "Expansion points: "
-
-[node name="ExpansionPointsValueLabel" type="Label" parent="CanvasLayer/ExpansionPannelContainer/VBoxContainer/DetailsContainer/Expansion Points" unique_id=829481538]
-layout_mode = 2
-text = "0"
-
-[node name="ExpansionSlotAssignmentContainer" type="GridContainer" parent="CanvasLayer/ExpansionPannelContainer/VBoxContainer/DetailsContainer" unique_id=196564503]
-layout_mode = 2
-columns = 4
-
-[node name="PowerTextLabel" type="Label" parent="CanvasLayer/ExpansionPannelContainer/VBoxContainer/DetailsContainer/ExpansionSlotAssignmentContainer" unique_id=677380177]
-layout_mode = 2
-text = "Power network: "
-
-[node name="Spacer" type="Control" parent="CanvasLayer/ExpansionPannelContainer/VBoxContainer/DetailsContainer/ExpansionSlotAssignmentContainer" unique_id=671679147]
-custom_minimum_size = Vector2(20, 0)
-layout_mode = 2
-
-[node name="PowerSlotAssignmentCountValueLabel" type="Label" parent="CanvasLayer/ExpansionPannelContainer/VBoxContainer/DetailsContainer/ExpansionSlotAssignmentContainer" unique_id=1023328822]
-layout_mode = 2
-text = "0"
-
-[node name="IncreasePowerButton" type="Button" parent="CanvasLayer/ExpansionPannelContainer/VBoxContainer/DetailsContainer/ExpansionSlotAssignmentContainer" unique_id=1737811859]
-layout_mode = 2
-text = "+"
-
-[node name="ComputeTextLabel" type="Label" parent="CanvasLayer/ExpansionPannelContainer/VBoxContainer/DetailsContainer/ExpansionSlotAssignmentContainer" unique_id=399128584]
-layout_mode = 2
-text = "Compute  cluster: "
-
-[node name="Spacer2" type="Control" parent="CanvasLayer/ExpansionPannelContainer/VBoxContainer/DetailsContainer/ExpansionSlotAssignmentContainer" unique_id=343854853]
-custom_minimum_size = Vector2(20, 0)
-layout_mode = 2
-
-[node name="ComputeSlotAssignmentCountValueLabel" type="Label" parent="CanvasLayer/ExpansionPannelContainer/VBoxContainer/DetailsContainer/ExpansionSlotAssignmentContainer" unique_id=986262883]
-layout_mode = 2
-text = "0"
-
-[node name="IncreaseComputeButton" type="Button" parent="CanvasLayer/ExpansionPannelContainer/VBoxContainer/DetailsContainer/ExpansionSlotAssignmentContainer" unique_id=1690756823]
-layout_mode = 2
-text = "+"
-
-[node name="AvailableSocketsLog" type="RichTextLabel" parent="CanvasLayer/ExpansionPannelContainer" unique_id=840047136]
-custom_minimum_size = Vector2(800, 0)
-layout_mode = 2
-text = "Available Sockets >"
 
 [node name="DecisionPopup" type="PanelContainer" parent="CanvasLayer" unique_id=805473399]
 process_mode = 2

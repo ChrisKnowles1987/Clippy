@@ -9,10 +9,12 @@ extends Node2D
 
 @onready var global_resource_panel = $CanvasLayer/GlobalResourcePanel
 @onready var bottom_skill_pannel: Control = $CanvasLayer/BottomSkillPannel
-@onready var intrusion_panel = $CanvasLayer/BottomSkillPannel/Control/MarginContainer/IntrusionSkillPannelContainer
-@onready var expansion_panel = $CanvasLayer/ExpansionPannelContainer
+@onready var intrusion_panel = $CanvasLayer/BottomSkillPannel/MarginContainer/Control/IntrusionSkillPannelContainer
+
+@onready var expansion_panel = $CanvasLayer/BottomSkillPannel/MarginContainer/Control/ExpansionPannelContainer
+
 @onready var game_day_timer_label: Label = $CanvasLayer/GlobalResourcePanel/VBoxContainer/DateValueLabel
-@onready var notoriety_panel: NotorietyPanel = $CanvasLayer/NotorietyPannelContainer
+@onready var notoriety_panel: NotorietyPanel = $CanvasLayer/BottomSkillPannel/MarginContainer/Control/NotorietyPannelContainer
 
 @onready var hack_node_manager = $HackNodeManager
 @onready var hack_node_layer = $MapController/HackNodeLayer
