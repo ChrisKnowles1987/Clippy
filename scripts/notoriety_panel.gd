@@ -1,7 +1,7 @@
 extends PanelContainer
 class_name NotorietyPanel
 
-@onready var region_list: VBoxContainer = $MarginContainer/ScrollContainer/RegionList
+@onready var region_list: VBoxContainer = $ScrollContainer/RegionList
 
 
 func refresh(region_states: Dictionary, notoriety_manager: NotorietyManager) -> void:

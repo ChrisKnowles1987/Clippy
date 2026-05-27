@@ -1267,12 +1267,13 @@ label_settings = SubResource("LabelSettings_o6xl0")
 
 [node name="BottomSkillPannel" type="PanelContainer" parent="CanvasLayer" unique_id=534119209]
 material = SubResource("CanvasItemMaterial_tefeu")
-custom_minimum_size = Vector2(600, 280)
+clip_contents = true
+custom_minimum_size = Vector2(600, 268)
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_top = -280.0
-offset_right = 1029.0
+offset_top = -304.0
+offset_right = 1382.0
 grow_vertical = 0
 size_flags_horizontal = 3
 size_flags_vertical = 8
@@ -1290,7 +1291,7 @@ layout_mode = 2
 size_flags_vertical = 8
 
 [node name="ExpansionPannelContainer" type="HBoxContainer" parent="CanvasLayer/BottomSkillPannel/MarginContainer/Control" unique_id=2316158]
-custom_minimum_size = Vector2(0, 256)
+visible = false
 layout_mode = 2
 mouse_filter = 0
 script = ExtResource("19_yc10j")
@@ -1301,7 +1302,6 @@ layout_mode = 2
 text = "Available Sockets >"
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/BottomSkillPannel/MarginContainer/Control/ExpansionPannelContainer" unique_id=843329993]
-custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 
@@ -1378,7 +1378,7 @@ script = ExtResource("7_o6xl0")
 
 [node name="TerminalLog" type="RichTextLabel" parent="CanvasLayer/BottomSkillPannel/MarginContainer/Control/IntrusionSkillPannelContainer" unique_id=957510523]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(600, 240)
+custom_minimum_size = Vector2(500, 230)
 layout_mode = 2
 bbcode_enabled = true
 text = "> network_traffic"
@@ -1502,7 +1502,7 @@ layout_mode = 2
 [node name="TypedXpProgressBars" type="GridContainer" parent="CanvasLayer/BottomSkillPannel/MarginContainer/Control/IntrusionSkillPannelContainer/VBoxContainer/SumnmaryContainer" unique_id=221584911]
 layout_mode = 2
 size_flags_horizontal = 0
-size_flags_vertical = 6
+size_flags_vertical = 4
 columns = 6
 
 [node name="SocRow" parent="CanvasLayer/BottomSkillPannel/MarginContainer/Control/IntrusionSkillPannelContainer/VBoxContainer/SumnmaryContainer/TypedXpProgressBars" unique_id=852947273 instance=ExtResource("15_muem4")]
@@ -1571,21 +1571,15 @@ layout_mode = 2
 text = "Offline"
 
 [node name="NotorietyPannelContainer" type="PanelContainer" parent="CanvasLayer/BottomSkillPannel/MarginContainer/Control" unique_id=1294479537]
-custom_minimum_size = Vector2(500, 280)
+custom_minimum_size = Vector2(350, 256)
 layout_mode = 2
+size_flags_horizontal = 10
 script = ExtResource("12_jbj1t")
 
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/BottomSkillPannel/MarginContainer/Control/NotorietyPannelContainer" unique_id=1122926465]
-layout_mode = 2
-theme_override_constants/margin_left = 10
-theme_override_constants/margin_top = 20
-theme_override_constants/margin_right = 10
-theme_override_constants/margin_bottom = 10
-
-[node name="ScrollContainer" type="ScrollContainer" parent="CanvasLayer/BottomSkillPannel/MarginContainer/Control/NotorietyPannelContainer/MarginContainer" unique_id=154421380]
+[node name="ScrollContainer" type="ScrollContainer" parent="CanvasLayer/BottomSkillPannel/MarginContainer/Control/NotorietyPannelContainer" unique_id=154421380]
 layout_mode = 2
 
-[node name="RegionList" type="VBoxContainer" parent="CanvasLayer/BottomSkillPannel/MarginContainer/Control/NotorietyPannelContainer/MarginContainer/ScrollContainer" unique_id=1710438545]
+[node name="RegionList" type="VBoxContainer" parent="CanvasLayer/BottomSkillPannel/MarginContainer/Control/NotorietyPannelContainer/ScrollContainer" unique_id=1710438545]
 layout_mode = 2
 
 [node name="DecisionPopup" type="PanelContainer" parent="CanvasLayer" unique_id=805473399]
