@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://b3gffeo3avbp6" path="res://scripts/map_controller.gd" id="1_sugp2"]
 [ext_resource type="Script" uid="uid://c0vrfof7ikxbt" path="res://scripts/main.gd" id="1_tbgi4"]
 [ext_resource type="Script" uid="uid://dyakcdtqkh3oj" path="res://scripts/camera_controller.gd" id="2_a8y0u"]
+[ext_resource type="Script" uid="uid://dkcxcra5svvtk" path="res://scenes/god_mode_manager.gd" id="2_y6deb"]
 [ext_resource type="Texture2D" uid="uid://degr2qpantfai" path="res://assets/Nasa/world_map_5000x2000.png" id="4_jbj1t"]
 [ext_resource type="Script" uid="uid://dpsuinxaej1yl" path="res://scripts/Expansion/expansion_socket_generator.gd" id="5_0ld40"]
 [ext_resource type="Script" uid="uid://cs4yuxbiyfqgd" path="res://scripts/game_clock.gd" id="5_85g3d"]
@@ -36,6 +37,9 @@ bg_color = Color(0.012991184, 0.014714115, 0.014715779, 1)
 
 [node name="Node2D" type="Node2D" unique_id=1052680515]
 script = ExtResource("1_tbgi4")
+
+[node name="GodModeManager" type="Node" parent="." unique_id=294070401]
+script = ExtResource("2_y6deb")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=438035729]
 position = Vector2(960, 540)

@@ -1,5 +1,7 @@
 extends Node2D
 
+@onready var god_mode_manager: GodModeManager = $GodModeManager
+
 @onready var map_controller: Node2D = $MapController
 @onready var map_view_tabs: PanelContainer = $CanvasLayer/MapViewTabs
 
@@ -38,6 +40,13 @@ var current_map_view: String = "infiltration"
 
 
 func _ready() -> void:
+	
+	god_mode_manager.setup(
+		self,
+		region_manager,
+		global_resource_manager
+		)
+	
 	map_view_tabs.map_view_selected.connect(set_map_view)
 	set_map_view("infiltration")
 	
