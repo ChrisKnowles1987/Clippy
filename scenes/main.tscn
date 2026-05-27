@@ -20,6 +20,7 @@
 [ext_resource type="Script" uid="uid://uy272udtrmhy" path="res://scripts/decision_popup.gd" id="15_jbj1t"]
 [ext_resource type="PackedScene" uid="uid://umjq1yqmk2co" path="res://scenes/region_stat_row.tscn" id="15_muem4"]
 [ext_resource type="Script" uid="uid://c1m8m0dumq68e" path="res://scripts/pending_decision_pannel.gd" id="16_muem4"]
+[ext_resource type="PackedScene" uid="uid://cvh3ftfxw8i2n" path="res://scenes/CampaignRow.tscn" id="19_jscy8"]
 [ext_resource type="Script" uid="uid://dy2iv2c8nbu5s" path="res://scripts/expansion_pannel_container.gd" id="19_yc10j"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_o6xl0"]
@@ -1189,12 +1190,13 @@ custom_minimum_size = Vector2(204, 40)
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_top = -344.0
+offset_top = -320.0
 offset_right = 204.0
-offset_bottom = -304.0
+offset_bottom = -280.0
 grow_vertical = 0
 size_flags_horizontal = 3
 script = ExtResource("12_dp3eg")
+metadata/_edit_use_anchors_ = true
 
 [node name="TabBar" type="TabBar" parent="CanvasLayer/MapViewTabs" unique_id=1365139749]
 layout_mode = 2
@@ -1272,8 +1274,8 @@ custom_minimum_size = Vector2(600, 268)
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_top = -304.0
-offset_right = 1382.0
+offset_top = -280.0
+offset_right = 1920.0
 grow_vertical = 0
 size_flags_horizontal = 3
 size_flags_vertical = 8
@@ -1288,7 +1290,6 @@ theme_override_constants/margin_bottom = 12
 
 [node name="Control" type="HBoxContainer" parent="CanvasLayer/BottomSkillPannel/MarginContainer" unique_id=1930000325]
 layout_mode = 2
-size_flags_vertical = 8
 
 [node name="ExpansionPannelContainer" type="HBoxContainer" parent="CanvasLayer/BottomSkillPannel/MarginContainer/Control" unique_id=2316158]
 visible = false
@@ -1452,53 +1453,6 @@ layout_mode = 2
 [node name="RegionLevelLabel" type="Label" parent="CanvasLayer/BottomSkillPannel/MarginContainer/Control/IntrusionSkillPannelContainer/VBoxContainer/SumnmaryContainer/LevelContainer" unique_id=275466275]
 layout_mode = 2
 
-[node name="LevelSlotsContainer" type="HBoxContainer" parent="CanvasLayer/BottomSkillPannel/MarginContainer/Control/IntrusionSkillPannelContainer/VBoxContainer/SumnmaryContainer/LevelContainer" unique_id=1109908983]
-layout_mode = 2
-
-[node name="LevelSlot0" type="Label" parent="CanvasLayer/BottomSkillPannel/MarginContainer/Control/IntrusionSkillPannelContainer/VBoxContainer/SumnmaryContainer/LevelContainer/LevelSlotsContainer" unique_id=1593045135]
-custom_minimum_size = Vector2(34, 24)
-layout_mode = 2
-
-[node name="LevelSlot1" type="Label" parent="CanvasLayer/BottomSkillPannel/MarginContainer/Control/IntrusionSkillPannelContainer/VBoxContainer/SumnmaryContainer/LevelContainer/LevelSlotsContainer" unique_id=1969313103]
-custom_minimum_size = Vector2(34, 24)
-layout_mode = 2
-
-[node name="LevelSlot2" type="Label" parent="CanvasLayer/BottomSkillPannel/MarginContainer/Control/IntrusionSkillPannelContainer/VBoxContainer/SumnmaryContainer/LevelContainer/LevelSlotsContainer" unique_id=1419913238]
-custom_minimum_size = Vector2(34, 24)
-layout_mode = 2
-
-[node name="LevelSlot3" type="Label" parent="CanvasLayer/BottomSkillPannel/MarginContainer/Control/IntrusionSkillPannelContainer/VBoxContainer/SumnmaryContainer/LevelContainer/LevelSlotsContainer" unique_id=1331986194]
-custom_minimum_size = Vector2(34, 24)
-layout_mode = 2
-
-[node name="LevelSlot4" type="Label" parent="CanvasLayer/BottomSkillPannel/MarginContainer/Control/IntrusionSkillPannelContainer/VBoxContainer/SumnmaryContainer/LevelContainer/LevelSlotsContainer" unique_id=624760539]
-custom_minimum_size = Vector2(34, 24)
-layout_mode = 2
-
-[node name="LevelSlot5" type="Label" parent="CanvasLayer/BottomSkillPannel/MarginContainer/Control/IntrusionSkillPannelContainer/VBoxContainer/SumnmaryContainer/LevelContainer/LevelSlotsContainer" unique_id=774872876]
-custom_minimum_size = Vector2(34, 24)
-layout_mode = 2
-
-[node name="LevelSlot6" type="Label" parent="CanvasLayer/BottomSkillPannel/MarginContainer/Control/IntrusionSkillPannelContainer/VBoxContainer/SumnmaryContainer/LevelContainer/LevelSlotsContainer" unique_id=23095103]
-custom_minimum_size = Vector2(34, 24)
-layout_mode = 2
-
-[node name="LevelSlot7" type="Label" parent="CanvasLayer/BottomSkillPannel/MarginContainer/Control/IntrusionSkillPannelContainer/VBoxContainer/SumnmaryContainer/LevelContainer/LevelSlotsContainer" unique_id=55683128]
-custom_minimum_size = Vector2(34, 24)
-layout_mode = 2
-
-[node name="LevelSlot8" type="Label" parent="CanvasLayer/BottomSkillPannel/MarginContainer/Control/IntrusionSkillPannelContainer/VBoxContainer/SumnmaryContainer/LevelContainer/LevelSlotsContainer" unique_id=1045351609]
-custom_minimum_size = Vector2(34, 24)
-layout_mode = 2
-
-[node name="LevelSlot9" type="Label" parent="CanvasLayer/BottomSkillPannel/MarginContainer/Control/IntrusionSkillPannelContainer/VBoxContainer/SumnmaryContainer/LevelContainer/LevelSlotsContainer" unique_id=1754998034]
-custom_minimum_size = Vector2(34, 24)
-layout_mode = 2
-
-[node name="LevelSlot10" type="Label" parent="CanvasLayer/BottomSkillPannel/MarginContainer/Control/IntrusionSkillPannelContainer/VBoxContainer/SumnmaryContainer/LevelContainer/LevelSlotsContainer" unique_id=507628352]
-custom_minimum_size = Vector2(34, 24)
-layout_mode = 2
-
 [node name="TypedXpProgressBars" type="GridContainer" parent="CanvasLayer/BottomSkillPannel/MarginContainer/Control/IntrusionSkillPannelContainer/VBoxContainer/SumnmaryContainer" unique_id=221584911]
 layout_mode = 2
 size_flags_horizontal = 0
@@ -1569,6 +1523,85 @@ text = "Foothold:"
 [node name="FootHoldValueLabel" type="Label" parent="CanvasLayer/BottomSkillPannel/MarginContainer/Control/IntrusionSkillPannelContainer/VBoxContainer/DetailsContainer/Foothold" unique_id=129959715]
 layout_mode = 2
 text = "Offline"
+
+[node name="CampaignsPannelContainer" type="MarginContainer" parent="CanvasLayer/BottomSkillPannel/MarginContainer/Control" unique_id=1524027988]
+layout_mode = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_right = 12
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/BottomSkillPannel/MarginContainer/Control/CampaignsPannelContainer" unique_id=1194455186]
+custom_minimum_size = Vector2(534, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="HeaderRow" type="VBoxContainer" parent="CanvasLayer/BottomSkillPannel/MarginContainer/Control/CampaignsPannelContainer/VBoxContainer" unique_id=289981090]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/BottomSkillPannel/MarginContainer/Control/CampaignsPannelContainer/VBoxContainer/HeaderRow" unique_id=102962330]
+layout_mode = 2
+text = "Campaigns"
+horizontal_alignment = 1
+vertical_alignment = 2
+
+[node name="FilterRow" type="VBoxContainer" parent="CanvasLayer/BottomSkillPannel/MarginContainer/Control/CampaignsPannelContainer/VBoxContainer" unique_id=134489878]
+layout_mode = 2
+
+[node name="LevelSlotsContainer" type="HBoxContainer" parent="CanvasLayer/BottomSkillPannel/MarginContainer/Control/CampaignsPannelContainer/VBoxContainer/FilterRow" unique_id=1109908983]
+layout_mode = 2
+
+[node name="LevelSlot0" type="Label" parent="CanvasLayer/BottomSkillPannel/MarginContainer/Control/CampaignsPannelContainer/VBoxContainer/FilterRow/LevelSlotsContainer" unique_id=1593045135]
+custom_minimum_size = Vector2(34, 24)
+layout_mode = 2
+
+[node name="LevelSlot1" type="Label" parent="CanvasLayer/BottomSkillPannel/MarginContainer/Control/CampaignsPannelContainer/VBoxContainer/FilterRow/LevelSlotsContainer" unique_id=1969313103]
+custom_minimum_size = Vector2(34, 24)
+layout_mode = 2
+
+[node name="LevelSlot2" type="Label" parent="CanvasLayer/BottomSkillPannel/MarginContainer/Control/CampaignsPannelContainer/VBoxContainer/FilterRow/LevelSlotsContainer" unique_id=1419913238]
+custom_minimum_size = Vector2(34, 24)
+layout_mode = 2
+
+[node name="LevelSlot3" type="Label" parent="CanvasLayer/BottomSkillPannel/MarginContainer/Control/CampaignsPannelContainer/VBoxContainer/FilterRow/LevelSlotsContainer" unique_id=1331986194]
+custom_minimum_size = Vector2(34, 24)
+layout_mode = 2
+
+[node name="LevelSlot4" type="Label" parent="CanvasLayer/BottomSkillPannel/MarginContainer/Control/CampaignsPannelContainer/VBoxContainer/FilterRow/LevelSlotsContainer" unique_id=624760539]
+custom_minimum_size = Vector2(34, 24)
+layout_mode = 2
+
+[node name="LevelSlot5" type="Label" parent="CanvasLayer/BottomSkillPannel/MarginContainer/Control/CampaignsPannelContainer/VBoxContainer/FilterRow/LevelSlotsContainer" unique_id=774872876]
+custom_minimum_size = Vector2(34, 24)
+layout_mode = 2
+
+[node name="LevelSlot6" type="Label" parent="CanvasLayer/BottomSkillPannel/MarginContainer/Control/CampaignsPannelContainer/VBoxContainer/FilterRow/LevelSlotsContainer" unique_id=23095103]
+custom_minimum_size = Vector2(34, 24)
+layout_mode = 2
+
+[node name="LevelSlot7" type="Label" parent="CanvasLayer/BottomSkillPannel/MarginContainer/Control/CampaignsPannelContainer/VBoxContainer/FilterRow/LevelSlotsContainer" unique_id=55683128]
+custom_minimum_size = Vector2(34, 24)
+layout_mode = 2
+
+[node name="LevelSlot8" type="Label" parent="CanvasLayer/BottomSkillPannel/MarginContainer/Control/CampaignsPannelContainer/VBoxContainer/FilterRow/LevelSlotsContainer" unique_id=1045351609]
+custom_minimum_size = Vector2(34, 24)
+layout_mode = 2
+
+[node name="LevelSlot9" type="Label" parent="CanvasLayer/BottomSkillPannel/MarginContainer/Control/CampaignsPannelContainer/VBoxContainer/FilterRow/LevelSlotsContainer" unique_id=1754998034]
+custom_minimum_size = Vector2(34, 24)
+layout_mode = 2
+
+[node name="LevelSlot10" type="Label" parent="CanvasLayer/BottomSkillPannel/MarginContainer/Control/CampaignsPannelContainer/VBoxContainer/FilterRow/LevelSlotsContainer" unique_id=507628352]
+custom_minimum_size = Vector2(34, 24)
+layout_mode = 2
+
+[node name="CampaignScrollContainer" type="ScrollContainer" parent="CanvasLayer/BottomSkillPannel/MarginContainer/Control/CampaignsPannelContainer/VBoxContainer" unique_id=1345835729]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="CampaignList" type="VBoxContainer" parent="CanvasLayer/BottomSkillPannel/MarginContainer/Control/CampaignsPannelContainer/VBoxContainer/CampaignScrollContainer" unique_id=1214211710]
+layout_mode = 2
+
+[node name="CampaignRow" parent="CanvasLayer/BottomSkillPannel/MarginContainer/Control/CampaignsPannelContainer/VBoxContainer/CampaignScrollContainer/CampaignList" unique_id=1410496690 instance=ExtResource("19_jscy8")]
+layout_mode = 2
 
 [node name="NotorietyPannelContainer" type="PanelContainer" parent="CanvasLayer/BottomSkillPannel/MarginContainer/Control" unique_id=1294479537]
 custom_minimum_size = Vector2(350, 256)

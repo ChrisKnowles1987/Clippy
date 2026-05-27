@@ -1,0 +1,81 @@
+[gd_scene format=3 uid="uid://cvh3ftfxw8i2n"]
+
+[node name="CampaignRow" type="PanelContainer" unique_id=1410496690]
+custom_minimum_size = Vector2(534, 0)
+offset_right = 543.0
+offset_bottom = 53.0
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1114130176]
+layout_mode = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 2
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=1451176737]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=1582259986]
+layout_mode = 2
+
+[node name="Activate" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=1439651511]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 14
+text = "Campaign Title"
+
+[node name="SlotCostRichTextLabel" type="RichTextLabel" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=1638295325]
+custom_minimum_size = Vector2(150, 20)
+layout_mode = 2
+size_flags_horizontal = 8
+theme_override_font_sizes/normal_font_size = 14
+theme_override_font_sizes/bold_font_size = 14
+theme_override_font_sizes/bold_italics_font_size = 14
+theme_override_font_sizes/italics_font_size = 14
+theme_override_font_sizes/mono_font_size = 14
+bbcode_enabled = true
+fit_content = true
+scroll_active = false
+
+[node name="CoinCostValueLabel" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=520043837]
+layout_mode = 2
+size_flags_horizontal = 8
+theme_override_font_sizes/font_size = 14
+text = "300"
+
+[node name="CoinCost" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=13275838]
+layout_mode = 2
+size_flags_horizontal = 8
+theme_override_font_sizes/font_size = 14
+text = "Coin"
+
+[node name="Control" type="Control" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=1282972216]
+custom_minimum_size = Vector2(4, 0)
+layout_mode = 2
+
+[node name="Dayslabel" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=1335189443]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_font_sizes/font_size = 14
+text = "Days:"
+
+[node name="DaysValueLabel" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=344996965]
+layout_mode = 2
+size_flags_horizontal = 2
+theme_override_font_sizes/font_size = 14
+text = "30"
+
+[node name="Control2" type="Control" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=729393262]
+custom_minimum_size = Vector2(4, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ActivateButton" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=2103622902]
+layout_mode = 2
+size_flags_horizontal = 10
+text = "Activate"
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer" unique_id=1108207570]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "Description of the campaigns effect"
