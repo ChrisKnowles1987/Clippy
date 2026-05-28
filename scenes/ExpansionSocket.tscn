@@ -9,19 +9,20 @@
 script = ExtResource("1_3fi41")
 
 [node name="Line2D" type="Line2D" parent="." unique_id=2140403920]
-points = PackedVector2Array(0, 0, 40, -30)
+points = PackedVector2Array(0, 0, 0, -35)
 width = 1.0
 
 [node name="CityAnchorMarker" type="Sprite2D" parent="." unique_id=5726351]
 
 [node name="NodeBox" type="Node2D" parent="." unique_id=371308446]
-position = Vector2(40, -30)
+position = Vector2(0, -35)
 
 [node name="Sprite2D" type="Sprite2D" parent="NodeBox" unique_id=901834471]
 scale = Vector2(0.1328125, 0.1328125)
 texture = ExtResource("3_6ricx")
 
 [node name="Area2D" type="Area2D" parent="NodeBox" unique_id=1496228041]
+input_pickable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="NodeBox/Area2D" unique_id=2077628623]
 shape = SubResource("CircleShape2D_4s5m6")
