@@ -1,6 +1,8 @@
 extends MarginContainer
 class_name CampaignsPannelContainer
 
+const DEFAULT_CAMPAIGN_ROW_SCENE := preload("res://scenes/CampaignRow.tscn")
+
 @export var campaign_row_scene: PackedScene
 
 @onready var level_slots_container: HBoxContainer = $VBoxContainer/FilterRow/LevelSlotsContainer
@@ -26,19 +28,14 @@ func show_region(region_id: String) -> void:
 func refresh() -> void:
 	clear_rows()
 
-	if campaign_manager == null or region_manager == null:
-		refresh_level_slots(null)
-		return
-
-	var region_state: RegionState = region_manager.get_region_state(current_region_id)
-
-	refresh_level_slots(region_state)
-
-	if region_state == null:
+	if campaign_manager == null:
 		return
 
 	for campaign in campaign_manager.get_available_campaigns(current_region_id):
 		add_campaign_row(campaign)
+
+	if region_manager != null:
+		refresh_level_slots(region_manager.get_region_state(current_region_id))
 
 
 func clear_rows() -> void:
@@ -47,17 +44,22 @@ func clear_rows() -> void:
 
 
 func add_campaign_row(campaign: CampaignData) -> void:
-	if campaign_row_scene == null:
-		return
+	var scene := campaign_row_scene
 
-	var row := campaign_row_scene.instantiate() as CampaignRow
+	if scene == null:
+		scene = preload("res://scenes/CampaignRow.tscn")
+
+	var row := scene.instantiate() as CampaignRow
 
 	if row == null:
 		return
 
-	row.setup(campaign)
-	row.activate_pressed.connect(_on_campaign_activate_pressed)
 	campaign_list.add_child(row)
+
+	var can_activate := campaign_manager.can_activate_campaign_id(current_region_id, campaign.id)
+	row.setup(campaign, can_activate)
+
+	row.activate_pressed.connect(_on_campaign_activate_pressed)
 
 
 func refresh_level_slots(region_state: RegionState) -> void:
@@ -74,7 +76,6 @@ func refresh_level_slots(region_state: RegionState) -> void:
 			continue
 
 		label.text = ""
-		label.tooltip_text = ""
 
 		if index >= slots.size():
 			continue
@@ -83,17 +84,12 @@ func refresh_level_slots(region_state: RegionState) -> void:
 
 		if slot_type == "":
 			label.text = "-"
-			label.tooltip_text = "Empty"
 		else:
 			label.text = NodeTypeDefinitions.get_short_label(slot_type)
-			label.tooltip_text = NodeTypeDefinitions.get_display_name(slot_type)
 
 
 func _on_campaign_activate_pressed(campaign_id: String) -> void:
 	if campaign_manager == null:
-		return
-
-	if current_region_id == "":
 		return
 
 	if campaign_manager.try_activate_campaign(current_region_id, campaign_id):

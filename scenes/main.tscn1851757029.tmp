@@ -41,10 +41,15 @@ script = ExtResource("1_tbgi4")
 [node name="GodModeManager" type="Node" parent="." unique_id=294070401]
 script = ExtResource("2_y6deb")
 
-[node name="Camera2D" type="Camera2D" parent="." unique_id=438035729 node_paths=PackedStringArray("map_bounds_sprite")]
+[node name="Camera2D" type="Camera2D" parent="." unique_id=438035729]
 position = Vector2(960, 540)
 script = ExtResource("2_a8y0u")
-map_bounds_sprite = NodePath("../MapController/WorldMap")
+pan_speed = null
+zoom_step = null
+min_zoom = null
+max_zoom = null
+map_center = null
+map_size = null
 
 [node name="MapController" type="Node2D" parent="." unique_id=282689334]
 position = Vector2(0, -349)

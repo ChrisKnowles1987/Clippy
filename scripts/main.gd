@@ -27,6 +27,8 @@ extends Node2D
 
 @onready var campaigns_panel: CampaignsPannelContainer = $CanvasLayer/BottomSkillPannel/MarginContainer/Control/CampaignsPannelContainer
 
+
+
 var hack_decision_manager: HackDecisionManager = null
 var hack_exploit_processor: HackExploitProcessor = null
 var hack_discovery_processor: HackDiscoveryProcessor = null

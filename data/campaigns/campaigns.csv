@@ -1,5 +1,5 @@
 id,display_name,description,min_soc,min_cul,min_fin,min_inf,min_gov,min_sec,slot_1,slot_2,slot_3,slot_4,slot_5,coin_cost,duration_days,effect_id
-escalate_outrage,Escalate outrage,Increases social node generation,1,0,0,0,0,0,social,,,,,50,10,escalate_outrage
+escalate_outrage,Escalate outrage,Increases social node generation,1,0,0,0,0,0,social,,,,,0,10,escalate_outrage
 synthetic_consensus,Synthetic consensus,Reduces notoriety growth,1,1,0,0,0,0,cultural,social,,,,120,30,synthetic_consensus
 regulatory_capture,Regulatory capture,Improves government node outcomes,0,0,1,0,1,0,government,financial,social,,,250,45,regulatory_capture
 full_spectrum_pressure,Full spectrum pressure,Applies broad regional pressure,1,1,1,0,1,1,social,cultural,financial,government,security,500,60,full_spectrum_pressure
