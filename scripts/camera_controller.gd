@@ -51,6 +51,9 @@ func _unhandled_input(event: InputEvent) -> void:
 	if mouse_event.button_index != MOUSE_BUTTON_WHEEL_UP and mouse_event.button_index != MOUSE_BUTTON_WHEEL_DOWN:
 		return
 
+	if is_mouse_over_bottom_skill_panel(mouse_event.position):
+		return
+
 	if is_mouse_over_map(mouse_event.position) == false:
 		return
 
@@ -59,6 +62,15 @@ func _unhandled_input(event: InputEvent) -> void:
 
 	if mouse_event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
 		zoom_at_mouse(zoom.x - zoom_step)
+
+
+func is_mouse_over_bottom_skill_panel(mouse_screen_position: Vector2) -> bool:
+	var bottom_skill_panel := get_node_or_null("../CanvasLayer/BottomSkillPannel") as Control
+
+	if bottom_skill_panel == null:
+		return false
+
+	return bottom_skill_panel.get_global_rect().has_point(mouse_screen_position)
 
 
 func is_mouse_over_map(mouse_screen_position: Vector2) -> bool:
